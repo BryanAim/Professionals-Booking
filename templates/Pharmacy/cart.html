@@ -84,7 +84,7 @@
                     <h3>{{ cart.item.name }}</h3>
                     <p>{{ cart.item.description}}</p>
                   </td>
-                  <td class="price">{{ cart.item.price }} BDT</td>
+                  <td class="price">{{ cart.item.price }} KES</td>
                   <td>
                     <div class="input-group col-md-6 d-flex mb-3">
                       <span class="input-group-btn mr-2">
@@ -105,7 +105,7 @@
                       </span>
                     </div>
                   </td>
-                  <td class="total">{{ cart.get_total }} BDT</td>
+                  <td class="total">{{ cart.get_total }} KES</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -119,20 +119,20 @@
             <h3>Cart Totals</h3>
             <p class="d-flex">
               <span>Subtotal</span>
-              <span>{{ order.get_totals | floatformat:2 }} BDT</span>
+              <span>{{ order.get_totals | floatformat:2 }} KES</span>
             </p>
             <p class="d-flex">
               <span>Delivery</span>
-              <span> 40.00 BDT</span>
+              <span> 40.00 KES</span>
             </p>
             <p class="d-flex">
               <span>Discount</span>
-              <span> 0.00 BDT</span>
+              <span> 0.00 KES</span>
             </p>
             <hr>
             <p class="d-flex total-price">
               <span>Total</span>
-              <span>{{ order.final_bill | floatformat:2 }} BDT</span>
+              <span>{{ order.final_bill | floatformat:2 }} KES</span>
             </p>
 
           </div>

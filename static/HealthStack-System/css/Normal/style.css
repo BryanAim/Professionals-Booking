@@ -1681,7 +1681,7 @@ button.bg-danger:hover {
 	-webkit-justify-content: space-between;
 	-ms-flex-pack: space-between;
     position: relative;
-	height: 85px;
+	/* height: 100px; */
 	padding: 0 30px;
 	margin-bottom: 0;
 }
@@ -2262,6 +2262,7 @@ home-image{
     font-size: 36px;
     margin-bottom: 0;
     font-weight: 500;
+		color: #2B6DB5;
 }
 .section-header .sub-title {
     color: #757575;

@@ -71,7 +71,7 @@
 #### [xhtml2pdf](https://xhtml2pdf.readthedocs.io/en/latest/usage.html) - to generate and download pdf documents.
 
 ## Installation Details
-      1) Create an environment to run django project  
+      1) Create an environment to run django project  (source env/Scripts/activate)
       2) Migrate to create dbsqlite database 
       3) Look for .env.example and settings.py files to see what credentials to set up, and then create .env files
       

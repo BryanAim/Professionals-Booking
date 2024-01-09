@@ -7,18 +7,18 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>HealthStack</title>
+	<title>Medicross</title>
 
-    	<!-- Favicon -->
+	<!-- Favicon -->
 
-    	<link rel="shortcut icon" type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}"/>
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}" />
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="{% static 'HealthStack-System/css/admin/bootstrap.min.css'%}">
 
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}"/>
-	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
 
 	<!-- Feathericon CSS -->
 	<link rel="stylesheet" href="{% static 'HealthStack-System/admin_assets/css/feathericon.min.css'%}">
@@ -88,8 +88,7 @@
 											<div class="form-group">
 												<div class="change-avatar">
 													<div class="profile-img">
-														<img src="{{hospital.featured_image.url}}" width="225 px"
-															alt="User Image">
+														<img src="{{hospital.featured_image.url}}" width="225 px" alt="User Image">
 													</div>
 												</div>
 											</div>
@@ -99,7 +98,7 @@
 										<form action="{% url 'edit-hospital' pk=hospital.hospital_id %}" method="POST"
 											enctype="multipart/form-data">
 											{% csrf_token %}
-											<div >
+											<div>
 												<div class="col-12 col-md-6 col-lg-8">
 													<div class="form-group">
 														<div class="change-avatar">
@@ -107,9 +106,7 @@
 																<div class="change-photo-btn">
 																	<span><i class="fa fa-upload"></i> Upload
 																		Photo</span>
-																	<input type="file" class="upload"
-																		name="featured_image"
-																		value="{{featured_image}}">
+																	<input type="file" class="upload" name="featured_image" value="{{featured_image}}">
 																</div>
 																<small class="form-text text-muted">Allowed JPG, GIF or
 																	PNG. Max size of 2MB</small>
@@ -132,8 +129,7 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<input class="form-control" type="text"
-																					name="hospital_name"
+																				<input class="form-control" type="text" name="hospital_name"
 																					value="{{hospital.name}}">
 																			</td>
 																		</tr>
@@ -155,8 +151,7 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<input class="form-control" type="text"
-																					name="address"
+																				<input class="form-control" type="text" name="address"
 																					value="{{hospital.address}}">
 																			</td>
 																		</tr>
@@ -179,8 +174,7 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<input class="form-control" type="email"
-																					name="email"
+																				<input class="form-control" type="email" name="email"
 																					value="{{hospital.email}}">
 																			</td>
 																		</tr>
@@ -203,8 +197,7 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<input class="form-control" type="text"
-																					name="phone_number"
+																				<input class="form-control" type="text" name="phone_number"
 																					value="{{hospital.phone_number}}">
 																			</td>
 																		</tr>
@@ -220,15 +213,14 @@
 																	<thead>
 																		<tr>
 																			<th style="max-width: 300px;min-width: 280px;">Hospital Type
-																				</th>
+																			</th>
 																			<th style="min-width: 50px;"></th>
 																		</tr>
 																	</thead>
 																	<tbody>
 																		<tr>
 																			<td>
-																				<input class="form-control" type="text"
-																					name="type"
+																				<input class="form-control" type="text" name="type"
 																					value="{{hospital.hospital_type}}">
 																			</td>
 																		</tr>
@@ -241,7 +233,7 @@
 														<div class="card-body">
 															<h4 class="card-title">Departments</h4>
 															<div class="department-info">
-															{%for department in departments%}	
+																{%for department in departments%}
 																<div class="row form-row department-cont">
 																	<div class="col-12 col-md-10 col-lg-11">
 																		<div class="form-group">
@@ -252,46 +244,47 @@
 																	</div>
 																	{% comment %} <div class="col-md-2 col-lg-1">
 																		<label class="d-md-block d-sm-none d-none">&nbsp;</label>
-																		<a href="#" onclick="return confirm('Are you sure you want to Delete?');" class="btn btn-danger">
-																		  <i class="far fa-trash-alt"></i>
+																		<a href="#" onclick="return confirm('Are you sure you want to Delete?');"
+																			class="btn btn-danger">
+																			<i class="far fa-trash-alt"></i>
 																		</a>
 																	</div> {% endcomment %}
 																</div>
-															{% endfor %}
-																
+																{% endfor %}
+
 
 															</div>
 															<div class="add-more">
-																<a href="javascript:void(0);" class="add-department"><i
-																		class="fa fa-plus-circle"></i> Add More</a>
+																<a href="javascript:void(0);" class="add-department"><i class="fa fa-plus-circle"></i>
+																	Add More</a>
 															</div>
 														</div>
 													</div>
 													<div class="card">
 														<div class="card-body">
 															<h4 class="card-title">Services</h4>
-														{%for service in services%}	
+															{%for service in services%}
 															<div class="service-info">
 																<div class="row form-row service-cont">
 																	<div class="col-12 col-md-8 col-lg-11">
 																		<div class="form-group">
 																			<label>Add New Services</label>
-																			<input type="text" class="form-control"
-																				value="{{service.service_name}}">
+																			<input type="text" class="form-control" value="{{service.service_name}}">
 																		</div>
 																	</div>
 																	<div class="col-md-2 col-lg-1">
 																		<label class="d-md-block d-sm-none d-none">&nbsp;</label>
-																		<a href="{% url 'delete-service' pk=service.service_id pk2=hospital.hospital_id %}" onclick="return confirm('Are you sure you want to Delete?');" class="btn btn-danger">
-																		  <i class="far fa-trash-alt"></i>
+																		<a href="{% url 'delete-service' pk=service.service_id pk2=hospital.hospital_id %}"
+																			onclick="return confirm('Are you sure you want to Delete?');"
+																			class="btn btn-danger">
+																			<i class="far fa-trash-alt"></i>
 																		</a>
 																	</div>
 																</div>
 															</div>
-														{%endfor%}
+															{%endfor%}
 															<div class="add-more">
-																<a href="javascript:void(0);" class="add-service"
-																	style="color: #20c0f3"><i
+																<a href="javascript:void(0);" class="add-service" style="color: #20c0f3"><i
 																		class="fa fa-plus-circle"></i> Add More</a>
 															</div>
 														</div>
@@ -301,7 +294,7 @@
 															<h4 class="card-title">Specialization</h4>
 															<div class="specialization-info">
 
-															{%for specialization in specializations%}	
+																{%for specialization in specializations%}
 																<div class="row form-row specialization-cont">
 
 																	<div class="col-12 col-md-8 col-lg-11">
@@ -313,22 +306,23 @@
 																	</div>
 																	<div class="col-md-2 col-lg-1">
 																		<label class="d-md-block d-sm-none d-none">&nbsp;</label>
-																		<a href="{% url 'delete-specialization' pk=specialization.specialization_id pk2=hospital.hospital_id %}" onclick="return confirm('Are you sure you want to Delete?');" class="btn btn-danger">
-																		  <i class="far fa-trash-alt"></i>
+																		<a href="{% url 'delete-specialization' pk=specialization.specialization_id pk2=hospital.hospital_id %}"
+																			onclick="return confirm('Are you sure you want to Delete?');"
+																			class="btn btn-danger">
+																			<i class="far fa-trash-alt"></i>
 																		</a>
 																	</div>
 
 																</div>
-															{%endfor%}	
+																{%endfor%}
 															</div>
 															<div class="add-more">
-																<a href="javascript:void(0);"
-																	class="add-specialization"><i
+																<a href="javascript:void(0);" class="add-specialization"><i
 																		class="fa fa-plus-circle"></i> Add More</a>
 															</div>
 														</div>
 													</div>
-													
+
 													<div class="card">
 														<div class="card-body">
 															<h4 class="card-title">Description</h4>
@@ -337,7 +331,7 @@
 
 																	<div class="col-12 col-md-12 col-lg-12">
 																		<div class="form-group">
-																			
+
 																			<textarea type="text" rows="5" class="form-control"
 																				name="description">{{hospital.description}}</textarea>
 																		</div>
@@ -345,7 +339,7 @@
 
 																</div>
 															</div>
-															
+
 														</div>
 													</div>
 
@@ -402,14 +396,14 @@
 	<script src="{% static 'HealthStack-System/js/Normal/edit_hospital.js' %}"></script>
 
 	{% if messages %}
-    <script>
-        {% for message in messages %}
-            $(document).ready(function () {
-                $('.toast').toast('show');
-            });
-        {% endfor %}
-    </script>
-  {% endif %}
+	<script>
+		{% for message in messages %}
+		$(document).ready(function () {
+			$('.toast').toast('show');
+		});
+		{% endfor %}
+	</script>
+	{% endif %}
 
 
 </body>

@@ -5,13 +5,9 @@
 <!-- Mirrored from preview.colorlib.com/theme/coffeeblend/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 18 Apr 2021 16:32:50 GMT -->
 
 <head>
-  <title>HealthStack</title>
+  <title>Medicross</title>
   <!-- Favicons -->
-  <link
-  type="image/x-icon"
-  href="{% static 'HealthStack-System/images/Normal/favicon.png' %}"
-  rel="icon"
-  />
+  <link type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon" />
   <meta charset="utf-8">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -45,7 +41,7 @@
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"><a href="{% url 'patient-dashboard'%}" class="nav-link">Dashboard</a></li>
-          <li class="nav-item"><a href="{% url 'pharmacy_shop' %}"class="nav-link">Shop</a></li>
+          <li class="nav-item"><a href="{% url 'pharmacy_shop' %}" class="nav-link">Shop</a></li>
           <!-- <li class="nav-item"><a href="{% url 'cart' %}" class="nav-link">Cart</a></li> -->
           <!-- <li class="nav-item"><a href="{% url 'checkout' %}" class="nav-link">Checkout</a></li> -->
           <li class="nav-item cart">
@@ -77,38 +73,40 @@
                 </tr>
               </thead>
               <tbody>
-                
-                {% for cart in carts %} 
 
-                  <tr class="text-center">
-                    <td class="product-remove"><a href="{% url 'remove-item' pk=cart.item.pk  %}"><span class="icon-close"></span></a></td>
-                    
-                    <td class="product-name">
-                      <h3>{{ cart.item.name }}</h3>
-                      <p>{{ cart.item.description}}</p>
-                    </td>
-                    <td class="price">{{ cart.item.price }} BDT</td>
-                    <td>
-                      <div class="input-group col-md-6 d-flex mb-3">
-                        <span class="input-group-btn mr-2">
-                          <a href="{% url 'decrease-item' pk=cart.item.pk %}"><button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
+                {% for cart in carts %}
+
+                <tr class="text-center">
+                  <td class="product-remove"><a href="{% url 'remove-item' pk=cart.item.pk  %}"><span
+                        class="icon-close"></span></a></td>
+
+                  <td class="product-name">
+                    <h3>{{ cart.item.name }}</h3>
+                    <p>{{ cart.item.description}}</p>
+                  </td>
+                  <td class="price">{{ cart.item.price }} BDT</td>
+                  <td>
+                    <div class="input-group col-md-6 d-flex mb-3">
+                      <span class="input-group-btn mr-2">
+                        <a href="{% url 'decrease-item' pk=cart.item.pk %}"><button type="button"
+                            class="quantity-left-minus btn" data-type="minus" data-field="">
                             <i class="icon-minus"></i>
                           </button>
-                          </a>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="{{ cart.quantity }}"
-                          min="1" max="100">
-                        <span class="input-group-btn ml-2">
-                          <a class="mr-2" href="{% url 'increase-item' pk=cart.item.pk %}">
-                            <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+                        </a>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number"
+                        value="{{ cart.quantity }}" min="1" max="100">
+                      <span class="input-group-btn ml-2">
+                        <a class="mr-2" href="{% url 'increase-item' pk=cart.item.pk %}">
+                          <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
                             <i class="icon-plus"></i>
-                            </button>
-                          </a>
-                        </span>
-                      </div>
-                    </td>
-                    <td class="total">{{ cart.get_total }} BDT</td>
-                  </tr>
+                          </button>
+                        </a>
+                      </span>
+                    </div>
+                  </td>
+                  <td class="total">{{ cart.get_total }} BDT</td>
+                </tr>
                 {% endfor %}
               </tbody>
             </table>
@@ -136,9 +134,11 @@
               <span>Total</span>
               <span>{{ order.final_bill | floatformat:2 }} BDT</span>
             </p>
-          
+
           </div>
-          <p class="text-center"><a href="{% url 'ssl-payment-request-medicine' pk=order.user.patient.patient_id id=order.id %}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+          <p class="text-center"><a
+              href="{% url 'ssl-payment-request-medicine' pk=order.user.patient.patient_id id=order.id %}"
+              class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
         </div>
       </div>
     </div>
@@ -150,22 +150,23 @@
         <div class="col-lg-6 col-md-6 mb-5 mb-md-5">
           <div class="ftco-footer-widget mb-8">
             <h2 class="ftco-heading-2">About Us</h2>
-            <p>Healthstack is an online based platform for multiple hospitals. 
-              It Provides immediate medical assistance to patients who require emergency treatment. 
+            <p>Healthstack is an online based platform for multiple hospitals.
+              It Provides immediate medical assistance to patients who require emergency treatment.
               Its Ability to track, monitor, and share a patient's health records between all hospitals
-              . Patients can also see information regarding multiple hospitals and doctors and make 
+              . Patients can also see information regarding multiple hospitals and doctors and make
               appointments online.
             </p>
 
           </div>
         </div>
-        
+
         <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
           <div class="ftco-footer-widget mb-4">
             <h2 class="ftco-heading-2">Have a Questions?</h2>
             <div class="block-23 mb-3">
               <ul>
-                <li><span class="icon icon-map-marker"></span><span class="text">Dhanmondi, Dhaka, Bangladesh.</span></li>
+                <li><span class="icon icon-map-marker"></span><span class="text">Dhanmondi, Dhaka, Bangladesh.</span>
+                </li>
                 <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
                 <li><a href="#"><span class="icon icon-envelope"></span><span class="text"><span class="__cf_email__"
                         data-cfemail="bed7d0d8d1fec7d1cbccdad1d3dfd7d090ddd1d3">[email&#160;protected]</span></span></a>
@@ -212,11 +213,11 @@
 
   {% if messages %}
   <script>
-      {% for message in messages %}
-          $(document).ready(function () {
-              $('.toast').toast('show');
-          });
-      {% endfor %}
+    {% for message in messages %}
+    $(document).ready(function () {
+      $('.toast').toast('show');
+    });
+    {% endfor %}
   </script>
   {% endif %}
 

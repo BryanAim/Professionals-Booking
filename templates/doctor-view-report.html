@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
-    <title>HealthStack</title>
+    <title>Medicross</title>
 
     <!-- Favicons -->
     <link type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon" />
@@ -67,39 +67,36 @@
                     <!-- Profile Sidebar -->
                     <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
                         <div class="card widget-profile pat-widget-profile">
-							<div class="card-body">
-							  <div class="pro-widget-content">
-								<div class="profile-info-widget">
-								  <a href="#" class="booking-doc-img">
-									<img
-									  src="{{ report.patient.featured_image.url }}"
-									  alt="User Image"
-									/>
-								  </a>
-								  <div class="profile-det-info">
-									<h3><a href="#">{{report.patient.name}}</a></h3>
-			
-			
-									<div class="patient-details">
-									  <h5><b>ID :</b> {{report.patient.patient_id }}</h5>
-									  <h5 class="mb-0">
-										<i class="fas fa-map-marker-alt"></i>
-										{{ report.patient.address }}
-									  </h5>
-									</div>
-								  </div>
-								</div>
-							  </div>
-							  <div class="patient-info">
-								<ul>
-								  <li>Phone <span>{{report.patient.phone_number}}</span></li>
-								  <li>Age <span>{{report.patient.age}}</span></li>
-								  <li>Blood Group <span>{{report.patient.blood_group}}</span></li>
-								</ul>
-							  </div>
-							</div>
-						  </div>
-						  <!-- /Profile Widget -->
+                            <div class="card-body">
+                                <div class="pro-widget-content">
+                                    <div class="profile-info-widget">
+                                        <a href="#" class="booking-doc-img">
+                                            <img src="{{ report.patient.featured_image.url }}" alt="User Image" />
+                                        </a>
+                                        <div class="profile-det-info">
+                                            <h3><a href="#">{{report.patient.name}}</a></h3>
+
+
+                                            <div class="patient-details">
+                                                <h5><b>ID :</b> {{report.patient.patient_id }}</h5>
+                                                <h5 class="mb-0">
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                    {{ report.patient.address }}
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="patient-info">
+                                    <ul>
+                                        <li>Phone <span>{{report.patient.phone_number}}</span></li>
+                                        <li>Age <span>{{report.patient.age}}</span></li>
+                                        <li>Blood Group <span>{{report.patient.blood_group}}</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Profile Widget -->
                     </div>
                     <!-- / Profile Sidebar -->
                     <div class="col-md-7 col-lg-8 col-xl-9">
@@ -114,7 +111,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <p class="invoice-details"> 
+                                        <p class="invoice-details">
                                             <strong>Report ID:</strong>{{report.report_id}} <br>
                                             <strong>Patient ID:</strong> {{patient.patient_id }} <br>
                                             <strong>Date:</strong> {{report.delivery_date}}
@@ -132,8 +129,8 @@
 
                                             <p class="invoice-details invoice-details-two">
                                                 <b>Name: </b>{{report.doctor.name}} <br>
-												<b>Department: </b>{{report.doctor.department_name}}<br>
-												<b>Email: </b>{{report.doctor.email}} <br>
+                                                <b>Department: </b>{{report.doctor.department_name}}<br>
+                                                <b>Email: </b>{{report.doctor.email}} <br>
                                             </p>
 
                                         </div>
@@ -143,9 +140,9 @@
                                             <strong class="customer-text">Patient Information</strong>
                                             <p class="invoice-details">
                                                 <b>Name: </b>{{report.patient.name}} <br>
-												<b>Address: </b>{{report.patient.address}}<br>
-												<b>Email: </b>{{report.patient.email}} <br>
-												<b>Phone Number: </b>{{report.patient.phone_number}}<br>
+                                                <b>Address: </b>{{report.patient.address}}<br>
+                                                <b>Email: </b>{{report.patient.email}} <br>
+                                                <b>Phone Number: </b>{{report.patient.phone_number}}<br>
                                             </p>
                                         </div>
                                     </div>
@@ -163,9 +160,9 @@
                                                         <th style="border: 2px dotted;">Collection Date/Time</th>
                                                         <th style="border: 2px dotted;">Receiving Date/Time</th>
                                                     </tr>
-                                                    
+
                                                     <tr>
-                                                    {% for s in specimen %}
+                                                        {% for s in specimen %}
                                                         <th style="border: 2px dotted;">{{s.specimen_type}}</th>
                                                         <th style="border: 2px dotted;">{{s.specimen_id}}</th>
                                                         <th style="border: 2px dotted;">{{s.collection_date}}</th>
@@ -218,7 +215,7 @@
                                 <h4 style="background-color: rgb(84, 147, 199);">Other information</h4>
                                 <p>{{report.other_information}}</p>
 
-                               {% comment %}
+                                {% comment %}
                                 <button class="btn btn-sm bg-primary-light"> <a target="_blank"
                                         href="{% url 'pdf' pk=report.report_id %}"> Download Report </a></button>
                                 {% endcomment %}

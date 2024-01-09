@@ -5,13 +5,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>HealthStack</title>
-    <!-- Favicons -->
-    <link
-    type="image/x-icon"
-    href="{% static 'HealthStack-System/images/Normal/favicon.png' %}"
-    rel="icon"
-    />
+	<title>Medicross</title>
+	<!-- Favicons -->
+	<link type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon" />
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="{% static 'HealthStack-System/css/admin/bootstrap.min.css'%}">
@@ -89,22 +85,19 @@
 													<div class="form-group">
 														<div class="change-avatar">
 															<div class="profile-img">
-																<img src="{{medicine.featured_image.url}}"
-																	alt="Medicine Image">
+																<img src="{{medicine.featured_image.url}}" alt="Medicine Image">
 															</div>
 															<div class="upload-img">
 																<div class="change-photo-btn">
 																	<span><i class="fa fa-upload"></i> Upload Photo</span>
-																	<input type="file" class="upload"
-                                                                           name="featured_image"
-                                                                           value="{{featured_image}}">
+																	<input type="file" class="upload" name="featured_image" value="{{featured_image}}">
 																</div>
 																<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
 															</div>
 														</div>
 													</div>
 												</div>
-												
+
 												<div class="col-12 col-md-12">
 													<div class="form-group">
 														<div class="change-avatar"></div>
@@ -116,7 +109,8 @@
 																	<thead>
 																		<tr>
 																			<th style="min-width: 300px">Medicine Name</th>
-																			<th style="min-width: 300px">Weight</th></th>
+																			<th style="min-width: 300px">Weight</th>
+																			</th>
 																		</tr>
 																	</thead>
 																	<tbody>
@@ -125,10 +119,10 @@
 																				<input class="form-control" type="text" name="name" value="{{medicine.name}}">
 																			</td>
 																			<td>
-																				<input class="form-control" type="text"
-																					name="weight" value="{{medicine.weight}}">
+																				<input class="form-control" type="text" name="weight"
+																					value="{{medicine.weight}}">
 																			</td>
-																			
+
 																		</tr>
 																	</tbody>
 																</table>
@@ -148,12 +142,11 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<input class="form-control" type="text"
-																					name="quantity" value="{{medicine.quantity}}">
+																				<input class="form-control" type="text" name="quantity"
+																					value="{{medicine.quantity}}">
 																			</td>
 																			<td>
-																				<input class="form-control" type="text"
-																					name="price" value="{{medicine.price}}" >
+																				<input class="form-control" type="text" name="price" value="{{medicine.price}}">
 																			</td>
 																		</tr>
 																	</tbody>
@@ -168,7 +161,7 @@
 																	<thead>
 																		<tr>
 																			<th style="min-width: 300px">Prescription Requirement
-																			<th style="min-width: 300px">Medicine Category</th>	
+																			<th style="min-width: 300px">Medicine Category</th>
 																			<th style="min-width: 300px">Medicine Type </th>
 																		</tr>
 																	</thead>
@@ -177,11 +170,12 @@
 																			<td>
 																				<label for="cars">Choose Requirement Type:
 																				</label>
-																				<select id="type" name="requirement_type" value="{{medicine.Prescription_reqiuired}}">
+																				<select id="type" name="requirement_type"
+																					value="{{medicine.Prescription_reqiuired}}">
 																					<option value="yes">yes
 																					</option>
 																					<option value="no">no
-																					</option>									
+																					</option>
 																				</select>
 																			</td>
 																			<td>
@@ -259,9 +253,7 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<input class="form-control" rows="4"
-																					cols="50" type="text"
-																					name="description" 
+																				<input class="form-control" rows="4" cols="50" type="text" name="description"
 																					value="{{medicine.description}}">
 																			</td>
 																		</tr>
@@ -270,13 +262,13 @@
 															</div>
 														</div>
 													</div>
-												
-												<div class="submit-section">
-													<button type="submit" class="btn btn-primary submit-btn">
-														Save Changes
-													</button>
+
+													<div class="submit-section">
+														<button type="submit" class="btn btn-primary submit-btn">
+															Save Changes
+														</button>
+													</div>
 												</div>
-											</div>
 										</form>
 
 										<!-- / Medicine data entry Form -->

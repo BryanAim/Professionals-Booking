@@ -72,6 +72,8 @@
 
 ## Installation Details
       1) Create an environment to run django project  (source env/Scripts/activate)
+      2) Run app(python manage.py runserver)
+      2) Create superuser( python manage.py createsuperuser)
       2) Migrate to create dbsqlite database 
       3) Look for .env.example and settings.py files to see what credentials to set up, and then create .env files
       

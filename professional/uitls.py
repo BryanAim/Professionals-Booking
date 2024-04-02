@@ -1,6 +1,6 @@
 from django.db.models import Q
 from .models import Patient, User, Hospital_Information
-from professional.models import Doctor_Information, Appointment
+from professional.models import Professional_Information, Appointment
 from hospital_admin.models import hospital_department, specialization, service
 
 

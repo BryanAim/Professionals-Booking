@@ -103,7 +103,7 @@
       {% include 'patient_navbar.html' %}
       {% endif %}
 
-      {% if user.is_authenticated and user.is_doctor %}
+      {% if user.is_authenticated and user.is_professional %}
       {% include 'professional-navbar.html' %}
       {% endif %}
     </header>

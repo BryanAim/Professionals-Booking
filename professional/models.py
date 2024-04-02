@@ -24,7 +24,7 @@ Django automatically creates id field for each model class which will be a PK # 
 # Create your models here.
 
 
-class Doctor_Information(models.Model):
+class Professional_Information(models.Model):
     DOCTOR_TYPE = (
         ('Cardiologists', 'Cardiologists'),
         ('Neurologists', 'Neurologists'),
@@ -33,7 +33,7 @@ class Doctor_Information(models.Model):
         ('Dermatologists', 'Dermatologists'),
     )
     
-    doctor_id = models.AutoField(primary_key=True)
+    professional_id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='profile')
     name = models.CharField(max_length=200, null=True, blank=True)
     username = models.CharField(max_length=200, null=True, blank=True)
@@ -43,8 +43,8 @@ class Doctor_Information(models.Model):
     department_name = models.ForeignKey(hospital_department, on_delete=models.SET_NULL, null=True, blank=True)
     specialization = models.ForeignKey(specialization, on_delete=models.SET_NULL, null=True, blank=True)
 
-    featured_image = models.ImageField(upload_to='doctors/', default='doctors/user-default.png', null=True, blank=True)
-    certificate_image = models.ImageField(upload_to='doctors_certificate/', default='doctors_certificate/default.png', null=True, blank=True)
+    featured_image = models.ImageField(upload_to='professionals/', default='professionals/user-default.png', null=True, blank=True)
+    certificate_image = models.ImageField(upload_to='professionals_certificate/', default='professionals_certificate/default.png', null=True, blank=True)
 
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone_number = models.CharField(max_length=200, null=True, blank=True)
@@ -90,7 +90,7 @@ class Appointment(models.Model):
     id = models.AutoField(primary_key=True)
     date = models.DateField(null=True, blank=True)
     time = models.CharField(max_length=200, null=True, blank=True)
-    professional = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
+    professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
     appointment_type = models.CharField(max_length=200, choices=APPOINTMENT_TYPE)
     appointment_status = models.CharField(max_length=200, choices=APPOINTMENT_STATUS)
@@ -105,7 +105,7 @@ class Appointment(models.Model):
 
 class Education(models.Model):
     education_id = models.AutoField(primary_key=True)
-    professional = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
+    professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
     degree = models.CharField(max_length=200, null=True, blank=True)
     institute = models.CharField(max_length=200, null=True, blank=True)
     year_of_completion = models.CharField(max_length=200, null=True, blank=True)
@@ -115,7 +115,7 @@ class Education(models.Model):
     
 class Experience(models.Model):
     experience_id = models.AutoField(primary_key=True)
-    professional = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
+    professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
     work_place_name = models.CharField(max_length=200, null=True, blank=True)
     from_year = models.CharField(max_length=200, null=True, blank=True)
     to_year = models.CharField(max_length=200, null=True, blank=True)
@@ -127,7 +127,7 @@ class Experience(models.Model):
 
 class Report(models.Model):
     report_id = models.AutoField(primary_key=True)
-    professional = models.ForeignKey(Doctor_Information, on_delete=models.SET_NULL, null=True, blank=True)
+    professional = models.ForeignKey(Professional_Information, on_delete=models.SET_NULL, null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
     specimen_id = models.CharField(max_length=200, null=True, blank=True)
     specimen_type = models.CharField(max_length=200, null=True, blank=True)
@@ -168,7 +168,7 @@ class Test(models.Model):
 class Prescription(models.Model):
     # medicine name, quantity, days, time, description, test, test_descrip
     prescription_id = models.AutoField(primary_key=True)
-    professional = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
+    professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.SET_NULL, null=True, blank=True)
     create_date = models.CharField(max_length=200, null=True, blank=True)
     medicine_name = models.CharField(max_length=200, null=True, blank=True)
@@ -257,9 +257,9 @@ class testOrder(models.Model):
         float_Bill = format(Bill, '0.2f')
         return float_Bill
 
-class Doctor_review(models.Model):
+class Professional_review(models.Model):
     review_id = models.AutoField(primary_key=True)
-    professional = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
+    professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200, null=True, blank=True)
     message = models.CharField(max_length=1000, null=True, blank=True)

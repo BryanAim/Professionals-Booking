@@ -25,7 +25,7 @@ def accept_appointment(request, pk):
     patient_name = appointment.patient.name
     patient_username = appointment.patient.username
     patient_serial_number = appointment.patient.serial_number
-    doctor_name = appointment.professional.name
+    professional_name = appointment.professional.name
 
     appointment_serial_number = appointment.serial_number
     appointment_date = appointment.date
@@ -39,7 +39,7 @@ def accept_appointment(request, pk):
             "name":patient_name,
             "username":patient_username,
             "serial_number":patient_serial_number,
-            "doctor_name":doctor_name,
+            "professional_name":professional_name,
             "appointment_serial_num":appointment_serial_number,
             "appointment_date":appointment_date,
             "appointment_time":appointment_time,
@@ -75,8 +75,8 @@ def accept_appointment(request, pk):
 
 ```python
 def patient_search(request, pk):
-    if request.user.is_authenticated and request.user.is_doctor:
-        professional = Doctor_Information.objects.get(doctor_id=pk)
+    if request.user.is_authenticated and request.user.is_professional:
+        professional = Professional_Information.objects.get(professional_id=pk)
         id = int(request.GET['search_query'])
         patient = Patient.objects.get(patient_id=id)
         prescription = Prescription.objects.filter(professional=professional).filter(patient=patient)
@@ -93,8 +93,8 @@ def patient_search(request, pk):
 
 ```python
 def create_prescription(request,pk):
-        if request.user.is_doctor:
-            professional = Doctor_Information.objects.get(user=request.user)
+        if request.user.is_professional:
+            professional = Professional_Information.objects.get(user=request.user)
             patient = Patient.objects.get(patient_id=pk)
             create_date = datetime.date.today()
 

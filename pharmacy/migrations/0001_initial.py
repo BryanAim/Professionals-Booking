@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(blank=True, max_length=200, null=True)),
                 ('username', models.CharField(blank=True, max_length=200, null=True)),
                 ('degree', models.CharField(blank=True, max_length=200, null=True)),
-                ('featured_image', models.ImageField(blank=True, default='pharmacist/user-default.png', null=True, upload_to='doctors/')),
+                ('featured_image', models.ImageField(blank=True, default='pharmacist/user-default.png', null=True, upload_to='professionals/')),
                 ('email', models.EmailField(blank=True, max_length=200, null=True)),
                 ('phone_number', models.IntegerField(blank=True, null=True)),
                 ('age', models.IntegerField(blank=True, null=True)),

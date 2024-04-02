@@ -10,13 +10,13 @@ from .pdf import report_pdf
 # App URL file - urls related to hospital
 
 urlpatterns = [
-    path('', views.doctor_login, name='professional-login'),
-    path('professional-dashboard/',views.doctor_dashboard, name='professional-dashboard'),
-    path('professional-profile/<int:pk>/', views.doctor_profile, name='professional-profile'),
-    path('professional-change-password/<int:pk>', views.doctor_change_password,name='professional-change-password'),
-    path('professional-profile-settings/', views.doctor_profile_settings,name='professional-profile-settings'),
-    path('professional-register/', views.doctor_register, name='professional-register'),
-    path('professional-logout/', views.logoutDoctor, name='professional-logout'),
+    path('', views.professional_login, name='professional-login'),
+    path('professional-dashboard/',views.professional_dashboard, name='professional-dashboard'),
+    path('professional-profile/<int:pk>/', views.professional_profile, name='professional-profile'),
+    path('professional-change-password/<int:pk>', views.professional_change_password,name='professional-change-password'),
+    path('professional-profile-settings/', views.professional_profile_settings,name='professional-profile-settings'),
+    path('professional-register/', views.professional_register, name='professional-register'),
+    path('professional-logout/', views.logoutProfessional, name='professional-logout'),
     path('my-patients/', views.my_patients, name='my-patients'),
     path('booking/<int:pk>/', views.booking, name='booking'),
     path('booking-success/', views.booking_success, name='booking-success'),
@@ -31,10 +31,10 @@ urlpatterns = [
     path('reject-appointment/<int:pk>/',views.reject_appointment, name='reject-appointment'),
     path('patient-search/<int:pk>/', views.patient_search, name='patient-search'),
     path('pdf/<int:pk>/',views.report_pdf, name='pdf'),
-    path('doctor_review/<int:pk>/', views.doctor_review, name='doctor_review'),
-    path('professional-test-list/', views.doctor_test_list, name='professional-test-list'),
-    path('professional-view-prescription/<int:pk>/', views.doctor_view_prescription, name='professional-view-prescription'),
-    path('professional-view-report/<int:pk>/', views.doctor_view_report, name='professional-view-report'),
+    path('professional_review/<int:pk>/', views.professional_review, name='professional_review'),
+    path('professional-test-list/', views.professional_test_list, name='professional-test-list'),
+    path('professional-view-prescription/<int:pk>/', views.professional_view_prescription, name='professional-view-prescription'),
+    path('professional-view-report/<int:pk>/', views.professional_view_report, name='professional-view-report'),
 
 ]
 

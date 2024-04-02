@@ -13,69 +13,69 @@ Hospital Admin is a cruical User for our project.
 # Accept/Reject professional
 
 ```python
-def accept_doctor(request,pk):
-    professional = Doctor_Information.objects.get(doctor_id=pk)
+def accept_professional(request,pk):
+    professional = Professional_Information.objects.get(professional_id=pk)
     professional.register_status = 'Accepted'
     professional.save()
 
-    experience= Experience.objects.filter(doctor_id=pk)
-    education = Education.objects.filter(doctor_id=pk)
+    experience= Experience.objects.filter(professional_id=pk)
+    education = Education.objects.filter(professional_id=pk)
 
     # Mailtrap
-    doctor_name = professional.name
-    doctor_email = professional.email
-    doctor_department = professional.department_name.hospital_department_name
+    professional_name = professional.name
+    professional_email = professional.email
+    professional_department = professional.department_name.hospital_department_name
 
-    doctor_specialization = professional.specialization.specialization_name
+    professional_specialization = professional.specialization.specialization_name
 
     subject = "Acceptance of Professional Registration"
 
     values = {
-            "doctor_name":doctor_name,
-            "doctor_email":doctor_email,
-            "doctor_department":doctor_department,
+            "professional_name":professional_name,
+            "professional_email":professional_email,
+            "professional_department":professional_department,
 
-            "doctor_specialization":doctor_specialization,
+            "professional_specialization":professional_specialization,
         }
 
     html_message = render_to_string('hospital_admin/accept-professional-mail.html', {'values': values})
     plain_message = strip_tags(html_message)
 
     try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [doctor_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [professional_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
 
     messages.success(request, 'Professional Accepted!')
     return redirect('register-professional-list')
 
-def reject_doctor(request,pk):
-    professional = Doctor_Information.objects.get(doctor_id=pk)
+def reject_professional(request,pk):
+    professional = Professional_Information.objects.get(professional_id=pk)
     professional.register_status = 'Rejected'
     professional.save()
 
     # Mailtrap
-    doctor_name = professional.name
-    doctor_email = professional.email
-    doctor_department = professional.department_name.hospital_department_name
-    doctor_hospital = professional.hospital_name.name
-    doctor_specialization = professional.specialization.specialization_name
+    professional_name = professional.name
+    professional_email = professional.email
+    professional_department = professional.department_name.hospital_department_name
+    professional_hospital = professional.hospital_name.name
+    professional_specialization = professional.specialization.specialization_name
 
     subject = "Rejection of Professional Registration"
 
     values = {
-            "doctor_name":doctor_name,
-            "doctor_email":doctor_email,
-            "doctor_department":doctor_department,
-            "doctor_hospital":doctor_hospital,
-            "doctor_specialization":doctor_specialization,
+            "professional_name":professional_name,
+            "professional_email":professional_email,
+            "professional_department":professional_department,
+            "professional_hospital":professional_hospital,
+            "professional_specialization":professional_specialization,
         }
 
     html_message = render_to_string('hospital_admin/reject-professional-mail.html', {'values': values})
     plain_message = strip_tags(html_message)
 
     try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [doctor_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [professional_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
 

@@ -2,7 +2,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 # from django.contrib.auth.models import User
 
-from .models import Doctor_Information
+from .models import Professional_Information
 from hospital.models import User
 
 
@@ -10,7 +10,7 @@ from hospital.models import User
 # # from django.conf import settings
 
 
-@receiver(post_save, sender=Doctor_Information)
+@receiver(post_save, sender=Professional_Information)
 def updateUser(sender, instance, created, **kwargs):
     # user.profile or below (1-1 relationship goes both ways)
     professional = instance

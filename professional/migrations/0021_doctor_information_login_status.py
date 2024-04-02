@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='doctor_information',
+            model_name='professional_information',
             name='login_status',
             field=models.CharField(blank=True, default='offline', max_length=200, null=True),
         ),

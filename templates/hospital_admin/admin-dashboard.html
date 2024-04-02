@@ -87,11 +87,11 @@
                       <i class="fe fe-users"></i>
                     </span>
                     <div class="dash-count">
-                      <h3>{{total_doctor_count.count}}</h3>
+                      <h3>{{total_professional_count.count}}</h3>
                     </div>
                   </div>
                   <div class="dash-widget-info">
-                    <h6 class="text-muted">Total Doctors</h6>
+                    <h6 class="text-muted">Total Professionals</h6>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-primary w-50"></div>
                     </div>
@@ -224,7 +224,7 @@
               <!-- Recent Orders -->
               <div class="card card-table flex-fill">
                 <div class="card-header">
-                  <h4 class="card-title">Doctors List</h4>
+                  <h4 class="card-title">Professionals List</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -238,14 +238,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {% for professional in doctors%}
+                        {% for professional in professionals%}
                         <tr>
                           <td>
                             <h2 class="table-avatar">
                               <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
                                   src="{{professional.featured_image.url}}" alt="User Image" /></a>
                               <a
-                                href="{%url 'admin-professional-profile' pk=professional.doctor_id%}">{{professional.name}}</a>
+                                href="{%url 'admin-professional-profile' pk=professional.professional_id%}">{{professional.name}}</a>
                             </h2>
                           </td>
                           <td>{{professional.department}}</td>

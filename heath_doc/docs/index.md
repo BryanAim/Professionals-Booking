@@ -5,7 +5,7 @@
     mkdocs.yml     # The configuration file of HealthStack.
     docs/
         index.md   # This document is about the overview of our website ( Services we provide through our website).
-        hospital.md  # Documantation of our websites' multiple hospital information, availabe doctors information.
+        hospital.md  # Documantation of our websites' multiple hospital information, availabe professionals information.
         Lab_worker.md # Documentation of a lab worker's services in our website.
         Pharmacist.md # Documentation of a pharmacists' services in our website.
         hospital_admin # Documentation of a hospital admin's services in our website.

@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('hospital_admin', '0001_initial'),
-        ('professional', '0008_doctor_information_nid_and_more'),
+        ('professional', '0008_professional_information_nid_and_more'),
     ]
 
     operations = [
@@ -18,12 +18,12 @@ class Migration(migrations.Migration):
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='doctor_information',
+            model_name='professional_information',
             name='department_name',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='hospital_admin.hospital_department'),
         ),
         migrations.AlterField(
-            model_name='doctor_information',
+            model_name='professional_information',
             name='specialization',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='hospital_admin.specialization'),
         ),

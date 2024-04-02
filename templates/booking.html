@@ -173,7 +173,7 @@
                   <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Schedule an Appointment</h4>
                 </div>
 
-                <form method="post" action="{% url 'booking' pk=professional.doctor_id %}"
+                <form method="post" action="{% url 'booking' pk=professional.professional_id %}"
                   enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="agent-contact-form-sidebar">

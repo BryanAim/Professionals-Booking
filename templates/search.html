@@ -89,20 +89,20 @@
           <!-- / Profile Sidebar -->
 
           <div class="col-md-12 col-lg-8 col-xl-9">
-            {% for professional in doctors %}
+            {% for professional in professionals %}
             <!-- Professional Widget -->
             <div class="card">
               <div class="card-body">
                 <div class="professional-widget">
                   <div class="doc-info-left">
                     <div class="professional-img">
-                      <a href="{% url 'professional-profile' pk=professional.doctor_id %}">
+                      <a href="{% url 'professional-profile' pk=professional.professional_id %}">
                         <img src="{{ professional.featured_image.url }}" class="img-fluid" alt="User Image" />
                       </a>
                     </div>
                     <div class="doc-info-cont">
                       <h4 class="doc-name">
-                        <a href="{% url 'professional-profile' pk=professional.doctor_id %}">Dr.
+                        <a href="{% url 'professional-profile' pk=professional.professional_id %}">Dr.
                           {{professional.name}}</a>
                       </h4>
                       <p class="doc-speciality"><b>Department: </b>{{
@@ -158,9 +158,10 @@
                       </ul>
                     </div>
                     <div class="clinic-booking">
-                      <a class="view-pro-btn" href="{% url 'professional-profile' pk=professional.doctor_id %}">View
+                      <a class="view-pro-btn"
+                        href="{% url 'professional-profile' pk=professional.professional_id %}">View
                         Profile</a>
-                      <a class="apt-btn" href="{% url 'booking' pk=professional.doctor_id %}">Book Appointment</a>
+                      <a class="apt-btn" href="{% url 'booking' pk=professional.professional_id %}">Book Appointment</a>
                     </div>
                   </div>
                 </div>

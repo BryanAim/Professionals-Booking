@@ -60,7 +60,7 @@
 			{% include 'patient_navbar.html' %}
 			{% endif %}
 
-			{% if user.is_authenticated and user.is_doctor %}
+			{% if user.is_authenticated and user.is_professional %}
 			{% include 'professional-navbar.html' %}
 			{% endif %}
 
@@ -82,7 +82,7 @@
 								<li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
 								{% endif %}
 
-								{% if user.is_authenticated and user.is_doctor %}
+								{% if user.is_authenticated and user.is_professional %}
 								<li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
 								{% endif %}
 								<li class="breadcrumb-item active" aria-current="page">Hospital Profile</li>
@@ -108,7 +108,7 @@
 							{% include 'patient-sidebar.html' %}
 							{% endif %}
 
-							{% if user.is_authenticated and user.is_doctor %}
+							{% if user.is_authenticated and user.is_professional %}
 							{% include 'professional-sidebar.html' %}
 							{% endif %}
 
@@ -181,7 +181,7 @@
 
 												<div class="clinic-services">
 													<span>childrens special</span>
-													<span>Always available emergency doctors</span>
+													<span>Always available emergency professionals</span>
 
 												</div>
 
@@ -218,7 +218,7 @@
 										<br>
 
 
-										{% if user.is_authenticated and user.is_doctor %}
+										{% if user.is_authenticated and user.is_professional %}
 										<div class="clinic-booking">
 											<a class="apt-btn"
 												href="{% url 'hospital-professional-register' pk=hospitals.hospital_id %}">Register</a>
@@ -496,7 +496,7 @@
 							<div class="call-wrapper">
 								<div class="call-inner">
 									<div class="call-user">
-										<img alt="User Image" src="assets/img/doctors/professional-thumb-02.jpg" class="call-avatar">
+										<img alt="User Image" src="assets/img/professionals/professional-thumb-02.jpg" class="call-avatar">
 										<h4>Dr. Darren Elder</h4>
 										<span>Connecting...</span>
 									</div>							
@@ -526,7 +526,7 @@
 							<div class="call-wrapper">
 								<div class="call-inner">
 									<div class="call-user">
-										<img class="call-avatar" src="assets/img/doctors/professional-thumb-02.jpg" alt="User Image">
+										<img class="call-avatar" src="assets/img/professionals/professional-thumb-02.jpg" alt="User Image">
 										<h4>Dr. Darren Elder</h4>
 										<span>Calling ...</span>
 									</div>							

@@ -44,7 +44,7 @@
 			{% include 'patient_navbar.html' %}
 			{% endif %}
 
-			{% if user.is_authenticated and user.is_doctor %}
+			{% if user.is_authenticated and user.is_professionalsional %}
 			{% include 'professional-navbar.html' %}
 			{% endif %}
 		</header>
@@ -62,7 +62,7 @@
 								<li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
 								{% endif %}
 
-								{% if user.is_authenticated and user.is_doctor %}
+								{% if user.is_authenticated and user.is_professionalsional %}
 								<li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
 								{% endif %}
 								<li class="breadcrumb-item active" aria-current="page">Hospital Departments</li>
@@ -101,7 +101,7 @@
 							{% include 'patient-sidebar.html' %}
 							{% endif %}
 
-							{% if user.is_authenticated and user.is_doctor %}
+							{% if user.is_authenticated and user.is_professionalsional %}
 							{% include 'professional-sidebar.html' %}
 							{% endif %}
 

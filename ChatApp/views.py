@@ -9,7 +9,7 @@ from .models import chatMessages
 from django.contrib.auth import get_user_model
 from  hospital.models import User as UserModel
 from hospital.models import Patient
-from professional.models import Doctor_Information  , Appointment  
+from professional.models import Professional_Information  , Appointment  
 from django.db.models import Q
 import json,datetime
 from django.core import serializers
@@ -26,16 +26,16 @@ def home(request,pk):
             User = get_user_model()
             users = User.objects.all()
             patients = Patient.objects.get(user_id=pk)
-            #professional = Doctor_Information.objects.all()
+            #professional = Professional_Information.objects.all()
             appointments = Appointment.objects.filter(patient=patients).filter(appointment_status='confirmed')
-            professional= Doctor_Information.objects.filter(appointment__in=appointments)
+            professional= Professional_Information.objects.filter(appointment__in=appointments)
             
             chats = {}
             if request.method == 'GET' and 'u' in request.GET:
                 # chats = chatMessages.objects.filter(Q(user_from=request.user.id & user_to=request.GET['u']) | Q(user_from=request.GET['u'] & user_to=request.user.id))
                 chats = chatMessages.objects.filter(Q(user_from=request.user.id, user_to=request.GET['u']) | Q(user_from=request.GET['u'], user_to=request.user.id))
                 chats = chats.order_by('date_created')
-                doc = Doctor_Information.objects.get(user_id=request.GET['u'])
+                doc = Professional_Information.objects.get(user_id=request.GET['u'])
                 
                 context = {
                 "page":"home",
@@ -50,10 +50,10 @@ def home(request,pk):
             }
             elif request.method == 'GET' and 'search' in request.GET:
                 query = request.GET.get('search')
-                professional= Doctor_Information.objects.filter(Q(user__first_name__icontains=query) | Q(user__last_name__icontains=query))
+                professional= Professional_Information.objects.filter(Q(user__first_name__icontains=query) | Q(user__last_name__icontains=query))
                 #chats = chatMessages.objects.filter(Q(user_from=request.user.id, user_to=request.GET['u']) | Q(user_from=request.GET['u'], user_to=request.user.id))
                 #chats = chats.order_by('date_created')
-                #doc = Doctor_Information.objects.get(username=request.GET['search'])
+                #doc = Professional_Information.objects.get(username=request.GET['search'])
                 context = {
                 "page":"home",
                 "users":users,
@@ -77,11 +77,11 @@ def home(request,pk):
                 }
             print(request.GET['u'] if request.method == 'GET' and 'u' in request.GET else 0)
             return render(request,"chat.html",context)
-    elif request.user.is_doctor:
+    elif request.user.is_professional:
             User = get_user_model()
             users = User.objects.all()
             #patients = Patient.objects.all()
-            professional = Doctor_Information.objects.get(user_id=pk)
+            professional = Professional_Information.objects.get(user_id=pk)
             appointments = Appointment.objects.filter(professional=professional).filter(appointment_status='confirmed')
             patients= Patient.objects.filter(appointment__in=appointments)
 
@@ -108,7 +108,7 @@ def home(request,pk):
                 patients= Patient.objects.filter(Q(user__first_name__icontains=query) | Q(user__last_name__icontains=query))
                 #chats = chatMessages.objects.filter(Q(user_from=request.user.id, user_to=request.GET['u']) | Q(user_from=request.GET['u'], user_to=request.user.id))
                 #chats = chats.order_by('date_created')
-                #doc = Doctor_Information.objects.get(username=request.GET['search'])
+                #doc = Professional_Information.objects.get(username=request.GET['search'])
                 context = {
                 "page":"home",
                 "users":users,

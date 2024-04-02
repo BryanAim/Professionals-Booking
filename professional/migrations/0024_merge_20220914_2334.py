@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('professional', '0022_prescription_create_date'),
-        ('professional', '0022_remove_doctor_information_login_status'),
+        ('professional', '0022_remove_professional_information_login_status'),
         ('professional', '0023_merge_20220914_1911'),
     ]
 

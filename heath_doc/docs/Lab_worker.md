@@ -24,7 +24,7 @@ def create_report(request, pk):
         lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
         prescription =Prescription.objects.get(prescription_id=pk)
         patient = Patient.objects.get(patient_id=prescription.patient_id)
-        professional = Doctor_Information.objects.get(doctor_id=prescription.doctor_id)
+        professional = Professional_Information.objects.get(professional_id=prescription.professional_id)
         tests = Prescription_test.objects.filter(prescription=prescription).filter(test_info_pay_status='Paid')
 
 

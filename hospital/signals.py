@@ -2,7 +2,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 # from django.contrib.auth.models import User
 from .models import Patient, User
-from professional.models import Doctor_Information
+from professional.models import Professional_Information
 from hospital_admin.models import Admin_Information, Clinical_Laboratory_Technician
 
 from pharmacy.models import Pharmacist
@@ -38,9 +38,9 @@ def createPatient(sender, instance, created, **kwargs):
             user = instance
             Patient.objects.create(
                 user=user, username=user.username, email=user.email, serial_number = generate_random_string())
-        elif instance.is_doctor:
+        elif instance.is_professional:
             user = instance
-            Doctor_Information.objects.create(
+            Professional_Information.objects.create(
                 user=user, username=user.username, email=user.email)
         elif instance.is_hospital_admin:
             user = instance
@@ -69,6 +69,6 @@ def updateUser(sender, instance, created, **kwargs):
 
 
 # @receiver(post_save, sender=User)
-# def createDoctor(sender, instance, created, **kwargs):
+# def createProfessional(sender, instance, created, **kwargs):
 #     if created:
-#         Doctor_Information.objects.create(user=instance)
+#         Professional_Information.objects.create(user=instance)

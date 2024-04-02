@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='prescription',
             name='professional',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='professional.doctor_information'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='professional.professional_information'),
         ),
         migrations.AddField(
             model_name='prescription',
@@ -35,42 +35,42 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='experience',
             name='professional',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='professional.doctor_information'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='professional.professional_information'),
         ),
         migrations.AddField(
             model_name='education',
             name='professional',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='professional.doctor_information'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='professional.professional_information'),
         ),
         migrations.AddField(
-            model_name='doctor_information',
+            model_name='professional_information',
             name='department_name',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='hospital_admin.hospital_department'),
         ),
         migrations.AddField(
-            model_name='doctor_information',
+            model_name='professional_information',
             name='hospital_name',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='hospital.hospital_information'),
         ),
         migrations.AddField(
-            model_name='doctor_information',
+            model_name='professional_information',
             name='service',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='hospital_admin.service'),
         ),
         migrations.AddField(
-            model_name='doctor_information',
+            model_name='professional_information',
             name='specialization',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='hospital_admin.specialization'),
         ),
         migrations.AddField(
-            model_name='doctor_information',
+            model_name='professional_information',
             name='user',
             field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='appointment',
             name='professional',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='professional.doctor_information'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='professional.professional_information'),
         ),
         migrations.AddField(
             model_name='appointment',

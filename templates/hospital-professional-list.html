@@ -48,7 +48,7 @@
       {% include 'patient_navbar.html' %}
       {% endif %}
 
-      {% if user.is_authenticated and user.is_doctor %}
+      {% if user.is_authenticated and user.is_professional %}
       {% include 'professional-navbar.html' %}
       {% endif %}
     </header>
@@ -65,7 +65,7 @@
                 <li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
                 {% endif %}
 
-                {% if user.is_authenticated and user.is_doctor %}
+                {% if user.is_authenticated and user.is_professional %}
                 <li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
                 {% endif %}
                 <li class="breadcrumb-item active" aria-current="page">Hospital</li>
@@ -101,7 +101,7 @@
               {% include 'patient-sidebar.html' %}
               {% endif %}
 
-              {% if user.is_authenticated and user.is_doctor %}
+              {% if user.is_authenticated and user.is_professional %}
               {% include 'professional-sidebar.html' %}
               {% endif %}
             </div>
@@ -111,19 +111,19 @@
           <div class="col-md-12 col-lg-8 col-xl-9">
 
             <!-- Professional Widget -->
-            {% for professional in doctors %}
+            {% for professional in professionals %}
             <div class="card">
               <div class="card-body">
                 <div class="professional-widget">
                   <div class="doc-info-left">
                     <div class="professional-img">
-                      <a href="{% url 'professional-profile' pk=professional.doctor_id %}">
+                      <a href="{% url 'professional-profile' pk=professional.professional_id %}">
                         <img src="{{ professional.featured_image.url }}" class="img-fluid" alt="User Image" />
                       </a>
                     </div>
                     <div class="doc-info-cont">
                       <h4 class="doc-name">
-                        <a href="{% url 'professional-profile' pk=professional.doctor_id %}">Dr.
+                        <a href="{% url 'professional-profile' pk=professional.professional_id %}">Dr.
                           {{professional.name}}</a>
                       </h4>
                       <p class="doc-speciality">{{ professional.department_name.hospital_department_name }}</p>
@@ -185,11 +185,12 @@
                       </ul>
                     </div>
                     <div class="clinic-booking">
-                      <a class="view-pro-btn" href="{% url 'professional-profile' pk=professional.doctor_id %}">View
+                      <a class="view-pro-btn"
+                        href="{% url 'professional-profile' pk=professional.professional_id %}">View
                         Profile</a>
 
                       {% if user.is_authenticated and user.is_patient %}
-                      <a class="apt-btn" href="{% url 'booking' pk=professional.doctor_id %}">Book Appointment</a>
+                      <a class="apt-btn" href="{% url 'booking' pk=professional.professional_id %}">Book Appointment</a>
                       {% endif %}
                     </div>
                   </div>

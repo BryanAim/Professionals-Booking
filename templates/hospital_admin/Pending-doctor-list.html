@@ -65,7 +65,7 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3 class="page-title">List of Doctors</h3>
+                            <h3 class="page-title">List of Professionals</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
@@ -79,13 +79,13 @@
                 <div class="appointments">
                     <div class="appointment-list">
                         <div class="profile-info-widget">
-                            <a href="{%url 'admin-professional-profile' pk=professional.doctor_id%}"
+                            <a href="{%url 'admin-professional-profile' pk=professional.professional_id%}"
                                 class="booking-doc-img">
                                 <img src="{{professional.featured_image.url}}" alt="User Image">
                             </a>
                             <div class="profile-det-info" style="padding-left:8px">
                                 <h3><a
-                                        href="{%url 'admin-professional-profile' pk=professional.doctor_id%}">{{professional.name}}</a>
+                                        href="{%url 'admin-professional-profile' pk=professional.professional_id%}">{{professional.name}}</a>
                                 </h3>
                                 <div class="patient-details">
                                     <h5
@@ -111,15 +111,15 @@
                             </div>
                         </div>
                         <div class="appointment-action">
-                            <a href="{% url 'admin-professional-profile' professional.doctor_id%}"
+                            <a href="{% url 'admin-professional-profile' professional.professional_id%}"
                                 class="btn btn-sm bg-info-light">
                                 <i class="far fa-eye"></i> View
                             </a>
-                            <a href="{% url 'accept-professional' pk=professional.doctor_id%}"
+                            <a href="{% url 'accept-professional' pk=professional.professional_id%}"
                                 onclick="return confirm('Accept Professional?');" class="btn btn-sm bg-success-light">
                                 <i class="fas fa-check"></i> Accept
                             </a>
-                            <a href="{% url 'reject-professional' pk=professional.doctor_id%}"
+                            <a href="{% url 'reject-professional' pk=professional.professional_id%}"
                                 onclick="return confirm('Reject Professional?');" class="btn btn-sm bg-danger-light">
                                 <i class="fas fa-times"></i> Cancel
                             </a>

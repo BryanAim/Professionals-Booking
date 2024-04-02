@@ -13,12 +13,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Doctor_review',
+            name='Professional_review',
             fields=[
                 ('review_id', models.AutoField(primary_key=True, serialize=False)),
                 ('title', models.CharField(blank=True, max_length=200, null=True)),
                 ('message', models.CharField(blank=True, max_length=1000, null=True)),
-                ('professional', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='professional.doctor_information')),
+                ('professional', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='professional.professional_information')),
                 ('patient', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='hospital.patient')),
             ],
         ),

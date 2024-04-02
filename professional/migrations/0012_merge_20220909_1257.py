@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('professional', '0009_prescription_extra_information'),
-        ('professional', '0011_alter_prescription_patient_alter_report_doctor'),
+        ('professional', '0011_alter_prescription_patient_alter_report_professional'),
     ]
 
     operations = [

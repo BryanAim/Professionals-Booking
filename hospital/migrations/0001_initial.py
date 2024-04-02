@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
                 ('is_patient', models.BooleanField(default=False)),
-                ('is_doctor', models.BooleanField(default=False)),
+                ('is_professional', models.BooleanField(default=False)),
                 ('is_hospital_admin', models.BooleanField(default=False)),
                 ('is_labworker', models.BooleanField(default=False)),
                 ('is_pharmacist', models.BooleanField(default=False)),

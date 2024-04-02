@@ -57,7 +57,7 @@
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">List of Doctors</h3>
+							<h3 class="page-title">List of Professionals</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
 								<li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
@@ -84,15 +84,15 @@
 
 											</tr>
 										<tbody>
-											{% for professional in doctors %}
+											{% for professional in professionals %}
 											<tr>
 												<td>
 													<h2 class="table-avatar">
-														<a href="{%url 'admin-professional-profile' professional.doctor_id%}"
+														<a href="{%url 'admin-professional-profile' professional.professional_id%}"
 															class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
 																src="{{professional.featured_image.url}}" alt="User Image"></a>
 														<a
-															href="{%url 'admin-professional-profile' professional.doctor_id%}">{{professional.name}}</a>
+															href="{%url 'admin-professional-profile' professional.professional_id%}">{{professional.name}}</a>
 													</h2>
 												</td>
 												<td>{{professional.email}}</td>
@@ -102,7 +102,7 @@
 												<td>{{professional.hospital}}</td>
 												<td>
 													<div class="table-action">
-														<a href="{%url 'admin-professional-profile' professional.doctor_id%}"
+														<a href="{%url 'admin-professional-profile' professional.professional_id%}"
 															class="btn btn-outline-info btn-rounded">
 															<i class="fas fa-file-alt"></i> view
 														</a>

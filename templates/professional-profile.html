@@ -55,7 +55,7 @@
 			{% include 'patient_navbar.html' %}
 			{% endif %}
 
-			{% if user.is_authenticated and user.is_doctor %}
+			{% if user.is_authenticated and user.is_professional %}
 			{% include 'professional-navbar.html' %}
 			{% endif %}
 
@@ -75,7 +75,7 @@
 								<li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
 								{% endif %}
 
-								{% if user.is_authenticated and user.is_doctor %}
+								{% if user.is_authenticated and user.is_professional %}
 								<li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
 								{% endif %}
 
@@ -103,7 +103,7 @@
 							{% include 'patient-sidebar.html' %}
 							{% endif %}
 
-							{% if user.is_authenticated and user.is_doctor %}
+							{% if user.is_authenticated and user.is_professional %}
 							{% include 'professional-sidebar.html' %}
 							{% endif %}
 						</div>
@@ -179,7 +179,8 @@
 
 										{% if user.is_authenticated and user.is_patient %}
 										<div class="clinic-booking">
-											<a class="apt-btn" href="{% url 'booking' pk=professional.doctor_id  %}">Book Your Appointment</a>
+											<a class="apt-btn" href="{% url 'booking' pk=professional.professional_id  %}">Book Your
+												Appointment</a>
 										</div>
 										{% endif %}
 
@@ -326,14 +327,14 @@
 										<div class="write-review">
 											<h4>Write a review for <strong>Dr. {{professional.name}}</strong></h4>
 
-											<form action="{% url 'doctor_review' pk=professional.doctor_id %}" method="POST"
+											<form action="{% url 'professional_review' pk=professional.professional_id %}" method="POST"
 												enctype="multipart/form-data">
 												{% csrf_token %}
 												<div class="card card-table">
 													<div class="card-body">
 														<h4 class="card-title"><b>Review</b></h4>
-														<div class="doctor_review-info">
-															<div class="row form-row doctor_review-cont">
+														<div class="professional_review-info">
+															<div class="row form-row professional_review-cont">
 
 																<div class="col-12 col-md-10 col-lg-11">
 																	<div class="row form-row">
@@ -370,7 +371,7 @@
 										</div>
 										{% endif %}
 
-										{% if user.is_authenticated and user.is_doctor %}
+										{% if user.is_authenticated and user.is_professional %}
 										<!-- Review Listing -->
 										<div class="widget review-listing">
 											<ul class="comments-list">
@@ -388,7 +389,7 @@
 																		<div class="col-md-6">
 																			<div class="invoice-info">
 																				<strong class="customer-text"></strong>
-																				{% for review in doctor_review %}
+																				{% for review in professional_review %}
 																				<!-- Comment List -->
 																				<li>
 																					<div class="comment">
@@ -459,7 +460,8 @@
 								<div class="call-wrapper">
 									<div class="call-inner">
 										<div class="call-user">
-											<img alt="User Image" src="assets/img/doctors/professional-thumb-02.jpg" class="call-avatar">
+											<img alt="User Image" src="assets/img/professionals/professional-thumb-02.jpg"
+												class="call-avatar">
 											<h4>Dr. Darren Elder</h4>
 											<span>Connecting...</span>
 										</div>
@@ -490,7 +492,8 @@
 								<div class="call-wrapper">
 									<div class="call-inner">
 										<div class="call-user">
-											<img class="call-avatar" src="assets/img/doctors/professional-thumb-02.jpg" alt="User Image">
+											<img class="call-avatar" src="assets/img/professionals/professional-thumb-02.jpg"
+												alt="User Image">
 											<h4>Dr. Darren Elder</h4>
 											<span>Calling ...</span>
 										</div>

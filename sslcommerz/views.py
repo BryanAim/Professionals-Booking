@@ -359,7 +359,7 @@ def ssl_payment_success(request):
             patient_name = payment.patient.name
             patient_username = payment.patient.username
             patient_phone_number = payment.patient.phone_number
-            doctor_name = appointment.professional.name
+            professional_name = appointment.professional.name
         
             subject = "Payment Receipt for appointment"
             
@@ -368,7 +368,7 @@ def ssl_payment_success(request):
                     "name":patient_name,
                     "username":patient_username,
                     "phone_number":patient_phone_number,
-                    "doctor_name":doctor_name,
+                    "professional_name":professional_name,
                     "tran_id":payment_data['tran_id'],
                     "currency_amount":payment_data['currency_amount'],
                     "card_type":payment_data['card_type'],

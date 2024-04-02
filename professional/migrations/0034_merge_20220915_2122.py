@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('professional', '0032_rename_test_cart_testcart_and_more'),
-        ('professional', '0033_merge_0027_doctor_review_0032_merge_20220915_2039'),
+        ('professional', '0033_merge_0027_professional_review_0032_merge_20220915_2039'),
     ]
 
     operations = [

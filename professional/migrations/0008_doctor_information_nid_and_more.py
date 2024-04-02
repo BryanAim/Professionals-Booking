@@ -11,12 +11,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='doctor_information',
+            model_name='professional_information',
             name='nid',
             field=models.CharField(blank=True, max_length=200, null=True),
         ),
         migrations.AlterField(
-            model_name='doctor_information',
+            model_name='professional_information',
             name='phone_number',
             field=models.CharField(blank=True, max_length=200, null=True),
         ),

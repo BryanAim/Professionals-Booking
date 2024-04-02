@@ -1,6 +1,6 @@
 # Professionals Online booking system
 
-- An online based platform for multiple hospitals. Ability to track, monitor, and share a patient's health records between all hospitals. Patients can also see information regarding multiple hospitals and doctors, as well as take appointments via online. Pay laboratory tests via online as well as chat with appointed doctors.
+- An online based platform for multiple hospitals. Ability to track, monitor, and share a patient's health records between all hospitals. Patients can also see information regarding multiple hospitals and professionals, as well as take appointments via online. Pay laboratory tests via online as well as chat with appointed professionals.
 
 - Django Application
 
@@ -17,10 +17,10 @@
 
 ### Patient
 
-      1)  Search multiple Hospital → Department List → Search for Doctors
+      1)  Search multiple Hospital → Department List → Search for Professionals
       2)  Professional Profile → Book Appointment
       3)  Pay Appointment + Mail Confirmation
-      4)  Search all Doctors in all hospitals
+      4)  Search all Professionals in all hospitals
       5)  Chat with appointed Professional
       6)  View Prescription, Download Prescription (PDF)
       7)  Choose which tests to pay (Cart System, payment + mail confirmation)

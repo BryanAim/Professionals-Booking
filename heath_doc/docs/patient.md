@@ -22,19 +22,19 @@ def hospital_profile(request, pk):
 
         if request.user.is_patient:
             patient = Patient.objects.get(user=request.user)
-            doctors = Doctor_Information.objects.all()
+            professionals = Professional_Information.objects.all()
             hospitals = Hospital_Information.objects.get(hospital_id=pk)
 
             departments = hospital_department.objects.filter(hospital=hospitals)
             specializations = specialization.objects.filter(hospital=hospitals)
             services = service.objects.filter(hospital=hospitals)
 
-            context = {'patient': patient, 'doctors': doctors, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations, 'services': services}
+            context = {'patient': patient, 'professionals': professionals, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations, 'services': services}
             return render(request, 'hospital-profile.html', context)
 
-        elif request.user.is_doctor:
+        elif request.user.is_professional:
 
-            professional = Doctor_Information.objects.get(user=request.user)
+            professional = Professional_Information.objects.get(user=request.user)
             hospitals = Hospital_Information.objects.get(hospital_id=pk)
 
             departments = hospital_department.objects.filter(hospital=hospitals)
@@ -57,28 +57,28 @@ def hospital_profile(request, pk):
 ## View hospital Professional Information
 
 ```python
-def hospital_doctor_list(request, pk):
+def hospital_professional_list(request, pk):
     if request.user.is_authenticated and request.user.is_patient:
         # patient = Patient.objects.get(user_id=pk)
         patient = Patient.objects.get(user=request.user)
         departments = hospital_department.objects.get(hospital_department_id=pk)
-        doctors = Doctor_Information.objects.filter(department_name=departments)
+        professionals = Professional_Information.objects.filter(department_name=departments)
 
-        doctors, search_query = searchDepartmentDoctors(request, pk)
+        professionals, search_query = searchDepartmentProfessionals(request, pk)
 
-        context = {'patient': patient, 'department': departments, 'doctors': doctors, 'search_query': search_query, 'pk_id': pk}
+        context = {'patient': patient, 'department': departments, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
         return render(request, 'hospital-professional-list.html', context)
 
-    elif request.user.is_authenticated and request.user.is_doctor:
+    elif request.user.is_authenticated and request.user.is_professional:
         # patient = Patient.objects.get(user_id=pk)
 
-        professional = Doctor_Information.objects.get(user=request.user)
+        professional = Professional_Information.objects.get(user=request.user)
         departments = hospital_department.objects.get(hospital_department_id=pk)
 
-        doctors = Doctor_Information.objects.filter(department_name=departments)
-        doctors, search_query = searchDepartmentDoctors(request, pk)
+        professionals = Professional_Information.objects.filter(department_name=departments)
+        professionals, search_query = searchDepartmentProfessionals(request, pk)
 
-        context = {'professional':professional, 'department': departments, 'doctors': doctors, 'search_query': search_query, 'pk_id': pk}
+        context = {'professional':professional, 'department': departments, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
         return render(request, 'hospital-professional-list.html', context)
     else:
         logout(request)
@@ -95,7 +95,7 @@ def hospital_doctor_list(request, pk):
 ```python
  def booking(request, pk):
     patient = request.user.patient
-    professional = Doctor_Information.objects.get(doctor_id=pk)
+    professional = Professional_Information.objects.get(professional_id=pk)
 
     if request.method == 'POST':
         appointment = Appointment(patient=patient, professional=professional)
@@ -122,7 +122,7 @@ def hospital_doctor_list(request, pk):
             patient_name = appointment.patient.name
             patient_username = appointment.patient.username
             patient_phone_number = appointment.patient.phone_number
-            doctor_name = appointment.professional.name
+            professional_name = appointment.professional.name
 
             subject = "Appointment Request"
 
@@ -131,7 +131,7 @@ def hospital_doctor_list(request, pk):
                     "name":patient_name,
                     "username":patient_username,
                     "phone_number":patient_phone_number,
-                    "doctor_name":doctor_name,
+                    "professional_name":professional_name,
                     "message":message,
                 }
 

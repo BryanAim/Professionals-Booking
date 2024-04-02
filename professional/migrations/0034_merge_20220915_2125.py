@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('professional', '0033_merge_0027_doctor_review_0032_merge_20220915_2039'),
+        ('professional', '0033_merge_0027_professional_review_0032_merge_20220915_2039'),
         ('professional', '0033_merge_20220915_2105'),
     ]
 

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from hospital.models import Hospital_Information, Patient, User 
-from professional.models import Doctor_Information
+from professional.models import Professional_Information
 
 # Serialization --> convert python data (from our database models) to JSON data
 

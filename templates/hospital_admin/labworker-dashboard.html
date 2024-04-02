@@ -100,7 +100,7 @@
 											<tbody>
                      {% for professional in professional%}
 												<tr>
-                          <td>{{professional.doctor_id}}</td>
+                          <td>{{professional.professional_id}}</td>
 
 													<td>
 														<h2 class="table-avatar">
@@ -115,7 +115,7 @@
                           <td>
                             <div class="table-action">
                               <a
-                                href="{% url 'create-report' pk=professional.doctor_id %}"
+                                href="{% url 'create-report' pk=professional.professional_id %}"
                                 class="btn btn-outline-info btn-rounded" 
                                 >
                                 <i class="fas fa-file-alt"></i> Create Report 

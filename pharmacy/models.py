@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 import uuid
-from doctor.models import Prescription
+from professional.models import Prescription
 
 from hospital.models import User, Patient
 
@@ -14,7 +14,7 @@ class Pharmacist(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
     username = models.CharField(max_length=200, null=True, blank=True)
     degree = models.CharField(max_length=200, null=True, blank=True)
-    featured_image = models.ImageField(upload_to='doctors/', default='pharmacist/user-default.png', null=True, blank=True)
+    featured_image = models.ImageField(upload_to='professionals/', default='pharmacist/user-default.png', null=True, blank=True)
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone_number = models.IntegerField(null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)

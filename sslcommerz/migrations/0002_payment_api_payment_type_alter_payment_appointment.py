@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('doctor', '0011_alter_prescription_patient_alter_report_doctor'),
+        ('professional', '0011_alter_prescription_patient_alter_report_doctor'),
         ('sslcommerz', '0001_initial'),
     ]
 
@@ -20,6 +20,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='payment',
             name='appointment',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='doctor.appointment'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='professional.appointment'),
         ),
     ]

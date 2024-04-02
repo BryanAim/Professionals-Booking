@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('hospital', '0001_initial'),
-        ('doctor', '0001_initial'),
+        ('professional', '0001_initial'),
     ]
 
     operations = [
@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ('currency', models.CharField(blank=True, max_length=255, null=True)),
                 ('card_issuer', models.CharField(blank=True, max_length=255, null=True)),
                 ('card_brand', models.CharField(blank=True, max_length=255, null=True)),
-                ('appointment', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='doctor.appointment')),
+                ('appointment', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='professional.appointment')),
                 ('patient', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='hospital.patient')),
             ],
         ),

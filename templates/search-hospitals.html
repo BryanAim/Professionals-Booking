@@ -73,7 +73,7 @@
             <li class="has-submenu active">
               <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
               <ul class="submenu">
-                <li><a href="#">Doctor Dashboard</a></li>
+                <li><a href="#">Professional Dashboard</a></li>
                 <li><a href="{% url 'appointments'%}">Appointments</a></li>
                 <li>
                   <a href="{% url 'schedule-timings'%}">Schedule Timing</a>
@@ -87,15 +87,15 @@
                 </li>
                 <!-- <li><a href="reviews.html">Reviews</a></li> -->
                 <!-- <li class="active">
-							<a href="doctor-register.html">Doctor Register</a>
+							<a href="professional-register.html">Professional Register</a>
 						  </li> -->
               </ul>
             </li>
             <li class="has-submenu">
               <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
               <ul class="submenu">
-                <li><a href="{% url 'search'%}">Search Doctor</a></li>
-                <li><a href="#">Doctor Profile</a></li>
+                <li><a href="{% url 'search'%}">Search Professional</a></li>
+                <li><a href="#">Professional Profile</a></li>
                 <li><a href="{% url 'booking'%}">Booking</a></li>
                 <!-- <li><a href="#">Checkout</a></li> -->
                 <li>
@@ -195,11 +195,11 @@
                   <a href="index-2.html">Home</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                  Search Doctor
+                  Search Professional
                 </li>
               </ol>
             </nav>
-            <h2 class="breadcrumb-title">Search Doctor</h2>
+            <h2 class="breadcrumb-title">Search Professional</h2>
           </div>
           <!-- <div class="col-md-4 col-12 d-md-block d-none">
 							<div class="sort-by">
@@ -241,13 +241,13 @@
                   <div>
                     <label class="custom_check">
                       <input type="checkbox" name="gender_type" checked />
-                      <span class="checkmark"></span> Male Doctor
+                      <span class="checkmark"></span> Male Professional
                     </label>
                   </div>
                   <div>
                     <label class="custom_check">
                       <input type="checkbox" name="gender_type" />
-                      <span class="checkmark"></span> Female Doctor
+                      <span class="checkmark"></span> Female Professional
                     </label>
                   </div>
                 </div>
@@ -320,7 +320,7 @@
                 <li>
                   <a href="{% url 'search'%}">
                     <i class="fas fa-user-md"></i>
-                    <span>Search Doctor</span>
+                    <span>Search Professional</span>
                   </a>
                 </li>
                 <li>
@@ -346,20 +346,20 @@
           </div>
 
           <div class="col-md-12 col-lg-8 col-xl-9">
-            <!-- Doctor Widget -->
+            <!-- Professional Widget -->
             <div class="card">
               <div class="card-body">
-                <div class="doctor-widget">
+                <div class="professional-widget">
                   <div class="doc-info-left">
-                    <div class="doctor-img">
-                      <a href="doctor-profile.html">
-                        <img src="{% static 'HealthStack-System/images/Normal/doctors/doctor-thumb-01.jpg' %}"
+                    <div class="professional-img">
+                      <a href="professional-profile.html">
+                        <img src="{% static 'HealthStack-System/images/Normal/doctors/professional-thumb-01.jpg' %}"
                           class="img-fluid" alt="User Image" />
                       </a>
                     </div>
                     <div class="doc-info-cont">
                       <h4 class="doc-name">
-                        <a href="doctor-profile.html">Dr. Ruby Perrin</a>
+                        <a href="professional-profile.html">Dr. Ruby Perrin</a>
                       </h4>
                       <p class="doc-speciality">
                         MDS - Periodontology and Oral Implantology, BDS
@@ -432,29 +432,29 @@
                       </ul>
                     </div>
                     <div class="clinic-booking">
-                      <a class="view-pro-btn" href="{% url 'doctor-profile'%}">View Profile</a>
+                      <a class="view-pro-btn" href="{% url 'professional-profile'%}">View Profile</a>
                       <a class="apt-btn" href="{% url 'booking'%}">Book Appointment</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- /Doctor Widget -->
+            <!-- /Professional Widget -->
 
-            <!-- Doctor Widget -->
+            <!-- Professional Widget -->
             <div class="card">
               <div class="card-body">
-                <div class="doctor-widget">
+                <div class="professional-widget">
                   <div class="doc-info-left">
-                    <div class="doctor-img">
-                      <a href="doctor-profile.html">
-                        <img src="{% static 'HealthStack-System/images/Normal/doctors/doctor-thumb-02.jpg'%}"
+                    <div class="professional-img">
+                      <a href="professional-profile.html">
+                        <img src="{% static 'HealthStack-System/images/Normal/doctors/professional-thumb-02.jpg'%}"
                           class="img-fluid" alt="User Image" />
                       </a>
                     </div>
                     <div class="doc-info-cont">
                       <h4 class="doc-name">
-                        <a href="doctor-profile.html">Dr. Darren Elder</a>
+                        <a href="professional-profile.html">Dr. Darren Elder</a>
                       </h4>
                       <p class="doc-speciality">
                         BDS, MDS - Oral & Maxillofacial Surgery
@@ -527,29 +527,29 @@
                       </ul>
                     </div>
                     <div class="clinic-booking">
-                      <a class="view-pro-btn" href="{% url 'doctor-profile'%}">View Profile</a>
+                      <a class="view-pro-btn" href="{% url 'professional-profile'%}">View Profile</a>
                       <a class="apt-btn" href="{% url 'booking'%}">Book Appointment</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- /Doctor Widget -->
+            <!-- /Professional Widget -->
 
-            <!-- Doctor Widget -->
+            <!-- Professional Widget -->
             <div class="card">
               <div class="card-body">
-                <div class="doctor-widget">
+                <div class="professional-widget">
                   <div class="doc-info-left">
-                    <div class="doctor-img">
-                      <a href="doctor-profile.html">
-                        <img src="{% static 'HealthStack-System/images/Normal/doctors/doctor-thumb-03.jpg'%}"
+                    <div class="professional-img">
+                      <a href="professional-profile.html">
+                        <img src="{% static 'HealthStack-System/images/Normal/doctors/professional-thumb-03.jpg'%}"
                           class="img-fluid" alt="User Image" />
                       </a>
                     </div>
                     <div class="doc-info-cont">
                       <h4 class="doc-name">
-                        <a href="doctor-profile.html">Dr. Deborah Angel</a>
+                        <a href="professional-profile.html">Dr. Deborah Angel</a>
                       </h4>
                       <p class="doc-speciality">
                         MBBS, MD - General Medicine, DNB - Cardiology
@@ -622,29 +622,29 @@
                       </ul>
                     </div>
                     <div class="clinic-booking">
-                      <a class="view-pro-btn" href="{% url 'doctor-profile'%}">View Profile</a>
+                      <a class="view-pro-btn" href="{% url 'professional-profile'%}">View Profile</a>
                       <a class="apt-btn" href="{% url 'booking'%}">Book Appointment</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- /Doctor Widget -->
+            <!-- /Professional Widget -->
 
-            <!-- Doctor Widget -->
+            <!-- Professional Widget -->
             <div class="card">
               <div class="card-body">
-                <div class="doctor-widget">
+                <div class="professional-widget">
                   <div class="doc-info-left">
-                    <div class="doctor-img">
-                      <a href="doctor-profile.html">
-                        <img src="{% static 'HealthStack-System/images/Normal/doctors/doctor-thumb-04.jpg'%}"
+                    <div class="professional-img">
+                      <a href="professional-profile.html">
+                        <img src="{% static 'HealthStack-System/images/Normal/doctors/professional-thumb-04.jpg'%}"
                           class="img-fluid" alt="User Image" />
                       </a>
                     </div>
                     <div class="doc-info-cont">
                       <h4 class="doc-name">
-                        <a href="doctor-profile.html">Dr. Sofia Brient</a>
+                        <a href="professional-profile.html">Dr. Sofia Brient</a>
                       </h4>
                       <p class="doc-speciality">
                         MBBS, MS - General Surgery, MCh - Urology
@@ -717,29 +717,29 @@
                       </ul>
                     </div>
                     <div class="clinic-booking">
-                      <a class="view-pro-btn" href="{% url 'doctor-profile'%}">View Profile</a>
+                      <a class="view-pro-btn" href="{% url 'professional-profile'%}">View Profile</a>
                       <a class="apt-btn" href="{% url 'booking'%}">Book Appointment</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- /Doctor Widget -->
+            <!-- /Professional Widget -->
 
-            <!-- Doctor Widget -->
+            <!-- Professional Widget -->
             <div class="card">
               <div class="card-body">
-                <div class="doctor-widget">
+                <div class="professional-widget">
                   <div class="doc-info-left">
-                    <div class="doctor-img">
-                      <a href="doctor-profile.html">
-                        <img src="{% static 'HealthStack-System/images/Normal/doctors/doctor-thumb-06.jpg'%}"
+                    <div class="professional-img">
+                      <a href="professional-profile.html">
+                        <img src="{% static 'HealthStack-System/images/Normal/doctors/professional-thumb-06.jpg'%}"
                           class="img-fluid" alt="User Image" />
                       </a>
                     </div>
                     <div class="doc-info-cont">
                       <h4 class="doc-name">
-                        <a href="doctor-profile.html">Dr. Katharine Berthold</a>
+                        <a href="professional-profile.html">Dr. Katharine Berthold</a>
                       </h4>
                       <p class="doc-speciality">
                         MS - Orthopaedics, MBBS, M.Ch - Orthopaedics
@@ -812,14 +812,14 @@
                       </ul>
                     </div>
                     <div class="clinic-booking">
-                      <a class="view-pro-btn" href="{% url 'doctor-profile'%}">View Profile</a>
+                      <a class="view-pro-btn" href="{% url 'professional-profile'%}">View Profile</a>
                       <a class="apt-btn" href="{% url 'booking'%}">Book Appointment</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- /Doctor Widget -->
+            <!-- /Professional Widget -->
 
             <div class="load-more text-center">
               <a class="btn btn-primary btn-sm" href="javascript:void(0);">Load More</a>

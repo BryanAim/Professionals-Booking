@@ -45,7 +45,7 @@
 			{% endif %}
 
 			{% if user.is_authenticated and user.is_doctor %}
-			{% include 'doctor-navbar.html' %}
+			{% include 'professional-navbar.html' %}
 			{% endif %}
 		</header>
 		<!-- /Header -->
@@ -63,7 +63,7 @@
 								{% endif %}
 
 								{% if user.is_authenticated and user.is_doctor %}
-								<li class="breadcrumb-item"><a href="{% url 'doctor-dashboard' %}">Home</a></li>
+								<li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
 								{% endif %}
 								<li class="breadcrumb-item active" aria-current="page">Hospital Departments</li>
 							</ol>
@@ -102,7 +102,7 @@
 							{% endif %}
 
 							{% if user.is_authenticated and user.is_doctor %}
-							{% include 'doctor-sidebar.html' %}
+							{% include 'professional-sidebar.html' %}
 							{% endif %}
 
 						</div>
@@ -125,7 +125,7 @@
 										<h3 class="card-title mb-0" style="text-align: center;">{{department.hospital_department_name}}</h3>
 									</div>
 									<div class="card-read-more">
-										<a href="{% url 'hospital-doctor-list' pk=department.hospital_department_id %}"
+										<a href="{% url 'hospital-professional-list' pk=department.hospital_department_id %}"
 											class="btn btn-link btn-block">
 											Explore
 										</a>

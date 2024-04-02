@@ -12,7 +12,7 @@ from django.contrib import messages
 from hospital.models import Hospital_Information, User, Patient
 from django.db.models import Q
 from pharmacy.models import Medicine, Pharmacist
-from doctor.models import Doctor_Information, Prescription, Prescription_test, Report, Appointment, Experience , Education,Specimen,Test
+from professional.models import Doctor_Information, Prescription, Prescription_test, Report, Appointment, Experience , Education,Specimen,Test
 from pharmacy.models import Order, Cart
 from sslcommerz.models import Payment
 from .forms import AdminUserCreationForm, LabWorkerCreationForm, EditHospitalForm, EditEmergencyForm,AdminForm , PharmacistCreationForm 
@@ -478,12 +478,12 @@ def create_report(request, pk):
         lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
         prescription =Prescription.objects.get(prescription_id=pk)
         patient = Patient.objects.get(patient_id=prescription.patient_id)
-        doctor = Doctor_Information.objects.get(doctor_id=prescription.doctor_id)
+        professional = Doctor_Information.objects.get(doctor_id=prescription.doctor_id)
         tests = Prescription_test.objects.filter(prescription=prescription).filter(test_info_pay_status='Paid')
         
 
         if request.method == 'POST':
-            report = Report(doctor=doctor, patient=patient)
+            report = Report(professional=professional, patient=patient)
             
             specimen_type = request.POST.getlist('specimen_type')
             collection_date  = request.POST.getlist('collection_date')
@@ -525,8 +525,8 @@ def create_report(request, pk):
                 tests.save()
             
             # mail
-            doctor_name = doctor.name
-            doctor_email = doctor.email
+            doctor_name = professional.name
+            doctor_email = professional.email
             patient_name = patient.name
             patient_email = patient.email
             report_id = report.report_id
@@ -830,7 +830,7 @@ def register_doctor_list(request):
     if request.user.is_hospital_admin:
         user = Admin_Information.objects.get(user=request.user)
         doctors = Doctor_Information.objects.filter(register_status='Accepted')
-    return render(request, 'hospital_admin/register-doctor-list.html', {'doctors': doctors, 'admin': user})
+    return render(request, 'hospital_admin/register-professional-list.html', {'doctors': doctors, 'admin': user})
 
 @csrf_exempt
 @login_required(login_url='admin_login')
@@ -838,38 +838,38 @@ def pending_doctor_list(request):
     if request.user.is_hospital_admin:
         user = Admin_Information.objects.get(user=request.user)
     doctors = Doctor_Information.objects.filter(register_status='Pending')
-    return render(request, 'hospital_admin/Pending-doctor-list.html', {'all': doctors, 'admin': user})
+    return render(request, 'hospital_admin/Pending-professional-list.html', {'all': doctors, 'admin': user})
 
 @csrf_exempt
 @login_required(login_url='admin_login')
 def admin_doctor_profile(request,pk):
-    doctor = Doctor_Information.objects.get(doctor_id=pk)
+    professional = Doctor_Information.objects.get(doctor_id=pk)
     admin = Admin_Information.objects.get(user=request.user)
     experience= Experience.objects.filter(doctor_id=pk).order_by('-from_year','-to_year')
     education = Education.objects.filter(doctor_id=pk).order_by('-year_of_completion')
     
-    context = {'doctor': doctor, 'admin': admin, 'experiences': experience, 'educations': education}
-    return render(request, 'hospital_admin/doctor-profile.html',context)
+    context = {'professional': professional, 'admin': admin, 'experiences': experience, 'educations': education}
+    return render(request, 'hospital_admin/professional-profile.html',context)
 
 
 @csrf_exempt
 @login_required(login_url='admin_login')
 def accept_doctor(request,pk):
-    doctor = Doctor_Information.objects.get(doctor_id=pk)
-    doctor.register_status = 'Accepted'
-    doctor.save()
+    professional = Doctor_Information.objects.get(doctor_id=pk)
+    professional.register_status = 'Accepted'
+    professional.save()
     
     experience= Experience.objects.filter(doctor_id=pk)
     education = Education.objects.filter(doctor_id=pk)
     
     # Mailtrap
-    doctor_name = doctor.name
-    doctor_email = doctor.email
-    doctor_department = doctor.department_name.hospital_department_name
+    doctor_name = professional.name
+    doctor_email = professional.email
+    doctor_department = professional.department_name.hospital_department_name
 
-    doctor_specialization = doctor.specialization.specialization_name
+    doctor_specialization = professional.specialization.specialization_name
 
-    subject = "Acceptance of Doctor Registration"
+    subject = "Acceptance of Professional Registration"
 
     values = {
             "doctor_name":doctor_name,
@@ -879,7 +879,7 @@ def accept_doctor(request,pk):
             "doctor_specialization":doctor_specialization,
         }
 
-    html_message = render_to_string('hospital_admin/accept-doctor-mail.html', {'values': values})
+    html_message = render_to_string('hospital_admin/accept-professional-mail.html', {'values': values})
     plain_message = strip_tags(html_message)
 
     try:
@@ -887,25 +887,25 @@ def accept_doctor(request,pk):
     except BadHeaderError:
         return HttpResponse('Invalid header found')
 
-    messages.success(request, 'Doctor Accepted!')
-    return redirect('register-doctor-list')
+    messages.success(request, 'Professional Accepted!')
+    return redirect('register-professional-list')
 
 
 @csrf_exempt
 @login_required(login_url='admin_login')
 def reject_doctor(request,pk):
-    doctor = Doctor_Information.objects.get(doctor_id=pk)
-    doctor.register_status = 'Rejected'
-    doctor.save()
+    professional = Doctor_Information.objects.get(doctor_id=pk)
+    professional.register_status = 'Rejected'
+    professional.save()
     
     # Mailtrap
-    doctor_name = doctor.name
-    doctor_email = doctor.email
-    doctor_department = doctor.department_name.hospital_department_name
-    doctor_hospital = doctor.hospital_name.name
-    doctor_specialization = doctor.specialization.specialization_name
+    doctor_name = professional.name
+    doctor_email = professional.email
+    doctor_department = professional.department_name.hospital_department_name
+    doctor_hospital = professional.hospital_name.name
+    doctor_specialization = professional.specialization.specialization_name
 
-    subject = "Rejection of Doctor Registration"
+    subject = "Rejection of Professional Registration"
 
     values = {
             "doctor_name":doctor_name,
@@ -915,7 +915,7 @@ def reject_doctor(request,pk):
             "doctor_specialization":doctor_specialization,
         }
 
-    html_message = render_to_string('hospital_admin/reject-doctor-mail.html', {'values': values})
+    html_message = render_to_string('hospital_admin/reject-professional-mail.html', {'values': values})
     plain_message = strip_tags(html_message)
 
     try:
@@ -923,8 +923,8 @@ def reject_doctor(request,pk):
     except BadHeaderError:
         return HttpResponse('Invalid header found')
     
-    messages.success(request, 'Doctor Rejected!')
-    return redirect('register-doctor-list')
+    messages.success(request, 'Professional Rejected!')
+    return redirect('register-professional-list')
 
 @csrf_exempt
 @login_required(login_url='admin_login')
@@ -968,8 +968,8 @@ def labworker_dashboard(request):
         if request.user.is_labworker:
             
             lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
-            doctor = Doctor_Information.objects.all()
-            context = {'doctor': doctor,'lab_workers':lab_workers}
+            professional = Doctor_Information.objects.all()
+            context = {'professional': professional,'lab_workers':lab_workers}
             return render(request, 'hospital_admin/labworker-dashboard.html',context)
 
 @csrf_exempt

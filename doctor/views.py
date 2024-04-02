@@ -47,10 +47,10 @@ def generate_random_string():
     return string_var
 
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def doctor_change_password(request,pk):
-    doctor = Doctor_Information.objects.get(user_id=pk)
-    context={'doctor':doctor}
+    professional = Doctor_Information.objects.get(user_id=pk)
+    context={'professional':professional}
     if request.method == "POST":
         
         new_password = request.POST["new_password"]
@@ -60,23 +60,23 @@ def doctor_change_password(request,pk):
             request.user.set_password(new_password)
             request.user.save()
             messages.success(request,"Password Changed Successfully")
-            return redirect("doctor-dashboard")
+            return redirect("professional-dashboard")
             
         else:
             messages.error(request,"New Password and Confirm Password is not same")
             return redirect("change-password",pk)
-    return render(request, 'doctor-change-password.html',context)
+    return render(request, 'professional-change-password.html',context)
 
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def schedule_timings(request):
-    doctor = Doctor_Information.objects.get(user=request.user)
-    context = {'doctor': doctor}
+    professional = Doctor_Information.objects.get(user=request.user)
+    context = {'professional': professional}
     
     return render(request, 'schedule-timings.html', context)
 
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def patient_id(request):
     return render(request, 'patient-id.html')
 
@@ -90,11 +90,11 @@ def logoutDoctor(request):
         logout(request)
     
     messages.success(request, 'User Logged out')
-    return render(request,'doctor-login.html')
+    return render(request,'professional-login.html')
 
 @csrf_exempt
 def doctor_register(request):
-    page = 'doctor-register'
+    page = 'professional-register'
     form = DoctorUserCreationForm()
 
     if request.method == 'POST':
@@ -107,23 +107,23 @@ def doctor_register(request):
             # user.username = user.username.lower()  # lowercase username
             user.save()
 
-            messages.success(request, 'Doctor account was created!')
+            messages.success(request, 'Professional account was created!')
 
             # After user is created, we can log them in
             #login(request, user)
-            return redirect('doctor-login')
+            return redirect('professional-login')
 
         else:
             messages.error(request, 'An error has occurred during registration')
 
     context = {'page': page, 'form': form}
-    return render(request, 'doctor-register.html', context)
+    return render(request, 'professional-register.html', context)
 
 @csrf_exempt
 def doctor_login(request):
     # page = 'patient_login'
     if request.method == 'GET':
-        return render(request, 'doctor-login.html')
+        return render(request, 'professional-login.html')
     elif request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -141,53 +141,53 @@ def doctor_login(request):
             if request.user.is_doctor:
                 # user.login_status = "online"
                 # user.save()
-                messages.success(request, 'Welcome Doctor!')
-                return redirect('doctor-dashboard')
+                messages.success(request, 'Welcome Professional!')
+                return redirect('professional-dashboard')
             else:
-                messages.error(request, 'Invalid credentials. Not a Doctor')
-                return redirect('doctor-logout')   
+                messages.error(request, 'Invalid credentials. Not a Professional')
+                return redirect('professional-logout')   
         else:
             messages.error(request, 'Invalid username or password')
             
-    return render(request, 'doctor-login.html')
+    return render(request, 'professional-login.html')
 
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def doctor_dashboard(request):
         if request.user.is_authenticated:    
             if request.user.is_doctor:
-                # doctor = Doctor_Information.objects.get(user_id=pk)
-                doctor = Doctor_Information.objects.get(user=request.user)
-                # appointments = Appointment.objects.filter(doctor=doctor).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed'))
+                # professional = Doctor_Information.objects.get(user_id=pk)
+                professional = Doctor_Information.objects.get(user=request.user)
+                # appointments = Appointment.objects.filter(professional=professional).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed'))
                 current_date = datetime.date.today()
                 current_date_str = str(current_date)  
-                today_appointments = Appointment.objects.filter(date=current_date_str).filter(doctor=doctor).filter(appointment_status='confirmed')
+                today_appointments = Appointment.objects.filter(date=current_date_str).filter(professional=professional).filter(appointment_status='confirmed')
                 
                 next_date = current_date + datetime.timedelta(days=1) # next days date 
                 next_date_str = str(next_date)  
-                next_days_appointment = Appointment.objects.filter(date=next_date_str).filter(doctor=doctor).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed')).count()
+                next_days_appointment = Appointment.objects.filter(date=next_date_str).filter(professional=professional).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed')).count()
                 
-                today_patient_count = Appointment.objects.filter(date=current_date_str).filter(doctor=doctor).annotate(count=Count('patient'))
-                total_appointments_count = Appointment.objects.filter(doctor=doctor).annotate(count=Count('id'))
+                today_patient_count = Appointment.objects.filter(date=current_date_str).filter(professional=professional).annotate(count=Count('patient'))
+                total_appointments_count = Appointment.objects.filter(professional=professional).annotate(count=Count('id'))
             else:
-                return redirect('doctor-logout')
+                return redirect('professional-logout')
             
-            context = {'doctor': doctor, 'today_appointments': today_appointments, 'today_patient_count': today_patient_count, 'total_appointments_count': total_appointments_count, 'next_days_appointment': next_days_appointment, 'current_date': current_date_str, 'next_date': next_date_str}
-            return render(request, 'doctor-dashboard.html', context)
+            context = {'professional': professional, 'today_appointments': today_appointments, 'today_patient_count': today_patient_count, 'total_appointments_count': total_appointments_count, 'next_days_appointment': next_days_appointment, 'current_date': current_date_str, 'next_date': next_date_str}
+            return render(request, 'professional-dashboard.html', context)
         else:
-            return redirect('doctor-login')
+            return redirect('professional-login')
  
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def appointments(request):
-    doctor = Doctor_Information.objects.get(user=request.user)
-    appointments = Appointment.objects.filter(doctor=doctor).filter(appointment_status='pending').order_by('date')
-    context = {'doctor': doctor, 'appointments': appointments}
+    professional = Doctor_Information.objects.get(user=request.user)
+    appointments = Appointment.objects.filter(professional=professional).filter(appointment_status='pending').order_by('date')
+    context = {'professional': professional, 'appointments': appointments}
     return render(request, 'appointments.html', context) 
  
 @csrf_exempt        
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def accept_appointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
     appointment.appointment_status = 'confirmed'
@@ -199,7 +199,7 @@ def accept_appointment(request, pk):
     patient_name = appointment.patient.name
     patient_username = appointment.patient.username
     patient_serial_number = appointment.patient.serial_number
-    doctor_name = appointment.doctor.name
+    doctor_name = appointment.professional.name
 
     appointment_serial_number = appointment.serial_number
     appointment_date = appointment.date
@@ -230,10 +230,10 @@ def accept_appointment(request, pk):
     
     messages.success(request, 'Appointment Accepted')
     
-    return redirect('doctor-dashboard')
+    return redirect('professional-dashboard')
 
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def reject_appointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
     appointment.appointment_status = 'cancelled'
@@ -243,7 +243,7 @@ def reject_appointment(request, pk):
     
     patient_email = appointment.patient.email
     patient_name = appointment.patient.name
-    doctor_name = appointment.doctor.name
+    doctor_name = appointment.professional.name
 
     subject = "Appointment Rejection Email"
     
@@ -263,10 +263,10 @@ def reject_appointment(request, pk):
     
     messages.error(request, 'Appointment Rejected')
     
-    return redirect('doctor-dashboard')
+    return redirect('professional-dashboard')
 
 
-#         end_year = doctor.end_year
+#         end_year = professional.end_year
 #         end_year = re.sub("'", "", end_year)
 #         end_year = end_year.replace("[", "")
 #         end_year = end_year.replace("]", "")
@@ -275,7 +275,7 @@ def reject_appointment(request, pk):
 #         experience = zip(work_place_array, designation_array, start_year_array, end_year_array)
 
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def doctor_profile(request, pk):
     # request.user --> get logged in user
     if request.user.is_patient:
@@ -283,55 +283,55 @@ def doctor_profile(request, pk):
     else:
         patient = None
     
-    doctor = Doctor_Information.objects.get(doctor_id=pk)
-    # doctor = Doctor_Information.objects.filter(doctor_id=pk).order_by('-doctor_id')
+    professional = Doctor_Information.objects.get(doctor_id=pk)
+    # professional = Doctor_Information.objects.filter(doctor_id=pk).order_by('-doctor_id')
     
-    educations = Education.objects.filter(doctor=doctor).order_by('-year_of_completion')
-    experiences = Experience.objects.filter(doctor=doctor).order_by('-from_year','-to_year')
-    doctor_review = Doctor_review.objects.filter(doctor=doctor)
+    educations = Education.objects.filter(professional=professional).order_by('-year_of_completion')
+    experiences = Experience.objects.filter(professional=professional).order_by('-from_year','-to_year')
+    doctor_review = Doctor_review.objects.filter(professional=professional)
             
-    context = {'doctor': doctor, 'patient': patient, 'educations': educations, 'experiences': experiences, 'doctor_review': doctor_review}
-    return render(request, 'doctor-profile.html', context)
+    context = {'professional': professional, 'patient': patient, 'educations': educations, 'experiences': experiences, 'doctor_review': doctor_review}
+    return render(request, 'professional-profile.html', context)
 
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def delete_education(request, pk):
     if request.user.is_doctor:
-        doctor = Doctor_Information.objects.get(user=request.user)
+        professional = Doctor_Information.objects.get(user=request.user)
         
         educations = Education.objects.get(education_id=pk)
         educations.delete()
         
         messages.success(request, 'Education Deleted')
-        return redirect('doctor-profile-settings')
+        return redirect('professional-profile-settings')
 
 @csrf_exempt  
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def delete_experience(request, pk):
     if request.user.is_doctor:
-        doctor = Doctor_Information.objects.get(user=request.user)
+        professional = Doctor_Information.objects.get(user=request.user)
         
         experiences = Experience.objects.get(experience_id=pk)
         experiences.delete()
         
         messages.success(request, 'Experience Deleted')
-        return redirect('doctor-profile-settings')
+        return redirect('professional-profile-settings')
       
 @csrf_exempt      
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def doctor_profile_settings(request):
     # profile_Settings.js
     if request.user.is_doctor:
-        doctor = Doctor_Information.objects.get(user=request.user)
-        old_featured_image = doctor.featured_image
+        professional = Doctor_Information.objects.get(user=request.user)
+        old_featured_image = professional.featured_image
         
 
         if request.method == 'GET':
-            educations = Education.objects.filter(doctor=doctor)
-            experiences = Experience.objects.filter(doctor=doctor)
+            educations = Education.objects.filter(professional=professional)
+            experiences = Experience.objects.filter(professional=professional)
                     
-            context = {'doctor': doctor, 'educations': educations, 'experiences': experiences}
-            return render(request, 'doctor-profile-settings.html', context)
+            context = {'professional': professional, 'educations': educations, 'experiences': experiences}
+            return render(request, 'professional-profile-settings.html', context)
         elif request.method == 'POST':
             if 'featured_image' in request.FILES:
                 featured_image = request.FILES['featured_image']
@@ -356,23 +356,23 @@ def doctor_profile_settings(request):
             end_year = request.POST.getlist('to')
             designation = request.POST.getlist('designation')
 
-            doctor.name = name
-            doctor.visiting_hour = visit_hour
-            doctor.nid = nid
-            doctor.gender = gender
-            doctor.featured_image = featured_image
-            doctor.phone_number = number
-            #doctor.visiting_hour
-            doctor.consultation_fee = consultation_fee
-            doctor.report_fee = report_fee
-            doctor.description = description
-            doctor.dob = dob
+            professional.name = name
+            professional.visiting_hour = visit_hour
+            professional.nid = nid
+            professional.gender = gender
+            professional.featured_image = featured_image
+            professional.phone_number = number
+            #professional.visiting_hour
+            professional.consultation_fee = consultation_fee
+            professional.report_fee = report_fee
+            professional.description = description
+            professional.dob = dob
             
-            doctor.save()
+            professional.save()
             
             # Education
             for i in range(len(degree)):
-                education = Education(doctor=doctor)
+                education = Education(professional=professional)
                 education.degree = degree[i]
                 education.institute = institute[i]
                 education.year_of_completion = year_complete[i]
@@ -380,7 +380,7 @@ def doctor_profile_settings(request):
 
             # Experience
             for i in range(len(hospital_name)):
-                experience = Experience(doctor=doctor)
+                experience = Experience(professional=professional)
                 experience.work_place_name = hospital_name[i]
                 experience.from_year = start_year[i]
                 experience.to_year = end_year[i]
@@ -389,23 +389,23 @@ def doctor_profile_settings(request):
       
             # context = {'degree': degree}
             messages.success(request, 'Profile Updated')
-            return redirect('doctor-dashboard')
+            return redirect('professional-dashboard')
     else:
-        redirect('doctor-logout')
+        redirect('professional-logout')
                
 @csrf_exempt    
-@login_required(login_url="doctor-login")      
+@login_required(login_url="professional-login")      
 def booking_success(request):
     return render(request, 'booking-success.html')
 
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def booking(request, pk):
     patient = request.user.patient
-    doctor = Doctor_Information.objects.get(doctor_id=pk)
+    professional = Doctor_Information.objects.get(doctor_id=pk)
 
     if request.method == 'POST':
-        appointment = Appointment(patient=patient, doctor=doctor)
+        appointment = Appointment(patient=patient, professional=professional)
         date = request.POST['appoint_date']
         time = request.POST['appoint_time']
         appointment_type = request.POST['appointment_type']
@@ -429,7 +429,7 @@ def booking(request, pk):
             patient_name = appointment.patient.name
             patient_username = appointment.patient.username
             patient_phone_number = appointment.patient.phone_number
-            doctor_name = appointment.doctor.name
+            doctor_name = appointment.professional.name
         
             subject = "Appointment Request"
             
@@ -454,21 +454,21 @@ def booking(request, pk):
         messages.success(request, 'Appointment Booked')
         return redirect('patient-dashboard')
 
-    context = {'patient': patient, 'doctor': doctor}
+    context = {'patient': patient, 'professional': professional}
     return render(request, 'booking.html', context)
 
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def my_patients(request):
     if request.user.is_doctor:
-        doctor = Doctor_Information.objects.get(user=request.user)
-        appointments = Appointment.objects.filter(doctor=doctor).filter(appointment_status='confirmed')
+        professional = Doctor_Information.objects.get(user=request.user)
+        appointments = Appointment.objects.filter(professional=professional).filter(appointment_status='confirmed')
         # patients = Patient.objects.all()
     else:
-        redirect('doctor-logout')
+        redirect('professional-logout')
     
     
-    context = {'doctor': doctor, 'appointments': appointments}
+    context = {'professional': professional, 'appointments': appointments}
     return render(request, 'my-patients.html', context)
 
 
@@ -476,32 +476,32 @@ def my_patients(request):
 #     return render(request, 'patient_profile.html')
 
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def patient_profile(request, pk):
     if request.user.is_doctor:
-        # doctor = Doctor_Information.objects.get(user_id=pk)
-        doctor = Doctor_Information.objects.get(user=request.user)
+        # professional = Doctor_Information.objects.get(user_id=pk)
+        professional = Doctor_Information.objects.get(user=request.user)
         patient = Patient.objects.get(patient_id=pk)
-        appointments = Appointment.objects.filter(doctor=doctor).filter(patient=patient)
-        prescription = Prescription.objects.filter(doctor=doctor).filter(patient=patient)
-        report = Report.objects.filter(doctor=doctor).filter(patient=patient) 
+        appointments = Appointment.objects.filter(professional=professional).filter(patient=patient)
+        prescription = Prescription.objects.filter(professional=professional).filter(patient=patient)
+        report = Report.objects.filter(professional=professional).filter(patient=patient) 
     else:
-        redirect('doctor-logout')
-    context = {'doctor': doctor, 'appointments': appointments, 'patient': patient, 'prescription': prescription, 'report': report}  
+        redirect('professional-logout')
+    context = {'professional': professional, 'appointments': appointments, 'patient': patient, 'prescription': prescription, 'report': report}  
     return render(request, 'patient-profile.html', context)
 
 
 @csrf_exempt
-@login_required(login_url="doctor-login")
+@login_required(login_url="professional-login")
 def create_prescription(request,pk):
         if request.user.is_doctor:
-            doctor = Doctor_Information.objects.get(user=request.user)
+            professional = Doctor_Information.objects.get(user=request.user)
             patient = Patient.objects.get(patient_id=pk) 
             create_date = datetime.date.today()
             
 
             if request.method == 'POST':
-                prescription = Prescription(doctor=doctor, patient=patient)
+                prescription = Prescription(professional=professional, patient=patient)
                 
                 test_name= request.POST.getlist('test_name')
                 test_description = request.POST.getlist('description')
@@ -543,7 +543,7 @@ def create_prescription(request,pk):
                 messages.success(request, 'Prescription Created')
                 return redirect('patient-profile', pk=patient.patient_id)
              
-        context = {'doctor': doctor,'patient': patient}  
+        context = {'professional': professional,'patient': patient}  
         return render(request, 'create-prescription.html',context)
 
         
@@ -576,8 +576,8 @@ def report_pdf(request, pk):
 
 
 # def testing(request):
-#     doctor = Doctor_Information.objects.get(user=request.user)
-#     degree = doctor.degree
+#     professional = Doctor_Information.objects.get(user=request.user)
+#     degree = professional.degree
 #     degree = re.sub("'", "", degree)
 #     degree = degree.replace("[", "")
 #     degree = degree.replace("]", "")
@@ -586,8 +586,8 @@ def report_pdf(request, pk):
     
 #     education = zip(degree_array, institute_array)
     
-#     context = {'doctor': doctor, 'degree': institute, 'institute_array': institute_array, 'education': education}
-#     # test range, len, and loop to show variables before moving on to doctor profile
+#     context = {'professional': professional, 'degree': institute, 'institute_array': institute_array, 'education': education}
+#     # test range, len, and loop to show variables before moving on to professional profile
     
 #     return render(request, 'testing.html', context)
 
@@ -595,63 +595,63 @@ def report_pdf(request, pk):
 @login_required(login_url="login")
 def patient_search(request, pk):
     if request.user.is_authenticated and request.user.is_doctor:
-        doctor = Doctor_Information.objects.get(doctor_id=pk)
+        professional = Doctor_Information.objects.get(doctor_id=pk)
         id = int(request.GET['search_query'])
         patient = Patient.objects.get(patient_id=id)
-        prescription = Prescription.objects.filter(doctor=doctor).filter(patient=patient)
-        context = {'patient': patient, 'doctor': doctor, 'prescription': prescription}
+        prescription = Prescription.objects.filter(professional=professional).filter(patient=patient)
+        context = {'patient': patient, 'professional': professional, 'prescription': prescription}
         return render(request, 'patient-profile.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'doctor-login.html')
+        return render(request, 'professional-login.html')
 
 @csrf_exempt
 @login_required(login_url="login")
 def doctor_test_list(request):
     if request.user.is_authenticated and request.user.is_doctor:
-        doctor = Doctor_Information.objects.get(user=request.user)
+        professional = Doctor_Information.objects.get(user=request.user)
         tests = Test_Information.objects.all
-        context = {'doctor': doctor, 'tests': tests}
-        return render(request, 'doctor-test-list.html', context)
+        context = {'professional': professional, 'tests': tests}
+        return render(request, 'professional-test-list.html', context)
     
     elif request.user.is_authenticated and request.user.is_patient:
         patient = Patient.objects.get(user=request.user)
         tests = Test_Information.objects.all
         context = {'patient': patient, 'tests': tests}
-        return render(request, 'doctor-test-list.html', context)
+        return render(request, 'professional-test-list.html', context)
         
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'doctor-login.html')
+        return render(request, 'professional-login.html')
 
 
 @csrf_exempt
 @login_required(login_url="login")
 def doctor_view_prescription(request, pk):
     if request.user.is_authenticated and request.user.is_doctor:
-        doctor = Doctor_Information.objects.get(user=request.user)
+        professional = Doctor_Information.objects.get(user=request.user)
         prescriptions = Prescription.objects.get(prescription_id=pk)
         medicines = Prescription_medicine.objects.filter(prescription=prescriptions)
         tests = Prescription_test.objects.filter(prescription=prescriptions)
-        context = {'prescription': prescriptions, 'medicines': medicines, 'tests': tests, 'doctor': doctor}
-        return render(request, 'doctor-view-prescription.html', context)
+        context = {'prescription': prescriptions, 'medicines': medicines, 'tests': tests, 'professional': professional}
+        return render(request, 'professional-view-prescription.html', context)
 
 @csrf_exempt
 @login_required(login_url="login")
 def doctor_view_report(request, pk):
     if request.user.is_authenticated and request.user.is_doctor:
-        doctor = Doctor_Information.objects.get(user=request.user)
+        professional = Doctor_Information.objects.get(user=request.user)
         report = Report.objects.get(report_id=pk)
         specimen = Specimen.objects.filter(report=report)
         test = Test.objects.filter(report=report)
-        context = {'report': report, 'test': test, 'specimen': specimen, 'doctor': doctor}
-        return render(request, 'doctor-view-report.html', context)
+        context = {'report': report, 'test': test, 'specimen': specimen, 'professional': professional}
+        return render(request, 'professional-view-report.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'doctor-login.html')
+        return render(request, 'professional-login.html')
 
 
 @csrf_exempt
@@ -670,27 +670,27 @@ def got_offline(sender, user, request, **kwargs):
 @login_required(login_url="login")
 def doctor_review(request, pk):
     if request.user.is_doctor:
-        # doctor = Doctor_Information.objects.get(user_id=pk)
-        doctor = Doctor_Information.objects.get(user=request.user)
+        # professional = Doctor_Information.objects.get(user_id=pk)
+        professional = Doctor_Information.objects.get(user=request.user)
             
-        doctor_review = Doctor_review.objects.filter(doctor=doctor)
+        doctor_review = Doctor_review.objects.filter(professional=professional)
         
-        context = {'doctor': doctor, 'doctor_review': doctor_review}  
-        return render(request, 'doctor-profile.html', context)
+        context = {'professional': professional, 'doctor_review': doctor_review}  
+        return render(request, 'professional-profile.html', context)
 
     if request.user.is_patient:
-        doctor = Doctor_Information.objects.get(doctor_id=pk)
+        professional = Doctor_Information.objects.get(doctor_id=pk)
         patient = Patient.objects.get(user=request.user)
 
         if request.method == 'POST':
             title = request.POST.get('title')
             message = request.POST.get('message')
             
-            doctor_review = Doctor_review(doctor=doctor, patient=patient, title=title, message=message)
+            doctor_review = Doctor_review(professional=professional, patient=patient, title=title, message=message)
             doctor_review.save()
 
-        context = {'doctor': doctor, 'patient': patient, 'doctor_review': doctor_review}  
-        return render(request, 'doctor-profile.html', context)
+        context = {'professional': professional, 'patient': patient, 'doctor_review': doctor_review}  
+        return render(request, 'professional-profile.html', context)
     else:
         logout(request)
  

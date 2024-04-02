@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- doccure/doctor-register.html  30 Nov 2019 04:12:15 GMT -->
+<!-- doccure/professional-register.html  30 Nov 2019 04:12:15 GMT -->
 
 <head>
   <meta charset="utf-8" />
@@ -52,13 +52,13 @@
                 <div class="col-md-12 col-lg-6 login-right">
                   <div class="login-header">
                     <h3>
-                      Doctor Register
-                      <a href="{% url 'patient-register' %}">Not a Doctor?</a>
+                      Professional Register
+                      <a href="{% url 'patient-register' %}">Not a Professional?</a>
                     </h3>
                   </div>
 
                   <!-- Register Form -->
-                  <form action="{% url 'doctor-register' %}" method="POST">
+                  <form action="{% url 'professional-register' %}" method="POST">
                     {% csrf_token %}
 
                     {% include 'message.html' %}
@@ -79,7 +79,7 @@
                     {% endfor %}
 
                     <div class="text-right">
-                      <a class="forgot-link" href="{% url 'doctor-login'%}">Already have an account?</a>
+                      <a class="forgot-link" href="{% url 'professional-login'%}">Already have an account?</a>
                     </div>
                     <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">
                       Signup
@@ -126,6 +126,6 @@
 
 </body>
 
-<!-- doccure/doctor-register.html  30 Nov 2019 04:12:16 GMT -->
+<!-- doccure/professional-register.html  30 Nov 2019 04:12:16 GMT -->
 
 </html>

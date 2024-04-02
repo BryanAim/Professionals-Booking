@@ -53,12 +53,12 @@
                 <div class="col-md-12 col-lg-6 login-right">
                   <div class="login-header">
                     <h3>
-                      Login <span>Doctor</span>
+                      Login <span>Professional</span>
                       <a href="{% url 'login' %}" text-decoration: none;>Are you a patient?</a>
                     </h3>
                   </div>
 
-                  <form method="POST" action="{% url 'doctor-login' %}">
+                  <form method="POST" action="{% url 'professional-login' %}">
                     {% csrf_token %}
 
                     {% include 'message.html' %}
@@ -114,7 +114,7 @@
                       </div> -->
                     <div class="text-center dont-have">
                       Don't have an account?
-                      <a href="{% url 'doctor-register' %}" style="text-decoration: none;">Register</a>
+                      <a href="{% url 'professional-register' %}" style="text-decoration: none;">Register</a>
                       <br>
                       <b>Want to login as
                         <a href="{% url 'admin-login' %}" style="color: skyblue;text-decoration: none;"> Admin? </a></b>

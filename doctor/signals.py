@@ -13,11 +13,11 @@ from hospital.models import User
 @receiver(post_save, sender=Doctor_Information)
 def updateUser(sender, instance, created, **kwargs):
     # user.profile or below (1-1 relationship goes both ways)
-    doctor = instance
-    user = doctor.user
+    professional = instance
+    user = professional.user
 
     if created == False:
-        user.first_name = doctor.name
-        user.username = doctor.username
-        user.email = doctor.email
+        user.first_name = professional.name
+        user.username = professional.username
+        user.email = professional.email
         user.save()

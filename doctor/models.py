@@ -90,7 +90,7 @@ class Appointment(models.Model):
     id = models.AutoField(primary_key=True)
     date = models.DateField(null=True, blank=True)
     time = models.CharField(max_length=200, null=True, blank=True)
-    doctor = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
+    professional = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
     appointment_type = models.CharField(max_length=200, choices=APPOINTMENT_TYPE)
     appointment_status = models.CharField(max_length=200, choices=APPOINTMENT_STATUS)
@@ -105,29 +105,29 @@ class Appointment(models.Model):
 
 class Education(models.Model):
     education_id = models.AutoField(primary_key=True)
-    doctor = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
+    professional = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
     degree = models.CharField(max_length=200, null=True, blank=True)
     institute = models.CharField(max_length=200, null=True, blank=True)
     year_of_completion = models.CharField(max_length=200, null=True, blank=True)
     
     def __str__(self):
-        return str(self.doctor.name)
+        return str(self.professional.name)
     
 class Experience(models.Model):
     experience_id = models.AutoField(primary_key=True)
-    doctor = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
+    professional = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
     work_place_name = models.CharField(max_length=200, null=True, blank=True)
     from_year = models.CharField(max_length=200, null=True, blank=True)
     to_year = models.CharField(max_length=200, null=True, blank=True)
     designation = models.CharField(max_length=200, null=True, blank=True)
     
     def __str__(self):
-        return str(self.doctor.name)
+        return str(self.professional.name)
 
 
 class Report(models.Model):
     report_id = models.AutoField(primary_key=True)
-    doctor = models.ForeignKey(Doctor_Information, on_delete=models.SET_NULL, null=True, blank=True)
+    professional = models.ForeignKey(Doctor_Information, on_delete=models.SET_NULL, null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
     specimen_id = models.CharField(max_length=200, null=True, blank=True)
     specimen_type = models.CharField(max_length=200, null=True, blank=True)
@@ -168,7 +168,7 @@ class Test(models.Model):
 class Prescription(models.Model):
     # medicine name, quantity, days, time, description, test, test_descrip
     prescription_id = models.AutoField(primary_key=True)
-    doctor = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
+    professional = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.SET_NULL, null=True, blank=True)
     create_date = models.CharField(max_length=200, null=True, blank=True)
     medicine_name = models.CharField(max_length=200, null=True, blank=True)
@@ -208,7 +208,7 @@ class Prescription_test(models.Model):
     
     """
     (create prescription)
-    doctor input --> test_id 
+    professional input --> test_id 
     using test_id --> retrive price
     store price in prescription_test column
     """
@@ -259,7 +259,7 @@ class testOrder(models.Model):
 
 class Doctor_review(models.Model):
     review_id = models.AutoField(primary_key=True)
-    doctor = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
+    professional = models.ForeignKey(Doctor_Information, on_delete=models.CASCADE, null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200, null=True, blank=True)
     message = models.CharField(max_length=1000, null=True, blank=True)

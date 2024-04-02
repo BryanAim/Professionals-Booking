@@ -23,17 +23,17 @@ Version      : 1.0
 14. Login
 15. Home
 16. Search
-17. Doctor Profile
+17. Professional Profile
 18. Booking
 19. Checkout
 20. Booking Success
 21. Invoice View
 22. Schedule Timings
-23. Doctor Dashboard
+23. Professional Dashboard
 24. Patient Profile
 25. Add Billing
 26. Chat
-27. Doctor Profile Settings
+27. Professional Profile Settings
 28. Calendar
 29. Patient Dashboard
 30. Profile Settings
@@ -2459,17 +2459,17 @@ html.menu-opened body {
     font-weight: 500;
     margin: 30px 0 0;
 }
-.section-doctor {
+.section-professional {
 	background-color: #f8f9fa;
 	padding: 80px 0;
 }
-.section-doctor .section-header {
+.section-professional .section-header {
 	margin-bottom: 30px;
 }
-.section-doctor .section-header p {
+.section-professional .section-header p {
 	margin-top: 10px;
 }
-.doctor-slider .slick-slide{
+.professional-slider .slick-slide{
 	display: block;
 	margin-left: 0;
 	padding: 10px;
@@ -2631,7 +2631,7 @@ html.menu-opened body {
 	border-color: #01cae4;
 	color: #fff;
 }
-.section-doctor .profile-widget {
+.section-professional .profile-widget {
     box-shadow: 2px 2px 13px rgba(0, 0, 0, 0.1);
     margin-bottom: 0;
 }
@@ -2869,7 +2869,7 @@ html.menu-opened body {
 	font-weight:500;
 	font-size:16px;
 }
-.doctor-widget {
+.professional-widget {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -2885,13 +2885,13 @@ html.menu-opened body {
     flex: 0 0 200px;
     max-width: 200px;
 }
-.doctor-img {
+.professional-img {
     -ms-flex: 0 0 150px;
     flex: 0 0 150px;
     margin-right: 20px;
     width: 150px;
 }
-.doctor-img img {
+.professional-img img {
 	border-radius: 5px;
 }
 .doc-department {
@@ -2913,7 +2913,7 @@ html.menu-opened body {
     color: #09e5ab;
     font-weight: 500;
 }
-.doctor-widget .doc-name {
+.professional-widget .doc-name {
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 3px;
@@ -2923,10 +2923,10 @@ html.menu-opened body {
     color: #757575;
     margin-bottom: 15px;
 }
-.doctor-widget .rating i {
+.professional-widget .rating i {
 	font-size: 14px;
 }
-.doctor-widget .average-rating {
+.professional-widget .average-rating {
 	font-size: 14px;
 	font-weight: 500;
 }
@@ -3029,7 +3029,7 @@ html.menu-opened body {
 }
 
 /*-----------------
-	17. Doctor Profile
+	17. Professional Profile
 -----------------------*/
 
 .clinic-direction {
@@ -3041,7 +3041,7 @@ html.menu-opened body {
     color: #09e5ab;
     font-weight: 500;
 }
-.doctor-action {
+.professional-action {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -3049,10 +3049,10 @@ html.menu-opened body {
     flex-wrap: wrap;
     margin-bottom: 15px;
 }
-.doctor-action a + a {
+.professional-action a + a {
 	margin-left: 8px;
 }
-.doctor-action .fav-btn:hover {
+.professional-action .fav-btn:hover {
 	background-color: #fb1612;
 	border-color: #fb1612;
 	color: #fff;
@@ -3943,7 +3943,7 @@ html.menu-opened body {
 }
 
 /*-----------------
-	23. Doctor Dashboard
+	23. Professional Dashboard
 -----------------------*/
 
 .dash-widget {
@@ -4756,7 +4756,7 @@ html.menu-opened body {
 }
 
 /*-----------------
-	27. Doctor Profile Settings
+	27. Professional Profile Settings
 -----------------------*/
 
 .profile-image img {
@@ -6163,7 +6163,7 @@ html.menu-opened body {
 		text-align: center;
 		margin: 0 auto;
 	}
-	.doctor-slider {
+	.professional-slider {
 		margin-top: 25px;
 	}
 	.breadcrumb-bar {
@@ -6261,7 +6261,7 @@ html.menu-opened body {
 	.invoice-item .invoice-details {
 		text-align: left;
 	}
-	.section-search, .section-doctor, .section-features {
+	.section-search, .section-professional, .section-features {
 		padding: 50px 0;
 	}
 	.slick-next {
@@ -6399,7 +6399,7 @@ html.menu-opened body {
 		border-left-width: 2px;
 		color: #20c0f3;
 	}
-	.doctor-widget {
+	.professional-widget {
 		-ms-flex-direction: column;
 		flex-direction: column;
 		text-align: center;
@@ -6417,10 +6417,10 @@ html.menu-opened body {
 	.clinic-services {
 		display: none;
 	}
-	.doctor-img {
+	.professional-img {
 		margin: 0 auto 20px;
 	}
-	.doctor-action {
+	.professional-action {
 		justify-content: center;
 		-webkit-justify-content: center;
 		-ms-flex-pack: center;
@@ -6442,7 +6442,7 @@ html.menu-opened body {
 	.dash-widget p {
 		font-size: 13px;
 	}
-	.doctor-widget .doc-name {
+	.professional-widget .doc-name {
 		font-size: 18px;
 	}
 	.exp-title, .booking-total ul li span, .booking-total ul li .total-cost {

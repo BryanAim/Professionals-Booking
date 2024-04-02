@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- doccure/doctor-dashboard.html  30 Nov 2019 04:12:03 GMT -->
+<!-- doccure/professional-dashboard.html  30 Nov 2019 04:12:03 GMT -->
 
 <head>
   <meta charset="utf-8" />
@@ -39,7 +39,7 @@
       {% endif %}
 
       {% if user.is_authenticated and user.is_doctor %}
-      {% include 'doctor-navbar.html' %}
+      {% include 'professional-navbar.html' %}
       {% endif %}
     </header>
     <!-- /Header -->
@@ -56,7 +56,7 @@
                 {% endif %}
 
                 {% if user.is_authenticated and user.is_doctor %}
-                <li class="breadcrumb-item"><a href="{% url 'doctor-dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
                 {% endif %}
                 <li class="breadcrumb-item active" aria-current="page">
                   Test
@@ -83,7 +83,7 @@
               {% endif %}
 
               {% if user.is_authenticated and user.is_doctor %}
-              {% include 'doctor-sidebar.html' %}
+              {% include 'professional-sidebar.html' %}
               {% endif %}
             </div>
             <!-- /Profile Sidebar -->
@@ -168,6 +168,6 @@
   <script src="{% static 'HealthStack-System/js/Normal/sidebar.js' %}"></script>
 </body>
 
-<!-- doccure/doctor-dashboard.html  30 Nov 2019 04:12:09 GMT -->
+<!-- doccure/professional-dashboard.html  30 Nov 2019 04:12:09 GMT -->
 
 </html>

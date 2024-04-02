@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- doccure/doctor-profile.html  30 Nov 2019 04:12:16 GMT -->
+<!-- doccure/professional-profile.html  30 Nov 2019 04:12:16 GMT -->
 
 <head>
 	<meta charset="utf-8">
@@ -56,7 +56,7 @@
 			{% endif %}
 
 			{% if user.is_authenticated and user.is_doctor %}
-			{% include 'doctor-navbar.html' %}
+			{% include 'professional-navbar.html' %}
 			{% endif %}
 
 
@@ -76,14 +76,14 @@
 								{% endif %}
 
 								{% if user.is_authenticated and user.is_doctor %}
-								<li class="breadcrumb-item"><a href="{% url 'doctor-dashboard' %}">Home</a></li>
+								<li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
 								{% endif %}
 
 
-								<li class="breadcrumb-item active" aria-current="page">Doctor Profile</li>
+								<li class="breadcrumb-item active" aria-current="page">Professional Profile</li>
 							</ol>
 						</nav>
-						<h2 class="breadcrumb-title">Doctor Profile</h2>
+						<h2 class="breadcrumb-title">Professional Profile</h2>
 					</div>
 				</div>
 			</div>
@@ -104,7 +104,7 @@
 							{% endif %}
 
 							{% if user.is_authenticated and user.is_doctor %}
-							{% include 'doctor-sidebar.html' %}
+							{% include 'professional-sidebar.html' %}
 							{% endif %}
 						</div>
 						<!-- /Profile Sidebar -->
@@ -112,19 +112,19 @@
 
 					<div class="col-md-7 col-lg-8 col-xl-9">
 
-						<!-- Doctor Widget -->
+						<!-- Professional Widget -->
 						<div class="card">
 							<div class="card-body">
-								<div class="doctor-widget">
+								<div class="professional-widget">
 									<div class="doc-info-left">
-										<div class="doctor-img">
-											<img src="{{doctor.featured_image.url}}" class="img-fluid" alt="User Image">
+										<div class="professional-img">
+											<img src="{{professional.featured_image.url}}" class="img-fluid" alt="User Image">
 										</div>
 										<div class="doc-info-cont">
-											<h4 class="doc-name">Dr. {{doctor.name}}</h4>
-											<p class="doc-speciality">{{doctor.department_name.hospital_department_name}}</p>
-											<h4 class="doc-hospital">{{doctor.hospital_name}}</h4>
-											<p class="doc-department">{{doctor.specialization.specialization_name}}</p>
+											<h4 class="doc-name">Dr. {{professional.name}}</h4>
+											<p class="doc-speciality">{{professional.department_name.hospital_department_name}}</p>
+											<h4 class="doc-hospital">{{professional.hospital_name}}</h4>
+											<p class="doc-department">{{professional.specialization.specialization_name}}</p>
 											{% comment %} <div class="rating">
 												<i class="fas fa-star filled"></i>
 												<i class="fas fa-star filled"></i>
@@ -172,14 +172,14 @@
 												{% comment %} <li><i class="far fa-thumbs-up"></i> 99%</li>
 												<li><i class="far fa-comment"></i> 35 Feedback</li> {% endcomment %}
 												<li><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</li>
-												<li><i class="far fa-money-bill-alt"></i>{{doctor.consultation_fee}} KES</li>
+												<li><i class="far fa-money-bill-alt"></i>{{professional.consultation_fee}} KES</li>
 											</ul>
 										</div>
 
 
 										{% if user.is_authenticated and user.is_patient %}
 										<div class="clinic-booking">
-											<a class="apt-btn" href="{% url 'booking' pk=doctor.doctor_id  %}">Book Your Appointment</a>
+											<a class="apt-btn" href="{% url 'booking' pk=professional.doctor_id  %}">Book Your Appointment</a>
 										</div>
 										{% endif %}
 
@@ -189,9 +189,9 @@
 								</div>
 							</div>
 						</div>
-						<!-- /Doctor Widget -->
+						<!-- /Professional Widget -->
 
-						<!-- Doctor Details Tab -->
+						<!-- Professional Details Tab -->
 						<div class="card">
 							<div class="card-body pt-0">
 
@@ -223,7 +223,7 @@
 												<!-- About Details -->
 												<div class="widget about-widget">
 													<h4 class="widget-title">About Me</h4>
-													<p>{{doctor.description}}</p>
+													<p>{{professional.description}}</p>
 												</div>
 												<!-- /About Details -->
 
@@ -292,7 +292,7 @@
 												<div class="service-list">
 													<h4>Visiting Time</h4>
 													<ul class="clearfix">
-														<li>{{doctor.visiting_hour}}</li>
+														<li>{{professional.visiting_hour}}</li>
 
 													</ul>
 												</div>
@@ -308,7 +308,7 @@
 										<div class="row">
 
 											<div class="col-md-6 offset-md-3 zoom">
-												<img src="{{doctor.certificate_image.url}}" alt="logo" class="img-fluid">
+												<img src="{{professional.certificate_image.url}}" alt="logo" class="img-fluid">
 
 											</div>
 
@@ -324,9 +324,9 @@
 
 										{% if user.is_authenticated and user.is_patient %}
 										<div class="write-review">
-											<h4>Write a review for <strong>Dr. {{doctor.name}}</strong></h4>
+											<h4>Write a review for <strong>Dr. {{professional.name}}</strong></h4>
 
-											<form action="{% url 'doctor_review' pk=doctor.doctor_id %}" method="POST"
+											<form action="{% url 'doctor_review' pk=professional.doctor_id %}" method="POST"
 												enctype="multipart/form-data">
 												{% csrf_token %}
 												<div class="card card-table">
@@ -436,7 +436,7 @@
 								</div>
 							</div>
 						</div>
-						<!-- /Doctor Details Tab -->
+						<!-- /Professional Details Tab -->
 
 					</div>
 				</div>
@@ -459,7 +459,7 @@
 								<div class="call-wrapper">
 									<div class="call-inner">
 										<div class="call-user">
-											<img alt="User Image" src="assets/img/doctors/doctor-thumb-02.jpg" class="call-avatar">
+											<img alt="User Image" src="assets/img/doctors/professional-thumb-02.jpg" class="call-avatar">
 											<h4>Dr. Darren Elder</h4>
 											<span>Connecting...</span>
 										</div>
@@ -490,7 +490,7 @@
 								<div class="call-wrapper">
 									<div class="call-inner">
 										<div class="call-user">
-											<img class="call-avatar" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+											<img class="call-avatar" src="assets/img/doctors/professional-thumb-02.jpg" alt="User Image">
 											<h4>Dr. Darren Elder</h4>
 											<span>Calling ...</span>
 										</div>
@@ -531,6 +531,6 @@
 
 </body>
 
-<!-- doccure/doctor-profile.html  30 Nov 2019 04:12:16 GMT -->
+<!-- doccure/professional-profile.html  30 Nov 2019 04:12:16 GMT -->
 
 </html>

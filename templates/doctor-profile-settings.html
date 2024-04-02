@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:14 GMT -->
+<!-- doccure/professional-profile-settings.html  30 Nov 2019 04:12:14 GMT -->
 
 <head>
 	<meta charset="utf-8" />
@@ -44,7 +44,7 @@
 	<!-- Main Wrapper -->
 	<div class="main-wrapper">
 		<!-- Header -->
-		<header class="header">{% include 'doctor-navbar.html' %}</header>
+		<header class="header">{% include 'professional-navbar.html' %}</header>
 		<!-- /Header -->
 
 		<!-- Breadcrumb -->
@@ -54,7 +54,7 @@
 					<div class="col-md-12 col-12">
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="{% url 'doctor-dashboard' %}">Home</a></li>
+								<li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
 								<li class="breadcrumb-item active" aria-current="page">
 									Profile Settings
 								</li>
@@ -74,14 +74,14 @@
 
 					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 						<!-- Profile Sidebar -->
-						<div>{% include 'doctor-sidebar.html' %}</div>
+						<div>{% include 'professional-sidebar.html' %}</div>
 						<!-- /Profile Sidebar -->
 					</div>
 
 
 					<div class="col-md-7 col-lg-8 col-xl-9">
 
-						<form action="{% url 'doctor-profile-settings' %}" method="POST" enctype="multipart/form-data">
+						<form action="{% url 'professional-profile-settings' %}" method="POST" enctype="multipart/form-data">
 							<!-- Basic Information -->
 							{% csrf_token %}
 							<div class="card">
@@ -92,7 +92,7 @@
 											<div class="form-group">
 												<div class="change-avatar">
 													<div class="profile-img">
-														<img src="{{doctor.featured_image.url}}" alt="User Image">
+														<img src="{{professional.featured_image.url}}" alt="User Image">
 													</div>
 													<div class="upload-img">
 														<div class="change-photo-btn">
@@ -107,25 +107,25 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>Username <span class="text-danger">*</span></label>
-												<input type="text" class="form-control" readonly value="{{doctor.username}}">
+												<input type="text" class="form-control" readonly value="{{professional.username}}">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>Email <span class="text-danger">*</span></label>
-												<input type="email" class="form-control" readonly value="{{doctor.email}}">
+												<input type="email" class="form-control" readonly value="{{professional.email}}">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>Name <span class="text-danger">*</span></label>
-												<input type="text" name="name" class="form-control" value="{{doctor.name}}">
+												<input type="text" name="name" class="form-control" value="{{professional.name}}">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>Phone Number <span class="text-danger">*</span></label>
-												<input type="number" name="number" class="form-control" value="{{doctor.phone_number}}"
+												<input type="number" name="number" class="form-control" value="{{professional.phone_number}}"
 													placeholder="Phone Number">
 											</div>
 										</div>
@@ -133,11 +133,11 @@
 											<div class="form-group">
 												<label>Gender<span class="text-danger">*</span></label>
 												<select class="form-control select" name="gender">
-													{% if doctor.gender == 'male' %}
-													<option value="{{doctor.gender}}">{{doctor.gender}}</option>
+													{% if professional.gender == 'male' %}
+													<option value="{{professional.gender}}">{{professional.gender}}</option>
 													<option value="female">Female</option>
-													{% elif doctor.gender == 'female' %}
-													<option value="{{doctor.gender}}">{{doctor.gender}}</option>
+													{% elif professional.gender == 'female' %}
+													<option value="{{professional.gender}}">{{professional.gender}}</option>
 													<option value="male">Male</option>
 													{% else %}
 													<option>Select</option>
@@ -151,19 +151,20 @@
 										<div class="col-md-6">
 											<div class="form-group mb-0">
 												<label>Date of Birth<span class="text-danger">*</span></label>
-												<input type="date" class="form-control" name="dob" value="{{doctor.dob}}">
+												<input type="date" class="form-control" name="dob" value="{{professional.dob}}">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>NID <span class="text-danger">*</span></label>
-												<input type="number" name="nid" class="form-control" value="{{doctor.nid}}" placeholder="NID">
+												<input type="number" name="nid" class="form-control" value="{{professional.nid}}"
+													placeholder="NID">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>Visiting Hour <span class="text-danger">*</span></label>
-												<input type="text" name="visit_hour" class="form-control" value="{{doctor.visiting_hour}}"
+												<input type="text" name="visit_hour" class="form-control" value="{{professional.visiting_hour}}"
 													placeholder="x am - x pm">
 											</div>
 										</div>
@@ -178,7 +179,7 @@
 									<h4 class="card-title">About Me</h4>
 									<div class="form-group mb-0">
 										<label>Biography</label>
-										<textarea class="form-control" rows="5" name="description">{{doctor.description}}</textarea>
+										<textarea class="form-control" rows="5" name="description">{{professional.description}}</textarea>
 									</div>
 								</div>
 							</div>
@@ -220,13 +221,13 @@
 											<div class="form-group">
 												<label>Consultation Fee</label>
 												<input type="text" name="consultation_fee" class="form-control"
-													value="{{doctor.consultation_fee}}">
+													value="{{professional.consultation_fee}}">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">Report Fee</label>
-												<input type="text" name="report_fee" class="form-control" value="{{doctor.report_fee}}">
+												<input type="text" name="report_fee" class="form-control" value="{{professional.report_fee}}">
 											</div>
 										</div>
 									</div>
@@ -398,7 +399,7 @@
 	<script src="{% static 'HealthStack-System/plugins/Normal/bootstrap-tagsinput/js/bootstrap-tagsinput.js' %}"></script>
 
 	<!-- Profile Settings JS -->
-	<script src="{% static 'HealthStack-System/js/Normal/doctor-profile-settings.js' %}"></script>
+	<script src="{% static 'HealthStack-System/js/Normal/professional-profile-settings.js' %}"></script>
 
 	<!-- Custom JS -->
 	<script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
@@ -419,6 +420,6 @@
 
 </body>
 
-<!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:15 GMT -->
+<!-- doccure/professional-profile-settings.html  30 Nov 2019 04:12:15 GMT -->
 
 </html>

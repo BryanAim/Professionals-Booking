@@ -231,25 +231,26 @@
                     <table class="table table-hover table-center mb-0">
                       <thead>
                         <tr>
-                          <th>Doctor Name</th>
+                          <th>Professional Name</th>
                           <th>Department</th>
                           <th>Speciality</th>
                           <th>Hospital</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {% for doctor in doctors%}
+                        {% for professional in doctors%}
                         <tr>
                           <td>
                             <h2 class="table-avatar">
                               <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
-                                  src="{{doctor.featured_image.url}}" alt="User Image" /></a>
-                              <a href="{%url 'admin-doctor-profile' pk=doctor.doctor_id%}">{{doctor.name}}</a>
+                                  src="{{professional.featured_image.url}}" alt="User Image" /></a>
+                              <a
+                                href="{%url 'admin-professional-profile' pk=professional.doctor_id%}">{{professional.name}}</a>
                             </h2>
                           </td>
-                          <td>{{doctor.department}}</td>
-                          <td>{{doctor.speciality}}</td>
-                          <td>{{doctor.hospital}}</td>
+                          <td>{{professional.department}}</td>
+                          <td>{{professional.speciality}}</td>
+                          <td>{{professional.hospital}}</td>
 
                         </tr>
                         {% endfor %}

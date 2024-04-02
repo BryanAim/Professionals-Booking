@@ -104,7 +104,7 @@
       {% endif %}
 
       {% if user.is_authenticated and user.is_doctor %}
-      {% include 'doctor-navbar.html' %}
+      {% include 'professional-navbar.html' %}
       {% endif %}
     </header>
     <!-- /Header -->
@@ -117,10 +117,10 @@
             <nav aria-label="breadcrumb" class="page-breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Hospital Doctor Register</li>
+                <li class="breadcrumb-item active" aria-current="page">Hospital Professional Register</li>
               </ol>
             </nav>
-            <h2 class="breadcrumb-title">Hospital Doctor Register</h2>
+            <h2 class="breadcrumb-title">Hospital Professional Register</h2>
           </div>
 
         </div>
@@ -135,14 +135,14 @@
           <!-- Profile Sidebar -->
           <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
             <div>
-              {% include 'doctor-sidebar.html' %}
+              {% include 'professional-sidebar.html' %}
 
             </div>
           </div>
           <!-- / Profile Sidebar -->
 
           <div class="col-md-12 col-lg-8 col-xl-9">
-            <form action="{% url 'hospital-doctor-register' pk=hospitals.hospital_id %}" method="POST"
+            <form action="{% url 'hospital-professional-register' pk=hospitals.hospital_id %}" method="POST"
               enctype="multipart/form-data">
               {% csrf_token %}
 

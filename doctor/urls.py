@@ -10,13 +10,13 @@ from .pdf import report_pdf
 # App URL file - urls related to hospital
 
 urlpatterns = [
-    path('', views.doctor_login, name='doctor-login'),
-    path('doctor-dashboard/',views.doctor_dashboard, name='doctor-dashboard'),
-    path('doctor-profile/<int:pk>/', views.doctor_profile, name='doctor-profile'),
-    path('doctor-change-password/<int:pk>', views.doctor_change_password,name='doctor-change-password'),
-    path('doctor-profile-settings/', views.doctor_profile_settings,name='doctor-profile-settings'),
-    path('doctor-register/', views.doctor_register, name='doctor-register'),
-    path('doctor-logout/', views.logoutDoctor, name='doctor-logout'),
+    path('', views.doctor_login, name='professional-login'),
+    path('professional-dashboard/',views.doctor_dashboard, name='professional-dashboard'),
+    path('professional-profile/<int:pk>/', views.doctor_profile, name='professional-profile'),
+    path('professional-change-password/<int:pk>', views.doctor_change_password,name='professional-change-password'),
+    path('professional-profile-settings/', views.doctor_profile_settings,name='professional-profile-settings'),
+    path('professional-register/', views.doctor_register, name='professional-register'),
+    path('professional-logout/', views.logoutDoctor, name='professional-logout'),
     path('my-patients/', views.my_patients, name='my-patients'),
     path('booking/<int:pk>/', views.booking, name='booking'),
     path('booking-success/', views.booking_success, name='booking-success'),
@@ -32,9 +32,9 @@ urlpatterns = [
     path('patient-search/<int:pk>/', views.patient_search, name='patient-search'),
     path('pdf/<int:pk>/',views.report_pdf, name='pdf'),
     path('doctor_review/<int:pk>/', views.doctor_review, name='doctor_review'),
-    path('doctor-test-list/', views.doctor_test_list, name='doctor-test-list'),
-    path('doctor-view-prescription/<int:pk>/', views.doctor_view_prescription, name='doctor-view-prescription'),
-    path('doctor-view-report/<int:pk>/', views.doctor_view_report, name='doctor-view-report'),
+    path('professional-test-list/', views.doctor_test_list, name='professional-test-list'),
+    path('professional-view-prescription/<int:pk>/', views.doctor_view_prescription, name='professional-view-prescription'),
+    path('professional-view-report/<int:pk>/', views.doctor_view_report, name='professional-view-report'),
 
 ]
 

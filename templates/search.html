@@ -57,16 +57,16 @@
             <nav aria-label="breadcrumb" class="page-breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Search Doctor</li>
+                <li class="breadcrumb-item active" aria-current="page">Search Professional</li>
               </ol>
             </nav>
-            <h2 class="breadcrumb-title">Search Doctor</h2>
+            <h2 class="breadcrumb-title">Search Professional</h2>
           </div>
 
           <div class="col-md-6 col-6">
             <div class="top-nav-search">
               <form action="{% url 'search' %}" method="GET">
-                <input type="text" class="form-control" placeholder="Search doctor" name="search_query"
+                <input type="text" class="form-control" placeholder="Search professional" name="search_query"
                   value="{{search_query}}">
                 <button class="btn" type="submit"><i class="fa fa-search"></i></button>
               </form>
@@ -89,31 +89,33 @@
           <!-- / Profile Sidebar -->
 
           <div class="col-md-12 col-lg-8 col-xl-9">
-            {% for doctor in doctors %}
-            <!-- Doctor Widget -->
+            {% for professional in doctors %}
+            <!-- Professional Widget -->
             <div class="card">
               <div class="card-body">
-                <div class="doctor-widget">
+                <div class="professional-widget">
                   <div class="doc-info-left">
-                    <div class="doctor-img">
-                      <a href="{% url 'doctor-profile' pk=doctor.doctor_id %}">
-                        <img src="{{ doctor.featured_image.url }}" class="img-fluid" alt="User Image" />
+                    <div class="professional-img">
+                      <a href="{% url 'professional-profile' pk=professional.doctor_id %}">
+                        <img src="{{ professional.featured_image.url }}" class="img-fluid" alt="User Image" />
                       </a>
                     </div>
                     <div class="doc-info-cont">
                       <h4 class="doc-name">
-                        <a href="{% url 'doctor-profile' pk=doctor.doctor_id %}">Dr. {{doctor.name}}</a>
+                        <a href="{% url 'professional-profile' pk=professional.doctor_id %}">Dr.
+                          {{professional.name}}</a>
                       </h4>
-                      <p class="doc-speciality"><b>Department: </b>{{ doctor.department_name.hospital_department_name }}
+                      <p class="doc-speciality"><b>Department: </b>{{
+                        professional.department_name.hospital_department_name }}
                       </p>
                       <h5 class="doc-department"><b>Specialization: </b>
-                        {{ doctor.specialization.specialization_name }}
+                        {{ professional.specialization.specialization_name }}
                       </h5>
 
                       <div class="clinic-details">
                         <p class="doc-location">
                           <i class="fas fa-map-marker-alt"></i> <b>Hospital: </b>
-                          {{doctor.hospital_name}}
+                          {{professional.hospital_name}}
                         </p>
                         <ul class="clinic-gallery">
                           <li>
@@ -146,24 +148,25 @@
                         <li></li>
                         <li>
                           <i class="fas fa-map-marker-alt"></i>
-                          {{doctor.hospital_name}}
+                          {{professional.hospital_name}}
                         </li>
                         <li>
                           <i class="far fa-money-bill-alt"></i>
-                          {{doctor.consultation_fee}} KES
+                          {{professional.consultation_fee}} KES
 
                         </li>
                       </ul>
                     </div>
                     <div class="clinic-booking">
-                      <a class="view-pro-btn" href="{% url 'doctor-profile' pk=doctor.doctor_id %}">View Profile</a>
-                      <a class="apt-btn" href="{% url 'booking' pk=doctor.doctor_id %}">Book Appointment</a>
+                      <a class="view-pro-btn" href="{% url 'professional-profile' pk=professional.doctor_id %}">View
+                        Profile</a>
+                      <a class="apt-btn" href="{% url 'booking' pk=professional.doctor_id %}">Book Appointment</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- /Doctor Widget -->
+            <!-- /Professional Widget -->
             {% endfor %}
 
             <div class="load-more text-center">

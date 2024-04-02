@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/doctor-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:51 GMT -->
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/professional-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:51 GMT -->
 
 <head>
 	<meta charset="utf-8">
@@ -61,7 +61,7 @@
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
 								<li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
-								<li class="breadcrumb-item active">Doctor</li>
+								<li class="breadcrumb-item active">Professional</li>
 							</ul>
 						</div>
 					</div>
@@ -75,30 +75,31 @@
 									<table class="datatable table table-hover table-center mb-0">
 										<thead>
 											<tr>
-												<th>Doctor Name</th>
+												<th>Professional Name</th>
 												<th>Speciality</th>
 												<th>Consultation Fee</th>
 												<th>Degree</th>
 												<th>Action</th>
 											</tr>
 										<tbody>
-											{% for doctor in all%}
+											{% for professional in all%}
 											<tr>
 												<td>
 													<h2 class="table-avatar">
 														<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
-																src="{{doctor.featured_image.url}}" alt="User Image"></a>
-														<a href="{%url 'admin-doctor-profile' doctor.doctor_id%}">{{doctor.name}}</a>
+																src="{{professional.featured_image.url}}" alt="User Image"></a>
+														<a
+															href="{%url 'admin-professional-profile' professional.doctor_id%}">{{professional.name}}</a>
 													</h2>
 												</td>
-												<td>{{doctor.department}}</td>
+												<td>{{professional.department}}</td>
 
-												<td>{{doctor.consultation_fee}}</td>
+												<td>{{professional.consultation_fee}}</td>
 
-												<td>{{doctor.degree}}</td>
+												<td>{{professional.degree}}</td>
 												<td>
 													<div class="table-action">
-														<a href="{% url 'create-report' pk=doctor.doctor_id %}"
+														<a href="{% url 'create-report' pk=professional.doctor_id %}"
 															class="btn btn-outline-info btn-rounded">
 															<i class="fas fa-file-alt"></i> Create Report
 														</a>
@@ -143,6 +144,6 @@
 
 </body>
 
-<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/doctor-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:51 GMT -->
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/professional-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:51 GMT -->
 
 </html>

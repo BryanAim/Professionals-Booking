@@ -4,8 +4,8 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.http import HttpResponse
 from xhtml2pdf import pisa
-from doctor.models import Prescription
-from doctor.models import  Prescription,Prescription_medicine,Prescription_test
+from professional.models import Prescription
+from professional.models import  Prescription,Prescription_medicine,Prescription_test
 from hospital.models import Patient
 from datetime import datetime
 

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- doccure/doctor-profile.html  30 Nov 2019 04:12:16 GMT -->
+<!-- doccure/professional-profile.html  30 Nov 2019 04:12:16 GMT -->
 
 <head>
 	<meta charset="utf-8">
@@ -85,30 +85,30 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col-sm-12 mt-100">
-								<h3 class="page-title">Doctor Profile</h3>
+								<h3 class="page-title">Professional Profile</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
 									<li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
-									<li class="breadcrumb-item active">Doctor</li>
+									<li class="breadcrumb-item active">Professional</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 					<!-- /Page Header -->
 
-					<!-- Doctor Widget -->
+					<!-- Professional Widget -->
 					<div class="card">
 						<div class="card-body">
-							<div class="doctor-widget">
+							<div class="professional-widget">
 								<div class="doc-info-left">
-									<div class="doctor-img">
-										<img src="{{doctor.featured_image.url}}" class="img-fluid" alt="User Image">
+									<div class="professional-img">
+										<img src="{{professional.featured_image.url}}" class="img-fluid" alt="User Image">
 									</div>
 									<div class="doc-info-cont">
-										<h4 class="doc-name">Dr. {{doctor.name}}</h4>
-										<p class="doc-speciality">{{doctor.department_name.hospital_department_name}}</p>
-										<h4 class="doc-hospital">{{doctor.hospital_name}}</h4>
-										<p class="doc-department">{{doctor.specialization.specialization_name}}</p>
+										<h4 class="doc-name">Dr. {{professional.name}}</h4>
+										<p class="doc-speciality">{{professional.department_name.hospital_department_name}}</p>
+										<h4 class="doc-hospital">{{professional.hospital_name}}</h4>
+										<p class="doc-department">{{professional.specialization.specialization_name}}</p>
 										<div class="rating">
 											<i class="fas fa-star filled"></i>
 											<i class="fas fa-star filled"></i>
@@ -154,10 +154,10 @@
 											<li><i class="far fa-thumbs-up"></i> 99%</li>
 											<li><i class="far fa-comment"></i> 35 Feedback</li>
 											<li><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</li>
-											<li><i class="far fa-money-bill-alt"></i>{{doctor.consultation_fee}} KES</li>
+											<li><i class="far fa-money-bill-alt"></i>{{professional.consultation_fee}} KES</li>
 										</ul>
 									</div>
-									<div class="doctor-action">
+									<div class="professional-action">
 										<a href="javascript:void(0)" class="btn btn-white fav-btn">
 											<i class="far fa-bookmark"></i>
 										</a>
@@ -175,7 +175,7 @@
 									</div>
 									{% if user.is_authenticated and user.is_patient %}
 									<div class="clinic-booking">
-										<a class="apt-btn" href="{% url 'booking' pk=doctor.doctor_id  %}">Book Your Appointment</a>
+										<a class="apt-btn" href="{% url 'booking' pk=professional.doctor_id  %}">Book Your Appointment</a>
 									</div>
 									{% endif %}
 								</div>
@@ -183,7 +183,7 @@
 						</div>
 					</div>
 
-					<!-- Doctor Details Tab -->
+					<!-- Professional Details Tab -->
 					<div class="card">
 						<div class="card-body pt-0">
 							<!-- Tab Menu -->
@@ -214,7 +214,7 @@
 											<!-- About Details -->
 											<div class="widget about-widget">
 												<h4 class="widget-title">About Me</h4>
-												<p>{{doctor.description}}</p>
+												<p>{{professional.description}}</p>
 											</div>
 											<!-- /About Details -->
 
@@ -283,7 +283,7 @@
 											<div class="service-list">
 												<h4>Specializations</h4>
 												<ul class="clearfix">
-													<li>{{doctor.specialization.specialization_name}}</li>
+													<li>{{professional.specialization.specialization_name}}</li>
 
 												</ul>
 											</div>
@@ -320,7 +320,7 @@
 																<i class="fas fa-star"></i>
 															</div>
 														</div>
-														<p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
+														<p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the professional</p>
 														<p class="comment-content">
 															Lorem ipsum dolor sit amet, consectetur adipisicing elit,
 															sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -516,7 +516,7 @@
 									<div class="row">
 
 										<div class="col-md-6 offset-md-3 zoom">
-											<img src="{{doctor.certificate_image.url}}" alt="logo" class="img-fluid">
+											<img src="{{professional.certificate_image.url}}" alt="logo" class="img-fluid">
 
 										</div>
 
@@ -561,6 +561,6 @@
 
 	</body>
 
-	<!-- doccure/doctor-profile.html  30 Nov 2019 04:12:16 GMT -->
+	<!-- doccure/professional-profile.html  30 Nov 2019 04:12:16 GMT -->
 
 </html>

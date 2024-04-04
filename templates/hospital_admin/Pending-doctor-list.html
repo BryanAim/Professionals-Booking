@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/doctor-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:51 GMT -->
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/professional-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:51 GMT -->
 
 <head>
     <meta charset="utf-8">
@@ -29,8 +29,8 @@
     <link rel="stylesheet" href="{% static 'HealthStack-System/css/admin/style.css'%}">
 
 
-    <!-- pending doctor-list css -->
-    <link rel="stylesheet" href="{% static 'HealthStack-System/css/admin/pending-doctor-list.css'%}">
+    <!-- pending professional-list css -->
+    <link rel="stylesheet" href="{% static 'HealthStack-System/css/admin/pending-professional-list.css'%}">
 
     <!--[if lt IE 9]>
 			<script src="assets/js/html5shiv.min.js"></script>
@@ -65,59 +65,62 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3 class="page-title">List of Doctors</h3>
+                            <h3 class="page-title">List of Professionals</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
-                                <li class="breadcrumb-item active">Doctor</li>
+                                <li class="breadcrumb-item active">Professional</li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- /Page Header -->
-                {%for doctor in all%}
+                {%for professional in all%}
                 <div class="appointments">
                     <div class="appointment-list">
                         <div class="profile-info-widget">
-                            <a href="{%url 'admin-doctor-profile' pk=doctor.doctor_id%}" class="booking-doc-img">
-                                <img src="{{doctor.featured_image.url}}" alt="User Image">
+                            <a href="{%url 'admin-professional-profile' pk=professional.professional_id%}"
+                                class="booking-doc-img">
+                                <img src="{{professional.featured_image.url}}" alt="User Image">
                             </a>
                             <div class="profile-det-info" style="padding-left:8px">
-                                <h3><a href="{%url 'admin-doctor-profile' pk=doctor.doctor_id%}">{{doctor.name}}</a>
+                                <h3><a
+                                        href="{%url 'admin-professional-profile' pk=professional.professional_id%}">{{professional.name}}</a>
                                 </h3>
                                 <div class="patient-details">
                                     <h5
                                         style="color: #757575;font-size: 18px;font-weight: normal;margin-bottom: 8px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
-                                        <i class="fas fa-envelope"></i> {{doctor.email}}
+                                        <i class="fas fa-envelope"></i> {{professional.email}}
                                     </h5>
                                     <h5
                                         style="color: #757575;font-size: 18px;font-weight: normal;margin-bottom: 8px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
-                                        <i class="fas fa-phone"></i> {{doctor.phone_number}}
+                                        <i class="fas fa-phone"></i> {{professional.phone_number}}
                                     </h5>
                                     <h5
                                         style="color: #757575;font-size: 18px;font-weight: normal;margin-bottom: 8px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
                                         <i class="fas fa-brain"></i><span style="color:black"><b> Department:</b></span>
-                                        {{doctor.department_name}}
+                                        {{professional.department_name}}
                                     </h5>
                                     <h5
                                         style="color: #757575;font-size: 18px;font-weight: normal;margin-bottom: 8px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
                                         <i class="fas fa-user-md"></i><span style="color:black"><b>
-                                                Specialization:</b></span> {{doctor.specialization}}
+                                                Specialization:</b></span> {{professional.specialization}}
                                     </h5>
 
                                 </div>
                             </div>
                         </div>
                         <div class="appointment-action">
-                            <a href="{% url 'admin-doctor-profile' doctor.doctor_id%}" class="btn btn-sm bg-info-light">
+                            <a href="{% url 'admin-professional-profile' professional.professional_id%}"
+                                class="btn btn-sm bg-info-light">
                                 <i class="far fa-eye"></i> View
                             </a>
-                            <a href="{% url 'accept-doctor' pk=doctor.doctor_id%}"
-                                onclick="return confirm('Accept Doctor?');" class="btn btn-sm bg-success-light">
+                            <a href="{% url 'accept-professional' pk=professional.professional_id%}"
+                                onclick="return confirm('Accept Professional?');" class="btn btn-sm bg-success-light">
                                 <i class="fas fa-check"></i> Accept
                             </a>
-                            <a href="{% url 'reject-doctor' pk=doctor.doctor_id%}"
-                                onclick="return confirm('Reject Doctor?');" class="btn btn-sm bg-danger-light">
+                            <a href="{% url 'reject-professional' pk=professional.professional_id%}"
+                                onclick="return confirm('Reject Professional?');" class="btn btn-sm bg-danger-light">
                                 <i class="fas fa-times"></i> Cancel
                             </a>
                         </div>
@@ -152,6 +155,6 @@
 
 </body>
 
-<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/doctor-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:51 GMT -->
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/professional-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:51 GMT -->
 
 </html>

@@ -74,12 +74,12 @@
             <div class="card">
               <div class="card-body">
                 <div class="booking-doc-info">
-                  <a href="doctor-profile.html" class="booking-doc-img">
-                    <img src="{{ doctor.featured_image.url }}" alt="User Image" />
+                  <a href="professional-profile.html" class="booking-doc-img">
+                    <img src="{{ professional.featured_image.url }}" alt="User Image" />
                   </a>
                   <div class="booking-info">
                     <h4>
-                      <a href="doctor-profile.html">{{doctor.name}}</a>
+                      <a href="professional-profile.html">{{professional.name}}</a>
                     </h4>
                     <div class="rating">
                       <i class="fas fa-star filled"></i>
@@ -91,7 +91,7 @@
                     </div>
                     <p class="text-muted mb-0">
                       <i class="fas fa-map-marker-alt"></i>
-                      {{doctor.hospital_name}}
+                      {{professional.hospital_name}}
                     </p>
                   </div>
                 </div>
@@ -173,7 +173,8 @@
                   <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Schedule an Appointment</h4>
                 </div>
 
-                <form method="post" action="{% url 'booking' pk=doctor.doctor_id %}" enctype="multipart/form-data">
+                <form method="post" action="{% url 'booking' pk=professional.professional_id %}"
+                  enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="agent-contact-form-sidebar">
                     <div class="row">

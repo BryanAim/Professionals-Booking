@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- doccure/doctor-profile.html  30 Nov 2019 04:12:16 GMT -->
+<!-- doccure/professional-profile.html  30 Nov 2019 04:12:16 GMT -->
 
 <head>
 	<meta charset="utf-8">
@@ -60,8 +60,8 @@
 			{% include 'patient_navbar.html' %}
 			{% endif %}
 
-			{% if user.is_authenticated and user.is_doctor %}
-			{% include 'doctor-navbar.html' %}
+			{% if user.is_authenticated and user.is_professional %}
+			{% include 'professional-navbar.html' %}
 			{% endif %}
 
 
@@ -82,8 +82,8 @@
 								<li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
 								{% endif %}
 
-								{% if user.is_authenticated and user.is_doctor %}
-								<li class="breadcrumb-item"><a href="{% url 'doctor-dashboard' %}">Home</a></li>
+								{% if user.is_authenticated and user.is_professional %}
+								<li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
 								{% endif %}
 								<li class="breadcrumb-item active" aria-current="page">Hospital Profile</li>
 							</ol>
@@ -108,8 +108,8 @@
 							{% include 'patient-sidebar.html' %}
 							{% endif %}
 
-							{% if user.is_authenticated and user.is_doctor %}
-							{% include 'doctor-sidebar.html' %}
+							{% if user.is_authenticated and user.is_professional %}
+							{% include 'professional-sidebar.html' %}
 							{% endif %}
 
 
@@ -122,11 +122,11 @@
 					<div class="col-md-7 col-lg-8 col-xl-9">
 						<div class="card">
 							<div class="card-body">
-								<div class="doctor-widget">
+								<div class="professional-widget">
 									<div class="doc-info-left">
 										<div class="row">
 											<div class="col-lg-6 col-md-6" style=" display: flex;justify-content: left;width: 65%;">
-												<div class="doctor-img">
+												<div class="professional-img">
 													<img src="{{hospitals.featured_image.url}}"
 														style="height: 250px; width: 280px; margin: auto; " alt="User Image">
 												</div>
@@ -181,7 +181,7 @@
 
 												<div class="clinic-services">
 													<span>childrens special</span>
-													<span>Always available emergency doctors</span>
+													<span>Always available emergency professionals</span>
 
 												</div>
 
@@ -197,7 +197,7 @@
 
 											</ul>
 										</div>
-										<div class="doctor-action">
+										<div class="professional-action">
 											<a href="javascript:void(0)" class="btn btn-white fav-btn">
 												<i class="far fa-bookmark"></i>
 											</a>
@@ -213,15 +213,15 @@
 
 										<div class="clinic-booking">
 											<a class="apt-btn" href="{% url 'hospital-department-list' pk=hospitals.hospital_id %}">Department
-												& Doctor List</a>
+												& Professional List</a>
 										</div>
 										<br>
 
 
-										{% if user.is_authenticated and user.is_doctor %}
+										{% if user.is_authenticated and user.is_professional %}
 										<div class="clinic-booking">
 											<a class="apt-btn"
-												href="{% url 'hospital-doctor-register' pk=hospitals.hospital_id %}">Register</a>
+												href="{% url 'hospital-professional-register' pk=hospitals.hospital_id %}">Register</a>
 										</div>
 										{% endif %}
 
@@ -230,9 +230,9 @@
 								</div>
 							</div>
 						</div>
-						<!-- /Doctor Widget -->
+						<!-- /Professional Widget -->
 
-						<!-- Doctor Details Tab -->
+						<!-- Professional Details Tab -->
 						<div class="card">
 							<div class="card-body pt-0">
 
@@ -448,9 +448,9 @@
 						</div>
 					</div>
 
-					<!-- Doctor Widget -->
+					<!-- Professional Widget -->
 
-					<!-- /Doctor Details Tab -->
+					<!-- /Professional Details Tab -->
 
 				</div>
 			</div>
@@ -496,7 +496,7 @@
 							<div class="call-wrapper">
 								<div class="call-inner">
 									<div class="call-user">
-										<img alt="User Image" src="assets/img/doctors/doctor-thumb-02.jpg" class="call-avatar">
+										<img alt="User Image" src="assets/img/professionals/professional-thumb-02.jpg" class="call-avatar">
 										<h4>Dr. Darren Elder</h4>
 										<span>Connecting...</span>
 									</div>							
@@ -526,7 +526,7 @@
 							<div class="call-wrapper">
 								<div class="call-inner">
 									<div class="call-user">
-										<img class="call-avatar" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+										<img class="call-avatar" src="assets/img/professionals/professional-thumb-02.jpg" alt="User Image">
 										<h4>Dr. Darren Elder</h4>
 										<span>Calling ...</span>
 									</div>							
@@ -563,6 +563,6 @@
 
 </body>
 
-<!-- doccure/doctor-profile.html  30 Nov 2019 04:12:16 GMT -->
+<!-- doccure/professional-profile.html  30 Nov 2019 04:12:16 GMT -->
 
 </html>

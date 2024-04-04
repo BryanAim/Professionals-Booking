@@ -1,5 +1,5 @@
 from django.db import models
-from doctor.models import Appointment, testOrder, Prescription
+from professional.models import Appointment, testOrder, Prescription
 from hospital.models import Patient
 from pharmacy.models import Order
 

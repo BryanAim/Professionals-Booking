@@ -23,7 +23,7 @@ Django automatically creates id field for each model class which will be a PK # 
 
 class User(AbstractUser):
     is_patient = models.BooleanField(default=False)
-    is_doctor = models.BooleanField(default=False)
+    is_professional = models.BooleanField(default=False)
     is_hospital_admin = models.BooleanField(default=False)
     is_labworker = models.BooleanField(default=False)
     is_pharmacist = models.BooleanField(default=False)

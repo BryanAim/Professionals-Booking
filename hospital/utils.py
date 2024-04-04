@@ -1,11 +1,11 @@
 from django.db.models import Q
 from .models import Patient, User, Hospital_Information
-from doctor.models import Doctor_Information, Appointment
+from professional.models import Professional_Information, Appointment
 from hospital_admin.models import hospital_department, specialization, service
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
-def searchDoctors(request):
+def searchProfessionals(request):
     
     search_query = ''
     
@@ -14,12 +14,12 @@ def searchDoctors(request):
         
     #skills = Skill.objects.filter(name__icontains=search_query)
     
-    doctors = Doctor_Information.objects.filter(register_status='Accepted').distinct().filter(
+    professionals = Professional_Information.objects.filter(register_status='Accepted').distinct().filter(
         Q(name__icontains=search_query) |
         Q(hospital_name__name__icontains=search_query) |  
         Q(department__icontains=search_query))
     
-    return doctors, search_query
+    return professionals, search_query
 
 
 
@@ -68,7 +68,7 @@ def paginateHospitals(request, hospitals, results):
     return custom_range, hospitals
 
 
-# def searchDepartmentDoctors(request, pk):
+# def searchDepartmentProfessionals(request, pk):
     
 #     search_query = ''
     
@@ -77,12 +77,12 @@ def paginateHospitals(request, hospitals, results):
         
     
 #     departments = hospital_department.object.filter(hospital_department_id=pk).filter(
-#         Q(doctor__name__icontains=search_query) |  
-#         Q(doctor__department__icontains=search_query))
+#         Q(professional__name__icontains=search_query) |  
+#         Q(professional__department__icontains=search_query))
     
 #     return departments, search_query
 
-def searchDepartmentDoctors(request, pk):
+def searchDepartmentProfessionals(request, pk):
     
     search_query = ''
     
@@ -91,14 +91,14 @@ def searchDepartmentDoctors(request, pk):
         
     departments = hospital_department.objects.get(hospital_department_id=pk)
     
-    doctors = Doctor_Information.objects.filter(department_name=departments).filter(
+    professionals = Professional_Information.objects.filter(department_name=departments).filter(
         Q(name__icontains=search_query))
     
-    # doctors = Doctor_Information.objects.filter(department_name=departments).filter(
+    # professionals = Professional_Information.objects.filter(department_name=departments).filter(
     #     Q(name__icontains=search_query) |
     #     Q(specialization_name__name__icontains=search_query))
     
-    return doctors, search_query
+    return professionals, search_query
 
 
 

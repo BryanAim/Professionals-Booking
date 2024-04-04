@@ -8,7 +8,7 @@ import string
 from .models import Payment
 from hospital.models import Patient
 from pharmacy.models import Order, Cart
-from doctor.models import Appointment, Prescription, Prescription_test, testCart, testOrder 
+from professional.models import Appointment, Prescription, Prescription_test, testCart, testOrder 
 from django.contrib.auth.decorators import login_required
 
 
@@ -88,7 +88,7 @@ def ssl_payment_request(request, pk, id):
     invoice_number = generate_random_invoice()
     
     post_body = {}
-    post_body['total_amount'] = appointment.doctor.consultation_fee + appointment.doctor.report_fee
+    post_body['total_amount'] = appointment.professional.consultation_fee + appointment.professional.report_fee
     post_body['currency'] = "KES"
     post_body['tran_id'] = generate_random_string()
 
@@ -131,8 +131,8 @@ def ssl_payment_request(request, pk, id):
     payment.country = post_body['cus_country']
     payment.transaction_id = post_body['tran_id']
     
-    payment.consulation_fee = appointment.doctor.consultation_fee
-    payment.report_fee = appointment.doctor.report_fee
+    payment.consulation_fee = appointment.professional.consultation_fee
+    payment.report_fee = appointment.professional.report_fee
     payment.invoice_number = invoice_number
     
     payment_type = "appointment"
@@ -201,8 +201,8 @@ def ssl_payment_request_medicine(request, pk, id):
     payment.country = post_body['cus_country']
     payment.transaction_id = post_body['tran_id']
     
-    # payment.consulation_fee = appointment.doctor.consultation_fee
-    # payment.report_fee = appointment.doctor.report_fee
+    # payment.consulation_fee = appointment.professional.consultation_fee
+    # payment.report_fee = appointment.professional.report_fee
     payment.invoice_number = invoice_number
     
     payment_type = "pharmacy"
@@ -271,8 +271,8 @@ def ssl_payment_request_test(request, pk, id, pk2):
     payment.transaction_id = post_body['tran_id']
     payment.prescription = prescription
     
-    # payment.consulation_fee = appointment.doctor.consultation_fee
-    # payment.report_fee = appointment.doctor.report_fee
+    # payment.consulation_fee = appointment.professional.consultation_fee
+    # payment.report_fee = appointment.professional.report_fee
     payment.invoice_number = invoice_number
     
     payment_type = "test"
@@ -359,7 +359,7 @@ def ssl_payment_success(request):
             patient_name = payment.patient.name
             patient_username = payment.patient.username
             patient_phone_number = payment.patient.phone_number
-            doctor_name = appointment.doctor.name
+            professional_name = appointment.professional.name
         
             subject = "Payment Receipt for appointment"
             
@@ -368,7 +368,7 @@ def ssl_payment_success(request):
                     "name":patient_name,
                     "username":patient_username,
                     "phone_number":patient_phone_number,
-                    "doctor_name":doctor_name,
+                    "professional_name":professional_name,
                     "tran_id":payment_data['tran_id'],
                     "currency_amount":payment_data['currency_amount'],
                     "card_type":payment_data['card_type'],

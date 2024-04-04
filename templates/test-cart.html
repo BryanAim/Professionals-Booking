@@ -44,8 +44,8 @@
 			{% include 'patient_navbar.html' %}
 			{% endif %}
 
-			{% if user.is_authenticated and user.is_doctor %}
-			{% include 'doctor-navbar.html' %}
+			{% if user.is_authenticated and user.is_professional %}
+			{% include 'professional-navbar.html' %}
 			{% endif %}
 
 		</header>
@@ -62,8 +62,8 @@
 								<li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
 								{% endif %}
 
-								{% if user.is_authenticated and user.is_doctor %}
-								<li class="breadcrumb-item"><a href="{% url 'doctor-dashboard' %}">Home</a></li>
+								{% if user.is_authenticated and user.is_professional %}
+								<li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
 								{% endif %}
 								<li class="breadcrumb-item active" aria-current="page">Test Cart</li>
 							</ol>
@@ -89,8 +89,8 @@
 							{% include 'patient-sidebar.html' %}
 							{% endif %}
 
-							{% if user.is_authenticated and user.is_doctor %}
-							{% include 'doctor-sidebar.html' %}
+							{% if user.is_authenticated and user.is_professional %}
+							{% include 'professional-sidebar.html' %}
 							{% endif %}
 
 

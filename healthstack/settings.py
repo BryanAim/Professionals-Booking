@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hospital.apps.HospitalConfig',
     'hospital_admin.apps.HospitalAdminConfig',
-    'doctor.apps.DoctorConfig',
+    'professional.apps.ProfessionalConfig',
     'pharmacy.apps.PharmacyConfig',
     'sslcommerz.apps.SslcommerzConfig',
     'widget_tweaks',

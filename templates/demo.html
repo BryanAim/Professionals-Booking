@@ -65,9 +65,9 @@
 							<a href="{% url 'hospital_home'%}">Home</a>
 						</li>
 						<li class="has-submenu active">
-							<a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
+							<a href="#">Professionals <i class="fas fa-chevron-down"></i></a>
 							<ul class="submenu">
-								<li><a href="{% url 'doctor-dashboard'%}">Doctor Dashboard</a></li>
+								<li><a href="{% url 'professional-dashboard'%}">Professional Dashboard</a></li>
 								<li><a href="{% url 'appointments'%}">Appointments</a></li>
 								<li><a href="{% url 'schedule-timings'%}">Schedule Timing</a></li>
 								<li><a href="{% url 'my-patients'%}">Patients List</a></li>
@@ -75,19 +75,19 @@
 								<!-- <li><a href="#">Chat</a></li>
 						  <li><a href="#">Invoices</a></li> -->
 								<li>
-									<a href="{% url 'doctor-profile-settings'%}">Profile Settings</a>
+									<a href="{% url 'professional-profile-settings'%}">Profile Settings</a>
 								</li>
 								<!-- <li><a href="reviews.html">Reviews</a></li> -->
 								<!-- <li class="active">
-							<a href="doctor-register.html">Doctor Register</a>
+							<a href="professional-register.html">Professional Register</a>
 						  </li> -->
 							</ul>
 						</li>
 						<li class="has-submenu">
 							<a href="#">Patients <i class="fas fa-chevron-down"></i></a>
 							<ul class="submenu">
-								<li><a href="{% url 'search'%}">Search Doctor</a></li>
-								<li><a href="{% url 'doctor-profile'%}">Doctor Profile</a></li>
+								<li><a href="{% url 'search'%}">Search Professional</a></li>
+								<li><a href="{% url 'professional-profile'%}">Professional Profile</a></li>
 								<li><a href="{% url 'booking'%}">Booking</a></li>
 								<!-- <li><a href="#">Checkout</a></li> -->
 								<li><a href="{% url 'booking-success'%}">Booking Success</a></li>
@@ -108,7 +108,7 @@
 						<ul class="submenu">
 						  <li><a href="voice-call.html">Voice Call</a></li>
 						  <li><a href="video-call.html">Video Call</a></li>
-						  <li><a href="search.html">Search Doctors</a></li>
+						  <li><a href="search.html">Search Professionals</a></li>
 						  <li><a href="calendar.html">Calendar</a></li>
 						  <li><a href="components.html">Components</a></li>
 						  <li class="has-submenu">
@@ -238,7 +238,7 @@
 										<li>
 											<a href="{% url 'search'%}">
 												<i class="fas fa-user-md"></i>
-												<span>Search Doctor</span>
+												<span>Search Professional</span>
 											</a>
 										</li>
 										<li>
@@ -450,7 +450,7 @@
 							<div class="footer-widget footer-menu">
 								<h2 class="footer-title">For Patients</h2>
 								<ul>
-									<li><a href="search.html"><i class="fas fa-angle-double-right"></i> Search for Doctors</a></li>
+									<li><a href="search.html"><i class="fas fa-angle-double-right"></i> Search for Professionals</a></li>
 									<li><a href="login.html"><i class="fas fa-angle-double-right"></i> Login</a></li>
 									<li><a href="register.html"><i class="fas fa-angle-double-right"></i> Register</a></li>
 									<li><a href="booking.html"><i class="fas fa-angle-double-right"></i> Booking</a></li>
@@ -466,13 +466,14 @@
 
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">For Doctors</h2>
+								<h2 class="footer-title">For Professionals</h2>
 								<ul>
 									<li><a href="appointments.html"><i class="fas fa-angle-double-right"></i> Appointments</a></li>
 									<li><a href="chat.html"><i class="fas fa-angle-double-right"></i> Chat</a></li>
 									<li><a href="login.html"><i class="fas fa-angle-double-right"></i> Login</a></li>
-									<li><a href="doctor-register.html"><i class="fas fa-angle-double-right"></i> Register</a></li>
-									<li><a href="doctor-dashboard.html"><i class="fas fa-angle-double-right"></i> Doctor Dashboard</a>
+									<li><a href="professional-register.html"><i class="fas fa-angle-double-right"></i> Register</a></li>
+									<li><a href="professional-dashboard.html"><i class="fas fa-angle-double-right"></i> Professional
+											Dashboard</a>
 									</li>
 								</ul>
 							</div>

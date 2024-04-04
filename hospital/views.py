@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 # from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm, PatientForm, PasswordResetForm
 from hospital.models import Hospital_Information, User, Patient 
-from doctor.models import Test, testCart, testOrder
+from professional.models import Test, testCart, testOrder
 from hospital_admin.models import hospital_department, specialization, service, Test_Information
 from django.views.decorators.cache import cache_control
 from django.contrib.auth import login, authenticate, logout
@@ -18,9 +18,9 @@ from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-from .utils import searchDoctors, searchHospitals, searchDepartmentDoctors, paginateHospitals
+from .utils import searchProfessionals, searchHospitals, searchDepartmentProfessionals, paginateHospitals
 from .models import Patient, User
-from doctor.models import Doctor_Information, Appointment,Report, Specimen, Test, Prescription, Prescription_medicine, Prescription_test
+from professional.models import Professional_Information, Appointment,Report, Specimen, Test, Prescription, Prescription_medicine, Prescription_test
 from sslcommerz.models import Payment
 from django.db.models import Q, Count
 import re
@@ -39,9 +39,9 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def hospital_home(request):
     # .order_by('-created_at')[:6]
-    doctors = Doctor_Information.objects.filter(register_status='Accepted')
+    professionals = Professional_Information.objects.filter(register_status='Accepted')
     hospitals = Hospital_Information.objects.all()
-    context = {'doctors': doctors, 'hospitals': hospitals} 
+    context = {'professionals': professionals, 'hospitals': hospitals} 
     return render(request, 'index-2.html', context)
 
 @csrf_exempt
@@ -124,20 +124,20 @@ def about_us(request):
 @login_required(login_url="login")
 def chat(request, pk):
     patient = Patient.objects.get(user_id=pk)
-    doctors = Doctor_Information.objects.all()
+    professionals = Professional_Information.objects.all()
 
-    context = {'patient': patient, 'doctors': doctors}
+    context = {'patient': patient, 'professionals': professionals}
     return render(request, 'chat.html', context)
 
 @csrf_exempt
 @login_required(login_url="login")
-def chat_doctor(request):
-    if request.user.is_doctor:
-        doctor = Doctor_Information.objects.get(user=request.user)
+def chat_professional(request):
+    if request.user.is_professional:
+        professional = Professional_Information.objects.get(user=request.user)
         patients = Patient.objects.all()
         
-    context = {'patients': patients, 'doctor': doctor}
-    return render(request, 'chat-doctor.html', context)
+    context = {'patients': patients, 'professional': professional}
+    return render(request, 'chat-professional.html', context)
 
 @csrf_exempt     
 @login_required(login_url="login")
@@ -291,10 +291,10 @@ def search(request):
     if request.user.is_authenticated and request.user.is_patient:
         # patient = Patient.objects.get(user_id=pk)
         patient = Patient.objects.get(user=request.user)
-        doctors = Doctor_Information.objects.filter(register_status='Accepted')
+        professionals = Professional_Information.objects.filter(register_status='Accepted')
         
-        doctors, search_query = searchDoctors(request)
-        context = {'patient': patient, 'doctors': doctors, 'search_query': search_query}
+        professionals, search_query = searchProfessionals(request)
+        context = {'patient': patient, 'professionals': professionals, 'search_query': search_query}
         return render(request, 'search.html', context)
     else:
         logout(request)
@@ -314,7 +314,7 @@ def multiple_hospital(request):
         if request.user.is_patient:
             # patient = Patient.objects.get(user_id=pk)
             patient = Patient.objects.get(user=request.user)
-            doctors = Doctor_Information.objects.all()
+            professionals = Professional_Information.objects.all()
             hospitals = Hospital_Information.objects.all()
             
             hospitals, search_query = searchHospitals(request)
@@ -322,16 +322,16 @@ def multiple_hospital(request):
             # PAGINATION ADDED TO MULTIPLE HOSPITALS
             custom_range, hospitals = paginateHospitals(request, hospitals, 3)
         
-            context = {'patient': patient, 'doctors': doctors, 'hospitals': hospitals, 'search_query': search_query, 'custom_range': custom_range}
+            context = {'patient': patient, 'professionals': professionals, 'hospitals': hospitals, 'search_query': search_query, 'custom_range': custom_range}
             return render(request, 'multiple-hospital.html', context)
         
-        elif request.user.is_doctor:
-            doctor = Doctor_Information.objects.get(user=request.user)
+        elif request.user.is_professional:
+            professional = Professional_Information.objects.get(user=request.user)
             hospitals = Hospital_Information.objects.all()
             
             hospitals, search_query = searchHospitals(request)
             
-            context = {'doctor': doctor, 'hospitals': hospitals, 'search_query': search_query}
+            context = {'professional': professional, 'hospitals': hospitals, 'search_query': search_query}
             return render(request, 'multiple-hospital.html', context)
     else:
         logout(request)
@@ -346,7 +346,7 @@ def hospital_profile(request, pk):
         
         if request.user.is_patient:
             patient = Patient.objects.get(user=request.user)
-            doctors = Doctor_Information.objects.all()
+            professionals = Professional_Information.objects.all()
             hospitals = Hospital_Information.objects.get(hospital_id=pk)
         
             departments = hospital_department.objects.filter(hospital=hospitals)
@@ -362,19 +362,19 @@ def hospital_profile(request, pk):
             #     vald = vald.replace(",", "")
             #     department_list = vald.split()
             
-            context = {'patient': patient, 'doctors': doctors, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations, 'services': services}
+            context = {'patient': patient, 'professionals': professionals, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations, 'services': services}
             return render(request, 'hospital-profile.html', context)
         
-        elif request.user.is_doctor:
+        elif request.user.is_professional:
            
-            doctor = Doctor_Information.objects.get(user=request.user)
+            professional = Professional_Information.objects.get(user=request.user)
             hospitals = Hospital_Information.objects.get(hospital_id=pk)
             
             departments = hospital_department.objects.filter(hospital=hospitals)
             specializations = specialization.objects.filter(hospital=hospitals)
             services = service.objects.filter(hospital=hospitals)
             
-            context = {'doctor': doctor, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations, 'services': services}
+            context = {'professional': professional, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations, 'services': services}
             return render(request, 'hospital-profile.html', context)
     else:
         logout(request)
@@ -393,20 +393,20 @@ def hospital_department_list(request, pk):
         if request.user.is_patient:
             # patient = Patient.objects.get(user_id=pk)
             patient = Patient.objects.get(user=request.user)
-            doctors = Doctor_Information.objects.all()
+            professionals = Professional_Information.objects.all()
             
             hospitals = Hospital_Information.objects.get(hospital_id=pk)
             departments = hospital_department.objects.filter(hospital=hospitals)
         
-            context = {'patient': patient, 'doctors': doctors, 'hospitals': hospitals, 'departments': departments}
+            context = {'patient': patient, 'professionals': professionals, 'hospitals': hospitals, 'departments': departments}
             return render(request, 'hospital-department.html', context)
         
-        elif request.user.is_doctor:
-            doctor = Doctor_Information.objects.get(user=request.user)
+        elif request.user.is_professional:
+            professional = Professional_Information.objects.get(user=request.user)
             hospitals = Hospital_Information.objects.get(hospital_id=pk)
             departments = hospital_department.objects.filter(hospital=hospitals)
             
-            context = {'doctor': doctor, 'hospitals': hospitals, 'departments': departments}
+            context = {'professional': professional, 'hospitals': hospitals, 'departments': departments}
             return render(request, 'hospital-department.html', context)
     else:
         logout(request)
@@ -415,29 +415,29 @@ def hospital_department_list(request, pk):
 
 @csrf_exempt
 @login_required(login_url="login")
-def hospital_doctor_list(request, pk):
+def hospital_professional_list(request, pk):
     if request.user.is_authenticated and request.user.is_patient:
         # patient = Patient.objects.get(user_id=pk)
         patient = Patient.objects.get(user=request.user)
         departments = hospital_department.objects.get(hospital_department_id=pk)
-        doctors = Doctor_Information.objects.filter(department_name=departments)
+        professionals = Professional_Information.objects.filter(department_name=departments)
         
-        doctors, search_query = searchDepartmentDoctors(request, pk)
+        professionals, search_query = searchDepartmentProfessionals(request, pk)
         
-        context = {'patient': patient, 'department': departments, 'doctors': doctors, 'search_query': search_query, 'pk_id': pk}
-        return render(request, 'hospital-doctor-list.html', context)
+        context = {'patient': patient, 'department': departments, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
+        return render(request, 'hospital-professional-list.html', context)
 
-    elif request.user.is_authenticated and request.user.is_doctor:
+    elif request.user.is_authenticated and request.user.is_professional:
         # patient = Patient.objects.get(user_id=pk)
         
-        doctor = Doctor_Information.objects.get(user=request.user)
+        professional = Professional_Information.objects.get(user=request.user)
         departments = hospital_department.objects.get(hospital_department_id=pk)
         
-        doctors = Doctor_Information.objects.filter(department_name=departments)
-        doctors, search_query = searchDepartmentDoctors(request, pk)
+        professionals = Professional_Information.objects.filter(department_name=departments)
+        professionals, search_query = searchDepartmentProfessionals(request, pk)
         
-        context = {'doctor':doctor, 'department': departments, 'doctors': doctors, 'search_query': search_query, 'pk_id': pk}
-        return render(request, 'hospital-doctor-list.html', context)
+        context = {'professional':professional, 'department': departments, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
+        return render(request, 'hospital-professional-list.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
@@ -447,11 +447,11 @@ def hospital_doctor_list(request, pk):
 
 @csrf_exempt
 @login_required(login_url="login")
-def hospital_doctor_register(request, pk):
+def hospital_professional_register(request, pk):
     if request.user.is_authenticated: 
         
-        if request.user.is_doctor:
-            doctor = Doctor_Information.objects.get(user=request.user)
+        if request.user.is_professional:
+            professional = Professional_Information.objects.get(user=request.user)
             hospitals = Hospital_Information.objects.get(hospital_id=pk)
             
             departments = hospital_department.objects.filter(hospital=hospitals)
@@ -461,7 +461,7 @@ def hospital_doctor_register(request, pk):
                 if 'certificate_image' in request.FILES:
                     certificate_image = request.FILES['certificate_image']
                 else:
-                    certificate_image = "doctors_certificate/default.png"
+                    certificate_image = "professionals_certificate/default.png"
                 
                 department_id_selected = request.POST.get('department_radio')
                 specialization_id_selected = request.POST.get('specialization_radio')
@@ -469,24 +469,24 @@ def hospital_doctor_register(request, pk):
                 department_chosen = hospital_department.objects.get(hospital_department_id=department_id_selected)
                 specialization_chosen = specialization.objects.get(specialization_id=specialization_id_selected)
                 
-                doctor.department_name = department_chosen
-                doctor.specialization = specialization_chosen
-                doctor.register_status = 'Pending'
-                doctor.certificate_image = certificate_image
+                professional.department_name = department_chosen
+                professional.specialization = specialization_chosen
+                professional.register_status = 'Pending'
+                professional.certificate_image = certificate_image
                 
-                doctor.save()
+                professional.save()
                 
                 messages.success(request, 'Hospital Registration Request Sent')
                 
-                return redirect('doctor-dashboard')
+                return redirect('professional-dashboard')
                 
                  
-            context = {'doctor': doctor, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations}
-            return render(request, 'hospital-doctor-register.html', context)
+            context = {'professional': professional, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations}
+            return render(request, 'hospital-professional-register.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'doctor-login.html')
+        return render(request, 'professional-login.html')
     
    
 def testing(request):

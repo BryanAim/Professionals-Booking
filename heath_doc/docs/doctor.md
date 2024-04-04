@@ -1,21 +1,20 @@
-# Welcome to Doctor
+# Welcome to Professional
 
-We have developed a convenient doctor/patient interface to bring you a service that allows you to have a medical consultation.
+We have developed a convenient professional/patient interface to bring you a service that allows you to have a medical consultation.
 
-##  The main duties of a Doctor :
+## The main duties of a Professional :
 
-- Accept or  appointments from patients.
+- Accept or appointments from patients.
 - View patient profile after accepting appointments.
 - Can register himself to a specific hospital.
 - Search patients.
 - Create prescription.
 - Sending mail to the patient about appointment confirmation.
 - Chat with patient.
-- Doctor Profile settings.
-
-
+- Professional Profile settings.
 
 ## Accepting Appointments of patients
+
 ```python
 def accept_appointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
@@ -26,79 +25,83 @@ def accept_appointment(request, pk):
     patient_name = appointment.patient.name
     patient_username = appointment.patient.username
     patient_serial_number = appointment.patient.serial_number
-    doctor_name = appointment.doctor.name
+    professional_name = appointment.professional.name
 
     appointment_serial_number = appointment.serial_number
     appointment_date = appointment.date
     appointment_time = appointment.time
     appointment_status = appointment.appointment_status
-    
+
     subject = "Appointment Acceptance Email"
-    
+
     values = {
             "email":patient_email,
             "name":patient_name,
             "username":patient_username,
             "serial_number":patient_serial_number,
-            "doctor_name":doctor_name,
+            "professional_name":professional_name,
             "appointment_serial_num":appointment_serial_number,
             "appointment_date":appointment_date,
             "appointment_time":appointment_time,
             "appointment_status":appointment_status,
     }
-    
+
     html_message = render_to_string('appointment_accept_mail.html', {'values': values})
     plain_message = strip_tags(html_message)
-    
+
     try:
         send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
-    
+
     messages.success(request, 'Appointment Accepted')
-    
-    return redirect('doctor-dashboard')
+
+    return redirect('professional-dashboard')
 ```
 
-## Doctor Dashboard 
-![title](doctor/Screenshot (218).png)
+## Professional Dashboard
 
-## Doctor Profile
-![title](doctor/Screenshot (219).png)
+![title](professional/Screenshot (218).png)
+
+## Professional Profile
+
+![title](professional/Screenshot (219).png)
 
 ## Search Hospital
-![title](doctor/Screenshot (220).png)
+
+![title](professional/Screenshot (220).png)
 
 ## Search Patients
 
 ```python
 def patient_search(request, pk):
-    if request.user.is_authenticated and request.user.is_doctor:
-        doctor = Doctor_Information.objects.get(doctor_id=pk)
+    if request.user.is_authenticated and request.user.is_professional:
+        professional = Professional_Information.objects.get(professional_id=pk)
         id = int(request.GET['search_query'])
         patient = Patient.objects.get(patient_id=id)
-        prescription = Prescription.objects.filter(doctor=doctor).filter(patient=patient)
-        context = {'patient': patient, 'doctor': doctor, 'prescription': prescription}
+        prescription = Prescription.objects.filter(professional=professional).filter(patient=patient)
+        context = {'patient': patient, 'professional': professional, 'prescription': prescription}
         return render(request, 'patient-profile.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'doctor-login.html')
+        return render(request, 'professional-login.html')
 
 ```
 
 ## Create Prescription
+
 ```python
 def create_prescription(request,pk):
-        if request.user.is_doctor:
-            doctor = Doctor_Information.objects.get(user=request.user)
-            patient = Patient.objects.get(patient_id=pk) 
+        if request.user.is_professional:
+            professional = Professional_Information.objects.get(user=request.user)
+            patient = Patient.objects.get(patient_id=pk)
             create_date = datetime.date.today()
-            
+
 
             if request.method == 'POST':
-                prescription = Prescription(doctor=doctor, patient=patient)
-                
+                prescription = Prescription(professional=professional, patient=patient)
+
                 test_name= request.POST.getlist('test_name')
                 test_description = request.POST.getlist('description')
                 medicine_name = request.POST.getlist('medicine_name')
@@ -110,10 +113,10 @@ def create_prescription(request,pk):
                 extra_information = request.POST.get('extra_information')
                 test_info_id = request.POST.getlist('id')
 
-            
+
                 prescription.extra_information = extra_information
                 prescription.create_date = create_date
-                
+
                 prescription.save()
 
                 for i in range(len(medicine_name)):
@@ -133,16 +136,16 @@ def create_prescription(request,pk):
                     tests.test_info_id = test_info_id[i]
                     test_info = Test_Information.objects.get(test_id=test_info_id[i])
                     tests.test_info_price = test_info.test_price
-                   
+
                     tests.save()
 
                 messages.success(request, 'Prescription Created')
                 return redirect('patient-profile', pk=patient.patient_id)
-             
-        context = {'doctor': doctor,'patient': patient}  
+
+        context = {'professional': professional,'patient': patient}
         return render(request, 'create-prescription.html',context)
 ```
 
 ## Profile Settings
 
-![title](doctor/Screenshot (223).png)
+![title](professional/Screenshot (223).png)

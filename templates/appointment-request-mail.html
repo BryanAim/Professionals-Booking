@@ -1,8 +1,9 @@
 {% load static %}
 
-<h2>Dear Doctor {{ values.doctor_name }},</h2>
+<h2>Dear Professional {{ values.professional_name }},</h2>
 
-<p>Here is a receipt containing the payment details of your appointment for Doctor {{ values.doctor_name }} </p>
+<p>Here is a receipt containing the payment details of your appointment for Professional {{ values.professional_name }}
+</p>
 <p>You have received a message concerning an appointment from Patient {{ values.name }}. </p>
 
 <p>Message:</p>
@@ -14,4 +15,3 @@
 <p>Email: {{ values.email }}</p>
 <p>Username: {{ values.username }}</p>
 <p>Phone number: {{ values.phone_number }}</p>
-

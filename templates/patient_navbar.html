@@ -35,7 +35,7 @@
         <a href="#">Hospital <i class="fas fa-chevron-down"></i></a>
         <ul class="submenu">
           <li><a href="{% url 'multiple-hospital' %}">Hospital Info</a></li>
-          <li><a href="{% url 'search' %}">Search Doctor</a></li>
+          <li><a href="{% url 'search' %}">Search Professional</a></li>
 
           <!-- <li><a href="#">Checkout</a></li> -->
           <!-- <li>
@@ -49,7 +49,7 @@
 
       {% if user.is_authenticated and user.is_patient %}
       <li>
-        <a href="{% url 'chat-home' pk=user.id %}">Chat with Doctor</a>
+        <a href="{% url 'chat-home' pk=user.id %}">Chat with Professional</a>
       </li>
       {% endif %}
 
@@ -61,7 +61,7 @@
                   <ul class="submenu">
                     <li><a href="voice-call.html">Voice Call</a></li>
                     <li><a href="video-call.html">Video Call</a></li>
-                    <li><a href="search.html">Search Doctors</a></li>
+                    <li><a href="search.html">Search Professionals</a></li>
                     <li><a href="calendar.html">Calendar</a></li>
                     <li><a href="components.html">Components</a></li>
                     <li class="has-submenu">

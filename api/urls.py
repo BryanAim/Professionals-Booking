@@ -11,6 +11,6 @@ urlpatterns = [
     path('users/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     path('', views.getRoutes),
-    path('service_provider/', views.getHospitals),
-    path('service_provider/<int:pk>/', views.getHospitalProfile),
+    path('service_provider/', views.getServiceProviders),
+    path('service_provider/<int:pk>/', views.getServiceProviderProfile),
 ]

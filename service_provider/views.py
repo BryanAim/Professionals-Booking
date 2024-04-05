@@ -18,9 +18,9 @@ from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-from .utils import searchProfessionals, searchHospitals, searchDepartmentProfessionals, paginateHospitals
+from .utils import searchProfessionals, searchServiceProviders, searchDepartmentProfessionals, paginateServiceProviders
 from .models import Client, User
-from professional.models import Professional_Information, Appointment,Report, Specimen, Test, Prescription, Prescription_medicine, Prescription_test
+from professional.models import Professional_Information, Appointment,Report, Specimen, Test, Prescription, Prescription_product, Prescription_test
 from sslcommerz.models import Payment
 from django.db.models import Q, Count
 import re
@@ -317,10 +317,10 @@ def multiple_service_provider(request):
             professionals = Professional_Information.objects.all()
             service_providers = ServiceProvider.objects.all()
             
-            service_providers, search_query = searchHospitals(request)
+            service_providers, search_query = searchServiceProviders(request)
             
             # PAGINATION ADDED TO MULTIPLE HOSPITALS
-            custom_range, service_providers = paginateHospitals(request, service_providers, 3)
+            custom_range, service_providers = paginateServiceProviders(request, service_providers, 3)
         
             context = {'client': client, 'professionals': professionals, 'service_providers': service_providers, 'search_query': search_query, 'custom_range': custom_range}
             return render(request, 'multiple-service_provider.html', context)
@@ -329,7 +329,7 @@ def multiple_service_provider(request):
             professional = Professional_Information.objects.get(user=request.user)
             service_providers = ServiceProvider.objects.all()
             
-            service_providers, search_query = searchHospitals(request)
+            service_providers, search_query = searchServiceProviders(request)
             
             context = {'professional': professional, 'service_providers': service_providers, 'search_query': search_query}
             return render(request, 'multiple-service_provider.html', context)
@@ -476,7 +476,7 @@ def service_provider_professional_register(request, pk):
                 
                 professional.save()
                 
-                messages.success(request, 'Hospital Registration Request Sent')
+                messages.success(request, 'ServiceProvider Registration Request Sent')
                 
                 return redirect('professional-dashboard')
                 
@@ -554,7 +554,7 @@ def test_add_to_cart(request, pk, pk2):
             order.orderitems.add(order_item[0])
             return redirect("prescription-view", pk=pk)
 
-        context = {'client': client,'prescription_test': prescription_tests,'prescription':prescription,'prescription_medicine':prescription_medicine,'test_information':test_information}
+        context = {'client': client,'prescription_test': prescription_tests,'prescription':prescription,'prescription_product':prescription_product,'test_information':test_information}
         return render(request, 'prescription-view.html', context)
     else:
         logout(request)
@@ -596,7 +596,7 @@ def test_remove_cart(request, pk):
 
         client = Client.objects.get(user=request.user)
         prescription = Prescription.objects.filter(prescription_id=pk)
-        prescription_medicine = Prescription_medicine.objects.filter(prescription__in=prescription)
+        prescription_product = Prescription_product.objects.filter(prescription__in=prescription)
         prescription_test = Prescription_test.objects.filter(prescription__in=prescription)
         test_carts = testCart.objects.filter(user=request.user, purchased=False)
         
@@ -613,11 +613,11 @@ def test_remove_cart(request, pk):
                 return render(request, 'test-cart.html', context)
             else:
                 # messages.info(request, "This test was not in your cart")
-                context = {'client': client,'test': item,'prescription':prescription,'prescription_medicine':prescription_medicine,'prescription_test':prescription_test}
+                context = {'client': client,'test': item,'prescription':prescription,'prescription_product':prescription_product,'prescription_test':prescription_test}
                 return render(request, 'prescription-view.html', context)
         else:
             # messages.info(request, "You don't have an active order")
-            context = {'client': client,'test': item,'prescription':prescription,'prescription_medicine':prescription_medicine,'prescription_test':prescription_test}
+            context = {'client': client,'test': item,'prescription':prescription,'prescription_product':prescription_product,'prescription_test':prescription_test}
             return redirect('prescription-view', pk=prescription.prescription_id)
     else:
         logout(request)
@@ -629,10 +629,10 @@ def prescription_view(request,pk):
       if request.user.is_client:
         client = Client.objects.get(user=request.user)
         prescription = Prescription.objects.filter(prescription_id=pk)
-        prescription_medicine = Prescription_medicine.objects.filter(prescription__in=prescription)
+        prescription_product = Prescription_product.objects.filter(prescription__in=prescription)
         prescription_test = Prescription_test.objects.filter(prescription__in=prescription)
 
-        context = {'client':client,'prescription':prescription,'prescription_test':prescription_test,'prescription_medicine':prescription_medicine}
+        context = {'client':client,'prescription':prescription,'prescription_test':prescription_test,'prescription_product':prescription_product}
         return render(request, 'prescription-view.html',context)
       else:
          redirect('logout') 
@@ -669,10 +669,10 @@ def prescription_pdf(request,pk):
  if request.user.is_client:
     client = Client.objects.get(user=request.user)
     prescription = Prescription.objects.get(prescription_id=pk)
-    prescription_medicine = Prescription_medicine.objects.filter(prescription=prescription)
+    prescription_product = Prescription_product.objects.filter(prescription=prescription)
     prescription_test = Prescription_test.objects.filter(prescription=prescription)
     # current_date = datetime.date.today()
-    context={'client':client,'prescription':prescription,'prescription_test':prescription_test,'prescription_medicine':prescription_medicine}
+    context={'client':client,'prescription':prescription,'prescription_test':prescription_test,'prescription_product':prescription_product}
     pres_pdf=render_to_pdf('prescription_pdf.html', context)
     if pres_pdf:
         response=HttpResponse(pres_pdf, content_type='application/pres_pdf')

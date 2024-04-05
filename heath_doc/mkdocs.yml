@@ -6,7 +6,7 @@ nav:
   - Admin:
       - Labworker: Lab_worker.md
       - Pharmacist: Pharmacist.md
-      - Hospital Admin: service_provider_admin.md
+      - ServiceProvider Admin: service_provider_admin.md
   - Professional Dashboard: professional.md
   - Client Dashboard: client.md
   - ABOUT: page2.md

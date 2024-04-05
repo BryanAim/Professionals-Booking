@@ -67,7 +67,7 @@ def accept_appointment(request, pk):
 
 ![title](professional/Screenshot (219).png)
 
-## Search Hospital
+## Search ServiceProvider
 
 ![title](professional/Screenshot (220).png)
 

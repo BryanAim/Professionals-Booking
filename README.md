@@ -13,11 +13,11 @@
 
 ## Features
 
-- **Users:** User, Professional, Hospital Admin, Lab Worker, Pharmacist
+- **Users:** User, Professional, ServiceProvider Admin, Lab Worker, Pharmacist
 
 ### User
 
-      1)  Search multiple Hospital → Department List → Search for Professionals
+      1)  Search multiple ServiceProvider → Department List → Search for Professionals
       2)  Professional Profile → Book Appointment
       3)  Pay Appointment + Mail Confirmation
       4)  Search all Professionals in all service_providers
@@ -32,17 +32,17 @@
 ### Professional
 
       1)  Professional Profile Settings (Add More feature)
-      2)  Search multiple Hospital → Professional register to service_provider + upload certificate
+      2)  Search multiple ServiceProvider → Professional register to service_provider + upload certificate
       3)  (Once registered by admin) accept or reject clients appointment (mail confirmation send to client)
       4)  Search client profile → Create and view Prescription, view report
       5)  Chat with appointed User
 
-### Hospital Admin
+### ServiceProvider Admin
 
       1)  Admin Dashboard
       2)  Accept or reject professional registration (view professional profile to see details)
-      3)  CRUD Hospitals (Add more)
-      4)  View Hospital List → CRUD Departments within service_provider
+      3)  CRUD ServiceProviders (Add more)
+      4)  View ServiceProvider List → CRUD Departments within service_provider
       5)  CRUD Lab Worker
       6)  CRUD Pharmacist
 

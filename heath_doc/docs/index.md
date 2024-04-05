@@ -19,7 +19,7 @@ Healthstack is an internet platform that supports numerous service_providers. It
 ## Fetures
 
 - Professional Profile
-- Multiple Hospital
+- Multiple ServiceProvider
 - Online Appointment
 - Presctiption,Test
 - Report

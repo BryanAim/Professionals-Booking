@@ -15,7 +15,7 @@ from pharmacy.models import Product, Pharmacist
 from professional.models import Professional_Information, Prescription, Prescription_test, Report, Appointment, Experience , Education,Specimen,Test
 from pharmacy.models import ServiceOrder, Cart
 from sslcommerz.models import Payment
-from .forms import AdminUserCreationForm, LabWorkerCreationForm, EditHospitalForm, EditEmergencyForm,AdminForm , PharmacistCreationForm 
+from .forms import AdminUserCreationForm, LabWorkerCreationForm, EditServiceProviderForm, EditEmergencyForm,AdminForm , PharmacistCreationForm 
 
 from .models import Admin_Information,specialization,service,ServiceDepartment, Clinical_Laboratory_Technician, Test_Information
 import random,re
@@ -272,7 +272,7 @@ def add_hospital(request):
             description = request.POST.get('description')
             email = request.POST.get('email')
             phone_number = request.POST.get('phone_number') 
-            hospital_type = request.POST.get('type')
+            service_type = request.POST.get('type')
             specialization_name = request.POST.getlist('specialization')
             department_name = request.POST.getlist('department')
             service_name = request.POST.getlist('service')
@@ -284,7 +284,7 @@ def add_hospital(request):
             hospital.email = email
             hospital.phone_number =phone_number
             hospital.featured_image=featured_image 
-            hospital.hospital_type=hospital_type
+            hospital.service_type=service_type
             
             # print(department_name[0])
          
@@ -306,7 +306,7 @@ def add_hospital(request):
                 services.service_name = service_name[i]
                 services.save()
             
-            messages.success(request, 'Hospital Added')
+            messages.success(request, 'ServiceProvider Added')
             return redirect('hospital-list')
 
         context = { 'admin': user}
@@ -343,7 +343,7 @@ def edit_hospital(request, pk):
             description = request.POST.get('description')
             email = request.POST.get('email')
             phone_number = request.POST.get('phone_number') 
-            hospital_type = request.POST.get('type')
+            service_type = request.POST.get('type')
             
             specialization_name = request.POST.getlist('specialization')
             department_name = request.POST.getlist('department')
@@ -355,7 +355,7 @@ def edit_hospital(request, pk):
             hospital.email = email
             hospital.phone_number =phone_number
             hospital.featured_image =featured_image 
-            hospital.hospital_type =hospital_type
+            hospital.service_type =service_type
             
             # specializations.specialization_name=specialization_name
             # services.service_name = service_name
@@ -380,7 +380,7 @@ def edit_hospital(request, pk):
                 departments.ServiceDepartment_name = department_name[i]
                 departments.save()
 
-            messages.success(request, 'Hospital Updated')
+            messages.success(request, 'ServiceProvider Updated')
             return redirect('hospital-list')
 
 @csrf_exempt

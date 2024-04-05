@@ -4,7 +4,7 @@ from professional.models import Professional_Information
 
 # Serialization --> convert python data (from our database models) to JSON data
 
-class HospitalSerializer(serializers.ModelSerializer):
+class ServiceProviderSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceProvider
         fields = '__all__'

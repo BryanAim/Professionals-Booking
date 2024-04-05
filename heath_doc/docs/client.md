@@ -49,7 +49,7 @@ def service_provider_profile(request, pk):
         return render(request, 'client-login.html')
 ```
 
-## View Multiple Hospital Information
+## View Multiple ServiceProvider Information
 
 ![title](client/Screenshot (254).png)
 ![title](client/Screenshot (253).png)
@@ -162,10 +162,10 @@ def service_provider_professional_list(request, pk):
       if request.user.is_client:
         client = Client.objects.get(user=request.user)
         prescription = Prescription.objects.filter(prescription_id=pk)
-        prescription_medicine = Prescription_medicine.objects.filter(prescription__in=prescription)
+        prescription_product = Prescription_medicine.objects.filter(prescription__in=prescription)
         prescription_test = Prescription_test.objects.filter(prescription__in=prescription)
 
-        context = {'client':client,'prescription':prescription,'prescription_test':prescription_test,'prescription_medicine':prescription_medicine}
+        context = {'client':client,'prescription':prescription,'prescription_test':prescription_test,'prescription_product':prescription_product}
         return render(request, 'prescription-view.html',context)
       else:
          redirect('logout')

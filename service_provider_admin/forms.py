@@ -54,24 +54,24 @@ class PharmacistCreationForm(UserCreationForm):
 
 
 
-class AddHospitalForm(ModelForm):
+class AddServiceProviderForm(ModelForm):
     class Meta:
         model = ServiceProvider
-        fields = ['name','address','featured_image','phone_number','email','hospital_type']
+        fields = ['name','address','featured_image','phone_number','email','service_type']
 
     def __init__(self, *args, **kwargs):
-        super(AddHospitalForm, self).__init__(*args, **kwargs)
+        super(AddServiceProviderForm, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
 
-class EditHospitalForm(forms.ModelForm):
+class EditServiceProviderForm(forms.ModelForm):
     class Meta:
         model = ServiceProvider
-        fields = ['name','address','featured_image','phone_number','email','hospital_type']
+        fields = ['name','address','featured_image','phone_number','email','service_type']
 
     def __init__(self, *args, **kwargs):
-        super(EditHospitalForm, self).__init__(*args, **kwargs)
+        super(EditServiceProviderForm, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})

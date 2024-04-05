@@ -12,6 +12,6 @@
 
 ![title](home/Screenshot (203).png)
 
-## Avaiable Hospital
+## Avaiable ServiceProvider
 
 ![title](home/Screenshot (204).png)

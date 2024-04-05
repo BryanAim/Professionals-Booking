@@ -23,7 +23,7 @@ def searchProfessionals(request):
 
 
 
-def searchHospitals(request):
+def searchServiceProviders(request):
     
     search_query = ''
     
@@ -36,7 +36,7 @@ def searchHospitals(request):
     return service_providers, search_query
 
 
-def paginateHospitals(request, service_providers, results):
+def paginateServiceProviders(request, service_providers, results):
 
     page = request.GET.get('page')
     paginator = Paginator(service_providers, results)

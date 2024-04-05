@@ -1,14 +1,14 @@
-# Welcome To Hospital Admin
+# Welcome To ServiceProvider Admin
 
-Hospital Admin is a cruical User for our project.
+ServiceProvider Admin is a cruical User for our project.
 
-## Hospital Admin Task
+## ServiceProvider Admin Task
 
 - Accept / Reject Professional
 - Add and View Labworker
 - Add and View Pharmacist
-- Add,Edit and View Hospital
-- Update Hospital Information
+- Add,Edit and View ServiceProvider
+- Update ServiceProvider Information
 
 # Accept/Reject professional
 
@@ -148,7 +148,7 @@ def add_pharmacist(request):
 ![title](admins/add pharmacist.png)
 ![title](admins/view pharmacist.png)
 
-# Add,Edit and View Hospital
+# Add,Edit and View ServiceProvider
 
 ```python
 def add_service_provider(request):
@@ -202,7 +202,7 @@ def add_service_provider(request):
                 services.service_name = service_name[i]
                 services.save()
 
-            messages.success(request, 'Hospital Added')
+            messages.success(request, 'ServiceProvider Added')
             return redirect('service_provider-list')
 
         context = { 'admin': user}
@@ -211,7 +211,7 @@ def add_service_provider(request):
 
 ![title](admins/add service_provider info.png)
 
-# Edit Hospital Information
+# Edit ServiceProvider Information
 
 ```python
 def edit_service_provider(request, pk):
@@ -275,7 +275,7 @@ def edit_service_provider(request, pk):
                 departments.ServiceDepartment_name = department_name[i]
                 departments.save()
 
-            messages.success(request, 'Hospital Updated')
+            messages.success(request, 'ServiceProvider Updated')
             return redirect('service_provider-list')
 
 ```

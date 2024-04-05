@@ -85,10 +85,10 @@
 								{% if user.is_authenticated and user.is_professional %}
 								<li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
 								{% endif %}
-								<li class="breadcrumb-item active" aria-current="page">Hospital Profile</li>
+								<li class="breadcrumb-item active" aria-current="page">ServiceProvider Profile</li>
 							</ol>
 						</nav>
-						<h2 class="breadcrumb-title">Hospital Profile</h2>
+						<h2 class="breadcrumb-title">ServiceProvider Profile</h2>
 					</div>
 				</div>
 			</div>
@@ -133,7 +133,7 @@
 											</div>
 											<div class="doc-info-cont col-md-6 col-lg-6">
 												<h4 class="doc-name">{{service_providers.name}}</h4>
-												<p class="doc-speciality">{{service_providers.service_provider_type}} Hospital</p>
+												<p class="doc-speciality">{{service_providers.service_provider_type}} ServiceProvider</p>
 
 												{% comment %} <div class="rating">
 													<i class="fas fa-star filled"></i>
@@ -266,7 +266,7 @@
 
 												<!-- About Details -->
 												<div class="widget about-widget">
-													<h4 class="widget-title">About Our Hospital</h4>
+													<h4 class="widget-title">About Our ServiceProvider</h4>
 													<p>{{service_providers.description}}</p>
 												</div>
 												<!-- /About Details -->

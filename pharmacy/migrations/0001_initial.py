@@ -25,17 +25,17 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Medicine',
+            name='Product',
             fields=[
                 ('serial_number', models.AutoField(primary_key=True, serialize=False)),
-                ('medicine_id', models.CharField(blank=True, max_length=200, null=True)),
+                ('product_id', models.CharField(blank=True, max_length=200, null=True)),
                 ('name', models.CharField(blank=True, max_length=200, null=True)),
                 ('weight', models.CharField(blank=True, max_length=200, null=True)),
                 ('quantity', models.IntegerField(blank=True, default=0, null=True)),
-                ('featured_image', models.ImageField(blank=True, default='medicines/default.png', null=True, upload_to='medicines/')),
+                ('featured_image', models.ImageField(blank=True, default='products/default.png', null=True, upload_to='products/')),
                 ('description', models.TextField(blank=True, null=True)),
-                ('medicine_type', models.CharField(blank=True, choices=[('tablets', 'tablets'), ('syrup', 'syrup'), ('capsule', 'capsule'), ('general', 'general')], max_length=200, null=True)),
-                ('medicine_category', models.CharField(blank=True, choices=[('fever', 'fever'), ('pain', 'pain'), ('cough', 'cough'), ('cold', 'cold'), ('flu', 'flu'), ('diabetes', 'diabetes'), ('eye', 'eye'), ('ear', 'ear'), ('allergy', 'allergy'), ('asthma', 'asthma'), ('bloodpressure', 'bloodpressure'), ('heartdisease', 'heartdisease'), ('vitamins', 'vitamins'), ('digestivehealth', 'digestivehealth'), ('skin', 'skin'), ('infection', 'infection'), ('nurological', 'nurological')], max_length=200, null=True)),
+                ('product_type', models.CharField(blank=True, choices=[('tablets', 'tablets'), ('syrup', 'syrup'), ('capsule', 'capsule'), ('general', 'general')], max_length=200, null=True)),
+                ('product_category', models.CharField(blank=True, choices=[('fever', 'fever'), ('pain', 'pain'), ('cough', 'cough'), ('cold', 'cold'), ('flu', 'flu'), ('diabetes', 'diabetes'), ('eye', 'eye'), ('ear', 'ear'), ('allergy', 'allergy'), ('asthma', 'asthma'), ('bloodpressure', 'bloodpressure'), ('heartdisease', 'heartdisease'), ('vitamins', 'vitamins'), ('digestivehealth', 'digestivehealth'), ('skin', 'skin'), ('infection', 'infection'), ('nurological', 'nurological')], max_length=200, null=True)),
                 ('price', models.IntegerField(blank=True, default=0, null=True)),
                 ('stock_quantity', models.IntegerField(blank=True, default=0, null=True)),
                 ('Prescription_reqiuired', models.CharField(blank=True, choices=[('yes', 'yes'), ('no', 'no')], max_length=200, null=True)),
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Order',
+            name='ServiceOrder',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('ordered', models.BooleanField(default=False)),
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='cart',
             name='item',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pharmacy.medicine'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pharmacy.product'),
         ),
         migrations.AddField(
             model_name='cart',

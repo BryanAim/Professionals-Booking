@@ -74,7 +74,7 @@
 								</form>
 								<div class="chat-users-list">
 									<div class="chat-scroll">
-										{% for u in patient %} {% if not u.id == 1 and not u.id == user.id %}
+										{% for u in client %} {% if not u.id == 1 and not u.id == user.id %}
 										<a href="{% url 'chat-home' pk=user.id %}?u={{u.user.id}}" class="media">
 											<div class="media-img-wrap">
 												{%if u.user.login_status%}

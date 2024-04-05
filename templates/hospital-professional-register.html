@@ -99,8 +99,8 @@
   <div class="main-wrapper">
     <!-- Header -->
     <header class="header">
-      {% if user.is_authenticated and user.is_patient %}
-      {% include 'patient_navbar.html' %}
+      {% if user.is_authenticated and user.is_client %}
+      {% include 'client_navbar.html' %}
       {% endif %}
 
       {% if user.is_authenticated and user.is_professional %}
@@ -142,8 +142,8 @@
           <!-- / Profile Sidebar -->
 
           <div class="col-md-12 col-lg-8 col-xl-9">
-            <form action="{% url 'hospital-professional-register' pk=hospitals.hospital_id %}" method="POST"
-              enctype="multipart/form-data">
+            <form action="{% url 'service_provider-professional-register' pk=service_providers.service_provider_id %}"
+              method="POST" enctype="multipart/form-data">
               {% csrf_token %}
 
               <div class="card">
@@ -158,8 +158,8 @@
                         {% for department in departments %}
                         <div class="radio">
                           <label>
-                            <input type="radio" value="{{ department.hospital_department_id }}" name="department_radio">
-                            {{ department.hospital_department_name }}
+                            <input type="radio" value="{{ department.ServiceDepartment_id }}" name="department_radio">
+                            {{ department.ServiceDepartment_name }}
                           </label>
                         </div>
                         {% endfor %}

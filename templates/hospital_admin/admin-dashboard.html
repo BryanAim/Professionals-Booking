@@ -51,12 +51,12 @@
     <!-- Main Wrapper -->
     <div class="main-wrapper">
       <!-- Header -->
-      <header class="header">{% include 'hospital_admin/hospital-admin-navbar.html' %}</header>
+      <header class="header">{% include 'service_provider_admin/service_provider-admin-navbar.html' %}</header>
       <!-- /Header -->
 
       <!-- Sidebar -->
       <aside class="sidebar" id="sidebar">
-        {% include 'hospital_admin/hospital-admin-sidebar.html' %} </aside>
+        {% include 'service_provider_admin/service_provider-admin-sidebar.html' %} </aside>
       <!-- /Sidebar -->
 
       <!-- Page Wrapper -->
@@ -107,11 +107,11 @@
                       <i class="fe fe-users"></i>
                     </span>
                     <div class="dash-count">
-                      <h3>{{total_patient_count.count}}</h3>
+                      <h3>{{total_client_count.count}}</h3>
                     </div>
                   </div>
                   <div class="dash-widget-info">
-                    <h6 class="text-muted">Total Patients</h6>
+                    <h6 class="text-muted">Total Clients</h6>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-success w-50"></div>
                     </div>
@@ -127,7 +127,7 @@
                       <i class="fe fe-users"></i>
                     </span>
                     <div class="dash-count">
-                      <h3>{{total_hospital_count.count}}</h3>
+                      <h3>{{total_service_provider_count.count}}</h3>
                     </div>
                   </div>
                   <div class="dash-widget-info">
@@ -181,18 +181,18 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {% for hospital in hospitals%}
+                        {% for service_provider in service_providers%}
                         <tr>
                           <td>
                             <h2 class="table-avatar">
                               <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
-                                  src="{{hospital.featured_image.url}}" alt="User Image" /></a>
-                              <a href="#">{{hospital.name}}</a>
+                                  src="{{service_provider.featured_image.url}}" alt="User Image" /></a>
+                              <a href="#">{{service_provider.name}}</a>
                             </h2>
                           </td>
-                          <td>{{hospital.address}}</td>
-                          <td>{{hospital.email}}</td>
-                          <td>{{hospital.phone_number}}</td>
+                          <td>{{service_provider.address}}</td>
+                          <td>{{service_provider.email}}</td>
+                          <td>{{service_provider.phone_number}}</td>
 
                         </tr>
                         {% endfor %}
@@ -250,7 +250,7 @@
                           </td>
                           <td>{{professional.department}}</td>
                           <td>{{professional.speciality}}</td>
-                          <td>{{professional.hospital}}</td>
+                          <td>{{professional.service_provider}}</td>
 
                         </tr>
                         {% endfor %}
@@ -267,32 +267,32 @@
               <!-- Feed Activity -->
               <div class="card  card-table flex-fill">
                 <div class="card-header">
-                  <h4 class="card-title">Patients List</h4>
+                  <h4 class="card-title">Clients List</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table table-hover table-center mb-0">
                       <thead>
                         <tr>
-                          <th>Patient Name</th>
+                          <th>Client Name</th>
                           <th>Phone</th>
                           <th>Email</th>
                           <th>Address</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {% for patient in patients%}
+                        {% for client in clients%}
                         <tr>
                           <td>
                             <h2 class="table-avatar">
                               <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
-                                  src="{{patient.featured_image.url}}" alt="User Image"></a>
-                              <a href="#">{{patient.name}}</a>
+                                  src="{{client.featured_image.url}}" alt="User Image"></a>
+                              <a href="#">{{client.name}}</a>
                             </h2>
                           </td>
-                          <td>{{patient.phone_number}}</td>
-                          <td>{{patient.email}}</td>
-                          <td>{{patient.address}}</td>
+                          <td>{{client.phone_number}}</td>
+                          <td>{{client.email}}</td>
+                          <td>{{client.address}}</td>
                         </tr>
                         {% endfor %}
 
@@ -433,9 +433,9 @@
   <!-- Chart JS -->
 
   <script>
-    var total_patient_count = "{{total_patient_count.count}}";
+    var total_client_count = "{{total_client_count.count}}";
     var total_labworker_count = "{{total_labworker_count.count}}";
-    var total_hospital_count = "{{total_hospital_count.count}}";
+    var total_service_provider_count = "{{total_hospital_count.count}}";
     var total_pharmacist_count = "{{total_pharmacist_count.count}}";
 
     var sat = "{{sat}}";

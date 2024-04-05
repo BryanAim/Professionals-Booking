@@ -40,7 +40,7 @@
       </button>
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="{% url 'patient-dashboard'%}" class="nav-link">Dashboard</a></li>
+          <li class="nav-item"><a href="{% url 'client-dashboard'%}" class="nav-link">Dashboard</a></li>
           <li class="nav-item"><a href="{% url 'pharmacy_shop' %}" class="nav-link">Shop</a></li>
           <!-- <li class="nav-item"><a href="{% url 'cart' %}" class="nav-link">Cart</a></li> -->
           <!-- <li class="nav-item"><a href="{% url 'checkout' %}" class="nav-link">Checkout</a></li> -->
@@ -137,7 +137,7 @@
 
           </div>
           <p class="text-center"><a
-              href="{% url 'ssl-payment-request-medicine' pk=order.user.patient.patient_id id=order.id %}"
+              href="{% url 'ssl-payment-request-product' pk=order.user.client.client_id id=order.id %}"
               class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
         </div>
       </div>
@@ -150,10 +150,10 @@
         <div class="col-lg-6 col-md-6 mb-5 mb-md-5">
           <div class="ftco-footer-widget mb-8">
             <h2 class="ftco-heading-2">About Us</h2>
-            <p>Healthstack is an online based platform for multiple hospitals.
-              It Provides immediate medical assistance to patients who require emergency treatment.
-              Its Ability to track, monitor, and share a patient's health records between all hospitals
-              . Patients can also see information regarding multiple hospitals and professionals and make
+            <p>Healthstack is an online based platform for multiple service_providers.
+              It Provides immediate medical assistance to clients who require emergency treatment.
+              Its Ability to track, monitor, and share a client's health records between all service_providers
+              . Clients can also see information regarding multiple service_providers and professionals and make
               appointments online.
             </p>
 

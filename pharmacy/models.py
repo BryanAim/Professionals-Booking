@@ -3,7 +3,7 @@ from django.conf import settings
 import uuid
 from professional.models import Prescription
 
-from hospital.models import User, Patient
+from service_provider.models import User, Client
 
 
 # Create your models here.
@@ -23,57 +23,78 @@ class Pharmacist(models.Model):
         return str(self.user.username)
 
 
-class Medicine(models.Model):
-    MEDICINE_TYPE = (
-        ('tablets', 'tablets'),
-        ('syrup', 'syrup'),
-        ('capsule', 'capsule'),
-        ('general', 'general'),
-    )
-    REQUIREMENT_TYPE = (
-        ('yes', 'yes'),
-        ('no', 'no'),
-    )
+# class Medicine(models.Model):
+#     MEDICINE_TYPE = (
+#         ('tablets', 'tablets'),
+#         ('syrup', 'syrup'),
+#         ('capsule', 'capsule'),
+#         ('general', 'general'),
+#     )
+#     REQUIREMENT_TYPE = (
+#         ('yes', 'yes'),
+#         ('no', 'no'),
+#     )
     
-    MEDICINE_CATEGORY = (
-        ('fever', 'fever'),
-        ('pain', 'pain'),
-        ('cough', 'cough'),
-        ('cold', 'cold'),
-        ('flu', 'flu'),
-        ('diabetes', 'diabetes'),
-        ('eye', 'eye'),
-        ('ear', 'ear'),
-        ('allergy', 'allergy'),
-        ('asthma', 'asthma'),
-        ('bloodpressure', 'bloodpressure'),
-        ('heartdisease', 'heartdisease'),
-        ('vitamins', 'vitamins'),
-        ('digestivehealth', 'digestivehealth'),
-        ('skin', 'skin'),
-        ('infection', 'infection'),
-        ('nurological', 'nurological'),
-    )
+#     MEDICINE_CATEGORY = (
+#         ('fever', 'fever'),
+#         ('pain', 'pain'),
+#         ('cough', 'cough'),
+#         ('cold', 'cold'),
+#         ('flu', 'flu'),
+#         ('diabetes', 'diabetes'),
+#         ('eye', 'eye'),
+#         ('ear', 'ear'),
+#         ('allergy', 'allergy'),
+#         ('asthma', 'asthma'),
+#         ('bloodpressure', 'bloodpressure'),
+#         ('heartdisease', 'heartdisease'),
+#         ('vitamins', 'vitamins'),
+#         ('digestivehealth', 'digestivehealth'),
+#         ('skin', 'skin'),
+#         ('infection', 'infection'),
+#         ('nurological', 'nurological'),
+#     )
     
-    serial_number = models.AutoField(primary_key=True)
-    medicine_id = models.CharField(max_length=200, null=True, blank=True)
-    name = models.CharField(max_length=200, null=True, blank=True)
-    weight = models.CharField(max_length=200, null=True, blank=True)
-    quantity = models.IntegerField(null=True, blank=True, default=0)
-    featured_image = models.ImageField(upload_to='medicines/', default='medicines/default.png', null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
-    medicine_type = models.CharField(max_length=200, choices=MEDICINE_TYPE, null=True, blank=True)
-    medicine_category = models.CharField(max_length=200, choices=MEDICINE_CATEGORY, null=True, blank=True)
-    price = models.IntegerField(null=True, blank=True, default=0)
-    stock_quantity = models.IntegerField(null=True, blank=True, default=0)
-    Prescription_reqiuired = models.CharField(max_length=200, choices=REQUIREMENT_TYPE, null=True, blank=True)
-    def __str__(self):
+#     serial_number = models.AutoField(primary_key=True)
+#     medicine_id = models.CharField(max_length=200, null=True, blank=True)
+#     name = models.CharField(max_length=200, null=True, blank=True)
+#     weight = models.CharField(max_length=200, null=True, blank=True)
+#     quantity = models.IntegerField(null=True, blank=True, default=0)
+#     featured_image = models.ImageField(upload_to='medicines/', default='medicines/default.png', null=True, blank=True)
+#     description = models.TextField(null=True, blank=True)
+#     medicine_type = models.CharField(max_length=200, choices=MEDICINE_TYPE, null=True, blank=True)
+#     medicine_category = models.CharField(max_length=200, choices=MEDICINE_CATEGORY, null=True, blank=True)
+#     price = models.IntegerField(null=True, blank=True, default=0)
+#     stock_quantity = models.IntegerField(null=True, blank=True, default=0)
+#     Prescription_reqiuired = models.CharField(max_length=200, choices=REQUIREMENT_TYPE, null=True, blank=True)
+#     def __str__(self):
         return str(self.name)
     
+class Product(models.Model):
+    PRODUCT_TYPE_CHOICES = (
+        # Extend this to include non-medication items
+        ('medical', 'Medical'),
+        ('legal', 'Legal'),
+        ('engineering', 'Engineering Supplies'),
+        ('art', 'Art Supplies'),
+        # etc.
+    )
+    product_id = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=True)
+    product_type = models.CharField(max_length=200, choices=PRODUCT_TYPE_CHOICES)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    stock_quantity = models.IntegerField(default=0)
+    featured_image = models.ImageField(upload_to='products/', default='products/default.png', null=True, blank=True)
+    # Extend or modify attributes as needed
+
+    def __str__(self):
+        return self.name
+
 
 class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cart')
-    item = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     purchased = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
@@ -89,7 +110,7 @@ class Cart(models.Model):
         return float_total
     
 
-class Order(models.Model):
+class ServiceOrder(models.Model):
     # id
     orderitems = models.ManyToManyField(Cart)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

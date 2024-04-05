@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->
+<!-- doccure/client-dashboard.html  30 Nov 2019 04:12:16 GMT -->
 
 <head>
 	<meta charset="utf-8" />
@@ -56,7 +56,7 @@
 										width: 50%;">
 
 											<p class="invoice-details">
-												<strong>Patient ID:</strong> {{prescription.patient.patient_id}} <br>
+												<strong>Client ID:</strong> {{prescription.client.client_id}} <br>
 												<strong>Date:</strong> {{prescription.create_date}}
 											</p>
 										</div>
@@ -81,12 +81,12 @@
 											<div class="invoice-info invoice-info2">
 												<strong class="customer-text">Prescription To:</strong>
 												<p class="invoice-details">
-													<b>Name: </b>{{prescription.patient.name}}<br>
-													<b>Age: </b>{{prescription.patient.age}}<br>
-													<b>Blood Group: </b>{{prescription.patient.blood_group}}<br>
-													<b>Address: </b>{{prescription.patient.address}}<br>
-													<b>Email: </b>{{prescription.patient.email}}<br>
-													<b>Phone Number: </b>{{prescription.patient.phone_number}}
+													<b>Name: </b>{{prescription.client.name}}<br>
+													<b>Age: </b>{{prescription.client.age}}<br>
+													<b>Blood Group: </b>{{prescription.client.blood_group}}<br>
+													<b>Address: </b>{{prescription.client.address}}<br>
+													<b>Email: </b>{{prescription.client.email}}<br>
+													<b>Phone Number: </b>{{prescription.client.phone_number}}
 
 												</p>
 
@@ -102,7 +102,7 @@
 											<div class="table-responsive">
 												<hr>
 												<h2 class="text-center" style="color: rgb(84, 147, 199);margin-bottom: 4px;text-align: center;">
-													<b>Medicine</b>
+													<b>Product</b>
 												</h2>
 
 												<table class="invoice-table table table-bordered"
@@ -111,7 +111,7 @@
 													<tr style="background-color: rgb(84, 147, 199);vertical-align: center;height: 50px;">
 
 
-														<th>Medicine Name</th>
+														<th>Product Name</th>
 														<th>Quantity</th>
 														<th>Frequency</th>
 														<th>Duration</th>
@@ -120,9 +120,9 @@
 
 
 													</tr>
-													{% for pm in prescription_medicine %}
+													{% for pm in prescription_product %}
 													<tr style="vertical-align: center; height: 30px;">
-														<th class="text-center">{{pm.medicine_name}}</td>
+														<th class="text-center">{{pm.product_name}}</td>
 														<td class="text-center">{{pm.quantity}}</td>
 														<td class="text-center">{{pm.frequency}}</td>
 														<td class="text-center">{{pm.duration}}</td>

@@ -7,8 +7,8 @@ from django.db.models import Q, Count
 from professional.views import appointments
 from .models import chatMessages
 from django.contrib.auth import get_user_model
-from  hospital.models import User as UserModel
-from hospital.models import Patient
+from  service_provider.models import User as UserModel
+from service_provider.models import Client
 from professional.models import Professional_Information  , Appointment  
 from django.db.models import Q
 import json,datetime
@@ -22,12 +22,12 @@ from django.views.decorators.csrf import csrf_exempt
 @login_required(login_url='login')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def home(request,pk):
-    if request.user.is_patient:
+    if request.user.is_client:
             User = get_user_model()
             users = User.objects.all()
-            patients = Patient.objects.get(user_id=pk)
+            clients = Client.objects.get(user_id=pk)
             #professional = Professional_Information.objects.all()
-            appointments = Appointment.objects.filter(patient=patients).filter(appointment_status='confirmed')
+            appointments = Appointment.objects.filter(client=clients).filter(appointment_status='confirmed')
             professional= Professional_Information.objects.filter(appointment__in=appointments)
             
             chats = {}
@@ -41,7 +41,7 @@ def home(request,pk):
                 "page":"home",
                 "users":users,
                 "chats":chats,
-                "patient":patients,
+                "client":clients,
                 "professional":professional,
                 "doc":doc,
                 "app":appointments,
@@ -58,7 +58,7 @@ def home(request,pk):
                 "page":"home",
                 "users":users,
                 
-                "patient":patients,
+                "client":clients,
                 
                 "professional":professional,
                 
@@ -70,7 +70,7 @@ def home(request,pk):
                     "page":"home",
                     "users":users,
                     "chats":chats,
-                    "patient":patients,
+                    "client":clients,
                     "professional":professional,
                     "app":appointments,
                     "chat_id": int(request.GET['u'] if request.method == 'GET' and 'u' in request.GET else 0)
@@ -83,20 +83,20 @@ def home(request,pk):
             #patients = Patient.objects.all()
             professional = Professional_Information.objects.get(user_id=pk)
             appointments = Appointment.objects.filter(professional=professional).filter(appointment_status='confirmed')
-            patients= Patient.objects.filter(appointment__in=appointments)
+            clients= Client.objects.filter(appointment__in=appointments)
 
             chats = {}
             if request.method == 'GET' and 'u' in request.GET:
                 # chats = chatMessages.objects.filter(Q(user_from=request.user.id & user_to=request.GET['u']) | Q(user_from=request.GET['u'] & user_to=request.user.id))
                 chats = chatMessages.objects.filter(Q(user_from=request.user.id, user_to=request.GET['u']) | Q(user_from=request.GET['u'], user_to=request.user.id))
                 chats = chats.order_by('date_created')
-                pat = Patient.objects.get(user_id=request.GET['u'])
+                pat = Client.objects.get(user_id=request.GET['u'])
                 
                 context = {
                 "page":"home",
                 "users":users,
                 "chats":chats,
-                "patient":patients,
+                "client":clients,
                 "professional":professional,
                 "pat":pat,
                 "app":appointments,
@@ -105,7 +105,7 @@ def home(request,pk):
             }
             elif request.method == 'GET' and 'search' in request.GET:
                 query = request.GET.get('search')
-                patients= Patient.objects.filter(Q(user__first_name__icontains=query) | Q(user__last_name__icontains=query))
+                clients= Client.objects.filter(Q(user__first_name__icontains=query) | Q(user__last_name__icontains=query))
                 #chats = chatMessages.objects.filter(Q(user_from=request.user.id, user_to=request.GET['u']) | Q(user_from=request.GET['u'], user_to=request.user.id))
                 #chats = chats.order_by('date_created')
                 #doc = Professional_Information.objects.get(username=request.GET['search'])
@@ -113,7 +113,7 @@ def home(request,pk):
                 "page":"home",
                 "users":users,
                 
-                "patient":patients,
+                "client":clients,
                 "app":appointments,
                 "professional":professional,
                 
@@ -127,7 +127,7 @@ def home(request,pk):
                     "page":"home",
                     "users":users,
                     "chats":chats,
-                    "patient":patients,
+                    "client":clients,
                     "professional":professional,
                     "chat_id": int(request.GET['u'] if request.method == 'GET' and 'u' in request.GET else 0)
                 }

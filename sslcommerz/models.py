@@ -1,7 +1,7 @@
 from django.db import models
 from professional.models import Appointment, testOrder, Prescription
-from hospital.models import Patient
-from pharmacy.models import Order
+from service_provider.models import Client
+from pharmacy.models import ServiceOrder
 
 # Create your models here.
 
@@ -11,11 +11,12 @@ class Payment(models.Model):
     payment_id = models.AutoField(primary_key=True)
     invoice_number = models.CharField(max_length=255, null=True, blank=True)
     
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
     appointment = models.ForeignKey(Appointment, on_delete=models.SET_NULL, null=True, blank=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True)
-    test_order = models.ForeignKey(testOrder, on_delete=models.SET_NULL, null=True, blank=True)
-    prescription = models.ForeignKey(Prescription, on_delete=models.SET_NULL, null=True, blank=True)
+    # order = models.ForeignKey(ServiceOrder, on_delete=models.SET_NULL, null=True, blank=True)
+    service_order = models.ForeignKey(ServiceOrder, on_delete=models.SET_NULL, null=True, blank=True)
+    # test_order = models.ForeignKey(testOrder, on_delete=models.SET_NULL, null=True, blank=True)
+    # prescription = models.ForeignKey(Prescription, on_delete=models.SET_NULL, null=True, blank=True)
     
     payment_type = models.CharField(max_length=200, null=True, blank=True)
     
@@ -42,7 +43,7 @@ class Payment(models.Model):
     card_brand = models.CharField(max_length=255, null=True, blank=True)
     
     # Pharamcy
-    # {% url 'ssl-payment-request-medicine' pk=order.user.patient.patient_id id=order.id %}
+    # {% url 'ssl-payment-request-product' pk=order.user.patient.patient_id id=order.id %}
     # order.orderitems.all.1
     
     

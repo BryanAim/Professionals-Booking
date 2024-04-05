@@ -87,7 +87,7 @@
 											<tr>
 
 												<td>
-													<h5>{{dep.hospital_department_name}}</h5>
+													<h5>{{dep.ServiceDepartment_name}}</h5>
 												</td>
 
 												<td>
@@ -105,10 +105,10 @@
 												<td class="text-center">
 													<div class="actions">
 														<a class="btn btn-sm bg-success-light" data-toggle="modal"
-															data-target="#modal-default{{dep.hospital_department_name}}">
+															data-target="#modal-default{{dep.ServiceDepartment_name}}">
 															<i class="fe fe-pencil"></i> Edit
 														</a>
-														<a data-toggle="modal" data-target="#delete_modal{{dep.hospital_department_id}}"
+														<a data-toggle="modal" data-target="#delete_modal{{dep.ServiceDepartment_id}}"
 															class="btn btn-sm bg-danger-light">
 															<i class="fe fe-trash"></i> Delete
 														</a>
@@ -118,9 +118,9 @@
 
 											</tr>
 
-											<div class="modal fade" id="modal-default{{dep.hospital_department_name}}" aria-hidden="true"
+											<div class="modal fade" id="modal-default{{dep.ServiceDepartment_name}}" aria-hidden="true"
 												role="dialog">
-												<form action="{%url 'edit-department' pk=dep.hospital_department_id%}" method="POST"
+												<form action="{%url 'edit-department' pk=dep.ServiceDepartment_id%}" method="POST"
 													enctype="multipart/form-data">
 													{% csrf_token %}
 													<div class="modal-dialog modal-dialog-centered" role="document">
@@ -138,7 +138,7 @@
 																		<div class="form-group">
 																			<label>Department Name</label>
 																			<input type="text" class="form-control" name="department_name"
-																				value={{dep.hospital_department_name}}>
+																				value={{dep.ServiceDepartment_name}}>
 
 																		</div>
 																	</div>
@@ -159,9 +159,9 @@
 												</form>
 											</div>
 
-											<div class="modal fade" id="delete_modal{{dep.hospital_department_id}}" aria-hidden="true"
+											<div class="modal fade" id="delete_modal{{dep.ServiceDepartment_id}}" aria-hidden="true"
 												role="dialog">
-												<form method="POST" action="{%url 'delete-department' pk=dep.hospital_department_id%}">
+												<form method="POST" action="{%url 'delete-department' pk=dep.ServiceDepartment_id%}">
 													<div class="modal-dialog modal-dialog-centered" role="document">
 														<div class="modal-content">
 															{% csrf_token %}
@@ -215,7 +215,7 @@
 							<div class="col-12 col-sm-6">
 								<div class="form-group">
 									<label>Department Name</label>
-									<input type="text" class="form-control" value="{{dep.hospital_department_name}}">
+									<input type="text" class="form-control" value="{{dep.ServiceDepartment_name}}">
 								</div>
 							</div>
 							<div class="col-12 col-sm-6">

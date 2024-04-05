@@ -9,7 +9,7 @@
         <span></span>
       </span>
     </a>
-    <a href="{% url 'hospital_home'%}" class="navbar-brand logo">
+    <a href="{% url 'service_provider_home'%}" class="navbar-brand logo">
       <img src="{% static 'HealthStack-System/images/Normal/medicross-logo.png' %}" class="img-fluid" alt="Logo" />
     </a>
   </div>
@@ -24,7 +24,7 @@
     </div>
     <ul class="main-nav">
       <li>
-        <a href="{% url 'hospital_home'%}" style="text-decoration: none;">Home</a>
+        <a href="{% url 'service_provider_home'%}" style="text-decoration: none;">Home</a>
       </li>
 
       {% comment %}
@@ -38,7 +38,7 @@
           </li>
 
           <li><a href="{% url 'appointments'%}">Appointments</a></li>
-          <li><a href="{% url 'my-patients' %}">Patients List</a></li>
+          <li><a href="{% url 'my-clients' %}">Clients List</a></li>
           <li>
             <a href="{% url 'professional-profile-settings' %}">Profile Settings</a>
           </li>
@@ -48,13 +48,13 @@
       {% endcomment %}
 
       {% comment %}
-      {% if user.is_authenticated and user.is_patient %}
+      {% if user.is_authenticated and user.is_client %}
       <li class="has-submenu">
-        <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
+        <a href="#">Clients <i class="fas fa-chevron-down"></i></a>
         <ul class="submenu">
           <li><a href="{% url 'search' %}">Search For a professional</a></li>
           <li>
-            <a href="{% url 'patient-dashboard' %}">Patient Dashboard</a>
+            <a href="{% url 'client-dashboard' %}">Client Dashboard</a>
           </li>
           <li>
             <a href="{% url 'profile-settings' %}">Profile Settings</a>
@@ -68,8 +68,8 @@
       {% endif %}
       {% endcomment %}
 
-      {% if user.is_authenticated and user.is_patient %}
-      <li><a href="{% url 'patient-dashboard' %}" style="text-decoration: none;">Patient Dashboard</a></li>
+      {% if user.is_authenticated and user.is_client %}
+      <li><a href="{% url 'client-dashboard' %}" style="text-decoration: none;">Client Dashboard</a></li>
       {% endif %}
 
       {% if user.is_authenticated and user.is_professional %}
@@ -80,11 +80,11 @@
         <a href="{% url 'about-us'%}" style="text-decoration: none;">About Us</a>
       </li>
 
-      {% if user.is_authenticated and user.is_professional or user.is_patient %}
-      <li><a href="{% url 'multiple-hospital' %}" style="text-decoration: none;">Hospital</a></li>
+      {% if user.is_authenticated and user.is_professional or user.is_client %}
+      <li><a href="{% url 'multiple-service_provider' %}" style="text-decoration: none;">Hospital</a></li>
       {% endif %}
 
-      {% if user.is_authenticated and user.is_patient %}
+      {% if user.is_authenticated and user.is_client %}
       <li><a href="{% url 'search' %}" style="text-decoration: none;">Search For a Professional</a></li>
       {% endif %}
 

@@ -8,9 +8,9 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from hospital.models import Patient
-from pharmacy.models import Medicine, Cart, Order
-from .utils import searchMedicines
+from service_provider.models import Client
+from pharmacy.models import Product, Cart, ServiceOrder
+from .utils import searchProducts
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -25,48 +25,48 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 @login_required(login_url="login")
 def pharmacy_single_product(request,pk):
-     if request.user.is_authenticated and request.user.is_patient:
+     if request.user.is_authenticated and request.user.is_client:
          
-        patient = Patient.objects.get(user=request.user)
-        medicines = Medicine.objects.get(serial_number=pk)
-        orders = Order.objects.filter(user=request.user, ordered=False)
+        client = Client.objects.get(user=request.user)
+        products = Product.objects.get(serial_number=pk)
+        orders = ServiceOrder.objects.filter(user=request.user, ordered=False)
         carts = Cart.objects.filter(user=request.user, purchased=False)
         if carts.exists() and orders.exists():
             order = orders[0]
-            context = {'patient': patient, 'medicines': medicines,'carts': carts,'order': order, 'orders': orders}
+            context = {'client': client, 'products': products,'carts': carts,'order': order, 'orders': orders}
             return render(request, 'pharmacy/product-single.html',context)
         else:
-            context = {'patient': patient, 'medicines': medicines,'carts': carts,'orders': orders}
+            context = {'client': client, 'products': products,'carts': carts,'orders': orders}
             return render(request, 'pharmacy/product-single.html',context)
      else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html')  
+        return render(request, 'client-login.html')  
 
 @csrf_exempt
 @login_required(login_url="login")
 def pharmacy_shop(request):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
         
-        patient = Patient.objects.get(user=request.user)
-        medicines = Medicine.objects.all()
-        orders = Order.objects.filter(user=request.user, ordered=False)
+        client = Client.objects.get(user=request.user)
+        products = Product.objects.all()
+        orders = ServiceOrder.objects.filter(user=request.user, ordered=False)
         carts = Cart.objects.filter(user=request.user, purchased=False)
         
-        medicines, search_query = searchMedicines(request)
+        products, search_query = searchProducts(request)
         
         if carts.exists() and orders.exists():
             order = orders[0]
-            context = {'patient': patient, 'medicines': medicines,'carts': carts,'order': order, 'orders': orders, 'search_query': search_query}
+            context = {'client': client, 'products': products,'carts': carts,'order': order, 'orders': orders, 'search_query': search_query}
             return render(request, 'Pharmacy/shop.html', context)
         else:
-            context = {'patient': patient, 'medicines': medicines,'carts': carts,'orders': orders, 'search_query': search_query}
+            context = {'client': client, 'products': products,'carts': carts,'orders': orders, 'search_query': search_query}
             return render(request, 'Pharmacy/shop.html', context)
     
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html')  
+        return render(request, 'client-login.html')  
 
 @csrf_exempt
 @login_required(login_url="login")
@@ -76,74 +76,74 @@ def checkout(request):
 @csrf_exempt
 @login_required(login_url="login")
 def add_to_cart(request, pk):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
          
-        patient = Patient.objects.get(user=request.user)
-        medicines = Medicine.objects.all()
+        client = Client.objects.get(user=request.user)
+        products = Product.objects.all()
         
-        item = get_object_or_404(Medicine, pk=pk)
+        item = get_object_or_404(Product, pk=pk)
         order_item = Cart.objects.get_or_create(item=item, user=request.user, purchased=False)
-        order_qs = Order.objects.filter(user=request.user, ordered=False)
+        order_qs = ServiceOrder.objects.filter(user=request.user, ordered=False)
         if order_qs.exists():
             order = order_qs[0]
             if order.orderitems.filter(item=item).exists():
                 order_item[0].quantity += 1
                 order_item[0].save()
                 # messages.warning(request, "This item quantity was updated!")
-                context = {'patient': patient,'medicines': medicines, 'order': order}
+                context = {'client': client,'products': products, 'order': order}
                 return render(request, 'pharmacy/shop.html', context)
             
             else:
                 order.orderitems.add(order_item[0])
                 # messages.warning(request, "This item is added to your cart!")
-                context = {'patient': patient,'medicines': medicines,'order': order}
+                context = {'client': client,'products': products,'order': order}
                 return render(request, 'pharmacy/shop.html', context)
         else:
-            order = Order(user=request.user)
+            order = ServiceOrder(user=request.user)
             order.save()
             order.orderitems.add(order_item[0])
             # messages.warning(request, "This item is added to your cart!")
-            context = {'patient': patient,'medicines': medicines,'order': order}
+            context = {'client': client,'products': products,'order': order}
             return render(request, 'pharmacy/shop.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html')  
+        return render(request, 'client-login.html')  
 
 @csrf_exempt
 @login_required(login_url="login")
 def cart_view(request):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
          
-        patient = Patient.objects.get(user=request.user)
-        medicines = Medicine.objects.all()
+        client = Client.objects.get(user=request.user)
+        products = Product.objects.all()
         
         carts = Cart.objects.filter(user=request.user, purchased=False)
-        orders = Order.objects.filter(user=request.user, ordered=False)
+        orders = ServiceOrder.objects.filter(user=request.user, ordered=False)
         if carts.exists() and orders.exists():
             order = orders[0]
             context = {'carts': carts,'order': order}
             return render(request, 'Pharmacy/cart.html', context)
         else:
             messages.warning(request, "You don't have any item in your cart!")
-            context = {'patient': patient,'medicines': medicines}
+            context = {'client': client,'products': products}
             return render(request, 'pharmacy/shop.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'patient-login.html') 
+        return render(request, 'client-login.html') 
 
 @csrf_exempt
 @login_required(login_url="login")
 def remove_from_cart(request, pk):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
          
-        patient = Patient.objects.get(user=request.user)
-        medicines = Medicine.objects.all()
+        client = Client.objects.get(user=request.user)
+        products = Product.objects.all()
         carts = Cart.objects.filter(user=request.user, purchased=False)
         
-        item = get_object_or_404(Medicine, pk=pk)
-        order_qs = Order.objects.filter(user=request.user, ordered=False)
+        item = get_object_or_404(Product, pk=pk)
+        order_qs = ServiceOrder.objects.filter(user=request.user, ordered=False)
         if order_qs.exists():
             order = order_qs[0]
             if order.orderitems.filter(item=item).exists():
@@ -155,28 +155,28 @@ def remove_from_cart(request, pk):
                 return render(request, 'Pharmacy/cart.html', context)
             else:
                 messages.info(request, "This item was not in your cart")
-                context = {'patient': patient,'medicines': medicines}
+                context = {'client': client,'products': products}
                 return render(request, 'pharmacy/shop.html', context)
         else:
             messages.info(request, "You don't have an active order")
-            context = {'patient': patient,'medicines': medicines}
+            context = {'client': client,'products': products}
             return render(request, 'pharmacy/shop.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html') 
+        return render(request, 'client-login.html') 
 
 
 @csrf_exempt
 @login_required(login_url="login")
 def increase_cart(request, pk):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
          
-        patient = Patient.objects.get(user=request.user)
-        medicines = Medicine.objects.all()
+        client = Client.objects.get(user=request.user)
+        products = Product.objects.all()
         carts = Cart.objects.filter(user=request.user, purchased=False)
-        item = get_object_or_404(Medicine, pk=pk)
-        order_qs = Order.objects.filter(user=request.user, ordered=False)
+        item = get_object_or_404(Product, pk=pk)
+        order_qs = ServiceOrder.objects.filter(user=request.user, ordered=False)
         if order_qs.exists():
             order = order_qs[0]
             if order.orderitems.filter(item=item).exists():
@@ -189,28 +189,28 @@ def increase_cart(request, pk):
                     return render(request, 'Pharmacy/cart.html', context)
             else:
                 messages.warning(request, f"{item.name} is not in your cart")
-                context = {'patient': patient,'medicines': medicines}
+                context = {'client': client,'products': products}
                 return render(request, 'pharmacy/shop.html', context)
         else:
             messages.warning(request, "You don't have an active order")
-            context = {'patient': patient,'medicines': medicines}
+            context = {'client': client,'products': products}
             return render(request, 'pharmacy/shop.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html') 
+        return render(request, 'client-login.html') 
 
 
 @csrf_exempt
 @login_required(login_url="login")
 def decrease_cart(request, pk):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
          
-        patient = Patient.objects.get(user=request.user)
-        medicines = Medicine.objects.all()
+        client = Client.objects.get(user=request.user)
+        products = Product.objects.all()
         carts = Cart.objects.filter(user=request.user, purchased=False)
-        item = get_object_or_404(Medicine, pk=pk)
-        order_qs = Order.objects.filter(user=request.user, ordered=False)
+        item = get_object_or_404(Product, pk=pk)
+        order_qs = ServiceOrder.objects.filter(user=request.user, ordered=False)
         if order_qs.exists():
             order = order_qs[0]
             if order.orderitems.filter(item=item).exists():
@@ -229,14 +229,14 @@ def decrease_cart(request, pk):
                     return render(request, 'Pharmacy/cart.html', context)
             else:
                 messages.info(request, f"{item.name} is not in your cart")
-                context = {'patient': patient,'medicines': medicines}
+                context = {'client': client,'products': products}
                 return render(request, 'pharmacy/shop.html', context)
         else:
             messages.info(request, "You don't have an active order")
-            context = {'patient': patient,'medicines': medicines}
+            context = {'client': client,'products': products}
             return render(request, 'pharmacy/shop.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html') 
+        return render(request, 'client-login.html') 
 # Create your views here.

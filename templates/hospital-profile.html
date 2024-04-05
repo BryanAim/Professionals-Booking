@@ -56,8 +56,8 @@
 		<!-- Header -->
 		<header class="header">
 
-			{% if user.is_authenticated and user.is_patient %}
-			{% include 'patient_navbar.html' %}
+			{% if user.is_authenticated and user.is_client %}
+			{% include 'client_navbar.html' %}
 			{% endif %}
 
 			{% if user.is_authenticated and user.is_professional %}
@@ -78,8 +78,8 @@
 					<div class="col-md-12 col-12">
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
-								{% if user.is_authenticated and user.is_patient %}
-								<li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
+								{% if user.is_authenticated and user.is_client %}
+								<li class="breadcrumb-item"><a href="{% url 'client-dashboard' %}">Home</a></li>
 								{% endif %}
 
 								{% if user.is_authenticated and user.is_professional %}
@@ -104,8 +104,8 @@
 						<!-- Profile Sidebar -->
 						<div>
 
-							{% if user.is_authenticated and user.is_patient %}
-							{% include 'patient-sidebar.html' %}
+							{% if user.is_authenticated and user.is_client %}
+							{% include 'client-sidebar.html' %}
 							{% endif %}
 
 							{% if user.is_authenticated and user.is_professional %}
@@ -127,13 +127,13 @@
 										<div class="row">
 											<div class="col-lg-6 col-md-6" style=" display: flex;justify-content: left;width: 65%;">
 												<div class="professional-img">
-													<img src="{{hospitals.featured_image.url}}"
+													<img src="{{service_providers.featured_image.url}}"
 														style="height: 250px; width: 280px; margin: auto; " alt="User Image">
 												</div>
 											</div>
 											<div class="doc-info-cont col-md-6 col-lg-6">
-												<h4 class="doc-name">{{hospitals.name}}</h4>
-												<p class="doc-speciality">{{hospitals.hospital_type}} Hospital</p>
+												<h4 class="doc-name">{{service_providers.name}}</h4>
+												<p class="doc-speciality">{{service_providers.service_provider_type}} Hospital</p>
 
 												{% comment %} <div class="rating">
 													<i class="fas fa-star filled"></i>
@@ -144,7 +144,8 @@
 													<span class="d-inline-block average-rating">(35)</span>
 												</div> {% endcomment %}
 												<div class="clinic-details">
-													<p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{hospitals.address}}</p>
+													<p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{service_providers.address}}
+													</p>
 
 													<ul class="clinic-gallery">
 														<li>
@@ -212,7 +213,8 @@
 										</div>
 
 										<div class="clinic-booking">
-											<a class="apt-btn" href="{% url 'hospital-department-list' pk=hospitals.hospital_id %}">Department
+											<a class="apt-btn"
+												href="{% url 'service_provider-department-list' pk=service_providers.service_provider_id %}">Department
 												& Professional List</a>
 										</div>
 										<br>
@@ -221,7 +223,7 @@
 										{% if user.is_authenticated and user.is_professional %}
 										<div class="clinic-booking">
 											<a class="apt-btn"
-												href="{% url 'hospital-professional-register' pk=hospitals.hospital_id %}">Register</a>
+												href="{% url 'service_provider-professional-register' pk=service_providers.service_provider_id %}">Register</a>
 										</div>
 										{% endif %}
 
@@ -265,7 +267,7 @@
 												<!-- About Details -->
 												<div class="widget about-widget">
 													<h4 class="widget-title">About Our Hospital</h4>
-													<p>{{hospitals.description}}</p>
+													<p>{{service_providers.description}}</p>
 												</div>
 												<!-- /About Details -->
 
@@ -283,7 +285,7 @@
 																<div class="experience-content">
 																	<div class="timeline-content">
 
-																		<h4 class="exp-title">{{department.hospital_department_name}}</h4>
+																		<h4 class="exp-title">{{department.ServiceDepartment_name}}</h4>
 
 																	</div>
 																</div>
@@ -334,11 +336,12 @@
 												<!-- Clinic Content -->
 												<div class="col-md-4">
 													<div class="clinic-content">
-														<h4 class="clinic-name"><a href="#">{{hospitals.name}}</a></h4>
-														<p class="doc-speciality">{{hospital.hospital_type}}</p>
+														<h4 class="clinic-name"><a href="#">{{service_providers.name}}</a></h4>
+														<p class="doc-speciality">{{service_provider.service_provider_type}}</p>
 
 														<div class="clinic-details mb-0">
-															<h5 class="clinic-direction"> <i class="fas fa-map-marker-alt"></i> {{hospitals.address}}
+															<h5 class="clinic-direction"> <i class="fas fa-map-marker-alt"></i>
+																{{service_providers.address}}
 																<br><a href="javascript:void(0);">Get Directions</a>
 															</h5>
 															<ul>
@@ -384,7 +387,7 @@
 																<span> Emails </span>
 															</p>
 															<p class="timings-times">
-																<span>{{hospitals.email}}</span>
+																<span>{{service_providers.email}}</span>
 																<!-- <span>care@gmail.com</span> -->
 															</p>
 														</div>
@@ -393,7 +396,7 @@
 																<span>Contact</span>
 															</p>
 															<p class="timings-times">
-																<span>{{hospitals.phone_number}}</span>
+																<span>{{service_providers.phone_number}}</span>
 															</p>
 														</div>
 													</div>
@@ -418,23 +421,23 @@
 												<Table>
 													<tr>
 														<td><b>General Bed</b></td>
-														<td>{{hospitals.general_bed_no}}</td>
+														<td>{{service_providers.general_bed_no}}</td>
 													</tr>
 													<tr>
 														<td><b>Regular Cabin</b></td>
-														<td>{{hospitals.regular_cabin_no}}</td>
+														<td>{{service_providers.regular_cabin_no}}</td>
 													</tr>
 													<tr>
 														<td><b>ICU</b></td>
-														<td>{{hospitals.available_icu_no}}</td>
+														<td>{{service_providers.available_icu_no}}</td>
 													</tr>
 													<tr>
 														<td><b>Emergency Cabin</b></td>
-														<td>{{hospitals.emergency_cabin_no}}</td>
+														<td>{{service_providers.emergency_cabin_no}}</td>
 													</tr>
 													<tr>
 														<td><b>VIP room</b></td>
-														<td>{{hospitals.vip_cabin_no}}</td>
+														<td>{{service_providers.vip_cabin_no}}</td>
 													</tr>
 
 												</Table>

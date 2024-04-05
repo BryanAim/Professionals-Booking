@@ -36,8 +36,8 @@
 	<div class="main-wrapper">
 
 		<!-- Header -->
-		<header class="header"> {% if user.is_authenticated and user.is_patient %}
-			{% include 'patient_navbar.html' %}
+		<header class="header"> {% if user.is_authenticated and user.is_client %}
+			{% include 'client_navbar.html' %}
 			{% endif %}
 		</header>
 		<!-- /Header -->
@@ -49,7 +49,7 @@
 					<div class="col-md-12 col-12">
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
-								{% if user.is_authenticated and user.is_patient %}
+								{% if user.is_authenticated and user.is_client %}
 								<li class="breadcrumb-item"><a href="">View Report</a></li>
 								{% endif %}
 								<li class="breadcrumb-item active" aria-current="page">Report Result</li>
@@ -69,7 +69,7 @@
 				<div class="row">
 					<!-- Profile Sidebar -->
 					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-						<div>{% include 'patient-sidebar.html' %}</div>
+						<div>{% include 'client-sidebar.html' %}</div>
 					</div>
 					<!-- / Profile Sidebar -->
 					<div class="col-md-7 col-lg-8 col-xl-9">
@@ -88,7 +88,7 @@
 
 											{% for report in report %}
 											<strong>Report ID:</strong>{{report.report_id}} <br>
-											<strong>Patient ID:</strong> {{patient.patient_id }} <br>
+											<strong>Client ID:</strong> {{client.client_id }} <br>
 											<strong>Date:</strong> {{report.delivery_date}}
 										</p>
 									</div>
@@ -114,12 +114,12 @@
 									</div>
 									<div class="col-md-6">
 										<div class="invoice-info invoice-info2">
-											<strong class="customer-text">Patient Information:</strong>
+											<strong class="customer-text">Client Information:</strong>
 											<p class="invoice-details">
-												<b>Name: </b>{{patient.name}} <br>
-												<b>Address: </b>{{report.patient.address}}<br>
-												<b>Email: </b>{{report.patient.email}} <br>
-												<b>Phone Number: </b>{{report.patient.phone_number}}<br>
+												<b>Name: </b>{{client.name}} <br>
+												<b>Address: </b>{{report.client.address}}<br>
+												<b>Email: </b>{{report.client.email}} <br>
+												<b>Phone Number: </b>{{report.client.phone_number}}<br>
 											</p>
 										</div>
 									</div>
@@ -245,6 +245,6 @@
 	<script src="{% static 'HealthStack-System/js/Normal/sidebar.js' %}"></script>
 </body>
 
-<!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->
+<!-- doccure/client-dashboard.html  30 Nov 2019 04:12:16 GMT -->
 
 </html>

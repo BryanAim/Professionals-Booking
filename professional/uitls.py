@@ -1,10 +1,10 @@
 from django.db.models import Q
-from .models import Patient, User, Hospital_Information
+from .models import Client, User, ServiceProvider
 from professional.models import Professional_Information, Appointment
-from hospital_admin.models import hospital_department, specialization, service
+from service_provider_admin.models import ServiceDepartment, specialization, service
 
 
-def searchPatients(request):
+def searchClients(request):
     
     search_query = ''
     
@@ -13,7 +13,7 @@ def searchPatients(request):
         
     #skills = Skill.objects.filter(name__icontains=search_query)
     
-    patient = Patient.objects.filter(
-        Q(patient_id__icontains=search_query))
+    client = Client.objects.filter(
+        Q(client_id__icontains=search_query))
     
-    return patient, search_query
+    return client, search_query

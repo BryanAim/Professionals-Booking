@@ -91,11 +91,11 @@
                             <i class="fe fe-credit-card"></i>
                           </span>
                           <div class="dash-count">
-                            <h3>{{total_medicine_count.count}}</h3>
+                            <h3>{{total_product_count.count}}</h3>
                           </div>
                         </div>
                         <div class="dash-widget-info">
-                          <h6 class="text-muted">Total Medicines</h6>
+                          <h6 class="text-muted">Total Products</h6>
                           <div class="progress progress-sm">
                             <div class="progress-bar bg-success w-50"></div>
                           </div>
@@ -147,10 +147,10 @@
                 <div class="page-header">
                   <div class="row">
                     <div class="col-sm-12">
-                      <h3 class="page-title">List of Medicine</h3>
+                      <h3 class="page-title">List of Product</h3>
                       <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Medicine</li>
+                        <li class="breadcrumb-item active">Product</li>
                       </ul>
                     </div>
                   </div>
@@ -163,26 +163,26 @@
                           <table class="datatable table table-hover table-center mb-0">
                             <thead>
                               <tr>
-                                <th>Medicine Name</th>
+                                <th>Product Name</th>
                                 <th>Stock Quantity</th>
-                                <th>Medicine Type</th>
-                                <th>Medicine Category</th>
+                                <th>Product Type</th>
+                                <th>Product Category</th>
                                 <th>Price</th>
                               </tr>
                             </thead>
-                            {% for medicine in medicine %}
+                            {% for product in product %}
                             <tr>
                               <td>
                                 <h2 class="table-avatar">
                                   <a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
-                                      src="{{medicine.featured_image.url}}" alt="Medicine Image"></a>
-                                  <a href="">{{medicine.name}}</a>
+                                      src="{{product.featured_image.url}}" alt="Product Image"></a>
+                                  <a href="">{{product.name}}</a>
                                 </h2>
                               </td>
-                              <td>{{medicine.stock_quantity}}</td>
-                              <td>{{medicine.medicine_type}}</td>
-                              <td>{{medicine.medicine_category}}</td>
-                              <td>{{medicine.price}}</td>
+                              <td>{{product.stock_quantity}}</td>
+                              <td>{{product.product_type}}</td>
+                              <td>{{product.product_category}}</td>
+                              <td>{{product.price}}</td>
                             </tr>
                             {% endfor %}
                           </table>

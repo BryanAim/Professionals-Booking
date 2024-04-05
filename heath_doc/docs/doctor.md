@@ -1,19 +1,19 @@
 # Welcome to Professional
 
-We have developed a convenient professional/patient interface to bring you a service that allows you to have a medical consultation.
+We have developed a convenient professional/client interface to bring you a service that allows you to have a medical consultation.
 
 ## The main duties of a Professional :
 
-- Accept or appointments from patients.
-- View patient profile after accepting appointments.
-- Can register himself to a specific hospital.
-- Search patients.
+- Accept or appointments from clients.
+- View client profile after accepting appointments.
+- Can register himself to a specific service_provider.
+- Search clients.
 - Create prescription.
-- Sending mail to the patient about appointment confirmation.
-- Chat with patient.
+- Sending mail to the client about appointment confirmation.
+- Chat with client.
 - Professional Profile settings.
 
-## Accepting Appointments of patients
+## Accepting Appointments of clients
 
 ```python
 def accept_appointment(request, pk):
@@ -21,10 +21,10 @@ def accept_appointment(request, pk):
     appointment.appointment_status = 'confirmed'
     appointment.save()
 
-    patient_email = appointment.patient.email
-    patient_name = appointment.patient.name
-    patient_username = appointment.patient.username
-    patient_serial_number = appointment.patient.serial_number
+    client_email = appointment.client.email
+    client_name = appointment.client.name
+    client_username = appointment.client.username
+    client_serial_number = appointment.client.serial_number
     professional_name = appointment.professional.name
 
     appointment_serial_number = appointment.serial_number
@@ -35,10 +35,10 @@ def accept_appointment(request, pk):
     subject = "Appointment Acceptance Email"
 
     values = {
-            "email":patient_email,
-            "name":patient_name,
-            "username":patient_username,
-            "serial_number":patient_serial_number,
+            "email":client_email,
+            "name":client_name,
+            "username":client_username,
+            "serial_number":client_serial_number,
             "professional_name":professional_name,
             "appointment_serial_num":appointment_serial_number,
             "appointment_date":appointment_date,
@@ -50,7 +50,7 @@ def accept_appointment(request, pk):
     plain_message = strip_tags(html_message)
 
     try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
 
@@ -71,17 +71,17 @@ def accept_appointment(request, pk):
 
 ![title](professional/Screenshot (220).png)
 
-## Search Patients
+## Search Clients
 
 ```python
-def patient_search(request, pk):
+def client_search(request, pk):
     if request.user.is_authenticated and request.user.is_professional:
         professional = Professional_Information.objects.get(professional_id=pk)
         id = int(request.GET['search_query'])
-        patient = Patient.objects.get(patient_id=id)
-        prescription = Prescription.objects.filter(professional=professional).filter(patient=patient)
-        context = {'patient': patient, 'professional': professional, 'prescription': prescription}
-        return render(request, 'patient-profile.html', context)
+        client = Client.objects.get(client_id=id)
+        prescription = Prescription.objects.filter(professional=professional).filter(client=client)
+        context = {'client': client, 'professional': professional, 'prescription': prescription}
+        return render(request, 'client-profile.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
@@ -95,12 +95,12 @@ def patient_search(request, pk):
 def create_prescription(request,pk):
         if request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
-            patient = Patient.objects.get(patient_id=pk)
+            client = Client.objects.get(client_id=pk)
             create_date = datetime.date.today()
 
 
             if request.method == 'POST':
-                prescription = Prescription(professional=professional, patient=patient)
+                prescription = Prescription(professional=professional, client=client)
 
                 test_name= request.POST.getlist('test_name')
                 test_description = request.POST.getlist('description')
@@ -140,9 +140,9 @@ def create_prescription(request,pk):
                     tests.save()
 
                 messages.success(request, 'Prescription Created')
-                return redirect('patient-profile', pk=patient.patient_id)
+                return redirect('client-profile', pk=client.client_id)
 
-        context = {'professional': professional,'patient': patient}
+        context = {'professional': professional,'client': client}
         return render(request, 'create-prescription.html',context)
 ```
 

@@ -39,7 +39,7 @@
       </button>
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="{% url 'patient-dashboard'%}" class="nav-link">Dashboard</a></li>
+          <li class="nav-item"><a href="{% url 'client-dashboard'%}" class="nav-link">Dashboard</a></li>
           <!-- <li class="nav-item" ><a href="{% url 'cart' %}" class="nav-link" >Cart</a></li> -->
           <!-- <li class="nav-item"><a href="{% url 'checkout' %}" class="nav-link">Checkout</a></li> -->
           <li class="nav-item cart">
@@ -54,7 +54,7 @@
           <div class="col-md-6 col-6 text-right">
             <div class="top-nav-search">
               <form action="{% url 'pharmacy_shop' %}" method="GET">
-                <input type="text" class="form-control" placeholder="Search medicine" name="search_query"
+                <input type="text" class="form-control" placeholder="Search product" name="search_query"
                   value="{{search_query}}">
               </form>
             </div>
@@ -73,7 +73,7 @@
               <div class="nav ftco-animate nav-pills justify-content-center" id="v-pills-tab" role="tablist"
                 aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-0-tab" data-toggle="pill" href="#v-pills-0" role="tab"
-                  aria-controls="v-pills-0" aria-selected="true">All Medicine</a>
+                  aria-controls="v-pills-0" aria-selected="true">All Product</a>
                 <!-- <a class="nav-link" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab"
                   aria-controls="v-pills-1" aria-selected="false">Fever & Pain</a>
                 <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab"
@@ -90,19 +90,19 @@
 
                 <div class="tab-pane fade show active" id="v-pills-0" role="tabpanel" aria-labelledby="v-pills-1-tab">
                   <div class="row">
-                    {% for medicine in medicines %}
+                    {% for product in products %}
                     <div class="col-md-4 text-center"
                       style="display: flex;justify-content:space-around;align-items: center;">
                       <div class="menu-wrap">
                         <a href="#" class="menu-img img">
-                          <img src="{{ medicine.featured_image.url }}" Style="height:300px;width: 300px;"
+                          <img src="{{ product.featured_image.url }}" Style="height:300px;width: 300px;"
                             class="img-fluid" alt="User Image" />
                         </a>
                         <div class="text" style="text-align: center">
-                          <h3><a href="{% url 'product-single' pk=medicine.serial_number %}">{{medicine.name}}</a></h3>
+                          <h3><a href="{% url 'product-single' pk=product.serial_number %}">{{product.name}}</a></h3>
 
-                          <p class="price"><span>{{medicine.price}} KES</span></p>
-                          <p><a href="{% url 'add-to-cart' pk=medicine.serial_number %}"
+                          <p class="price"><span>{{product.price}} KES</span></p>
+                          <p><a href="{% url 'add-to-cart' pk=product.serial_number %}"
                               class="btn btn-primary btn-outline-primary">Add to cart</a></p>
                         </div>
                       </div>
@@ -169,10 +169,10 @@
         <div class="col-lg-6 col-md-6 mb-5 mb-md-5">
           <div class="ftco-footer-widget mb-8">
             <h2 class="ftco-heading-2">About Us</h2>
-            <p>Healthstack is an online based platform for multiple hospitals.
-              It Provides immediate medical assistance to patients who require emergency treatment.
-              Its Ability to track, monitor, and share a patient's health records between all hospitals
-              . Patients can also see information regarding multiple hospitals and professionals and make
+            <p>Healthstack is an online based platform for multiple service_providers.
+              It Provides immediate medical assistance to clients who require emergency treatment.
+              Its Ability to track, monitor, and share a client's health records between all service_providers
+              . Clients can also see information regarding multiple service_providers and professionals and make
               appointments online.
             </p>
 

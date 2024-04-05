@@ -34,8 +34,8 @@
   <div class="main-wrapper">
     <!-- Header -->
     <header class="header">
-      {% if user.is_authenticated and user.is_patient %}
-      {% include 'patient_navbar.html' %}
+      {% if user.is_authenticated and user.is_client %}
+      {% include 'client_navbar.html' %}
       {% endif %}
 
       {% if user.is_authenticated and user.is_professional %}
@@ -51,8 +51,8 @@
           <div class="col-md-12 col-12">
             <nav aria-label="breadcrumb" class="page-breadcrumb">
               <ol class="breadcrumb">
-                {% if user.is_authenticated and user.is_patient %}
-                <li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
+                {% if user.is_authenticated and user.is_client %}
+                <li class="breadcrumb-item"><a href="{% url 'client-dashboard' %}">Home</a></li>
                 {% endif %}
 
                 {% if user.is_authenticated and user.is_professional %}
@@ -78,8 +78,8 @@
           <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
             <!-- Profile Sidebar -->
             <div>
-              {% if user.is_authenticated and user.is_patient %}
-              {% include 'patient-sidebar.html' %}
+              {% if user.is_authenticated and user.is_client %}
+              {% include 'client-sidebar.html' %}
               {% endif %}
 
               {% if user.is_authenticated and user.is_professional %}

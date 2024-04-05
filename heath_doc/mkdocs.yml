@@ -2,11 +2,11 @@ site_name: HealthStack
 docs_dr: HEATH_DOC
 nav:
   - Welcome: index.md
-  - Homepage: hospital.md
+  - Homepage: service_provider.md
   - Admin:
       - Labworker: Lab_worker.md
       - Pharmacist: Pharmacist.md
-      - Hospital Admin: hospital_admin.md
+      - Hospital Admin: service_provider_admin.md
   - Professional Dashboard: professional.md
-  - Patient Dashboard: patient.md
+  - Client Dashboard: client.md
   - ABOUT: page2.md

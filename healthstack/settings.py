@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hospital.apps.HospitalConfig',
-    'hospital_admin.apps.HospitalAdminConfig',
+    'service_provider.apps.HospitalConfig',
+    'service_provider_admin.apps.HospitalAdminConfig',
     'professional.apps.ProfessionalConfig',
     'pharmacy.apps.PharmacyConfig',
     'sslcommerz.apps.SslcommerzConfig',
@@ -178,7 +178,7 @@ EMAIL_USE_SSL = False
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'hospital.User'
+AUTH_USER_MODEL = 'service_provider.User'
 
 
 # SESSION AGE 45 Minutes

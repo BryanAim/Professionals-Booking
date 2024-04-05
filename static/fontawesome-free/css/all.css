@@ -2202,16 +2202,16 @@ readers do not read off random characters that represent icons */
 .fa-horse-head:before {
   content: "\f7ab"; }
 
-.fa-hospital:before {
+.fa-service_provider:before {
   content: "\f0f8"; }
 
-.fa-hospital-alt:before {
+.fa-service_provider-alt:before {
   content: "\f47d"; }
 
-.fa-hospital-symbol:before {
+.fa-service_provider-symbol:before {
   content: "\f47e"; }
 
-.fa-hospital-user:before {
+.fa-service_provider-user:before {
   content: "\f80d"; }
 
 .fa-hot-tub:before {

@@ -5,17 +5,17 @@ from turtle import title
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from hospital_admin.views import prescription_list
+from service_provider_admin.views import prescription_list
 from .forms import ProfessionalUserCreationForm, ProfessionalForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.cache import cache_control
-from hospital.models import User, Patient
-from hospital_admin.models import Admin_Information,Clinical_Laboratory_Technician
-from .models import Professional_Information, Appointment, Education, Experience, Prescription_medicine, Report,Specimen,Test, Prescription_test, Prescription, Professional_review
-from hospital_admin.models import Admin_Information,Clinical_Laboratory_Technician, Test_Information
-from .models import Professional_Information, Appointment, Education, Experience, Prescription_medicine, Report,Specimen,Test, Prescription_test, Prescription
+from service_provider.models import User, Client
+from service_provider_admin.models import Admin_Information,Clinical_Laboratory_Technician
+from .models import Professional_Information, Appointment, Education, Experience, Prescription_product, Report,Specimen,Test, Prescription_test, Prescription, Professional_review
+from service_provider_admin.models import Admin_Information,Clinical_Laboratory_Technician, Test_Information
+from .models import Professional_Information, Appointment, Education, Experience, Prescription_product, Report,Specimen,Test, Prescription_test, Prescription
 from django.db.models import Q, Count
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
@@ -77,8 +77,8 @@ def schedule_timings(request):
 
 @csrf_exempt
 @login_required(login_url="professional-login")
-def patient_id(request):
-    return render(request, 'patient-id.html')
+def client_id(request):
+    return render(request, 'client-id.html')
 
 @csrf_exempt
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -121,7 +121,7 @@ def professional_register(request):
 
 @csrf_exempt
 def professional_login(request):
-    # page = 'patient_login'
+    # page = 'client_login'
     if request.method == 'GET':
         return render(request, 'professional-login.html')
     elif request.method == 'POST':
@@ -168,12 +168,12 @@ def professional_dashboard(request):
                 next_date_str = str(next_date)  
                 next_days_appointment = Appointment.objects.filter(date=next_date_str).filter(professional=professional).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed')).count()
                 
-                today_patient_count = Appointment.objects.filter(date=current_date_str).filter(professional=professional).annotate(count=Count('patient'))
+                today_client_count = Appointment.objects.filter(date=current_date_str).filter(professional=professional).annotate(count=Count('client'))
                 total_appointments_count = Appointment.objects.filter(professional=professional).annotate(count=Count('id'))
             else:
                 return redirect('professional-logout')
             
-            context = {'professional': professional, 'today_appointments': today_appointments, 'today_patient_count': today_patient_count, 'total_appointments_count': total_appointments_count, 'next_days_appointment': next_days_appointment, 'current_date': current_date_str, 'next_date': next_date_str}
+            context = {'professional': professional, 'today_appointments': today_appointments, 'today_client_count': today_client_count, 'total_appointments_count': total_appointments_count, 'next_days_appointment': next_days_appointment, 'current_date': current_date_str, 'next_date': next_date_str}
             return render(request, 'professional-dashboard.html', context)
         else:
             return redirect('professional-login')
@@ -195,10 +195,10 @@ def accept_appointment(request, pk):
     
     # Mailtrap
     
-    patient_email = appointment.patient.email
-    patient_name = appointment.patient.name
-    patient_username = appointment.patient.username
-    patient_serial_number = appointment.patient.serial_number
+    client_email = appointment.client.email
+    client_name = appointment.client.name
+    client_username = appointment.client.username
+    client_serial_number = appointment.client.serial_number
     professional_name = appointment.professional.name
 
     appointment_serial_number = appointment.serial_number
@@ -209,10 +209,10 @@ def accept_appointment(request, pk):
     subject = "Appointment Acceptance Email"
     
     values = {
-            "email":patient_email,
-            "name":patient_name,
-            "username":patient_username,
-            "serial_number":patient_serial_number,
+            "email":client_email,
+            "name":client_name,
+            "username":client_username,
+            "serial_number":client_serial_number,
             "professional_name":professional_name,
             "appointment_serial_num":appointment_serial_number,
             "appointment_date":appointment_date,
@@ -224,7 +224,7 @@ def accept_appointment(request, pk):
     plain_message = strip_tags(html_message)
     
     try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
     
@@ -241,15 +241,15 @@ def reject_appointment(request, pk):
     
     # Mailtrap
     
-    patient_email = appointment.patient.email
-    patient_name = appointment.patient.name
+    client_email = appointment.client.email
+    client_name = appointment.client.name
     professional_name = appointment.professional.name
 
     subject = "Appointment Rejection Email"
     
     values = {
-            "email":patient_email,
-            "name":patient_name,
+            "email":client_email,
+            "name":client_name,
             "professional_name":professional_name,
     }
     
@@ -257,7 +257,7 @@ def reject_appointment(request, pk):
     plain_message = strip_tags(html_message)
     
     try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
     
@@ -278,10 +278,10 @@ def reject_appointment(request, pk):
 @login_required(login_url="professional-login")
 def professional_profile(request, pk):
     # request.user --> get logged in user
-    if request.user.is_patient:
-        patient = request.user.patient
+    if request.user.is_client:
+        client = request.user.client
     else:
-        patient = None
+        client = None
     
     professional = Professional_Information.objects.get(professional_id=pk)
     # professional = Professional_Information.objects.filter(professional_id=pk).order_by('-professional_id')
@@ -290,7 +290,7 @@ def professional_profile(request, pk):
     experiences = Experience.objects.filter(professional=professional).order_by('-from_year','-to_year')
     professional_review = Professional_review.objects.filter(professional=professional)
             
-    context = {'professional': professional, 'patient': patient, 'educations': educations, 'experiences': experiences, 'professional_review': professional_review}
+    context = {'professional': professional, 'client': client, 'educations': educations, 'experiences': experiences, 'professional_review': professional_review}
     return render(request, 'professional-profile.html', context)
 
 @csrf_exempt
@@ -351,18 +351,18 @@ def professional_profile_settings(request):
             degree = request.POST.getlist('degree')
             institute = request.POST.getlist('institute')
             year_complete = request.POST.getlist('year_complete')
-            hospital_name = request.POST.getlist('hospital_name')     
+            service_provider_name = request.POST.getlist('service_provider_name')     
             start_year= request.POST.getlist('from')
             end_year = request.POST.getlist('to')
             designation = request.POST.getlist('designation')
 
             professional.name = name
-            professional.visiting_hour = visit_hour
+            professional.availability = visit_hour
             professional.nid = nid
             professional.gender = gender
             professional.featured_image = featured_image
             professional.phone_number = number
-            #professional.visiting_hour
+            #professional.availability
             professional.consultation_fee = consultation_fee
             professional.report_fee = report_fee
             professional.description = description
@@ -379,9 +379,9 @@ def professional_profile_settings(request):
                 education.save()
 
             # Experience
-            for i in range(len(hospital_name)):
+            for i in range(len(service_provider_name)):
                 experience = Experience(professional=professional)
-                experience.work_place_name = hospital_name[i]
+                experience.work_place_name = service_provider_name[i]
                 experience.from_year = start_year[i]
                 experience.to_year = end_year[i]
                 experience.designation = designation[i]
@@ -401,11 +401,11 @@ def booking_success(request):
 @csrf_exempt
 @login_required(login_url="professional-login")
 def booking(request, pk):
-    patient = request.user.patient
+    client = request.user.client
     professional = Professional_Information.objects.get(professional_id=pk)
 
     if request.method == 'POST':
-        appointment = Appointment(patient=patient, professional=professional)
+        appointment = Appointment(client=client, professional=professional)
         date = request.POST['appoint_date']
         time = request.POST['appoint_time']
         appointment_type = request.POST['appointment_type']
@@ -425,19 +425,19 @@ def booking(request, pk):
         
         if message:
             # Mailtrap
-            patient_email = appointment.patient.email
-            patient_name = appointment.patient.name
-            patient_username = appointment.patient.username
-            patient_phone_number = appointment.patient.phone_number
+            client_email = appointment.client.email
+            client_name = appointment.client.name
+            client_username = appointment.client.username
+            client_phone_number = appointment.client.phone_number
             professional_name = appointment.professional.name
         
             subject = "Appointment Request"
             
             values = {
-                    "email":patient_email,
-                    "name":patient_name,
-                    "username":patient_username,
-                    "phone_number":patient_phone_number,
+                    "email":client_email,
+                    "name":client_name,
+                    "username":client_username,
+                    "phone_number":client_phone_number,
                     "professional_name":professional_name,
                     "message":message,
                 }
@@ -446,49 +446,49 @@ def booking(request, pk):
             plain_message = strip_tags(html_message)
             
             try:
-                send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
+                send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found')
         
         
         messages.success(request, 'Appointment Booked')
-        return redirect('patient-dashboard')
+        return redirect('client-dashboard')
 
-    context = {'patient': patient, 'professional': professional}
+    context = {'client': client, 'professional': professional}
     return render(request, 'booking.html', context)
 
 @csrf_exempt
 @login_required(login_url="professional-login")
-def my_patients(request):
+def my_clients(request):
     if request.user.is_professional:
         professional = Professional_Information.objects.get(user=request.user)
         appointments = Appointment.objects.filter(professional=professional).filter(appointment_status='confirmed')
-        # patients = Patient.objects.all()
+        # clients = Patient.objects.all()
     else:
         redirect('professional-logout')
     
     
     context = {'professional': professional, 'appointments': appointments}
-    return render(request, 'my-patients.html', context)
+    return render(request, 'my-clients.html', context)
 
 
-# def patient_profile(request):
-#     return render(request, 'patient_profile.html')
+# def client_profile(request):
+#     return render(request, 'client_profile.html')
 
 @csrf_exempt
 @login_required(login_url="professional-login")
-def patient_profile(request, pk):
+def client_profile(request, pk):
     if request.user.is_professional:
         # professional = Professional_Information.objects.get(user_id=pk)
         professional = Professional_Information.objects.get(user=request.user)
-        patient = Patient.objects.get(patient_id=pk)
-        appointments = Appointment.objects.filter(professional=professional).filter(patient=patient)
-        prescription = Prescription.objects.filter(professional=professional).filter(patient=patient)
-        report = Report.objects.filter(professional=professional).filter(patient=patient) 
+        client = Client.objects.get(client_id=pk)
+        appointments = Appointment.objects.filter(professional=professional).filter(client=client)
+        prescription = Prescription.objects.filter(professional=professional).filter(client=client)
+        report = Report.objects.filter(professional=professional).filter(client=client) 
     else:
         redirect('professional-logout')
-    context = {'professional': professional, 'appointments': appointments, 'patient': patient, 'prescription': prescription, 'report': report}  
-    return render(request, 'patient-profile.html', context)
+    context = {'professional': professional, 'appointments': appointments, 'client': client, 'prescription': prescription, 'report': report}  
+    return render(request, 'client-profile.html', context)
 
 
 @csrf_exempt
@@ -496,21 +496,21 @@ def patient_profile(request, pk):
 def create_prescription(request,pk):
         if request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
-            patient = Patient.objects.get(patient_id=pk) 
+            client = Client.objects.get(client_id=pk) 
             create_date = datetime.date.today()
             
 
             if request.method == 'POST':
-                prescription = Prescription(professional=professional, patient=patient)
+                prescription = Prescription(professional=professional, client=client)
                 
                 test_name= request.POST.getlist('test_name')
                 test_description = request.POST.getlist('description')
-                medicine_name = request.POST.getlist('medicine_name')
-                medicine_quantity = request.POST.getlist('quantity')
+                product_name = request.POST.getlist('product_name')
+                product_quantity = request.POST.getlist('quantity')
                 medecine_frequency = request.POST.getlist('frequency')
-                medicine_duration = request.POST.getlist('duration')
-                medicine_relation_with_meal = request.POST.getlist('relation_with_meal')
-                medicine_instruction = request.POST.getlist('instruction')
+                product_duration = request.POST.getlist('duration')
+                product_relation_with_meal = request.POST.getlist('relation_with_meal')
+                product_instruction = request.POST.getlist('instruction')
                 extra_information = request.POST.get('extra_information')
                 test_info_id = request.POST.getlist('id')
 
@@ -520,15 +520,15 @@ def create_prescription(request,pk):
                 
                 prescription.save()
 
-                for i in range(len(medicine_name)):
-                    medicine = Prescription_medicine(prescription=prescription)
-                    medicine.medicine_name = medicine_name[i]
-                    medicine.quantity = medicine_quantity[i]
-                    medicine.frequency = medecine_frequency[i]
-                    medicine.duration = medicine_duration[i]
-                    medicine.instruction = medicine_instruction[i]
-                    medicine.relation_with_meal = medicine_relation_with_meal[i]
-                    medicine.save()
+                for i in range(len(product_name)):
+                    product = Prescription_product(prescription=prescription)
+                    product.product_name = product_name[i]
+                    product.quantity = product_quantity[i]
+                    product.frequency = medecine_frequency[i]
+                    product.duration = product_duration[i]
+                    product.instruction = product_instruction[i]
+                    product.relation_with_meal = product_relation_with_meal[i]
+                    product.save()
 
                 for i in range(len(test_name)):
                     tests = Prescription_test(prescription=prescription)
@@ -541,9 +541,9 @@ def create_prescription(request,pk):
                     tests.save()
 
                 messages.success(request, 'Prescription Created')
-                return redirect('patient-profile', pk=patient.patient_id)
+                return redirect('client-profile', pk=client.client_id)
              
-        context = {'professional': professional,'patient': patient}  
+        context = {'professional': professional,'client': client}  
         return render(request, 'create-prescription.html',context)
 
         
@@ -559,13 +559,13 @@ def render_to_pdf(template_src, context_dict={}):
 
 @csrf_exempt
 def report_pdf(request, pk):
- if request.user.is_patient:
-    patient = Patient.objects.get(user=request.user)
+ if request.user.is_client:
+    client = Client.objects.get(user=request.user)
     report = Report.objects.get(report_id=pk)
     specimen = Specimen.objects.filter(report=report)
     test = Test.objects.filter(report=report)
     # current_date = datetime.date.today()
-    context={'patient':patient,'report':report,'test':test,'specimen':specimen}
+    context={'client':client,'report':report,'test':test,'specimen':specimen}
     pdf=render_to_pdf('report_pdf.html', context)
     if pdf:
         response=HttpResponse(pdf, content_type='application/pdf')
@@ -593,14 +593,14 @@ def report_pdf(request, pk):
 
 @csrf_exempt
 @login_required(login_url="login")
-def patient_search(request, pk):
+def client_search(request, pk):
     if request.user.is_authenticated and request.user.is_professional:
         professional = Professional_Information.objects.get(professional_id=pk)
         id = int(request.GET['search_query'])
-        patient = Patient.objects.get(patient_id=id)
-        prescription = Prescription.objects.filter(professional=professional).filter(patient=patient)
-        context = {'patient': patient, 'professional': professional, 'prescription': prescription}
-        return render(request, 'patient-profile.html', context)
+        client = Client.objects.get(client_id=id)
+        prescription = Prescription.objects.filter(professional=professional).filter(client=client)
+        context = {'client': client, 'professional': professional, 'prescription': prescription}
+        return render(request, 'client-profile.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
@@ -615,10 +615,10 @@ def professional_test_list(request):
         context = {'professional': professional, 'tests': tests}
         return render(request, 'professional-test-list.html', context)
     
-    elif request.user.is_authenticated and request.user.is_patient:
-        patient = Patient.objects.get(user=request.user)
+    elif request.user.is_authenticated and request.user.is_client:
+        client = Client.objects.get(user=request.user)
         tests = Test_Information.objects.all
-        context = {'patient': patient, 'tests': tests}
+        context = {'client': client, 'tests': tests}
         return render(request, 'professional-test-list.html', context)
         
     else:
@@ -633,9 +633,9 @@ def professional_view_prescription(request, pk):
     if request.user.is_authenticated and request.user.is_professional:
         professional = Professional_Information.objects.get(user=request.user)
         prescriptions = Prescription.objects.get(prescription_id=pk)
-        medicines = Prescription_medicine.objects.filter(prescription=prescriptions)
+        products = Prescription_product.objects.filter(prescription=prescriptions)
         tests = Prescription_test.objects.filter(prescription=prescriptions)
-        context = {'prescription': prescriptions, 'medicines': medicines, 'tests': tests, 'professional': professional}
+        context = {'prescription': prescriptions, 'products': products, 'tests': tests, 'professional': professional}
         return render(request, 'professional-view-prescription.html', context)
 
 @csrf_exempt
@@ -678,18 +678,18 @@ def professional_review(request, pk):
         context = {'professional': professional, 'professional_review': professional_review}  
         return render(request, 'professional-profile.html', context)
 
-    if request.user.is_patient:
+    if request.user.is_client:
         professional = Professional_Information.objects.get(professional_id=pk)
-        patient = Patient.objects.get(user=request.user)
+        client = Client.objects.get(user=request.user)
 
         if request.method == 'POST':
             title = request.POST.get('title')
             message = request.POST.get('message')
             
-            professional_review = Professional_review(professional=professional, patient=patient, title=title, message=message)
+            professional_review = Professional_review(professional=professional, client=client, title=title, message=message)
             professional_review.save()
 
-        context = {'professional': professional, 'patient': patient, 'professional_review': professional_review}  
+        context = {'professional': professional, 'client': client, 'professional_review': professional_review}  
         return render(request, 'professional-profile.html', context)
     else:
         logout(request)

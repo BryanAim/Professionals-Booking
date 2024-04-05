@@ -7,7 +7,7 @@ from .pdf import report_pdf
 
 # from . --> same directory
 # Views functions and urls must be linked. # of views == # of urls
-# App URL file - urls related to hospital
+# App URL file - urls related to service_provider
 
 urlpatterns = [
     path('', views.professional_login, name='professional-login'),
@@ -17,19 +17,19 @@ urlpatterns = [
     path('professional-profile-settings/', views.professional_profile_settings,name='professional-profile-settings'),
     path('professional-register/', views.professional_register, name='professional-register'),
     path('professional-logout/', views.logoutProfessional, name='professional-logout'),
-    path('my-patients/', views.my_patients, name='my-patients'),
+    path('my-clients/', views.my_clients, name='my-clients'),
     path('booking/<int:pk>/', views.booking, name='booking'),
     path('booking-success/', views.booking_success, name='booking-success'),
     path('schedule-timings/', views.schedule_timings, name='schedule-timings'),
-    path('patient-id/', views.patient_id, name='patient-id'),
+    path('client-id/', views.client_id, name='client-id'),
     path('create-prescription/<int:pk>/', views.create_prescription, name='create-prescription'),
-    path('patient-profile/<int:pk>/',views.patient_profile, name='patient-profile'),
+    path('client-profile/<int:pk>/',views.client_profile, name='client-profile'),
     path('delete-education/<int:pk>/',views.delete_education, name='delete-education'),
     path('delete-experience/<int:pk>/',views.delete_experience, name='delete-experience'),
     path('appointments/',views.appointments, name='appointments'),
     path('accept-appointment/<int:pk>/',views.accept_appointment, name='accept-appointment'),
     path('reject-appointment/<int:pk>/',views.reject_appointment, name='reject-appointment'),
-    path('patient-search/<int:pk>/', views.patient_search, name='patient-search'),
+    path('client-search/<int:pk>/', views.client_search, name='client-search'),
     path('pdf/<int:pk>/',views.report_pdf, name='pdf'),
     path('professional_review/<int:pk>/', views.professional_review, name='professional_review'),
     path('professional-test-list/', views.professional_test_list, name='professional-test-list'),

@@ -39,7 +39,7 @@ $(function () {
 		],
 		xkey: 'y',
 		ykeys: ['a', 'b'],
-		labels: ['Professionals', 'Patients'],
+		labels: ['Professionals', 'Clients'],
 		lineColors: ['#1b5a90', '#ff9d00'],
 		lineWidth: 1,
 		gridTextSize: 10,

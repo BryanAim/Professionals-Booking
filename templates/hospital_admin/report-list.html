@@ -74,8 +74,8 @@
               <!-- Feed Activity -->
               <div class="card  card-table flex-fill">
                 <div class="card-header">
-                  <h4 class="card-title">Patient List</h4> <br>
-                  <p class="card-text">Click To See <b>Prescriptions</b> of patients</p>
+                  <h4 class="card-title">Client List</h4> <br>
+                  <p class="card-text">Click To See <b>Prescriptions</b> of clients</p>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -83,7 +83,7 @@
                       <thead>
                         <tr>
                           <th>Report ID</th>
-                          <th>Patient Name</th>
+                          <th>Client Name</th>
                           <th>Professional Name</th>
                         </tr>
                       </thead>
@@ -91,7 +91,7 @@
                         {% for t in report%}
                         <tr>
                           <td>{{t.report_id}}</td>
-                          <td>{{t.patient}}</td>
+                          <td>{{t.client}}</td>
                           <td>{{t.professional}}</td>
 
                         </tr>
@@ -144,7 +144,7 @@
   <!-- Chart JS -->
 
   <script>
-    var total_patient_count = "{{total_patient_count.count}}";
+    var total_client_count = "{{total_client_count.count}}";
     var total_labworker_count = "{{total_labworker_count.count}}";
     var total_hospital_count = "{{total_hospital_count.count}}";
     var total_pharmacist_count = "{{total_pharmacist_count.count}}";

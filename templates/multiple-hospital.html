@@ -20,7 +20,7 @@
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}">
 
-	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/hospital.css' %}">
+	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/service_provider.css' %}">
 	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/search2.css' %}">
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,8 +39,8 @@
 		<!-- Header -->
 		<header class="header">
 
-			{% if user.is_authenticated and user.is_patient %}
-			{% include 'patient_navbar.html' %}
+			{% if user.is_authenticated and user.is_client %}
+			{% include 'client_navbar.html' %}
 			{% endif %}
 
 			{% if user.is_authenticated and user.is_professional %}
@@ -57,8 +57,8 @@
 					<div class="col-md-6 col-6">
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
-								{% if user.is_authenticated and user.is_patient %}
-								<li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
+								{% if user.is_authenticated and user.is_client %}
+								<li class="breadcrumb-item"><a href="{% url 'client-dashboard' %}">Home</a></li>
 								{% endif %}
 
 								{% if user.is_authenticated and user.is_professional %}
@@ -72,8 +72,8 @@
 					<div class="col-md-6 col-6 text-right">
 
 						<div class="top-nav-search">
-							<form action="{% url 'multiple-hospital' %}" method="GET">
-								<input type="text" class="form-control" placeholder="Search hospital" name="search_query"
+							<form action="{% url 'multiple-service_provider' %}" method="GET">
+								<input type="text" class="form-control" placeholder="Search service_provider" name="search_query"
 									value="{{search_query}}">
 								<button class="btn" type="submit"><i class="fa fa-search"></i></button>
 							</form>
@@ -93,8 +93,8 @@
 						<!-- Profile Sidebar -->
 						<div>
 
-							{% if user.is_authenticated and user.is_patient %}
-							{% include 'patient-sidebar.html' %}
+							{% if user.is_authenticated and user.is_client %}
+							{% include 'client-sidebar.html' %}
 							{% endif %}
 
 							{% if user.is_authenticated and user.is_professional %}
@@ -116,21 +116,21 @@
 								<div class="content">
 									<div class="container">
 										<div class="row">
-											{% for hospital in hospitals %}
+											{% for service_provider in service_providers %}
 
 											<div class="col-xs-12 col-sm-4">
 												<div class="card">
 													<a class="img-card" href="#">
-														<img src="{{hospital.featured_image.url}}" />
+														<img src="{{service_provider.featured_image.url}}" />
 													</a>
 													<div class="card-content">
 														<h4 class="card-title">
-															<a href="#"> {{hospital.name}}
+															<a href="#"> {{service_provider.name}}
 															</a>
 														</h4>
 													</div>
 													<div class="card-read-more">
-														<a href="{% url 'hospital-profile' pk=hospital.hospital_id %}"
+														<a href="{% url 'service_provider-profile' pk=service_provider.service_provider_id %}"
 															class="btn btn-link btn-block">
 															Explore
 														</a>
@@ -147,7 +147,7 @@
 							</div>
 
 						</section>
-						{% include 'pagination.html' with queryset=hospitals custom_range=custom_range %}
+						{% include 'pagination.html' with queryset=service_providers custom_range=custom_range %}
 					</div>
 
 				</div>

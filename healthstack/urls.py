@@ -16,7 +16,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from hospital import views
+from service_provider import views
 
 # For forgot password views and reset password views
 from django.contrib.auth import views as auth_views
@@ -28,10 +28,10 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', views.login_user, name='login'),
-    path('', include('hospital.urls')),
+    path('', include('service_provider.urls')),
     path('professional/', include('professional.urls')),
     path('api/', include('api.urls')),
-    path('hospital_admin/', include('hospital_admin.urls')),
+    path('service_provider_admin/', include('service_provider_admin.urls')),
     path('chat/', include('ChatApp.urls')),
     path('sslcommerz/', include('sslcommerz.urls')),
     path('pharmacy/', include('pharmacy.urls')),

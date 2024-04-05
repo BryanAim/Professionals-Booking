@@ -4,10 +4,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 # from django.contrib.auth.models import User
 # from django.contrib.auth.forms import UserCreationForm
-from .forms import CustomUserCreationForm, PatientForm, PasswordResetForm
-from hospital.models import Hospital_Information, User, Patient 
+from .forms import CustomUserCreationForm, ClientForm, PasswordResetForm
+from service_provider.models import ServiceProvider, User, Client 
 from professional.models import Test, testCart, testOrder
-from hospital_admin.models import hospital_department, specialization, service, Test_Information
+from service_provider_admin.models import ServiceDepartment, specialization, service, Test_Information
 from django.views.decorators.cache import cache_control
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -19,7 +19,7 @@ from django.dispatch import receiver
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from .utils import searchProfessionals, searchHospitals, searchDepartmentProfessionals, paginateHospitals
-from .models import Patient, User
+from .models import Client, User
 from professional.models import Professional_Information, Appointment,Report, Specimen, Test, Prescription, Prescription_medicine, Prescription_test
 from sslcommerz.models import Payment
 from django.db.models import Q, Count
@@ -37,18 +37,18 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 @csrf_exempt
-def hospital_home(request):
+def service_provider_home(request):
     # .order_by('-created_at')[:6]
     professionals = Professional_Information.objects.filter(register_status='Accepted')
-    hospitals = Hospital_Information.objects.all()
-    context = {'professionals': professionals, 'hospitals': hospitals} 
+    service_providers = ServiceProvider.objects.all()
+    context = {'professionals': professionals, 'service_providers': service_providers} 
     return render(request, 'index-2.html', context)
 
 @csrf_exempt
 @login_required(login_url="login")
 def change_password(request,pk):
-    patient = Patient.objects.get(user_id=pk)
-    context={"patient":patient}
+    client = Client.objects.get(user_id=pk)
+    context={"client":client}
     if request.method == "POST":
         new_password = request.POST["new_password"]
         confirm_password = request.POST["confirm_password"]
@@ -57,7 +57,7 @@ def change_password(request,pk):
             request.user.set_password(new_password)
             request.user.save()
             messages.success(request,"Password Changed Successfully")
-            return redirect("patient-dashboard")
+            return redirect("client-dashboard")
         else:
             messages.error(request,"New Password and Confirm Password is not same")
             return redirect("change-password",pk)
@@ -123,10 +123,10 @@ def about_us(request):
 @csrf_exempt
 @login_required(login_url="login")
 def chat(request, pk):
-    patient = Patient.objects.get(user_id=pk)
+    client = Client.objects.get(user_id=pk)
     professionals = Professional_Information.objects.all()
 
-    context = {'patient': patient, 'professionals': professionals}
+    context = {'client': client, 'professionals': professionals}
     return render(request, 'chat.html', context)
 
 @csrf_exempt
@@ -134,9 +134,9 @@ def chat(request, pk):
 def chat_professional(request):
     if request.user.is_professional:
         professional = Professional_Information.objects.get(user=request.user)
-        patients = Patient.objects.all()
+        clients = Client.objects.all()
         
-    context = {'patients': patients, 'professional': professional}
+    context = {'clients': clients, 'professional': professional}
     return render(request, 'chat-professional.html', context)
 
 @csrf_exempt     
@@ -146,9 +146,9 @@ def pharmacy_shop(request):
 
 @csrf_exempt
 def login_user(request):
-    page = 'patient_login'
+    page = 'client_login'
     if request.method == 'GET':
-        return render(request, 'patient-login.html')
+        return render(request, 'client-login.html')
     elif request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -162,16 +162,16 @@ def login_user(request):
 
         if user is not None:
             login(request, user)
-            if request.user.is_patient:   
+            if request.user.is_client:   
                 messages.success(request, 'User Logged in Successfully')    
-                return redirect('patient-dashboard')
+                return redirect('client-dashboard')
             else:
-                messages.error(request, 'Invalid credentials. Not a Patient')
+                messages.error(request, 'Invalid credentials. Not a Client')
                 return redirect('logout')
         else:
             messages.error(request, 'Invalid username or password')
 
-    return render(request, 'patient-login.html')
+    return render(request, 'client-login.html')
 
 @csrf_exempt
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -181,8 +181,8 @@ def logoutUser(request):
     return redirect('login')
 
 @csrf_exempt
-def patient_register(request):
-    page = 'patient-register'
+def client_register(request):
+    page = 'client-register'
     form = CustomUserCreationForm()
 
     if request.method == 'POST':
@@ -190,10 +190,10 @@ def patient_register(request):
         if form.is_valid():
             # form.save()
             user = form.save(commit=False) # commit=False --> don't save to database yet (we have a chance to modify object)
-            user.is_patient = True
+            user.is_client = True
             # user.username = user.username.lower()  # lowercase username
             user.save()
-            messages.success(request, 'Patient account was created!')
+            messages.success(request, 'Client account was created!')
 
             # After user is created, we can log them in --> login(request, user)
             return redirect('login')
@@ -202,24 +202,24 @@ def patient_register(request):
             messages.error(request, 'An error has occurred during registration')
 
     context = {'page': page, 'form': form}
-    return render(request, 'patient-register.html', context)
+    return render(request, 'client-register.html', context)
 
 @csrf_exempt
 @login_required(login_url="login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def patient_dashboard(request):
-    if request.user.is_patient:
+def client_dashboard(request):
+    if request.user.is_client:
         # patient = Patient.objects.get(user_id=pk)
-        patient = Patient.objects.get(user=request.user)
-        report = Report.objects.filter(patient=patient)
-        prescription = Prescription.objects.filter(patient=patient).order_by('-prescription_id')
-        appointments = Appointment.objects.filter(patient=patient).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed'))
-        payments = Payment.objects.filter(patient=patient).filter(appointment__in=appointments).filter(payment_type='appointment').filter(status='VALID')
-        context = {'patient': patient, 'appointments': appointments, 'payments': payments,'report':report,'prescription':prescription}
+        client = Client.objects.get(user=request.user)
+        report = Report.objects.filter(client=client)
+        prescription = Prescription.objects.filter(client=client).order_by('-prescription_id')
+        appointments = Appointment.objects.filter(client=client).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed'))
+        payments = Payment.objects.filter(client=client).filter(appointment__in=appointments).filter(payment_type='appointment').filter(status='VALID')
+        context = {'client': client, 'appointments': appointments, 'payments': payments,'report':report,'prescription':prescription}
     else:
         return redirect('logout')
         
-    return render(request, 'patient-dashboard.html', context)
+    return render(request, 'client-dashboard.html', context)
 
 
 # def profile_settings(request):
@@ -244,13 +244,13 @@ def patient_dashboard(request):
 @csrf_exempt
 @login_required(login_url="login")
 def profile_settings(request):
-    if request.user.is_patient:
+    if request.user.is_client:
         # patient = Patient.objects.get(user_id=pk)
-        patient = Patient.objects.get(user=request.user)
-        old_featured_image = patient.featured_image
+        client = Client.objects.get(user=request.user)
+        old_featured_image = client.featured_image
         
         if request.method == 'GET':
-            context = {'patient': patient}
+            context = {'client': client}
             return render(request, 'profile-settings.html', context)
         elif request.method == 'POST':
             if 'featured_image' in request.FILES:
@@ -267,39 +267,39 @@ def profile_settings(request):
             nid = request.POST.get('nid')
             history = request.POST.get('history')
             
-            patient.name = name
-            patient.age = age
-            patient.phone_number = phone_number
-            patient.address = address
-            patient.blood_group = blood_group
-            patient.history = history
-            patient.dob = dob
-            patient.nid = nid
-            patient.featured_image = featured_image
+            client.name = name
+            client.age = age
+            client.phone_number = phone_number
+            client.address = address
+            client.blood_group = blood_group
+            client.history = history
+            client.dob = dob
+            client.nid = nid
+            client.featured_image = featured_image
             
-            patient.save()
+            client.save()
             
             messages.success(request, 'Profile Settings Changed!')
             
-            return redirect('patient-dashboard')
+            return redirect('client-dashboard')
     else:
         redirect('logout')  
         
 @csrf_exempt
 @login_required(login_url="login")
 def search(request):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
         # patient = Patient.objects.get(user_id=pk)
-        patient = Patient.objects.get(user=request.user)
+        client = Client.objects.get(user=request.user)
         professionals = Professional_Information.objects.filter(register_status='Accepted')
         
         professionals, search_query = searchProfessionals(request)
-        context = {'patient': patient, 'professionals': professionals, 'search_query': search_query}
+        context = {'client': client, 'professionals': professionals, 'search_query': search_query}
         return render(request, 'search.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html')    
+        return render(request, 'client-login.html')    
     
 
 def checkout_payment(request):
@@ -307,79 +307,79 @@ def checkout_payment(request):
 
 @csrf_exempt
 @login_required(login_url="login")
-def multiple_hospital(request):
+def multiple_service_provider(request):
     
     if request.user.is_authenticated: 
         
-        if request.user.is_patient:
+        if request.user.is_client:
             # patient = Patient.objects.get(user_id=pk)
-            patient = Patient.objects.get(user=request.user)
+            client = Client.objects.get(user=request.user)
             professionals = Professional_Information.objects.all()
-            hospitals = Hospital_Information.objects.all()
+            service_providers = ServiceProvider.objects.all()
             
-            hospitals, search_query = searchHospitals(request)
+            service_providers, search_query = searchHospitals(request)
             
             # PAGINATION ADDED TO MULTIPLE HOSPITALS
-            custom_range, hospitals = paginateHospitals(request, hospitals, 3)
+            custom_range, service_providers = paginateHospitals(request, service_providers, 3)
         
-            context = {'patient': patient, 'professionals': professionals, 'hospitals': hospitals, 'search_query': search_query, 'custom_range': custom_range}
-            return render(request, 'multiple-hospital.html', context)
+            context = {'client': client, 'professionals': professionals, 'service_providers': service_providers, 'search_query': search_query, 'custom_range': custom_range}
+            return render(request, 'multiple-service_provider.html', context)
         
         elif request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
-            hospitals = Hospital_Information.objects.all()
+            service_providers = ServiceProvider.objects.all()
             
-            hospitals, search_query = searchHospitals(request)
+            service_providers, search_query = searchHospitals(request)
             
-            context = {'professional': professional, 'hospitals': hospitals, 'search_query': search_query}
-            return render(request, 'multiple-hospital.html', context)
+            context = {'professional': professional, 'service_providers': service_providers, 'search_query': search_query}
+            return render(request, 'multiple-service_provider.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html') 
+        return render(request, 'client-login.html') 
     
 @csrf_exempt    
 @login_required(login_url="login")
-def hospital_profile(request, pk):
+def service_provider_profile(request, pk):
     
     if request.user.is_authenticated: 
         
-        if request.user.is_patient:
-            patient = Patient.objects.get(user=request.user)
+        if request.user.is_client:
+            client = Client.objects.get(user=request.user)
             professionals = Professional_Information.objects.all()
-            hospitals = Hospital_Information.objects.get(hospital_id=pk)
+            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
         
-            departments = hospital_department.objects.filter(hospital=hospitals)
-            specializations = specialization.objects.filter(hospital=hospitals)
-            services = service.objects.filter(hospital=hospitals)
+            departments = ServiceDepartment.objects.filter(service_provider=service_providers)
+            specializations = specialization.objects.filter(service_provider=service_providers)
+            services = service.objects.filter(service_provider=service_providers)
             
             # department_list = None
             # for d in departments:
-            #     vald = d.hospital_department_name
+            #     vald = d.ServiceDepartment_name
             #     vald = re.sub("'", "", vald)
             #     vald = vald.replace("[", "")
             #     vald = vald.replace("]", "")
             #     vald = vald.replace(",", "")
             #     department_list = vald.split()
             
-            context = {'patient': patient, 'professionals': professionals, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations, 'services': services}
-            return render(request, 'hospital-profile.html', context)
+            context = {'client': client, 'professionals': professionals, 'service_providers': service_providers, 'departments': departments, 'specializations': specializations, 'services': services}
+            return render(request, 'service_provider-profile.html', context)
         
         elif request.user.is_professional:
            
             professional = Professional_Information.objects.get(user=request.user)
-            hospitals = Hospital_Information.objects.get(hospital_id=pk)
+            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
             
-            departments = hospital_department.objects.filter(hospital=hospitals)
-            specializations = specialization.objects.filter(hospital=hospitals)
-            services = service.objects.filter(hospital=hospitals)
+            departments = ServiceDepartment.objects.filter(service_provider=service_providers)
+            specializations = specialization.objects.filter(service_provider=service_providers)
+            services = service.objects.filter(service_provider=service_providers)
             
-            context = {'professional': professional, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations, 'services': services}
-            return render(request, 'hospital-profile.html', context)
+            context = {'professional': professional, 'service_providers': service_providers, 'departments': departments, 'specializations': specializations, 'services': services}
+            return render(request, 'service_provider-profile.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html') 
+        return render(request, 'client-login.html') 
     
     
 def data_table(request):
@@ -387,75 +387,75 @@ def data_table(request):
 
 @csrf_exempt
 @login_required(login_url="login")
-def hospital_department_list(request, pk):
+def ServiceDepartment_list(request, pk):
     if request.user.is_authenticated: 
         
-        if request.user.is_patient:
+        if request.user.is_client:
             # patient = Patient.objects.get(user_id=pk)
-            patient = Patient.objects.get(user=request.user)
+            client = Client.objects.get(user=request.user)
             professionals = Professional_Information.objects.all()
             
-            hospitals = Hospital_Information.objects.get(hospital_id=pk)
-            departments = hospital_department.objects.filter(hospital=hospitals)
+            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
+            departments = ServiceDepartment.objects.filter(service_provider=service_providers)
         
-            context = {'patient': patient, 'professionals': professionals, 'hospitals': hospitals, 'departments': departments}
-            return render(request, 'hospital-department.html', context)
+            context = {'client': client, 'professionals': professionals, 'service_providers': service_providers, 'departments': departments}
+            return render(request, 'service_provider-department.html', context)
         
         elif request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
-            hospitals = Hospital_Information.objects.get(hospital_id=pk)
-            departments = hospital_department.objects.filter(hospital=hospitals)
+            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
+            departments = ServiceDepartment.objects.filter(service_provider=service_providers)
             
-            context = {'professional': professional, 'hospitals': hospitals, 'departments': departments}
-            return render(request, 'hospital-department.html', context)
+            context = {'professional': professional, 'service_providers': service_providers, 'departments': departments}
+            return render(request, 'service_provider-department.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'patient-login.html')
+        return render(request, 'client-login.html')
 
 @csrf_exempt
 @login_required(login_url="login")
-def hospital_professional_list(request, pk):
-    if request.user.is_authenticated and request.user.is_patient:
+def service_provider_professional_list(request, pk):
+    if request.user.is_authenticated and request.user.is_client:
         # patient = Patient.objects.get(user_id=pk)
-        patient = Patient.objects.get(user=request.user)
-        departments = hospital_department.objects.get(hospital_department_id=pk)
+        client = Client.objects.get(user=request.user)
+        departments = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
         professionals = Professional_Information.objects.filter(department_name=departments)
         
         professionals, search_query = searchDepartmentProfessionals(request, pk)
         
-        context = {'patient': patient, 'department': departments, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
-        return render(request, 'hospital-professional-list.html', context)
+        context = {'client': client, 'department': departments, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
+        return render(request, 'service_provider-professional-list.html', context)
 
     elif request.user.is_authenticated and request.user.is_professional:
         # patient = Patient.objects.get(user_id=pk)
         
         professional = Professional_Information.objects.get(user=request.user)
-        departments = hospital_department.objects.get(hospital_department_id=pk)
+        departments = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
         
         professionals = Professional_Information.objects.filter(department_name=departments)
         professionals, search_query = searchDepartmentProfessionals(request, pk)
         
         context = {'professional':professional, 'department': departments, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
-        return render(request, 'hospital-professional-list.html', context)
+        return render(request, 'service_provider-professional-list.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html')   
+        return render(request, 'client-login.html')   
     
 
 
 @csrf_exempt
 @login_required(login_url="login")
-def hospital_professional_register(request, pk):
+def service_provider_professional_register(request, pk):
     if request.user.is_authenticated: 
         
         if request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
-            hospitals = Hospital_Information.objects.get(hospital_id=pk)
+            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
             
-            departments = hospital_department.objects.filter(hospital=hospitals)
-            specializations = specialization.objects.filter(hospital=hospitals)
+            departments = ServiceDepartment.objects.filter(service_provider=service_providers)
+            specializations = specialization.objects.filter(service_provider=service_providers)
             
             if request.method == 'POST':
                 if 'certificate_image' in request.FILES:
@@ -466,7 +466,7 @@ def hospital_professional_register(request, pk):
                 department_id_selected = request.POST.get('department_radio')
                 specialization_id_selected = request.POST.get('specialization_radio')
                 
-                department_chosen = hospital_department.objects.get(hospital_department_id=department_id_selected)
+                department_chosen = ServiceDepartment.objects.get(ServiceDepartment_id=department_id_selected)
                 specialization_chosen = specialization.objects.get(specialization_id=specialization_id_selected)
                 
                 professional.department_name = department_chosen
@@ -481,8 +481,8 @@ def hospital_professional_register(request, pk):
                 return redirect('professional-dashboard')
                 
                  
-            context = {'professional': professional, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations}
-            return render(request, 'hospital-professional-register.html', context)
+            context = {'professional': professional, 'service_providers': service_providers, 'departments': departments, 'specializations': specializations}
+            return render(request, 'service_provider-professional-register.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
@@ -490,7 +490,7 @@ def hospital_professional_register(request, pk):
     
    
 def testing(request):
-    # hospitals = Hospital_Information.objects.get(hospital_id=1)
+    # service_providers = ServiceProvider.objects.get(service_provider_id=1)
     test = "test"
     context = {'test': test}
     return render(request, 'testing.html', context)
@@ -498,14 +498,14 @@ def testing(request):
 @csrf_exempt
 @login_required(login_url="login")
 def view_report(request,pk):
-    if request.user.is_patient:
-        patient = Patient.objects.get(user=request.user)
+    if request.user.is_client:
+        client = Client.objects.get(user=request.user)
         report = Report.objects.filter(report_id=pk)
         specimen = Specimen.objects.filter(report__in=report)
         test = Test.objects.filter(report__in=report)
 
         # current_date = datetime.date.today()
-        context = {'patient':patient,'report':report,'test':test,'specimen':specimen}
+        context = {'client':client,'report':report,'test':test,'specimen':specimen}
         return render(request, 'view-report.html',context)
     else:
         redirect('logout') 
@@ -517,25 +517,25 @@ def test_cart(request):
 @csrf_exempt
 @login_required(login_url="login")
 def test_single(request,pk):
-     if request.user.is_authenticated and request.user.is_patient:
+     if request.user.is_authenticated and request.user.is_client:
          
-        patient = Patient.objects.get(user=request.user)
+        client = Client.objects.get(user=request.user)
         Perscription_test = Perscription_test.objects.get(test_id=pk)
         carts = testCart.objects.filter(user=request.user, purchased=False)
         
-        context = {'patient': patient, 'carts': carts, 'Perscription_test': Perscription_test}
+        context = {'client': client, 'carts': carts, 'Perscription_test': Perscription_test}
         return render(request, 'test-cart.html',context)
      else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'patient-login.html')  
+        return render(request, 'client-login.html')  
 
 @csrf_exempt
 @login_required(login_url="login")
 def test_add_to_cart(request, pk, pk2):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
          
-        patient = Patient.objects.get(user=request.user)
+        client = Client.objects.get(user=request.user)
         test_information = Test_Information.objects.get(test_id=pk2)
         prescription = Prescription.objects.filter(prescription_id=pk)
 
@@ -554,22 +554,22 @@ def test_add_to_cart(request, pk, pk2):
             order.orderitems.add(order_item[0])
             return redirect("prescription-view", pk=pk)
 
-        context = {'patient': patient,'prescription_test': prescription_tests,'prescription':prescription,'prescription_medicine':prescription_medicine,'test_information':test_information}
+        context = {'client': client,'prescription_test': prescription_tests,'prescription':prescription,'prescription_medicine':prescription_medicine,'test_information':test_information}
         return render(request, 'prescription-view.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'patient-login.html')  
+        return render(request, 'client-login.html')  
 
 @csrf_exempt
 @login_required(login_url="login")
 def test_cart(request, pk):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
         # prescription = Prescription.objects.filter(prescription_id=pk)
         
         prescription = Prescription.objects.filter(prescription_id=pk)
         
-        patient = Patient.objects.get(user=request.user)
+        client = Client.objects.get(user=request.user)
         prescription_test = Prescription_test.objects.all()
         test_carts = testCart.objects.filter(user=request.user, purchased=False)
         test_orders = testOrder.objects.filter(user=request.user, ordered=False)
@@ -577,24 +577,24 @@ def test_cart(request, pk):
         if test_carts.exists() and test_orders.exists():
             test_order = test_orders[0]
             
-            context = {'test_carts': test_carts,'test_order': test_order, 'patient': patient, 'prescription_test':prescription_test, 'prescription_id':pk}
+            context = {'test_carts': test_carts,'test_order': test_order, 'client': client, 'prescription_test':prescription_test, 'prescription_id':pk}
             return render(request, 'test-cart.html', context)
         else:
             # messages.warning(request, "You don't have any test in your cart!")
-            context = {'patient': patient,'prescription_test':prescription_test}
+            context = {'client': client,'prescription_test':prescription_test}
             return render(request, 'prescription-view.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'patient-login.html') 
+        return render(request, 'client-login.html') 
 
 @csrf_exempt
 @login_required(login_url="login")
 def test_remove_cart(request, pk):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
         item = Prescription_test.objects.get(test_id=pk)
 
-        patient = Patient.objects.get(user=request.user)
+        client = Client.objects.get(user=request.user)
         prescription = Prescription.objects.filter(prescription_id=pk)
         prescription_medicine = Prescription_medicine.objects.filter(prescription__in=prescription)
         prescription_test = Prescription_test.objects.filter(prescription__in=prescription)
@@ -609,30 +609,30 @@ def test_remove_cart(request, pk):
                 test_order.orderitems.remove(test_order_item)
                 test_order_item.delete()
                 # messages.warning(request, "This test was remove from your cart!")
-                context = {'test_carts': test_carts,'test_order': test_order,'patient': patient,'prescription_id':pk}
+                context = {'test_carts': test_carts,'test_order': test_order,'client': client,'prescription_id':pk}
                 return render(request, 'test-cart.html', context)
             else:
                 # messages.info(request, "This test was not in your cart")
-                context = {'patient': patient,'test': item,'prescription':prescription,'prescription_medicine':prescription_medicine,'prescription_test':prescription_test}
+                context = {'client': client,'test': item,'prescription':prescription,'prescription_medicine':prescription_medicine,'prescription_test':prescription_test}
                 return render(request, 'prescription-view.html', context)
         else:
             # messages.info(request, "You don't have an active order")
-            context = {'patient': patient,'test': item,'prescription':prescription,'prescription_medicine':prescription_medicine,'prescription_test':prescription_test}
+            context = {'client': client,'test': item,'prescription':prescription,'prescription_medicine':prescription_medicine,'prescription_test':prescription_test}
             return redirect('prescription-view', pk=prescription.prescription_id)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'patient-login.html') 
+        return render(request, 'client-login.html') 
 
 @csrf_exempt
 def prescription_view(request,pk):
-      if request.user.is_patient:
-        patient = Patient.objects.get(user=request.user)
+      if request.user.is_client:
+        client = Client.objects.get(user=request.user)
         prescription = Prescription.objects.filter(prescription_id=pk)
         prescription_medicine = Prescription_medicine.objects.filter(prescription__in=prescription)
         prescription_test = Prescription_test.objects.filter(prescription__in=prescription)
 
-        context = {'patient':patient,'prescription':prescription,'prescription_test':prescription_test,'prescription_medicine':prescription_medicine}
+        context = {'client':client,'prescription':prescription,'prescription_test':prescription_test,'prescription_medicine':prescription_medicine}
         return render(request, 'prescription-view.html',context)
       else:
          redirect('logout') 
@@ -666,13 +666,13 @@ def render_to_pdf(template_src, context_dict={}):
 
 @csrf_exempt
 def prescription_pdf(request,pk):
- if request.user.is_patient:
-    patient = Patient.objects.get(user=request.user)
+ if request.user.is_client:
+    client = Client.objects.get(user=request.user)
     prescription = Prescription.objects.get(prescription_id=pk)
     prescription_medicine = Prescription_medicine.objects.filter(prescription=prescription)
     prescription_test = Prescription_test.objects.filter(prescription=prescription)
     # current_date = datetime.date.today()
-    context={'patient':patient,'prescription':prescription,'prescription_test':prescription_test,'prescription_medicine':prescription_medicine}
+    context={'client':client,'prescription':prescription,'prescription_test':prescription_test,'prescription_medicine':prescription_medicine}
     pres_pdf=render_to_pdf('prescription_pdf.html', context)
     if pres_pdf:
         response=HttpResponse(pres_pdf, content_type='application/pres_pdf')
@@ -684,28 +684,28 @@ def prescription_pdf(request,pk):
 @csrf_exempt
 @login_required(login_url="login")
 def delete_prescription(request,pk):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
         prescription = Prescription.objects.get(prescription_id=pk)
         prescription.delete()
         messages.success(request, 'Prescription Deleted')
-        return redirect('patient-dashboard')
+        return redirect('client-dashboard')
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html')
+        return render(request, 'client-login.html')
 
 @csrf_exempt
 @login_required(login_url="login")
 def delete_report(request,pk):
-    if request.user.is_authenticated and request.user.is_patient:
+    if request.user.is_authenticated and request.user.is_client:
         report = Report.objects.get(report_id=pk)
         report.delete()
         messages.success(request, 'Report Deleted')
-        return redirect('patient-dashboard')
+        return redirect('client-dashboard')
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
-        return render(request, 'patient-login.html')
+        return render(request, 'client-login.html')
 
 @csrf_exempt
 @receiver(user_logged_in)

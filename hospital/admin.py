@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 # Register your models here.
-# # we are in same file path --> .models
+# # we are in same file path --> .modelsmodels
 
-from .models import Hospital_Information, Patient, User
+from .models import ServiceProvider, Client, User
 
 admin.site.register(User)
-admin.site.register(Hospital_Information)
-admin.site.register(Patient)
+admin.site.register(ServiceProvider)
+admin.site.register(Client)
 

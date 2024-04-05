@@ -24,7 +24,7 @@ def accept_professional(request,pk):
     # Mailtrap
     professional_name = professional.name
     professional_email = professional.email
-    professional_department = professional.department_name.hospital_department_name
+    professional_department = professional.department_name.ServiceDepartment_name
 
     professional_specialization = professional.specialization.specialization_name
 
@@ -38,11 +38,11 @@ def accept_professional(request,pk):
             "professional_specialization":professional_specialization,
         }
 
-    html_message = render_to_string('hospital_admin/accept-professional-mail.html', {'values': values})
+    html_message = render_to_string('service_provider_admin/accept-professional-mail.html', {'values': values})
     plain_message = strip_tags(html_message)
 
     try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [professional_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [professional_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
 
@@ -57,8 +57,8 @@ def reject_professional(request,pk):
     # Mailtrap
     professional_name = professional.name
     professional_email = professional.email
-    professional_department = professional.department_name.hospital_department_name
-    professional_hospital = professional.hospital_name.name
+    professional_department = professional.department_name.ServiceDepartment_name
+    professional_service_provider = professional.service_provider_name.name
     professional_specialization = professional.specialization.specialization_name
 
     subject = "Rejection of Professional Registration"
@@ -67,15 +67,15 @@ def reject_professional(request,pk):
             "professional_name":professional_name,
             "professional_email":professional_email,
             "professional_department":professional_department,
-            "professional_hospital":professional_hospital,
+            "professional_service_provider":professional_service_provider,
             "professional_specialization":professional_specialization,
         }
 
-    html_message = render_to_string('hospital_admin/reject-professional-mail.html', {'values': values})
+    html_message = render_to_string('service_provider_admin/reject-professional-mail.html', {'values': values})
     plain_message = strip_tags(html_message)
 
     try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [professional_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [professional_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
 
@@ -89,7 +89,7 @@ def reject_professional(request,pk):
 
 ```python
 def add_lab_worker(request):
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
 
         form = LabWorkerCreationForm()
@@ -111,7 +111,7 @@ def add_lab_worker(request):
                 messages.error(request, 'An error has occurred during registration')
 
     context = {'form': form, 'admin': user}
-    return render(request, 'hospital_admin/add-lab-worker.html', context)
+    return render(request, 'service_provider_admin/add-lab-worker.html', context)
 ```
 
 ![title](admins/add labratory.png)
@@ -121,7 +121,7 @@ def add_lab_worker(request):
 
 ```python
 def add_pharmacist(request):
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
         form = PharmacistCreationForm()
 
@@ -142,7 +142,7 @@ def add_pharmacist(request):
             messages.error(request, 'An error has occurred during registration')
 
     context = {'form': form, 'admin': user}
-    return render(request, 'hospital_admin/add-pharmacist.html', context)
+    return render(request, 'service_provider_admin/add-pharmacist.html', context)
 ```
 
 ![title](admins/add pharmacist.png)
@@ -151,81 +151,81 @@ def add_pharmacist(request):
 # Add,Edit and View Hospital
 
 ```python
-def add_hospital(request):
-    if  request.user.is_hospital_admin:
+def add_service_provider(request):
+    if  request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
 
         if request.method == 'POST':
-            hospital = Hospital_Information()
+            service_provider = ServiceProvider()
 
             if 'featured_image' in request.FILES:
                 featured_image = request.FILES['featured_image']
             else:
                 featured_image = "departments/default.png"
 
-            hospital_name = request.POST.get('hospital_name')
+            service_provider_name = request.POST.get('service_provider_name')
             address = request.POST.get('address')
             description = request.POST.get('description')
             email = request.POST.get('email')
             phone_number = request.POST.get('phone_number')
-            hospital_type = request.POST.get('type')
+            service_provider_type = request.POST.get('type')
             specialization_name = request.POST.getlist('specialization')
             department_name = request.POST.getlist('department')
             service_name = request.POST.getlist('service')
 
 
-            hospital.name = hospital_name
-            hospital.description = description
-            hospital.address = address
-            hospital.email = email
-            hospital.phone_number =phone_number
-            hospital.featured_image=featured_image
-            hospital.hospital_type=hospital_type
+            service_provider.name = service_provider_name
+            service_provider.description = description
+            service_provider.address = address
+            service_provider.email = email
+            service_provider.phone_number =phone_number
+            service_provider.featured_image=featured_image
+            service_provider.service_provider_type=service_provider_type
 
             # print(department_name[0])
 
-            hospital.save()
+            service_provider.save()
 
             for i in range(len(department_name)):
-                departments = hospital_department(hospital=hospital)
+                departments = ServiceDepartment(service_provider=service_provider)
                 # print(department_name[i])
-                departments.hospital_department_name = department_name[i]
+                departments.ServiceDepartment_name = department_name[i]
                 departments.save()
 
             for i in range(len(specialization_name)):
-                specializations = specialization(hospital=hospital)
+                specializations = specialization(service_provider=service_provider)
                 specializations.specialization_name=specialization_name[i]
                 specializations.save()
 
             for i in range(len(service_name)):
-                services = service(hospital=hospital)
+                services = service(service_provider=service_provider)
                 services.service_name = service_name[i]
                 services.save()
 
             messages.success(request, 'Hospital Added')
-            return redirect('hospital-list')
+            return redirect('service_provider-list')
 
         context = { 'admin': user}
-        return render(request, 'hospital_admin/add-hospital.html',context)
+        return render(request, 'service_provider_admin/add-service_provider.html',context)
 ```
 
-![title](admins/add hospital info.png)
+![title](admins/add service_provider info.png)
 
 # Edit Hospital Information
 
 ```python
-def edit_hospital(request, pk):
-    if  request.user.is_hospital_admin:
+def edit_service_provider(request, pk):
+    if  request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
-        hospital = Hospital_Information.objects.get(hospital_id=pk)
-        old_featured_image = hospital.featured_image
+        service_provider = ServiceProvider.objects.get(service_provider_id=pk)
+        old_featured_image = service_provider.featured_image
 
         if request.method == 'GET':
-            specializations = specialization.objects.filter(hospital=hospital)
-            services = service.objects.filter(hospital=hospital)
-            departments = hospital_department.objects.filter(hospital=hospital)
-            context = {'hospital': hospital, 'specializations': specializations, 'services': services,'departments':departments, 'admin': user}
-            return render(request, 'hospital_admin/edit-hospital.html',context)
+            specializations = specialization.objects.filter(service_provider=service_provider)
+            services = service.objects.filter(service_provider=service_provider)
+            departments = ServiceDepartment.objects.filter(service_provider=service_provider)
+            context = {'service_provider': service_provider, 'specializations': specializations, 'services': services,'departments':departments, 'admin': user}
+            return render(request, 'service_provider_admin/edit-service_provider.html',context)
 
         elif request.method == 'POST':
             if 'featured_image' in request.FILES:
@@ -233,51 +233,51 @@ def edit_hospital(request, pk):
             else:
                 featured_image = old_featured_image
 
-            hospital_name = request.POST.get('hospital_name')
+            service_provider_name = request.POST.get('service_provider_name')
             address = request.POST.get('address')
             description = request.POST.get('description')
             email = request.POST.get('email')
             phone_number = request.POST.get('phone_number')
-            hospital_type = request.POST.get('type')
+            service_provider_type = request.POST.get('type')
 
             specialization_name = request.POST.getlist('specialization')
             department_name = request.POST.getlist('department')
             service_name = request.POST.getlist('service')
 
-            hospital.name = hospital_name
-            hospital.description = description
-            hospital.address = address
-            hospital.email = email
-            hospital.phone_number =phone_number
-            hospital.featured_image =featured_image
-            hospital.hospital_type =hospital_type
+            service_provider.name = service_provider_name
+            service_provider.description = description
+            service_provider.address = address
+            service_provider.email = email
+            service_provider.phone_number =phone_number
+            service_provider.featured_image =featured_image
+            service_provider.service_provider_type =service_provider_type
 
             # specializations.specialization_name=specialization_name
             # services.service_name = service_name
-            # departments.hospital_department_name = department_name
+            # departments.ServiceDepartment_name = department_name
 
-            hospital.save()
+            service_provider.save()
 
             # Specialization
             for i in range(len(specialization_name)):
-                specializations = specialization(hospital=hospital)
+                specializations = specialization(service_provider=service_provider)
                 specializations.specialization_name = specialization_name[i]
                 specializations.save()
 
             # Experience
             for i in range(len(service_name)):
-                services = service(hospital=hospital)
+                services = service(service_provider=service_provider)
                 services.service_name = service_name[i]
                 services.save()
 
             for i in range(len(department_name)):
-                departments = hospital_department(hospital=hospital)
-                departments.hospital_department_name = department_name[i]
+                departments = ServiceDepartment(service_provider=service_provider)
+                departments.ServiceDepartment_name = department_name[i]
                 departments.save()
 
             messages.success(request, 'Hospital Updated')
-            return redirect('hospital-list')
+            return redirect('service_provider-list')
 
 ```
 
-![title](admins/edit hospital information.png)
+![title](admins/edit service_provider information.png)

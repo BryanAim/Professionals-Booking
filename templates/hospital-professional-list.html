@@ -44,8 +44,8 @@
   <div class="main-wrapper">
     <!-- Header -->
     <header class="header">
-      {% if user.is_authenticated and user.is_patient %}
-      {% include 'patient_navbar.html' %}
+      {% if user.is_authenticated and user.is_client %}
+      {% include 'client_navbar.html' %}
       {% endif %}
 
       {% if user.is_authenticated and user.is_professional %}
@@ -61,8 +61,8 @@
           <div class="col-md-6 col-6">
             <nav aria-label="breadcrumb" class="page-breadcrumb">
               <ol class="breadcrumb">
-                {% if user.is_authenticated and user.is_patient %}
-                <li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
+                {% if user.is_authenticated and user.is_client %}
+                <li class="breadcrumb-item"><a href="{% url 'client-dashboard' %}">Home</a></li>
                 {% endif %}
 
                 {% if user.is_authenticated and user.is_professional %}
@@ -76,7 +76,7 @@
           <div class="col-md-6 col-6 text-right">
 
             <div class="top-nav-search">
-              <form action="{% url 'hospital-professional-list' pk=pk_id %}" method="GET">
+              <form action="{% url 'service_provider-professional-list' pk=pk_id %}" method="GET">
                 <input type="text" class="form-control" placeholder="Search professional" name="search_query"
                   value="{{search_query}}">
                 <button class="btn" type="submit"><i class="fa fa-search"></i></button>
@@ -97,8 +97,8 @@
           <!-- Profile Sidebar -->
           <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
             <div>
-              {% if user.is_authenticated and user.is_patient %}
-              {% include 'patient-sidebar.html' %}
+              {% if user.is_authenticated and user.is_client %}
+              {% include 'client-sidebar.html' %}
               {% endif %}
 
               {% if user.is_authenticated and user.is_professional %}
@@ -126,7 +126,7 @@
                         <a href="{% url 'professional-profile' pk=professional.professional_id %}">Dr.
                           {{professional.name}}</a>
                       </h4>
-                      <p class="doc-speciality">{{ professional.department_name.hospital_department_name }}</p>
+                      <p class="doc-speciality">{{ professional.department_name.ServiceDepartment_name }}</p>
                       <h5 class="doc-department">
                         <img src="{% static 'HealthStack-System/images/Normal/specialities/specialities-05.png'%}"
                           class="img-fluid" alt="Speciality" />{{ professional.specialization.specialization_name }}
@@ -142,7 +142,7 @@
                       <div class="clinic-details">
                         <p class="doc-location">
                           <i class="fas fa-map-marker-alt"></i>
-                          {{professional.hospital_name}}
+                          {{professional.service_provider_name}}
                         </p>
                         <ul class="clinic-gallery">
                           <li>
@@ -189,7 +189,7 @@
                         href="{% url 'professional-profile' pk=professional.professional_id %}">View
                         Profile</a>
 
-                      {% if user.is_authenticated and user.is_patient %}
+                      {% if user.is_authenticated and user.is_client %}
                       <a class="apt-btn" href="{% url 'booking' pk=professional.professional_id %}">Book Appointment</a>
                       {% endif %}
                     </div>

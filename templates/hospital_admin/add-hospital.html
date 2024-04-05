@@ -4,19 +4,12 @@
 
 <head>
 	<meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=0"
-    />
-    <title>HealthStack - Dashboard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+	<title>HealthStack - Dashboard</title>
 
-    <!-- Favicon -->
+	<!-- Favicon -->
 
-    <link
-      rel="shortcut icon"
-      type="image/x-icon"
-      href="{% static 'HealthStack-System/images/Normal/favicon.png' %}"
-    />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}" />
 
 
 	<!-- Bootstrap CSS -->
@@ -35,7 +28,7 @@
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="{% static 'HealthStack-System/css/admin/style.css'%}">
 
-	<link rel="stylesheet" href="{% static 'HealthStack-System/css/admin/add-hospital.css'%}">
+	<link rel="stylesheet" href="{% static 'HealthStack-System/css/admin/add-service_provider.css'%}">
 
 	<!--[if lt IE 9]>
 			<script src="assets/js/html5shiv.min.js"></script>
@@ -47,7 +40,7 @@
 
 	<!-- Main Wrapper -->
 	<div class="main-wrapper">
-		<header class="header">{% include 'hospital_admin/hospital-admin-navbar.html' %}</header>
+		<header class="header">{% include 'service_provider_admin/service_provider-admin-navbar.html' %}</header>
 		<!-- Logo -->
 
 
@@ -55,7 +48,7 @@
 
 		<!-- Sidebar -->
 		<aside class="sidebar" id="sidebar">
-			{% include 'hospital_admin/hospital-admin-sidebar.html' %}
+			{% include 'service_provider_admin/service_provider-admin-sidebar.html' %}
 		</aside>
 		<!-- /Sidebar -->
 
@@ -94,22 +87,21 @@
 									<div class="card-body">
 
 										<!-- Profile Settings Form -->
-										<form action="{% url 'add-hospital' %}" method="POST" enctype="multipart/form-data">
+										<form action="{% url 'add-service_provider' %}" method="POST" enctype="multipart/form-data">
 											{% csrf_token %}
 											<div class="row form-row">
 												<div class="col-md-6">
 													<div class="form-group">
 														<div class="change-avatar">
 															<div class="profile-img">
-																<img src="{% static 'images/hospitals/default.png' %}"
+																<img src="{% static 'images/service_providers/default.png' %}"
 																	alt="Admin Profile Image">
 															</div>
 															<div class="upload-img">
 																<div class="change-photo-btn">
 																	<span><i class="fa fa-upload"></i> Upload
 																		Photo</span>
-																	<input type="file" class="upload"
-																		name="featured_image">
+																	<input type="file" class="upload" name="featured_image">
 																</div>
 																<small class="form-text text-muted">Allowed JPG, GIF or
 																	PNG. Max size of 2MB</small>
@@ -132,8 +124,7 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<input class="form-control" type="text"
-																					name="hospital_name">
+																				<input class="form-control" type="text" name="service_provider_name">
 																			</td>
 																		</tr>
 																	</tbody>
@@ -154,8 +145,7 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<input class="form-control" type="text"
-																					name="address">
+																				<input class="form-control" type="text" name="address">
 																			</td>
 																		</tr>
 																	</tbody>
@@ -178,12 +168,10 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<input class="form-control" type="email"
-																					name="email">
+																				<input class="form-control" type="email" name="email">
 																			</td>
 																			<td>
-																				<input class="form-control" type="text"
-																					name="phone_number">
+																				<input class="form-control" type="text" name="phone_number">
 																			</td>
 																		</tr>
 																	</tbody>
@@ -217,8 +205,7 @@
 																				</select>
 																			</td>
 																			{% comment %} <td>
-																				<input class="form-control" type="file"
-																					name="image">
+																				<input class="form-control" type="file" name="image">
 																			</td> {% endcomment %}
 																		</tr>
 																	</tbody>
@@ -234,21 +221,18 @@
 																	<div class="col-12 col-md-10 col-lg-5">
 																		<div class="form-group">
 																			<label>Add New Departments</label>
-																			<input type="text" class="form-control"
-																				id="departments" name="department">
+																			<input type="text" class="form-control" id="departments" name="department">
 																		</div>
 																	</div>
 																	<div class="col-12 col-md-2 col-lg-2">
-																		<label
-																			class="d-md-block d-sm-none d-none">&nbsp;</label>
-																		<a href="#" class="btn btn-danger trash"><i
-																				class="far fa-trash-alt"></i></a>
+																		<label class="d-md-block d-sm-none d-none">&nbsp;</label>
+																		<a href="#" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a>
 																	</div>
 																</div>
 															</div>
 															<div class="add-more">
-																<a href="javascript:void(0);" class="add-department"><i
-																		class="fa fa-plus-circle"></i> Add More</a>
+																<a href="javascript:void(0);" class="add-department"><i class="fa fa-plus-circle"></i>
+																	Add More</a>
 															</div>
 														</div>
 													</div>
@@ -260,21 +244,17 @@
 																	<div class="col-12 col-md-10 col-lg-5">
 																		<div class="form-group">
 																			<label>Add New Services</label>
-																			<input type="text" class="form-control"
-																				id="service" name="service">
+																			<input type="text" class="form-control" id="service" name="service">
 																		</div>
 																	</div>
 																	<div class="col-12 col-md-2 col-lg-2">
-																		<label
-																			class="d-md-block d-sm-none d-none">&nbsp;</label>
-																		<a href="#" class="btn btn-danger trash"><i
-																				class="far fa-trash-alt"></i></a>
+																		<label class="d-md-block d-sm-none d-none">&nbsp;</label>
+																		<a href="#" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a>
 																	</div>
 																</div>
 															</div>
 															<div class="add-more">
-																<a href="javascript:void(0);" class="add-service"
-																	style="color: #20c0f3"><i
+																<a href="javascript:void(0);" class="add-service" style="color: #20c0f3"><i
 																		class="fa fa-plus-circle"></i> Add More</a>
 															</div>
 														</div>
@@ -287,22 +267,17 @@
 																	<div class="col-12 col-md-10 col-lg-5">
 																		<div class="form-group">
 																			<label>Add New Specialization</label>
-																			<input type="text" class="form-control"
-																				id="specialization"
-																				name="specialization">
+																			<input type="text" class="form-control" id="specialization" name="specialization">
 																		</div>
 																	</div>
 																	<div class="col-12 col-md-2 col-lg-2">
-																		<label
-																			class="d-md-block d-sm-none d-none">&nbsp;</label>
-																		<a href="#" class="btn btn-danger trash"><i
-																				class="far fa-trash-alt"></i></a>
+																		<label class="d-md-block d-sm-none d-none">&nbsp;</label>
+																		<a href="#" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a>
 																	</div>
 																</div>
 															</div>
 															<div class="add-more">
-																<a href="javascript:void(0);"
-																	class="add-specialization"><i
+																<a href="javascript:void(0);" class="add-specialization"><i
 																		class="fa fa-plus-circle"></i> Add More</a>
 															</div>
 														</div>
@@ -321,8 +296,7 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<textarea class="form-control" rows="4"
-																					cols="50" type="text"
+																				<textarea class="form-control" rows="4" cols="50" type="text"
 																					name="description"></textarea>
 																			</td>
 																		</tr>

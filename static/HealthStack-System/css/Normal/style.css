@@ -30,12 +30,12 @@ Version      : 1.0
 21. Invoice View
 22. Schedule Timings
 23. Professional Dashboard
-24. Patient Profile
+24. Client Profile
 25. Add Billing
 26. Chat
 27. Professional Profile Settings
 28. Calendar
-29. Patient Dashboard
+29. Client Dashboard
 30. Profile Settings
 31. Appoitment List
 32. Reviews
@@ -4028,7 +4028,7 @@ home-image{
 }
 
 /*-----------------
-	24. Patient Profile
+	24. Client Profile
 -----------------------*/
 
 .add-new-btn {
@@ -4044,29 +4044,29 @@ home-image{
 	background-color: #0de0fe;
     color: #fff;
 }
-.patient-info {
+.client-info {
 	margin-top: 15px;
 }
-.patient-info ul {
+.client-info ul {
     padding: 0;
     list-style: none;
 	font-size: .875rem;
 	margin: 0;
 }
-.patient-info ul li {
+.client-info ul li {
     position: relative;
     font-size: .875rem;
     font-weight: 500;
     color: #272b41;
     text-transform: capitalize;
 }
-.patient-info ul li + li {
+.client-info ul li + li {
 	margin-top: 15px;
 }
-.patient-info ul li i {
+.client-info ul li i {
 	width: 18px;
 }
-.patient-info ul li span {
+.client-info ul li span {
     color: #757575;
     float: right;
     font-weight: 400;
@@ -5023,7 +5023,7 @@ home-image{
 }
 
 /*-----------------
-	29. Patient Dashboard
+	29. Client Dashboard
 -----------------------*/
 
 .profile-sidebar {
@@ -5063,7 +5063,7 @@ home-image{
     white-space: nowrap;
     overflow: hidden;
 }
-.patient-details h5 {
+.client-details h5 {
     color: #757575;
     font-size: 13px;
     font-weight: normal;
@@ -5072,7 +5072,7 @@ home-image{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.patient-details h5 i {
+.client-details h5 i {
 	width: 18px;
 }
 .dashboard-menu ul {

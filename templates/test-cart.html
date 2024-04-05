@@ -20,7 +20,7 @@
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}">
 
-	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/hospital.css' %}">
+	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/service_provider.css' %}">
 	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/search2.css' %}">
 	<link rel="stylesheet" href="{% static 'HealthStack-System\pharmacy_assets\css\icomoon.css'%}">
 
@@ -40,8 +40,8 @@
 		<!-- Header -->
 		<header class="header">
 
-			{% if user.is_authenticated and user.is_patient %}
-			{% include 'patient_navbar.html' %}
+			{% if user.is_authenticated and user.is_client %}
+			{% include 'client_navbar.html' %}
 			{% endif %}
 
 			{% if user.is_authenticated and user.is_professional %}
@@ -58,8 +58,8 @@
 					<div class="col-md-6 col-6">
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
-								{% if user.is_authenticated and user.is_patient %}
-								<li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
+								{% if user.is_authenticated and user.is_client %}
+								<li class="breadcrumb-item"><a href="{% url 'client-dashboard' %}">Home</a></li>
 								{% endif %}
 
 								{% if user.is_authenticated and user.is_professional %}
@@ -85,8 +85,8 @@
 						<!-- Profile Sidebar -->
 						<div>
 
-							{% if user.is_authenticated and user.is_patient %}
-							{% include 'patient-sidebar.html' %}
+							{% if user.is_authenticated and user.is_client %}
+							{% include 'client-sidebar.html' %}
 							{% endif %}
 
 							{% if user.is_authenticated and user.is_professional %}
@@ -148,7 +148,7 @@
 
 												</div>
 												<p class="text-center"><a
-														href="{% url 'ssl-payment-request-test' pk=test_order.user.patient.patient_id id=test_order.id pk2=prescription_id %}"
+														href="{% url 'ssl-payment-request-test' pk=test_order.user.client.client_id id=test_order.id pk2=prescription_id %}"
 														class="btn btn-primary py-3 px-4">Proceed to
 														Checkout</a></p>
 												<p class="text-center"><a href="" class="btn btn-info py-3 px-4">Back to Prescription</a></p>

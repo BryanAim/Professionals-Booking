@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('professional', '0001_initial'),
         ('pharmacy', '0001_initial'),
-        ('hospital', '0001_initial'),
+        ('service_provider', '0001_initial'),
     ]
 
     operations = [
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('card_brand', models.CharField(blank=True, max_length=255, null=True)),
                 ('appointment', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='professional.appointment')),
                 ('order', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='pharmacy.order')),
-                ('patient', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='hospital.patient')),
+                ('client', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='service_provider.client')),
                 ('prescription', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='professional.prescription')),
                 ('test_order', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='professional.testorder')),
             ],

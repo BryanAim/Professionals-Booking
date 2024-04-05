@@ -2,7 +2,7 @@ from django.db.models import Q
 from pharmacy.models import Product
 
 
-def searchProduct(request):
+def searchProducts(request):
     
     search_query = ''
     

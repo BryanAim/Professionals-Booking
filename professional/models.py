@@ -3,7 +3,7 @@ from django.db import models
 import uuid
 
 # import django user model
-from service_provider.models import ServiceProvider, User, Client
+from service_provider.models import ServiceProvider, User, Client, Service_Provider_Information
 from service_provider_admin.models import ServiceDepartment, specialization, service
 from django.conf import settings
 
@@ -102,8 +102,24 @@ class Professional_Information(models.Model):
     availability = models.CharField(max_length=200, null=True, blank=True)
     consultation_fee = models.IntegerField(null=True, blank=True)  # Consider renaming or making this more generic
     dob = models.DateField(null=True, blank=True)
+    
+    # ForeignKey --> one to one relationship with Hospital_Information model.
+    service_provider_name = models.ForeignKey(Service_Provider_Information, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    
+    department = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES, null=True, blank=True)
+    report_fee = models.IntegerField(null=True, blank=True)
 
-    # Education and work experience can remain the same or be moved to their respective models
+        # Education
+    institute = models.CharField(max_length=200, null=True, blank=True)
+    degree = models.CharField(max_length=200, null=True, blank=True)
+    completion_year = models.CharField(max_length=200, null=True, blank=True)
+    
+    # work experience
+    work_place = models.CharField(max_length=200, null=True, blank=True)
+    designation = models.CharField(max_length=200, null=True, blank=True)
+    start_year = models.CharField(max_length=200, null=True, blank=True)
+    end_year = models.CharField(max_length=200, null=True, blank=True)
 
     register_status = models.CharField(max_length=200, null=True, blank=True)  # Consider using a boolean if just tracking registration status
     service_provider = models.ForeignKey(ServiceProvider, on_delete=models.SET_NULL, null=True)  # Generalized from hospital

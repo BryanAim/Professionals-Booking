@@ -115,6 +115,9 @@ class Client(models.Model):
     # Add additional fields if necessary to accommodate information relevant to clients of various services
     history = models.CharField(max_length=200, null=True, blank=True)
     dob = models.CharField(max_length=200, null=True, blank=True)
+    
+    blood_group = models.CharField(max_length=200, null=True, blank=True)
+    nid = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.user.username

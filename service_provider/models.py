@@ -24,9 +24,9 @@ Django automatically creates id field for each model class which will be a PK # 
 class User(AbstractUser):
     is_client = models.BooleanField(default=False)
     is_professional = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
-    # is_labworker = models.BooleanField(default=False)
-    # is_pharmacist = models.BooleanField(default=False)
+    is_service_provider_admin = models.BooleanField(default=False)
+    is_labworker = models.BooleanField(default=False)
+    is_pharmacist = models.BooleanField(default=False)
     #login_status = models.CharField(max_length=200, null=True, blank=True, default="offline")
     login_status = models.BooleanField(default=False)
     
@@ -137,7 +137,7 @@ class ServiceProvider(models.Model):
 
 class Client(models.Model):
     client_id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name='client_detail')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name='client')
     name = models.CharField(max_length=200, null=True, blank=True)
     username = models.CharField(max_length=200, null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
@@ -153,6 +153,12 @@ class Client(models.Model):
     
     blood_group = models.CharField(max_length=200, null=True, blank=True)
     nid = models.CharField(max_length=200, null=True, blank=True)
+
+    
+    serial_number = models.CharField(max_length=200, null=True, blank=True)
+    
+    # Chat
+    login_status = models.CharField(max_length=200, null=True, blank=True, default="offline")
 
     def __str__(self):
         return self.user.username

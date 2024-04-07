@@ -38,12 +38,12 @@ from .utils import searchProducts
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def admin_dashboard(request):
     # admin = Admin_Information.objects.get(user_id=pk)
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
         total_client_count = Client.objects.annotate(count=Count('client_id'))
         total_professional_count = Professional_Information.objects.annotate(count=Count('professional_id'))
         total_pharmacist_count = Pharmacist.objects.annotate(count=Count('pharmacist_id'))
-        total_hospital_count = ServiceProvider.objects.annotate(count=Count('hospital_id'))
+        total_service_provider_count = ServiceProvider.objects.annotate(count=Count('service_provider_id'))
         total_labworker_count = Clinical_Laboratory_Technician.objects.annotate(count=Count('technician_id'))
         pending_appointment = Appointment.objects.filter(appointment_status='pending').count()
         professionals = Professional_Information.objects.all()
@@ -88,7 +88,7 @@ def admin_dashboard(request):
         thurs_count = Appointment.objects.filter(date=thurs_date_str).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed')).count()
         fri_count = Appointment.objects.filter(date=fri_date_str).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed')).count()
 
-        context = {'admin': user,'total_client_count': total_client_count,'total_professional_count':total_professional_count,'pending_appointment':pending_appointment,'professionals':professionals,'clients':clients,'service_providers':service_providers,'lab_workers':lab_workers,'total_pharmacist_count':total_pharmacist_count,'total_hospital_count':total_hospital_count,'total_labworker_count':total_labworker_count,'sat_count': sat_count, 'sun_count': sun_count, 'mon_count': mon_count, 'tues_count': tues_count, 'wed_count': wed_count, 'thurs_count': thurs_count, 'fri_count': fri_count, 'sat': sat, 'sun': sun, 'mon': mon, 'tues': tues, 'wed': wed, 'thurs': thurs, 'fri': fri, 'pharmacists': pharmacists}
+        context = {'admin': user,'total_client_count': total_client_count,'total_professional_count':total_professional_count,'pending_appointment':pending_appointment,'professionals':professionals,'clients':clients,'service_providers':service_providers,'lab_workers':lab_workers,'total_pharmacist_count':total_pharmacist_count,'total_service_provider_count':total_service_provider_count,'total_labworker_count':total_labworker_count,'sat_count': sat_count, 'sun_count': sun_count, 'mon_count': mon_count, 'tues_count': tues_count, 'wed_count': wed_count, 'thurs_count': thurs_count, 'fri_count': fri_count, 'sat': sat, 'sun': sun, 'mon': mon, 'tues': tues, 'wed': wed, 'thurs': thurs, 'fri': fri, 'pharmacists': pharmacists}
         return render(request, 'service_provider_admin/admin-dashboard.html', context)
     elif request.user.is_labworker:
         # messages.error(request, 'You are not authorized to access this page')
@@ -120,7 +120,7 @@ def admin_login(request):
 
         if user is not None:
             login(request, user)
-            if user.is_hospital_admin:
+            if user.is_service_provider_admin:
                 messages.success(request, 'User logged in')
                 return redirect('admin-dashboard')
             elif user.is_labworker:
@@ -149,7 +149,7 @@ def admin_register(request):
             # form.save()
             # commit=False --> don't save to database yet (we have a chance to modify object)
             user = form.save(commit=False)
-            user.is_hospital_admin = True
+            user.is_service_provider_admin = True
             user.save()
 
             messages.success(request, 'User account was created!')
@@ -186,7 +186,7 @@ def lock_screen(request):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def client_list(request):
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
     clients = Client.objects.all()
     return render(request, 'service_provider_admin/client-list.html', {'all': clients, 'admin': user})
@@ -215,11 +215,11 @@ def emergency_details(request):
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def hospital_list(request):
+def service_provider_list(request):
     user = Admin_Information.objects.get(user=request.user)
     service_providers = ServiceProvider.objects.all()
     context = { 'admin': user, 'service_providers': service_providers}
-    return render(request, 'service_provider_admin/hospital-list.html', context)
+    return render(request, 'service_provider_admin/service_provider-list.html', context)
 
 @csrf_exempt
 @login_required(login_url='admin_login')
@@ -228,12 +228,12 @@ def appointment_list(request):
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def hospital_profile(request):
-    return render(request, 'hospital-profile.html')
+def service_provider_profile(request):
+    return render(request, 'service_provider-profile.html')
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def hospital_admin_profile(request, pk):
+def service_provider_admin_profile(request, pk):
 
     # profile = request.user.profile
     # get user id of logged in user, and get all info from table
@@ -251,23 +251,23 @@ def hospital_admin_profile(request, pk):
             form = AdminForm()
 
     context = {'admin': admin, 'form': form}
-    return render(request, 'service_provider_admin/hospital-admin-profile.html', context)
+    return render(request, 'service_provider_admin/service_provider-admin-profile.html', context)
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def add_hospital(request):
-    if  request.user.is_hospital_admin:
+def add_service_provider(request):
+    if  request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
 
         if request.method == 'POST':
-            hospital = ServiceProvider()
+            service_provider = ServiceProvider()
             
             if 'featured_image' in request.FILES:
                 featured_image = request.FILES['featured_image']
             else:
                 featured_image = "departments/default.png"
             
-            hospital_name = request.POST.get('hospital_name')
+            service_provider_name = request.POST.get('service_provider_name')
             address = request.POST.get('address')
             description = request.POST.get('description')
             email = request.POST.get('email')
@@ -278,39 +278,39 @@ def add_hospital(request):
             service_name = request.POST.getlist('service')
             
         
-            hospital.name = hospital_name
-            hospital.description = description
-            hospital.address = address
-            hospital.email = email
-            hospital.phone_number =phone_number
-            hospital.featured_image=featured_image 
-            hospital.service_type=service_type
+            service_provider.name = service_provider_name
+            service_provider.description = description
+            service_provider.address = address
+            service_provider.email = email
+            service_provider.phone_number =phone_number
+            service_provider.featured_image=featured_image 
+            service_provider.service_type=service_type
             
             # print(department_name[0])
          
-            hospital.save()
+            service_provider.save()
             
             for i in range(len(department_name)):
-                departments = ServiceDepartment(service_provider=hospital)
+                departments = ServiceDepartment(service_provider=service_provider)
                 # print(department_name[i])
                 departments.ServiceDepartment_name = department_name[i]
                 departments.save()
                 
             for i in range(len(specialization_name)):
-                specializations = specialization(service_provider=hospital)
+                specializations = specialization(service_provider=service_provider)
                 specializations.specialization_name=specialization_name[i]
                 specializations.save()
                 
             for i in range(len(service_name)):
-                services = service(service_provider=hospital)
+                services = service(service_provider=service_provider)
                 services.service_name = service_name[i]
                 services.save()
             
             messages.success(request, 'ServiceProvider Added')
-            return redirect('hospital-list')
+            return redirect('service_provider-list')
 
         context = { 'admin': user}
-        return render(request, 'service_provider_admin/add-hospital.html',context)
+        return render(request, 'service_provider_admin/add-service_provider.html',context)
 
 
 # def edit_hospital(request, pk):
@@ -319,18 +319,18 @@ def add_hospital(request):
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def edit_hospital(request, pk):
-    if  request.user.is_hospital_admin:
+def edit_service_provider(request, pk):
+    if  request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
-        hospital = ServiceProvider.objects.get(hospital_id=pk)
-        old_featured_image = hospital.featured_image
+        service_provider = ServiceProvider.objects.get(service_provider_id=pk)
+        old_featured_image = service_provider.featured_image
 
         if request.method == 'GET':
-            specializations = specialization.objects.filter(service_provider=hospital)
-            services = service.objects.filter(service_provider=hospital)
-            departments = ServiceDepartment.objects.filter(service_provider=hospital)
-            context = {'hospital': hospital, 'specializations': specializations, 'services': services,'departments':departments, 'admin': user}
-            return render(request, 'service_provider_admin/edit-hospital.html',context)
+            specializations = specialization.objects.filter(service_provider=service_provider)
+            services = service.objects.filter(service_provider=service_provider)
+            departments = ServiceDepartment.objects.filter(service_provider=service_provider)
+            context = {'service_provider': service_provider, 'specializations': specializations, 'services': services,'departments':departments, 'admin': user}
+            return render(request, 'service_provider_admin/edit-service_provider.html',context)
 
         elif request.method == 'POST':
             if 'featured_image' in request.FILES:
@@ -338,7 +338,7 @@ def edit_hospital(request, pk):
             else:
                 featured_image = old_featured_image
                                
-            hospital_name = request.POST.get('hospital_name')
+            service_provider_name = request.POST.get('service_provider_name')
             address = request.POST.get('address')
             description = request.POST.get('description')
             email = request.POST.get('email')
@@ -349,39 +349,39 @@ def edit_hospital(request, pk):
             department_name = request.POST.getlist('department')
             service_name = request.POST.getlist('service')
 
-            hospital.name = hospital_name
-            hospital.description = description
-            hospital.address = address
-            hospital.email = email
-            hospital.phone_number =phone_number
-            hospital.featured_image =featured_image 
-            hospital.service_type =service_type
+            service_provider.name = service_provider_name
+            service_provider.description = description
+            service_provider.address = address
+            service_provider.email = email
+            service_provider.phone_number =phone_number
+            service_provider.featured_image =featured_image 
+            service_provider.service_type =service_type
             
             # specializations.specialization_name=specialization_name
             # services.service_name = service_name
             # departments.ServiceDepartment_name = department_name 
 
-            hospital.save()
+            service_provider.save()
 
             # Specialization
             for i in range(len(specialization_name)):
-                specializations = specialization(service_provider=hospital)
+                specializations = specialization(service_provider=service_provider)
                 specializations.specialization_name = specialization_name[i]
                 specializations.save()
 
             # Experience
             for i in range(len(service_name)):
-                services = service(service_provider=hospital)
+                services = service(service_provider=service_provider)
                 services.service_name = service_name[i]
                 services.save()
                 
             for i in range(len(department_name)):
-                departments = ServiceDepartment(service_provider=hospital)
+                departments = ServiceDepartment(service_provider=service_provider)
                 departments.ServiceDepartment_name = department_name[i]
                 departments.save()
 
             messages.success(request, 'ServiceProvider Updated')
-            return redirect('hospital-list')
+            return redirect('service_provider-list')
 
 @csrf_exempt
 @login_required(login_url='admin_login')
@@ -389,7 +389,7 @@ def delete_specialization(request, pk, pk2):
     specializations = specialization.objects.get(specialization_id=pk)
     specializations.delete()
     messages.success(request, 'Delete Specialization')
-    return redirect('edit-hospital', pk2)
+    return redirect('edit-service_provider', pk2)
 
 @csrf_exempt
 @login_required(login_url='admin_login')
@@ -397,18 +397,18 @@ def delete_service(request, pk, pk2):
     services = service.objects.get(service_id=pk)
     services.delete()
     messages.success(request, 'Delete Service')
-    return redirect('edit-hospital', pk2)
+    return redirect('edit-service_provider', pk2)
 
 @csrf_exempt
 @login_required(login_url='admin_login')
 def edit_emergency_information(request, pk):
 
-    hospital = ServiceProvider.objects.get(hospital_id=pk)
-    form = EditEmergencyForm(instance=hospital)  
+    service_provider = ServiceProvider.objects.get(service_provider_id=pk)
+    form = EditEmergencyForm(instance=service_provider)  
 
     if request.method == 'POST':
         form = EditEmergencyForm(request.POST, request.FILES,
-                           instance=hospital)  
+                           instance=service_provider)  
         if form.is_valid():
             form.save()
             messages.success(request, 'Emergency information added')
@@ -416,15 +416,15 @@ def edit_emergency_information(request, pk):
         else:
             form = EditEmergencyForm()
 
-    context = {'hospital': hospital, 'form': form}
+    context = {'service_provider': service_provider, 'form': form}
     return render(request, 'service_provider_admin/edit-emergency-information.html', context)
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def delete_hospital(request, pk):
-	hospital = ServiceProvider.objects.get(hospital_id=pk)
-	hospital.delete()
-	return redirect('hospital-list')
+def delete_service_provider(request, pk):
+	service_provider = ServiceProvider.objects.get(service_provider_id=pk)
+	service_provider.delete()
+	return redirect('service_provider-list')
 
 
 @login_required(login_url='admin_login')
@@ -438,7 +438,7 @@ def generate_random_invoice():
 @csrf_exempt
 @login_required(login_url='admin_login')
 def create_invoice(request, pk):
-    if  request.user.is_hospital_admin:
+    if  request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
 
     client = Client.objects.get(client_id=pk)
@@ -546,7 +546,7 @@ def create_report(request, pk):
             plain_message = strip_tags(html_message)
 
             try:
-                send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
+                send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found') 
 
@@ -558,7 +558,7 @@ def create_report(request, pk):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def add_pharmacist(request):
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
         form = PharmacistCreationForm()
      
@@ -713,7 +713,7 @@ def delete_product(request, pk):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def add_lab_worker(request):
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
         
         form = LabWorkerCreationForm()
@@ -740,7 +740,7 @@ def add_lab_worker(request):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def view_lab_worker(request):
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
         lab_workers = Clinical_Laboratory_Technician.objects.all()
         
@@ -749,7 +749,7 @@ def view_lab_worker(request):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def view_pharmacist(request):
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
         pharmcists = Pharmacist.objects.all()
         
@@ -758,7 +758,7 @@ def view_pharmacist(request):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def edit_lab_worker(request, pk):
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
         lab_worker = Clinical_Laboratory_Technician.objects.get(technician_id=pk)
         
@@ -789,7 +789,7 @@ def edit_lab_worker(request, pk):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def edit_pharmacist(request, pk):
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
         pharmacist = Pharmacist.objects.get(pharmacist_id=pk)
         
@@ -819,7 +819,7 @@ def edit_pharmacist(request, pk):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def department_image_list(request,pk):
-    departments = ServiceDepartment.objects.filter(hospital_id=pk)
+    departments = ServiceDepartment.objects.filter(service_provider_id=pk)
     #departments = ServiceDepartment.objects.all()
     context = {'departments': departments}
     return render(request, 'service_provider_admin/department-image-list.html',context)
@@ -827,7 +827,7 @@ def department_image_list(request,pk):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def register_professional_list(request):
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
         professionals = Professional_Information.objects.filter(register_status='Accepted')
     return render(request, 'service_provider_admin/register-professional-list.html', {'professionals': professionals, 'admin': user})
@@ -835,7 +835,7 @@ def register_professional_list(request):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def pending_professional_list(request):
-    if request.user.is_hospital_admin:
+    if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
     professionals = Professional_Information.objects.filter(register_status='Pending')
     return render(request, 'service_provider_admin/Pending-professional-list.html', {'all': professionals, 'admin': user})
@@ -883,7 +883,7 @@ def accept_professional(request,pk):
     plain_message = strip_tags(html_message)
 
     try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [professional_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [professional_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
 
@@ -902,7 +902,7 @@ def reject_professional(request,pk):
     professional_name = professional.name
     professional_email = professional.email
     professional_department = professional.department_name.ServiceDepartment_name
-    professional_hospital = professional.hospital_name.name
+    professional_service_provider = professional.service_provider_name.name
     professional_specialization = professional.specialization.specialization_name
 
     subject = "Rejection of Professional Registration"
@@ -911,7 +911,7 @@ def reject_professional(request,pk):
             "professional_name":professional_name,
             "professional_email":professional_email,
             "professional_department":professional_department,
-            "professional_hospital":professional_hospital,
+            "professional_service_provider":professional_service_provider,
             "professional_specialization":professional_specialization,
         }
 
@@ -919,7 +919,7 @@ def reject_professional(request,pk):
     plain_message = strip_tags(html_message)
 
     try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [professional_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [professional_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
     
@@ -930,17 +930,17 @@ def reject_professional(request,pk):
 @login_required(login_url='admin_login')
 def delete_department(request,pk):
     if request.user.is_authenticated:
-        if request.user.is_hospital_admin:
+        if request.user.is_service_provider_admin:
             department = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
             department.delete()
             messages.success(request, 'Department Deleted!')
-            return redirect('hospital-list')
+            return redirect('service_provider-list')
 
 @login_required(login_url='admin_login')
 @csrf_exempt
 def edit_department(request,pk):
     if request.user.is_authenticated:
-        if request.user.is_hospital_admin:
+        if request.user.is_service_provider_admin:
             # old_featured_image = department.featured_image
             department = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
             old_featured_image = department.featured_image
@@ -956,10 +956,10 @@ def edit_department(request,pk):
                 department.featured_image = featured_image
                 department.save()
                 messages.success(request, 'Department Updated!')
-                return redirect('hospital-list')
+                return redirect('service_provider-list')
                 
             context = {'department': department}
-            return render(request, 'service_provider_admin/edit-hospital.html',context)
+            return render(request, 'service_provider_admin/edit-service_provider.html',context)
 
 @csrf_exempt
 @login_required(login_url='admin_login')

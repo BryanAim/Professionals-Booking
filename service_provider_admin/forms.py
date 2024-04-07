@@ -57,7 +57,8 @@ class PharmacistCreationForm(UserCreationForm):
 class AddServiceProviderForm(ModelForm):
     class Meta:
         model = ServiceProvider
-        fields = ['name','address','featured_image','phone_number','email','service_type']
+        # fields = ['name','address','featured_image','phone_number','email','service_type']
+        fields = ['name','service_type']
 
     def __init__(self, *args, **kwargs):
         super(AddServiceProviderForm, self).__init__(*args, **kwargs)
@@ -68,7 +69,8 @@ class AddServiceProviderForm(ModelForm):
 class EditServiceProviderForm(forms.ModelForm):
     class Meta:
         model = ServiceProvider
-        fields = ['name','address','featured_image','phone_number','email','service_type']
+        # fields = ['name','address','featured_image','phone_number','email','service_type']
+        fields = ['name','service_type', 'featured_image']
 
     def __init__(self, *args, **kwargs):
         super(EditServiceProviderForm, self).__init__(*args, **kwargs)
@@ -80,7 +82,8 @@ class EditServiceProviderForm(forms.ModelForm):
 class EditEmergencyForm(forms.ModelForm):
     class Meta:
         model = ServiceProvider
-        fields = ['general_bed_no','available_icu_no','regular_cabin_no','emergency_cabin_no','vip_cabin_no']
+        # fields = ['general_bed_no','available_icu_no','regular_cabin_no','emergency_cabin_no','vip_cabin_no']
+        fields = []
 
     def __init__(self, *args, **kwargs):
         super(EditEmergencyForm, self).__init__(*args, **kwargs)
@@ -91,7 +94,8 @@ class EditEmergencyForm(forms.ModelForm):
 class AddEmergencyForm(ModelForm):
     class Meta:
         model = ServiceProvider
-        fields = ['name','general_bed_no','available_icu_no','regular_cabin_no','emergency_cabin_no','vip_cabin_no']
+        # fields = ['name','general_bed_no','available_icu_no','regular_cabin_no','emergency_cabin_no','vip_cabin_no']
+        fields = ['name']
 
     def __init__(self, *args, **kwargs):
         super(AddEmergencyForm, self).__init__(*args, **kwargs)

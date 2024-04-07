@@ -87,6 +87,7 @@ class Professional_Information(models.Model):
     professional_id = models.AutoField(primary_key=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
     name = models.CharField(max_length=200)
+    username = models.CharField(max_length=200, null=True, blank=True)
     gender = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(max_length=1000, null=True, blank=True)
     service_type = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES)
@@ -158,25 +159,37 @@ class Professional_Information(models.Model):
 #         return str(self.client.username)
 
 class Appointment(models.Model):
-    APPOINTMENT_TYPE_CHOICES = (
+    APPOINTMENT_TYPE = (
         ('consultation', 'Consultation'),
         ('service', 'Service'),
         # Extend as necessary
     )
-    APPOINTMENT_STATUS_CHOICES = (
+    APPOINTMENT_STATUS = (
         ('pending', 'Pending'),
         ('confirmed', 'Confirmed'),
         ('cancelled', 'Cancelled'),
     )
     
-    appointment_id = models.AutoField(primary_key=True)
-    date = models.DateField()
-    time = models.CharField(max_length=200)
-    professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE)
-    client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='appointments')
-    appointment_type = models.CharField(max_length=200, choices=APPOINTMENT_TYPE_CHOICES)
-    appointment_status = models.CharField(max_length=200, choices=APPOINTMENT_STATUS_CHOICES)
-    notes = models.TextField(null=True, blank=True)  # To replace 'message', more general
+    # appointment_id = models.AutoField(primary_key=True)
+    # date = models.DateField()
+    # time = models.CharField(max_length=200)
+    # professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE)
+    # client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='appointments')
+    # appointment_type = models.CharField(max_length=200, choices=APPOINTMENT_TYPE_CHOICES)
+    # appointment_status = models.CharField(max_length=200, choices=APPOINTMENT_STATUS_CHOICES)
+    # notes = models.TextField(null=True, blank=True)  # To replace 'message', more general
+    
+    id = models.AutoField(primary_key=True)
+    date = models.DateField(null=True, blank=True)
+    time = models.CharField(max_length=200, null=True, blank=True)
+    professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
+    appointment_type = models.CharField(max_length=200, choices=APPOINTMENT_TYPE)
+    appointment_status = models.CharField(max_length=200, choices=APPOINTMENT_STATUS)
+    serial_number = models.CharField(max_length=200, null=True, blank=True)
+    payment_status = models.CharField(max_length=200, null=True, blank=True, default='pending')
+    transaction_id = models.CharField(max_length=255, null=True, blank=True)
+    message = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f"{self.client.username} - {self.date} - {self.time}"

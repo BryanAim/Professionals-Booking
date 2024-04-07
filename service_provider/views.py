@@ -211,11 +211,12 @@ def client_dashboard(request):
     if request.user.is_client:
         # client = Client.objects.get(user_id=pk)
         client = Client.objects.get(user=request.user)
-        report = Report.objects.filter(client=client)
-        prescription = Prescription.objects.filter(client=client).order_by('-prescription_id')
+        # report = Report.objects.filter(client=client)
+        # prescription = Prescription.objects.filter(client=client).order_by('-prescription_id')
         appointments = Appointment.objects.filter(client=client).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed'))
-        payments = Payment.objects.filter(client=client).filter(appointment__in=appointments).filter(payment_type='appointment').filter(status='VALID')
-        context = {'client': client, 'appointments': appointments, 'payments': payments,'report':report,'prescription':prescription}
+        # payments = Payment.objects.filter(client=client).filter(appointment__in=appointments).filter(payment_type='appointment').filter(status='VALID')
+        # context = {'client': client, 'appointments': appointments, 'payments': payments,'report':report,'prescription':prescription}
+        context = {'client': client, 'appointments': appointments}
     else:
         return redirect('logout')
         

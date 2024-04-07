@@ -6,8 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 import random
 import string
 from .models import Payment
-from hospital.models import Patient
-from pharmacy.models import Order, Cart
+from service_provider.models import Client
+from pharmacy.models import ServiceOrder, Cart
 from professional.models import Appointment, Prescription, Prescription_test, testCart, testOrder 
 from django.contrib.auth.decorators import login_required
 
@@ -18,7 +18,7 @@ from django.http import HttpResponse
 from django.utils.html import strip_tags
 
 
-# from .models import Patient, User
+# from .models import Client, User
 from sslcommerz_lib import SSLCOMMERZ
 from django.conf import settings
 
@@ -82,7 +82,7 @@ def ssl_payment_request(request, pk, id):
     """
     
     
-    patient = Patient.objects.get(patient_id=pk)
+    client = Client.objects.get(client_id=pk)
     appointment = Appointment.objects.get(id=id)
     
     invoice_number = generate_random_invoice()
@@ -101,10 +101,10 @@ def ssl_payment_request(request, pk, id):
 
     post_body['emi_option'] = 0
   
-    post_body['cus_name'] = patient.username
-    post_body['cus_email'] = patient.email
-    post_body['cus_phone'] = patient.phone_number
-    post_body['cus_add1'] = patient.address
+    post_body['cus_name'] = client.username
+    post_body['cus_email'] = client.email
+    post_body['cus_phone'] = client.phone_number
+    post_body['cus_add1'] = client.address
     post_body['cus_city'] = "Dhaka"
     post_body['cus_country'] = "Bangladesh"
     post_body['shipping_method'] = "NO"
@@ -119,9 +119,9 @@ def ssl_payment_request(request, pk, id):
     appointment.save()
     
     payment = Payment()
-    # payment.patient_id = patient.patient_id
+    # payment.client_id = client.client_id
     # payment.appointment_id = appointment.id
-    payment.patient = patient
+    payment.client = client
     payment.appointment = appointment
     payment.name = post_body['cus_name']
     payment.email = post_body['cus_email']
@@ -149,11 +149,11 @@ def ssl_payment_request(request, pk, id):
 
 
 @csrf_exempt
-def ssl_payment_request_medicine(request, pk, id):
+def ssl_payment_request_product(request, pk, id):
     # Payment Request for appointment payment
     
-    patient = Patient.objects.get(patient_id=pk)
-    order = Order.objects.get(id=id)
+    client = Client.objects.get(client_id=pk)
+    order = ServiceOrder.objects.get(id=id)
     
     invoice_number = generate_random_invoice()
     
@@ -171,10 +171,10 @@ def ssl_payment_request_medicine(request, pk, id):
 
     post_body['emi_option'] = 0
   
-    post_body['cus_name'] = patient.username
-    post_body['cus_email'] = patient.email
-    post_body['cus_phone'] = patient.phone_number
-    post_body['cus_add1'] = patient.address
+    post_body['cus_name'] = client.username
+    post_body['cus_email'] = client.email
+    post_body['cus_phone'] = client.phone_number
+    post_body['cus_add1'] = client.address
     post_body['cus_city'] = "Dhaka"
     post_body['cus_country'] = "Bangladesh"
     post_body['shipping_method'] = "NO"
@@ -189,9 +189,9 @@ def ssl_payment_request_medicine(request, pk, id):
     order.save()
     
     payment = Payment()
-    # payment.patient_id = patient.patient_id
+    # payment.client_id = client.client_id
     # payment.appointment_id = appointment.id
-    payment.patient = patient
+    payment.client = client
     # payment.appointment = appointment
     payment.name = post_body['cus_name']
     payment.email = post_body['cus_email']
@@ -220,7 +220,7 @@ def ssl_payment_request_medicine(request, pk, id):
 def ssl_payment_request_test(request, pk, id, pk2):
     # Payment Request for test payment
     
-    patient = Patient.objects.get(patient_id=pk)
+    client = Client.objects.get(client_id=pk)
     test_order = testOrder.objects.get(id=id)
     prescription = Prescription.objects.get(prescription_id=pk2)
     
@@ -240,10 +240,10 @@ def ssl_payment_request_test(request, pk, id, pk2):
 
     post_body['emi_option'] = 0
   
-    post_body['cus_name'] = patient.username
-    post_body['cus_email'] = patient.email
-    post_body['cus_phone'] = patient.phone_number
-    post_body['cus_add1'] = patient.address
+    post_body['cus_name'] = client.username
+    post_body['cus_email'] = client.email
+    post_body['cus_phone'] = client.phone_number
+    post_body['cus_add1'] = client.address
     post_body['cus_city'] = "Dhaka"
     post_body['cus_country'] = "Bangladesh"
     post_body['shipping_method'] = "NO"
@@ -258,9 +258,9 @@ def ssl_payment_request_test(request, pk, id, pk2):
     test_order.save()
     
     payment = Payment()
-    # payment.patient_id = patient.patient_id
+    # payment.client_id = client.client_id
     # payment.appointment_id = appointment.id
-    payment.patient = patient
+    payment.client = client
     # payment.appointment = appointment
     payment.name = post_body['cus_name']
     payment.email = post_body['cus_email']
@@ -355,19 +355,19 @@ def ssl_payment_success(request):
             #return render(request, 'success.html', dic)
             
             # Mailtrap
-            patient_email = payment.patient.email
-            patient_name = payment.patient.name
-            patient_username = payment.patient.username
-            patient_phone_number = payment.patient.phone_number
+            client_email = payment.client.email
+            client_name = payment.client.name
+            client_username = payment.client.username
+            client_phone_number = payment.client.phone_number
             professional_name = appointment.professional.name
         
             subject = "Payment Receipt for appointment"
             
             values = {
-                    "email":patient_email,
-                    "name":patient_name,
-                    "username":patient_username,
-                    "phone_number":patient_phone_number,
+                    "email":client_email,
+                    "name":client_name,
+                    "username":client_username,
+                    "phone_number":client_phone_number,
                     "professional_name":professional_name,
                     "tran_id":payment_data['tran_id'],
                     "currency_amount":payment_data['currency_amount'],
@@ -381,11 +381,11 @@ def ssl_payment_success(request):
             plain_message = strip_tags(html_message)
             
             try:
-                send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
+                send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found')
     
-            return redirect('patient-dashboard')
+            return redirect('client-dashboard')
         
         elif payment_type == "test":
             prescription = payment.prescription
@@ -412,10 +412,10 @@ def ssl_payment_success(request):
                 print("Hash validation failed")
                 
             # # Mailtrap
-            patient_email = payment.patient.email
-            patient_name = payment.patient.name
-            patient_username = payment.patient.username
-            patient_phone_number = payment.patient.phone_number
+            client_email = payment.client.email
+            client_name = payment.client.name
+            client_username = payment.client.username
+            client_phone_number = payment.client.phone_number
             
             ob = testCart.objects.filter(testorder__trans_ID=tran_id)
             len_ob = len(ob)
@@ -440,10 +440,10 @@ def ssl_payment_success(request):
             subject = "Payment Receipt for test"
             
             values = {
-                    "email":patient_email,
-                    "name":patient_name,
-                    "username":patient_username,
-                    "phone_number":patient_phone_number,
+                    "email":client_email,
+                    "name":client_name,
+                    "username":client_username,
+                    "phone_number":client_phone_number,
                     "tran_id":payment_data['tran_id'],
                     "currency_amount":payment_data['currency_amount'],
                     "card_type":payment_data['card_type'],
@@ -457,14 +457,14 @@ def ssl_payment_success(request):
             plain_message = strip_tags(html_message)
             
             try:
-                send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
+                send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found')
             
             # Reset cart
             testCart.objects.all().delete()
                 
-            return redirect('patient-dashboard')
+            return redirect('client-dashboard')
             
             
         elif payment_type == "pharmacy":
@@ -491,10 +491,10 @@ def ssl_payment_success(request):
                 print("Hash validation failed")
                 
             # Mailtrap
-            patient_email = payment.patient.email
-            patient_name = payment.patient.name
-            patient_username = payment.patient.username
-            patient_phone_number = payment.patient.phone_number
+            client_email = payment.client.email
+            client_name = payment.client.name
+            client_username = payment.client.username
+            client_phone_number = payment.client.phone_number
             
             ob = Cart.objects.filter(order__trans_ID=tran_id)
             len_ob = len(ob)
@@ -513,10 +513,10 @@ def ssl_payment_success(request):
             subject = "Payment Receipt for pharmacy"
             
             values = {
-                    "email":patient_email,
-                    "name":patient_name,
-                    "username":patient_username,
-                    "phone_number":patient_phone_number,
+                    "email":client_email,
+                    "name":client_name,
+                    "username":client_username,
+                    "phone_number":client_phone_number,
                     "tran_id":payment_data['tran_id'],
                     "currency_amount":payment_data['currency_amount'],
                     "card_type":payment_data['card_type'],
@@ -530,14 +530,14 @@ def ssl_payment_success(request):
             plain_message = strip_tags(html_message)
             
             try:
-                send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
+                send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found')
             
             # Reset cart
             Cart.objects.all().delete()
                 
-            return redirect('patient-dashboard')
+            return redirect('client-dashboard')
 
     elif status == 'FAILED':
         redirect('ssl-payment-fail')

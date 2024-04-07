@@ -11,20 +11,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
 	<!-- Favicons -->
-	<link type="image/x-icon" href=" {% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon">
+	<link type="image/x-icon" href=" {% static 'proConnect-System/images/Normal/favicon.png' %}" rel="icon">
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/bootstrap.min.css' %}">
 
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}">
-	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}">
+	<link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/all.min.css' %}">
 
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}">
+	<link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/style.css' %}">
 
 	<!-- Fancybox CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fancybox/jquery.fancybox.min.css'%}">
+	<link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fancybox/jquery.fancybox.min.css'%}">
 	<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 
 	<script src="{% static 'js/script.js' %}"></script>
@@ -40,7 +40,7 @@
 	<div class="main-wrapper">
 
 		<!-- Header -->
-		<header class="header">{% include 'patient_navbar.html' %}</header>
+		<header class="header">{% include 'client_navbar.html' %}</header>
 		<!-- /Header -->
 
 		<!-- Page Content -->
@@ -116,11 +116,11 @@
 									<div class="media">
 										<div class="media-img-wrap">
 											<div class="avatar avatar-online">
-												<img src="{{patient.featured_image.url}}" alt="User Image" class="avatar-img rounded-circle">
+												<img src="{{client.featured_image.url}}" alt="User Image" class="avatar-img rounded-circle">
 											</div>
 										</div>
 										<div class="media-body">
-											<div class="user-name">{{patient.name}}</div>
+											<div class="user-name">{{client.name}}</div>
 											<div class="user-status">online</div>
 										</div>
 									</div>
@@ -227,13 +227,13 @@
 
 
 		<!-- jQuery -->
-		<script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+		<script src="{% static 'proConnect-System/js/Normal/jquery.min.js' %}"></script>
 
 		<!-- Bootstrap Core JS -->
-		<script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
-		<script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+		<script src="{% static 'proConnect-System/js/Normal/popper.min.js' %}"></script>
+		<script src="{% static 'proConnect-System/js/Normal/bootstrap.min.js' %}"></script>
 
-		<!-- <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script> -->
+		<!-- <script src="{% static 'proConnect-System/Outside_assets/js/script.js' %}"></script> -->
 		<script>
 			$(function () {
 				$('div.dataTables_length select').addClass('text-dark')

@@ -1,6 +1,6 @@
 # Professionals Online booking system
 
-- An online based platform for multiple hospitals. Ability to track, monitor, and share a patient's health records between all hospitals. Patients can also see information regarding multiple hospitals and professionals, as well as take appointments via online. Pay laboratory tests via online as well as chat with appointed professionals.
+- An online based platform for multiple service_providers. Ability to track, monitor, and share a client's health records between all service_providers. Clients can also see information regarding multiple service_providers and professionals, as well as take appointments via online. Pay laboratory tests via online as well as chat with appointed professionals.
 
 - Django Application
 
@@ -13,14 +13,14 @@
 
 ## Features
 
-- **Users:** Patient, Professional, Hospital Admin, Lab Worker, Pharmacist
+- **Users:** User, Professional, ServiceProvider Admin, Lab Worker, Pharmacist
 
-### Patient
+### User
 
-      1)  Search multiple Hospital → Department List → Search for Professionals
+      1)  Search multiple ServiceProvider → Department List → Search for Professionals
       2)  Professional Profile → Book Appointment
       3)  Pay Appointment + Mail Confirmation
-      4)  Search all Professionals in all hospitals
+      4)  Search all Professionals in all service_providers
       5)  Chat with appointed Professional
       6)  View Prescription, Download Prescription (PDF)
       7)  Choose which tests to pay (Cart System, payment + mail confirmation)
@@ -32,25 +32,25 @@
 ### Professional
 
       1)  Professional Profile Settings (Add More feature)
-      2)  Search multiple Hospital → Professional register to hospital + upload certificate
-      3)  (Once registered by admin) accept or reject patients appointment (mail confirmation send to patient)
-      4)  Search patient profile → Create and view Prescription, view report
-      5)  Chat with appointed Patient
+      2)  Search multiple ServiceProvider → Professional register to service_provider + upload certificate
+      3)  (Once registered by admin) accept or reject clients appointment (mail confirmation send to client)
+      4)  Search client profile → Create and view Prescription, view report
+      5)  Chat with appointed User
 
-### Hospital Admin
+### ServiceProvider Admin
 
       1)  Admin Dashboard
       2)  Accept or reject professional registration (view professional profile to see details)
-      3)  CRUD Hospitals (Add more)
-      4)  View Hospital List → CRUD Departments within hospital
+      3)  CRUD ServiceProviders (Add more)
+      4)  View ServiceProvider List → CRUD Departments within service_provider
       5)  CRUD Lab Worker
       6)  CRUD Pharmacist
 
 ### Lab worker
 
       1)  Lab Worker Dashboard
-      2)  Create Report for patient.
-      3)  Create Tests for hospitals, View Tests
+      2)  Create Report for client.
+      3)  Create Tests for service_providers, View Tests
 
 ### Pharmacist
 

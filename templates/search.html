@@ -9,29 +9,29 @@
   <title>Professionals Booking</title>
 
   <!-- Favicons -->
-  <link type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon" />
+  <link type="image/x-icon" href="{% static 'proConnect-System/images/Normal/favicon.png' %}" rel="icon" />
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/bootstrap.min.css' %}" />
 
   <!-- Fontawesome CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
 
   <!-- Datetimepicker CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normalbootstrap-datetimepicker.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normalbootstrap-datetimepicker.min.css' %}" />
 
   <!-- Select2 CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/select2/css/select2.min.css'%}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/select2/css/select2.min.css'%}" />
 
   <!-- Fancybox CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fancybox/jquery.fancybox.min.css'%}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fancybox/jquery.fancybox.min.css'%}" />
 
   <!-- Main CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/style.css' %}" />
 
-  <!-- <link rel="stylesheet"href="{% static 'HealthStack-System/css/Normal/search2.css' %}"> -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/search3.css' %}">
+  <!-- <link rel="stylesheet"href="{% static 'proConnect-System/css/Normal/search2.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/search3.css' %}">
 
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -45,7 +45,7 @@
   <!-- Main Wrapper -->
   <div class="main-wrapper">
     <!-- Header -->
-    <header class="header">{% include 'patient_navbar.html' %}</header>
+    <header class="header">{% include 'client_navbar.html' %}</header>
     <!-- /Header -->
 
     <!-- Breadcrumb -->
@@ -56,7 +56,7 @@
           <div class="col-md-6 col-6">
             <nav aria-label="breadcrumb" class="page-breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'client-dashboard' %}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Search Professional</li>
               </ol>
             </nav>
@@ -84,7 +84,7 @@
         <div class="row">
           <!-- Profile Sidebar -->
           <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-            <div>{% include 'patient-sidebar.html' %}</div>
+            <div>{% include 'client-sidebar.html' %}</div>
           </div>
           <!-- / Profile Sidebar -->
 
@@ -106,7 +106,7 @@
                           {{professional.name}}</a>
                       </h4>
                       <p class="doc-speciality"><b>Department: </b>{{
-                        professional.department_name.hospital_department_name }}
+                        professional.department_name.ServiceDepartment_name }}
                       </p>
                       <h5 class="doc-department"><b>Specialization: </b>
                         {{ professional.specialization.specialization_name }}
@@ -114,21 +114,21 @@
 
                       <div class="clinic-details">
                         <p class="doc-location">
-                          <i class="fas fa-map-marker-alt"></i> <b>Hospital: </b>
-                          {{professional.hospital_name}}
+                          <i class="fas fa-map-marker-alt"></i> <b>ServiceProvider: </b>
+                          {{professional.service_provider_name}}
                         </p>
                         <ul class="clinic-gallery">
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
@@ -148,7 +148,7 @@
                         <li></li>
                         <li>
                           <i class="fas fa-map-marker-alt"></i>
-                          {{professional.hospital_name}}
+                          {{professional.service_provider_name}}
                         </li>
                         <li>
                           <i class="far fa-money-bill-alt"></i>
@@ -186,28 +186,28 @@
   <!-- /Main Wrapper -->
 
   <!-- jQuery -->
-  <script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/jquery.min.js' %}"></script>
 
   <!-- Bootstrap Core JS -->
-  <script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
-  <script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/popper.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/bootstrap.min.js' %}"></script>
 
   <!-- Sticky Sidebar JS -->
-  <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
-  <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
 
   <!-- Select2 JS -->
-  <script src="{% static 'HealthStack-System/plugins/Normal/select2/js/select2.min.js'%}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/select2/js/select2.min.js'%}"></script>
 
   <!-- Datetimepicker JS -->
-  <script src="{% static 'HealthStack-System/js/Normal/moment.min.js'%}"></script>
-  <script src="{% static 'HealthStack-System/js/Normal/bootstrap-datetimepicker.min.js'%}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/moment.min.js'%}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/bootstrap-datetimepicker.min.js'%}"></script>
 
   <!-- Fancybox JS -->
-  <script src="{% static 'HealthStack-System/plugins/Normal/fancybox/jquery.fancybox.min.js'%}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/fancybox/jquery.fancybox.min.js'%}"></script>
 
   <!-- Custom JS -->
-  <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+  <script src="{% static 'proConnect-System/Outside_assets/js/script.js' %}"></script>
 </body>
 
 <!-- doccure/search.html  30 Nov 2019 04:12:16 GMT -->

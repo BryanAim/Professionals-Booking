@@ -9,17 +9,17 @@
   <title>Professionals Booking</title>
 
   <!-- Favicons -->
-  <link type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon" />
+  <link type="image/x-icon" href="{% static 'proConnect-System/images/Normal/favicon.png' %}" rel="icon" />
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/bootstrap.min.css' %}" />
 
   <!-- Fontawesome CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
 
   <!-- Main CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/style.css' %}" />
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -73,13 +73,13 @@
               {% for app in appointments %}
               <div class="appointment-list">
                 <div class="profile-info-widget">
-                  <a href="patient-profile.html" class="booking-doc-img">
-                    <img src="{{app.patient.featured_image.url}}" alt="User Image" />
+                  <a href="client-profile.html" class="booking-doc-img">
+                    <img src="{{app.client.featured_image.url}}" alt="User Image" />
                   </a>
                   <div class="profile-det-info">
-                    <h3><a href="{%url 'patient-profile' pk=app.patient.patient_id%}">{{app.patient.name}}</a></h3>
+                    <h3><a href="{%url 'client-profile' pk=app.client.client_id%}">{{app.client.name}}</a></h3>
 
-                    <div class="patient-details">
+                    <div class="client-details">
                       <h5>
                         <i class="fas fa-file"></i>Appoinment Serial No: #PT{{app.serial_number}}
                       </h5>
@@ -90,10 +90,10 @@
                         <i class="fas fa-briefcase-medical"></i> Purpose: {{app.appointment_type}}
                       </h5>
                       <h5>
-                        <i class="fas fa-map-marker-alt"></i>{{app.patient.address}}
+                        <i class="fas fa-map-marker-alt"></i>{{app.client.address}}
                       </h5>
                       <h5>
-                        <i class="fas fa-envelope"></i> {{app.patient.email}}
+                        <i class="fas fa-envelope"></i> {{app.client.email}}
                       </h5>
 
                       <h5>
@@ -107,7 +107,7 @@
                         {% endif %}
                       </h5>
                       <h5 class="mb-0">
-                        <i class="fas fa-phone"></i> +{{app.patient.phone_number}}
+                        <i class="fas fa-phone"></i> +{{app.client.phone_number}}
                       </h5>
                     </div>
                   </div>
@@ -190,21 +190,21 @@
   <!-- /Appointment Details Modal -->
 
   <!-- jQuery -->
-  <script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/jquery.min.js' %}"></script>
 
   <!-- Bootstrap Core JS -->
-  <script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
-  <script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/popper.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/bootstrap.min.js' %}"></script>
 
   <!-- Sticky Sidebar JS -->
-  <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
-  <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
 
   <!-- Custom JS -->
-  <script src="{% static 'HealthStack-System/js/Normal/script.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/script.js' %}"></script>
 
   <!-- Custom JS -->
-  <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+  <script src="{% static 'proConnect-System/Outside_assets/js/script.js' %}"></script>
 </body>
 
 <!-- doccure/appointments.html  30 Nov 2019 04:12:09 GMT -->

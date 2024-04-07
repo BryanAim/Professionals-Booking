@@ -14,7 +14,7 @@ A lab tech is a person who performs the practical hands-on work in laboratories.
 
 - Preparing samples and processing them as needed
 
-- Logging test results into patients’ medical records
+- Logging test results into clients’ medical records
 
 ## Report Creation By Lab Worker
 
@@ -23,13 +23,13 @@ def create_report(request, pk):
     if request.user.is_labworker:
         lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
         prescription =Prescription.objects.get(prescription_id=pk)
-        patient = Patient.objects.get(patient_id=prescription.patient_id)
+        client = Client.objects.get(client_id=prescription.client_id)
         professional = Professional_Information.objects.get(professional_id=prescription.professional_id)
         tests = Prescription_test.objects.filter(prescription=prescription).filter(test_info_pay_status='Paid')
 
 
         if request.method == 'POST':
-            report = Report(professional=professional, patient=patient)
+            report = Report(professional=professional, client=client)
 
             specimen_type = request.POST.getlist('specimen_type')
             collection_date  = request.POST.getlist('collection_date')
@@ -61,10 +61,10 @@ def create_report(request, pk):
                 tests.save()
 
 
-            return redirect('mypatient-list')
+            return redirect('myclient-list')
 
         context = {'prescription':prescription,'lab_workers':lab_workers,'tests':tests}
-        return render(request, 'hospital_admin/create-report.html',context)
+        return render(request, 'service_provider_admin/create-report.html',context)
 ```
 
 ## Lab Worker Dashboard

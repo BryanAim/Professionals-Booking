@@ -10,20 +10,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
 	<!-- Favicons -->
-	<link type="image/x-icon" href=" {% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon">
+	<link type="image/x-icon" href=" {% static 'proConnect-System/images/Normal/favicon.png' %}" rel="icon">
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/bootstrap.min.css' %}">
 
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}">
-	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}">
+	<link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/all.min.css' %}">
 
 	<!-- Fancybox CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fancybox/jquery.fancybox.min.css'%}">
+	<link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fancybox/jquery.fancybox.min.css'%}">
 
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}">
+	<link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/style.css' %}">
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -51,8 +51,8 @@
 		<!-- Header -->
 		<header class="header">
 
-			{% if user.is_authenticated and user.is_patient %}
-			{% include 'patient_navbar.html' %}
+			{% if user.is_authenticated and user.is_client %}
+			{% include 'client_navbar.html' %}
 			{% endif %}
 
 			{% if user.is_authenticated and user.is_professional %}
@@ -71,8 +71,8 @@
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
 
-								{% if user.is_authenticated and user.is_patient %}
-								<li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
+								{% if user.is_authenticated and user.is_client %}
+								<li class="breadcrumb-item"><a href="{% url 'client-dashboard' %}">Home</a></li>
 								{% endif %}
 
 								{% if user.is_authenticated and user.is_professional %}
@@ -99,8 +99,8 @@
 						<!-- Profile Sidebar -->
 						<div>
 
-							{% if user.is_authenticated and user.is_patient %}
-							{% include 'patient-sidebar.html' %}
+							{% if user.is_authenticated and user.is_client %}
+							{% include 'client-sidebar.html' %}
 							{% endif %}
 
 							{% if user.is_authenticated and user.is_professional %}
@@ -122,8 +122,8 @@
 										</div>
 										<div class="doc-info-cont">
 											<h4 class="doc-name">Dr. {{professional.name}}</h4>
-											<p class="doc-speciality">{{professional.department_name.hospital_department_name}}</p>
-											<h4 class="doc-hospital">{{professional.hospital_name}}</h4>
+											<p class="doc-speciality">{{professional.department_name.ServiceDepartment_name}}</p>
+											<h4 class="doc-service_provider">{{professional.service_provider_name}}</h4>
 											<p class="doc-department">{{professional.specialization.specialization_name}}</p>
 											{% comment %} <div class="rating">
 												<i class="fas fa-star filled"></i>
@@ -138,23 +138,23 @@
 
 												<ul class="clinic-gallery">
 													<li>
-														<a href="{% static 'HealthStack-System/images/Normal/gyno1.jpg'%}" data-fancybox="gallery">
-															<img src="{% static 'HealthStack-System/images/Normal/gyno1.jpg'%}" alt="Feature">
+														<a href="{% static 'proConnect-System/images/Normal/gyno1.jpg'%}" data-fancybox="gallery">
+															<img src="{% static 'proConnect-System/images/Normal/gyno1.jpg'%}" alt="Feature">
 														</a>
 													</li>
 													<li>
-														<a href="{% static 'HealthStack-System/images/Normal/gyno2.jpg'%}" data-fancybox="gallery">
-															<img src="{% static 'HealthStack-System/images/Normal/gyno2.jpg'%}" alt="Feature">
+														<a href="{% static 'proConnect-System/images/Normal/gyno2.jpg'%}" data-fancybox="gallery">
+															<img src="{% static 'proConnect-System/images/Normal/gyno2.jpg'%}" alt="Feature">
 														</a>
 													</li>
 													<li>
-														<a href="{% static 'HealthStack-System/images/Normal/gyno3.jpg'%}" data-fancybox="gallery">
-															<img src="{% static 'HealthStack-System/images/Normal/gyno3.jpg'%}" alt="Feature">
+														<a href="{% static 'proConnect-System/images/Normal/gyno3.jpg'%}" data-fancybox="gallery">
+															<img src="{% static 'proConnect-System/images/Normal/gyno3.jpg'%}" alt="Feature">
 														</a>
 													</li>
 													<li>
-														<a href="{% static 'HealthStack-System/images/Normal/gyno4.jpg'%}" data-fancybox="gallery">
-															<img src="{% static 'HealthStack-System/images/Normal/gyno4.jpg'%}" alt="Feature">
+														<a href="{% static 'proConnect-System/images/Normal/gyno4.jpg'%}" data-fancybox="gallery">
+															<img src="{% static 'proConnect-System/images/Normal/gyno4.jpg'%}" alt="Feature">
 														</a>
 													</li>
 												</ul>
@@ -177,7 +177,7 @@
 										</div>
 
 
-										{% if user.is_authenticated and user.is_patient %}
+										{% if user.is_authenticated and user.is_client %}
 										<div class="clinic-booking">
 											<a class="apt-btn" href="{% url 'booking' pk=professional.professional_id  %}">Book Your
 												Appointment</a>
@@ -293,7 +293,7 @@
 												<div class="service-list">
 													<h4>Visiting Time</h4>
 													<ul class="clearfix">
-														<li>{{professional.visiting_hour}}</li>
+														<li>{{professional.availability}}</li>
 
 													</ul>
 												</div>
@@ -323,7 +323,7 @@
 									<div role="tabpanel" id="doc_reviews" class="tab-pane fade">
 
 
-										{% if user.is_authenticated and user.is_patient %}
+										{% if user.is_authenticated and user.is_client %}
 										<div class="write-review">
 											<h4>Write a review for <strong>Dr. {{professional.name}}</strong></h4>
 
@@ -394,10 +394,10 @@
 																				<li>
 																					<div class="comment">
 																						<img class="avatar avatar-sm rounded-circle" alt="User Image"
-																							src="{{review.patient.featured_image.url}}">
+																							src="{{review.client.featured_image.url}}">
 																						<div class="comment-body">
 																							<div class="meta-data">
-																								<span class="comment-author">{{review.patient.name}}</span>
+																								<span class="comment-author">{{review.client.name}}</span>
 
 																							</div>
 																							<p class="recommended"><i class="far fa-thumbs-up"></i> {{review.title}}
@@ -516,21 +516,21 @@
 
 
 			<!-- jQuery -->
-			<script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+			<script src="{% static 'proConnect-System/js/Normal/jquery.min.js' %}"></script>
 
 			<!-- Bootstrap Core JS -->
-			<script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
-			<script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+			<script src="{% static 'proConnect-System/js/Normal/popper.min.js' %}"></script>
+			<script src="{% static 'proConnect-System/js/Normal/bootstrap.min.js' %}"></script>
 
 			<!-- Fancybox JS -->
-			<script src="{% static 'HealthStack-System/plugins/Normal/fancybox/jquery.fancybox.min.js'%}"></script>
+			<script src="{% static 'proConnect-System/plugins/Normal/fancybox/jquery.fancybox.min.js'%}"></script>
 
 
 			<!-- Custom JS -->
-			<script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+			<script src="{% static 'proConnect-System/Outside_assets/js/script.js' %}"></script>
 
 			<!-- Searchbar JS -->
-			<script src="{% static 'HealthStack-System/js/Normal/sidebar.js' %}"></script>
+			<script src="{% static 'proConnect-System/js/Normal/sidebar.js' %}"></script>
 
 </body>
 

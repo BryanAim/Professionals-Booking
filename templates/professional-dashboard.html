@@ -9,17 +9,17 @@
   <title>Professionals Booking</title>
 
   <!-- Favicons -->
-  <link type="image/x-icon" href=" {% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon" />
+  <link type="image/x-icon" href=" {% static 'proConnect-System/images/Normal/favicon.png' %}" rel="icon" />
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/bootstrap.min.css' %}" />
 
   <!-- Fontawesome CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
 
   <!-- Main CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/style.css' %}" />
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -44,7 +44,7 @@
             <nav aria-label="breadcrumb" class="page-breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a href="{% url 'hospital_home'%}">Home</a>
+                  <a href="{% url 'service_provider_home'%}">Home</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                   Professional
@@ -81,8 +81,8 @@
                         <div class="dash-widget dct-border-rht">
                           <div class="circle-bar circle-bar1">
                             <div class="circle-graph1" data-percent="75">
-                              <img src="{% static 'HealthStack-System/images/Normal/icon-01.png' %}" class="img-fluid"
-                                alt="patient" />
+                              <img src="{% static 'proConnect-System/images/Normal/icon-01.png' %}" class="img-fluid"
+                                alt="client" />
                             </div>
                           </div>
                           <div class="dash-widget-info">
@@ -97,13 +97,13 @@
                         <div class="dash-widget dct-border-rht">
                           <div class="circle-bar circle-bar2">
                             <div class="circle-graph2" data-percent="65">
-                              <img src="{% static 'HealthStack-System/images/Normal/icon-02.png' %}" class="img-fluid"
-                                alt="Patient" />
+                              <img src="{% static 'proConnect-System/images/Normal/icon-02.png' %}" class="img-fluid"
+                                alt="Client" />
                             </div>
                           </div>
                           <div class="dash-widget-info">
-                            <h6>Today Patient</h6>
-                            <h3>{{today_patient_count.count}}</h3>
+                            <h6>Today Client</h6>
+                            <h3>{{today_client_count.count}}</h3>
                             <p class="text-muted">{{current_date}}</p>
                           </div>
                         </div>
@@ -113,8 +113,8 @@
                         <div class="dash-widget">
                           <div class="circle-bar circle-bar3">
                             <div class="circle-graph3" data-percent="50">
-                              <img src="{% static 'HealthStack-System/images/Normal/icon-03.png' %}" class="img-fluid"
-                                alt="Patient" />
+                              <img src="{% static 'proConnect-System/images/Normal/icon-03.png' %}" class="img-fluid"
+                                alt="Client" />
                             </div>
                           </div>
                           <div class="dash-widget-info">
@@ -132,7 +132,7 @@
 
             <div class="row">
               <div class="col-md-12">
-                <h4 class="mb-4">Patient Appoinment</h4>
+                <h4 class="mb-4">Client Appoinment</h4>
                 <div class="appointment-tab">
                   <!-- Appointment Tab -->
                   <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
@@ -154,7 +154,7 @@
                             <table class="table table-hover table-center mb-0">
                               <thead>
                                 <tr>
-                                  <th>Patient Name</th>
+                                  <th>Client Name</th>
                                   <th>Appt Date</th>
                                   <th>Purpose</th>
                                   <th>Contact</th>
@@ -169,11 +169,11 @@
                                 <tr>
                                   <td>
                                     <h2 class="table-avatar">
-                                      <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img
+                                      <a href="client-profile.html" class="avatar avatar-sm mr-2"><img
                                           class="avatar-img rounded-circle"
-                                          src="{{appointment.patient.featured_image.url}}" alt="User Image" /></a>
+                                          src="{{appointment.client.featured_image.url}}" alt="User Image" /></a>
                                       <a
-                                        href="patient-profile.html">{{appointment.patient.name}}<span>#PT{{appointment.serial_number}}</span></a>
+                                        href="client-profile.html">{{appointment.client.name}}<span>#PT{{appointment.serial_number}}</span></a>
                                     </h2>
                                   </td>
                                   <td>
@@ -182,8 +182,8 @@
                                   </td>
                                   <td>{{ appointment.appointment_type }}</td>
                                   <td>
-                                    {{appointment.patient.email}}
-                                    <span class="d-block text-info">Phone: {{appointment.patient.phone_number}}</span>
+                                    {{appointment.client.email}}
+                                    <span class="d-block text-info">Phone: {{appointment.client.phone_number}}</span>
                                   </td>
                                   <td>
                                     {% if appointment.payment_status == 'pending' %}
@@ -243,7 +243,7 @@
                             <table class="table table-hover table-center mb-0">
                               <thead>
                                 <tr>
-                                  <th>Patient Name</th>
+                                  <th>Client Name</th>
                                   <th>Appt Date</th>
                                   <th>Purpose</th>
                                   <th>Contact</th>
@@ -256,18 +256,18 @@
                                 <tr>
                                   <td>
                                     <h2 class="table-avatar">
-                                      <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img
-                                          class="avatar-img rounded-circle" src="{{ today.patient.featured_image.url }}"
+                                      <a href="client-profile.html" class="avatar avatar-sm mr-2"><img
+                                          class="avatar-img rounded-circle" src="{{ today.client.featured_image.url }}"
                                           alt="User Image" /></a>
                                       <a
-                                        href="patient-profile.html">{{today.patient.name}}<span>#PT{{today.serial_number}}</span></a>
+                                        href="client-profile.html">{{today.client.name}}<span>#PT{{today.serial_number}}</span></a>
                                     </h2>
                                   </td>
                                   <td>{{today.date}}<span class="d-block text-info">{{today.time}}</span></td>
                                   <td>{{ today.appointment_type }}</td>
                                   <td>
-                                    {{today.patient.email}}
-                                    <span class="d-block text-info">+254{{today.patient.phone_number}}</span>
+                                    {{today.client.email}}
+                                    <span class="d-block text-info">+254{{today.client.phone_number}}</span>
                                   </td>
                                   <td>
                                     {% if today.appointment_status == 'pending' %}
@@ -307,24 +307,24 @@
   <p> You are not logged in </p>
   {% endif %}
   <!-- jQuery -->
-  <script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/jquery.min.js' %}"></script>
 
   <!-- Bootstrap Core JS -->
-  <script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
-  <script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/popper.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/bootstrap.min.js' %}"></script>
 
   <!-- Sticky Sidebar JS -->
-  <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
-  <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
 
   <!-- Circle Progress JS -->
-  <script src="{% static 'HealthStack-System/js/Normal/circle-progress.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/circle-progress.min.js' %}"></script>
 
   <!-- Custom JS -->
-  <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+  <script src="{% static 'proConnect-System/Outside_assets/js/script.js' %}"></script>
 
   <!-- Searchbar JS -->
-  <script src="{% static 'HealthStack-System/js/Normal/sidebar.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/sidebar.js' %}"></script>
 
   {% if messages %}
   <script>

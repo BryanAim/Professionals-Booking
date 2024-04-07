@@ -9,26 +9,26 @@
   <title>Professionals Booking</title>
 
   <!-- Favicons -->
-  <link type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon" />
+  <link type="image/x-icon" href="{% static 'proConnect-System/images/Normal/favicon.png' %}" rel="icon" />
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/bootstrap.min.css' %}" />
 
   <!-- Fontawesome CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
 
   <!-- Datetimepicker CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normalbootstrap-datetimepicker.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normalbootstrap-datetimepicker.min.css' %}" />
 
   <!-- Select2 CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/select2/css/select2.min.css'%}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/select2/css/select2.min.css'%}" />
 
   <!-- Fancybox CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fancybox/jquery.fancybox.min.css'%}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fancybox/jquery.fancybox.min.css'%}" />
 
   <!-- Main CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/style.css' %}" />
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -51,15 +51,15 @@
               <span></span>
             </span>
           </a>
-          <a href="{% url 'hospital_home'%}" class="navbar-brand logo">
-            <img src="{% static 'HealthStack-System/images/Normal/medicross-logo.png' %}" class="img-fluid"
+          <a href="{% url 'service_provider_home'%}" class="navbar-brand logo">
+            <img src="{% static 'proConnect-System/images/Normal/proConnect-logo.png' %}" class="img-fluid"
               alt="Logo" />
           </a>
         </div>
         <div class="main-menu-wrapper">
           <div class="menu-header">
-            <a href="{% url 'hospital_home'%}" class="menu-logo">
-              <img src="{% static 'HealthStack-System/images/Normal/medicross-logo.png' %}" class="img-fluid"
+            <a href="{% url 'service_provider_home'%}" class="menu-logo">
+              <img src="{% static 'proConnect-System/images/Normal/proConnect-logo.png' %}" class="img-fluid"
                 alt="Logo" />
             </a>
             <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -68,7 +68,7 @@
           </div>
           <ul class="main-nav">
             <li>
-              <a href="{% url 'hospital_home'%}">Home</a>
+              <a href="{% url 'service_provider_home'%}">Home</a>
             </li>
             <li class="has-submenu active">
               <a href="#">Professionals <i class="fas fa-chevron-down"></i></a>
@@ -78,8 +78,8 @@
                 <li>
                   <a href="{% url 'schedule-timings'%}">Schedule Timing</a>
                 </li>
-                <li><a href="{% url 'my-patients'%}">Patients List</a></li>
-                <li><a href="#">Patients Profile</a></li>
+                <li><a href="{% url 'my-clients'%}">Clients List</a></li>
+                <li><a href="#">Clients Profile</a></li>
                 <!-- <li><a href="#">Chat</a></li>
 						  <li><a href="#">Invoices</a></li> -->
                 <li>
@@ -92,7 +92,7 @@
               </ul>
             </li>
             <li class="has-submenu">
-              <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
+              <a href="#">Clients <i class="fas fa-chevron-down"></i></a>
               <ul class="submenu">
                 <li><a href="{% url 'search'%}">Search Professional</a></li>
                 <li><a href="#">Professional Profile</a></li>
@@ -102,7 +102,7 @@
                   <a href="{% url 'booking-success'%}">Booking Success</a>
                 </li>
                 <li>
-                  <a href="#">Patient Dashboard</a>
+                  <a href="#">Client Dashboard</a>
                 </li>
                 <!-- <li><a href="#">Favourites</a></li> -->
                 <!-- <li><a href="#">Chat</a></li> -->
@@ -158,24 +158,24 @@
           <li class="nav-item dropdown has-arrow logged-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <span class="user-img">
-                <img class="rounded-circle" src="{% static 'HealthStack-System/images/Normal/patients/patient.jpg' %}"
+                <img class="rounded-circle" src="{% static 'proConnect-System/images/Normal/clients/client.jpg' %}"
                   width="31" alt="Richard Wilson" />
               </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
               <div class="user-header">
                 <div class="avatar avatar-sm">
-                  <img src="{% static 'HealthStack-System/images/Normal/patients/patient.jpg' %}" alt="User Image"
+                  <img src="{% static 'proConnect-System/images/Normal/clients/client.jpg' %}" alt="User Image"
                     class="avatar-img rounded-circle" />
                 </div>
                 <div class="user-text">
                   <h6>Richard Wilson</h6>
-                  <p class="text-muted mb-0">Patient</p>
+                  <p class="text-muted mb-0">Client</p>
                 </div>
               </div>
               <a class="dropdown-item" href="#">Dashboard</a>
               <a class="dropdown-item" href="#">Profile Settings</a>
-              <a class="dropdown-item" href="{% url 'hospital_home'%}">Logout</a>
+              <a class="dropdown-item" href="{% url 'service_provider_home'%}">Logout</a>
             </div>
           </li>
           <!-- /User Menu -->
@@ -336,7 +336,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="{% url 'hospital_home'%}">
+                  <a href="{% url 'service_provider_home'%}">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                   </a>
@@ -354,7 +354,7 @@
                     <div class="professional-img">
                       <a href="professional-profile.html">
                         <img
-                          src="{% static 'HealthStack-System/images/Normal/professionals/professional-thumb-01.jpg' %}"
+                          src="{% static 'proConnect-System/images/Normal/professionals/professional-thumb-01.jpg' %}"
                           class="img-fluid" alt="User Image" />
                       </a>
                     </div>
@@ -366,7 +366,7 @@
                         MDS - Periodontology and Oral Implantology, BDS
                       </p>
                       <h5 class="doc-department">
-                        <img src="{% static 'HealthStack-System/images/Normal/specialities/specialities-05.png'%}"
+                        <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-05.png'%}"
                           class="img-fluid" alt="Speciality" />Dentist
                       </h5>
                       <div class="rating">
@@ -383,30 +383,30 @@
                         </p>
                         <ul class="clinic-gallery">
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-03.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-03.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-03.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-03.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-04.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-04.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-04.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-04.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
@@ -449,8 +449,7 @@
                   <div class="doc-info-left">
                     <div class="professional-img">
                       <a href="professional-profile.html">
-                        <img
-                          src="{% static 'HealthStack-System/images/Normal/professionals/professional-thumb-02.jpg'%}"
+                        <img src="{% static 'proConnect-System/images/Normal/professionals/professional-thumb-02.jpg'%}"
                           class="img-fluid" alt="User Image" />
                       </a>
                     </div>
@@ -462,7 +461,7 @@
                         BDS, MDS - Oral & Maxillofacial Surgery
                       </p>
                       <h5 class="doc-department">
-                        <img src="{% static 'HealthStack-System/images/Normal/specialities/specialities-05.png'%}"
+                        <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-05.png'%}"
                           class="img-fluid" alt="Speciality" />Dentist
                       </h5>
                       <div class="rating">
@@ -479,30 +478,30 @@
                         </p>
                         <ul class="clinic-gallery">
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-03.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-03.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-03.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-03.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-04.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-04.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-04.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-04.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
@@ -545,8 +544,7 @@
                   <div class="doc-info-left">
                     <div class="professional-img">
                       <a href="professional-profile.html">
-                        <img
-                          src="{% static 'HealthStack-System/images/Normal/professionals/professional-thumb-03.jpg'%}"
+                        <img src="{% static 'proConnect-System/images/Normal/professionals/professional-thumb-03.jpg'%}"
                           class="img-fluid" alt="User Image" />
                       </a>
                     </div>
@@ -555,10 +553,10 @@
                         <a href="professional-profile.html">Dr. Deborah Angel</a>
                       </h4>
                       <p class="doc-speciality">
-                        MBBS, MD - General Medicine, DNB - Cardiology
+                        MBBS, MD - General Product, DNB - Cardiology
                       </p>
                       <p class="doc-department">
-                        <img src="{% static 'HealthStack-System/images/Normal/specialities/specialities-04.png'%}"
+                        <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-04.png'%}"
                           class="img-fluid" alt="Speciality" />Cardiology
                       </p>
                       <div class="rating">
@@ -575,30 +573,30 @@
                         </p>
                         <ul class="clinic-gallery">
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-03.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-03.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-03.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-03.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-04.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-04.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-04.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-04.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
@@ -641,8 +639,7 @@
                   <div class="doc-info-left">
                     <div class="professional-img">
                       <a href="professional-profile.html">
-                        <img
-                          src="{% static 'HealthStack-System/images/Normal/professionals/professional-thumb-04.jpg'%}"
+                        <img src="{% static 'proConnect-System/images/Normal/professionals/professional-thumb-04.jpg'%}"
                           class="img-fluid" alt="User Image" />
                       </a>
                     </div>
@@ -654,7 +651,7 @@
                         MBBS, MS - General Surgery, MCh - Urology
                       </p>
                       <p class="doc-department">
-                        <img src="{% static 'HealthStack-System/images/Normal/specialities/specialities-01.png'%}"
+                        <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-01.png'%}"
                           class="img-fluid" alt="Speciality" />Urology
                       </p>
                       <div class="rating">
@@ -671,30 +668,30 @@
                         </p>
                         <ul class="clinic-gallery">
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-03.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-03.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-03.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-03.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-04.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-04.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-04.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-04.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
@@ -737,8 +734,7 @@
                   <div class="doc-info-left">
                     <div class="professional-img">
                       <a href="professional-profile.html">
-                        <img
-                          src="{% static 'HealthStack-System/images/Normal/professionals/professional-thumb-06.jpg'%}"
+                        <img src="{% static 'proConnect-System/images/Normal/professionals/professional-thumb-06.jpg'%}"
                           class="img-fluid" alt="User Image" />
                       </a>
                     </div>
@@ -750,7 +746,7 @@
                         MS - Orthopaedics, MBBS, M.Ch - Orthopaedics
                       </p>
                       <p class="doc-department">
-                        <img src="{% static 'HealthStack-System/images/Normal/specialities/specialities-03.png'%}"
+                        <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-03.png'%}"
                           class="img-fluid" alt="Speciality" />Orthopaedics
                       </p>
                       <div class="rating">
@@ -767,30 +763,30 @@
                         </p>
                         <ul class="clinic-gallery">
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-02.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-03.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-03.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-03.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-03.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
                           <li>
-                            <a href="{% static 'HealthStack-System/images/Normal/features/feature-04.jpg'%}"
+                            <a href="{% static 'proConnect-System/images/Normal/features/feature-04.jpg'%}"
                               data-fancybox="gallery">
-                              <img src="{% static 'HealthStack-System/images/Normal/features/feature-04.jpg'%}"
+                              <img src="{% static 'proConnect-System/images/Normal/features/feature-04.jpg'%}"
                                 alt="Feature" />
                             </a>
                           </li>
@@ -842,28 +838,28 @@
   <!-- /Main Wrapper -->
 
   <!-- jQuery -->
-  <script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/jquery.min.js' %}"></script>
 
   <!-- Bootstrap Core JS -->
-  <script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
-  <script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/popper.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/bootstrap.min.js' %}"></script>
 
   <!-- Sticky Sidebar JS -->
-  <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
-  <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
 
   <!-- Select2 JS -->
-  <script src="{% static 'HealthStack-System/plugins/Normal/select2/js/select2.min.js'%}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/select2/js/select2.min.js'%}"></script>
 
   <!-- Datetimepicker JS -->
-  <script src="{% static 'HealthStack-System/js/Normal/moment.min.js'%}"></script>
-  <script src="{% static 'HealthStack-System/js/Normal/bootstrap-datetimepicker.min.js'%}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/moment.min.js'%}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/bootstrap-datetimepicker.min.js'%}"></script>
 
   <!-- Fancybox JS -->
-  <script src="{% static 'HealthStack-System/plugins/Normal/fancybox/jquery.fancybox.min.js'%}"></script>
+  <script src="{% static 'proConnect-System/plugins/Normal/fancybox/jquery.fancybox.min.js'%}"></script>
 
   <!-- Custom JS -->
-  <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+  <script src="{% static 'proConnect-System/Outside_assets/js/script.js' %}"></script>
 </body>
 
 <!-- doccure/search.html  30 Nov 2019 04:12:16 GMT -->

@@ -1,5 +1,5 @@
 from django.db import models
-from hospital.models import User
+from service_provider.models import User
 from django.utils import timezone
 # Create your models here.
 class chatMessages(models.Model):

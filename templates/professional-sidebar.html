@@ -9,7 +9,7 @@
       <div class="profile-det-info">
         <h3>{{ professional.name }}</h3>
 
-        <div class="patient-details">
+        <div class="client-details">
           <h5 class="mb-0">{{professional.specialization.specialization_name}}</h5>
         </div>
       </div>
@@ -41,10 +41,10 @@
         </li>
         <li class="nav-item has-submenu">
 
-          <a href="#" class="nav-link"><i class="fas fa-search"></i><span>Patient ID</span></a>
+          <a href="#" class="nav-link"><i class="fas fa-search"></i><span>Client ID</span></a>
           <ul class="submenu collapse" style="padding:19px">
             <!-- <li><a class="nav-link" href="#">Search</a></li> -->
-            <form action="{% url 'patient-search' pk=professional.professional_id%}" method="GET">
+            <form action="{% url 'client-search' pk=professional.professional_id%}" method="GET">
               <input type="text" class="form-control" placeholder="search" name="search_query" value="{{search_query}}">
             </form>
           </ul>
@@ -52,15 +52,15 @@
         </li>
 
         <li>
-          <a href="{% url 'multiple-hospital' %}">
+          <a href="{% url 'multiple-service_provider' %}">
             <i class="fas fa-hospital"></i>
-            <span>Multiple Hospital</span>
+            <span>Multiple ServiceProvider</span>
           </a>
         </li>
         <li>
-          <a href="{% url 'my-patients' %}">
+          <a href="{% url 'my-clients' %}">
             <i class="fas fa-user-injured"></i>
-            <span>My Patients</span>
+            <span>My Clients</span>
           </a>
         </li>
         <li>

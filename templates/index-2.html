@@ -9,17 +9,17 @@
   <title>Professionals Booking</title>
 
   <!-- Favicons -->
-  <link type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon" />
+  <link type="image/x-icon" href="{% static 'proConnect-System/images/Normal/favicon.png' %}" rel="icon" />
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/bootstrap.min.css' %}" />
 
   <!-- Fontawesome CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
 
   <!-- Main CSS -->
-  <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/style.css' %}" />
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -51,7 +51,7 @@
           <!-- /Search -->
         </div>
         <div class="home-image">
-          <img src="{% static 'HealthStack-System/images/Normal/p2.png' %}" class="img-fluid" style="width: 100%;" />
+          <img src="{% static 'proConnect-System/images/Normal/p2.png' %}" class="img-fluid" style="width: 100%;" />
         </div>
       </div>
     </section>
@@ -62,9 +62,7 @@
       <div class="container-fluid">
         <div class="section-header text-center">
           <h2>We Present the best professionals in their fields</h2>
-          <p class="sub-title">Our facilities are equipped with the latest medical technology and equipment, ensuring
-            that our patients receive the best care. We offer various medical services, including primary care,
-            specialist consultations, diagnostic tests, and surgical procedures.
+          <p class="sub-title">We present the finest professionals across a multitude of disciplines, ensuring that our clients have access to expert services in every field. Our platform is designed with state-of-the-art technology and features, guaranteeing an efficient, seamless experience for both clients seeking services and professionals offering their expertise. From legal consultations and engineering projects to creative endeavors and beyond, we provide a broad spectrum of services, including advisory sessions, project collaborations, and bespoke solutions tailored to meet your specific needs. At ProConnect Limited, excellence and innovation drive us to connect you with the best professional services, ensuring satisfaction and success in all your ventures.
           </p>
         </div>
         <div class="row justify-content-center">
@@ -74,18 +72,18 @@
               <!-- Slider Item -->
               <div class="speicality-item text-center">
                 <div class="speicality-img">
-                  <img src="{% static 'HealthStack-System/images/Normal/specialities/specialities-01.png' %}"
+                  <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-01.png' %}"
                     class="img-fluid" alt="Speciality" />
                   <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                 </div>
-                <p>Professionals</p>
+                <p>Doctors</p>
               </div>
               <!-- /Slider Item -->
 
               <!-- Slider Item -->
               <div class="speicality-item text-center">
                 <div class="speicality-img">
-                  <img src="{% static 'HealthStack-System/images/Normal/specialities/specialities-02.png' %}"
+                  <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-02.png' %}"
                     class="img-fluid" alt="Speciality" />
                   <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                 </div>
@@ -96,7 +94,7 @@
               <!-- Slider Item -->
               <div class="speicality-item text-center">
                 <div class="speicality-img">
-                  <img src="{% static 'HealthStack-System/images/Normal/specialities/specialities-03.png' %}"
+                  <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-03.png' %}"
                     class="img-fluid" alt="Speciality" />
                   <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                 </div>
@@ -107,7 +105,7 @@
               <!-- Slider Item -->
               <div class="speicality-item text-center">
                 <div class="speicality-img">
-                  <img src="{% static 'HealthStack-System/images/Normal/specialities/specialities-04.png' %}"
+                  <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-04.png' %}"
                     class="img-fluid" alt="Speciality" />
                   <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                 </div>
@@ -118,7 +116,7 @@
               <!-- Slider Item -->
               <div class="speicality-item text-center">
                 <div class="speicality-img">
-                  <img src="{% static 'HealthStack-System/images/Normal/specialities/specialities-05.png' %}"
+                  <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-05.png' %}"
                     class="img-fluid" alt="Speciality" />
                   <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                 </div>
@@ -178,7 +176,7 @@
                     <i class="fas fa-check-circle verified"></i>
                   </h3>
                   <p class="speciality">
-                    {{ professional.department_name.hospital_department_name }}
+                    {{ professional.department_name.ServiceDepartment_name }}
                   </p>
                   {% comment %} <div class="rating">
                     <i class="fas fa-star filled"></i>
@@ -190,10 +188,10 @@
                   </div> {% endcomment %}
                   <ul class="available-info">
                     <li>
-                      <i class="fas fa-map-marker-alt"></i> {{professional.hospital_name}}
+                      <i class="fas fa-map-marker-alt"></i> {{professional.service_provider_name}}
                     </li>
                     <li>
-                      <i class="far fa-clock"></i> {{ professional.visiting_hour }}
+                      <i class="far fa-clock"></i> {{ professional.availability }}
                     </li>
                     <li>
                       <i class="far fa-money-bill-alt"></i> Consulation fee: {{ professional.consultation_fee }} KES
@@ -221,22 +219,22 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-5 features-img">
-            <img src="{% static 'HealthStack-System/images/Normal/pppp.jpg' %}" class="img-fluid" alt="Feature" />
+            <img src="{% static 'proConnect-System/images/Normal/pppp.jpg' %}" class="img-fluid" alt="Feature" />
           </div>
           <div class="col-md-7">
             <div class="section-header">
-              <h2 class="mt-2">Availabe Hospitals</h2>
+              <h2 class="mt-2">Availabe Professionals</h2>
               <p>
-                Here You can access multiple hospitals. You can book your appointment from
-                your professional & can collect all hospital infromations from here.
+                Here You can access multiple service providers. You can book your appointment from
+                your professional & can collect all Service Providers infromations from here.
               </p>
             </div>
             <div class="features-slider slider">
               <!-- Slider Item -->
-              {% for hospital in hospitals %}
+              {% for service_provider in service_providers %}
               <div class="feature-item text-center">
-                <img src="{{ hospital.featured_image.url }}" class="img-fluid" alt="Feature" />
-                <p>{{hospital.name}}</p>
+                <img src="{{ service_provider.featured_image.url }}" class="img-fluid" alt="Feature" />
+                <p>{{service_provider.name}}</p>
               </div>
               {% endfor %}
               <!-- /Slider Item -->
@@ -256,20 +254,20 @@
   <!-- /Main Wrapper -->
 
   <!-- jQuery -->
-  <script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/jquery.min.js' %}"></script>
 
   <!-- Bootstrap Core JS -->
-  <script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
-  <script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/popper.min.js' %}"></script>
+  <script src="{% static 'proConnect-System/js/Normal/bootstrap.min.js' %}"></script>
 
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
 
   <!-- Slick JS -->
-  <script src="{% static 'HealthStack-System/Outside_assets/js/slick.js' %}"></script>
+  <script src="{% static 'proConnect-System/Outside_assets/js/slick.js' %}"></script>
 
   <!-- Custom JS -->
-  <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+  <script src="{% static 'proConnect-System/Outside_assets/js/script.js' %}"></script>
 </body>
 
 <!-- doccure/index.html  30 Nov 2019 04:12:03 GMT -->

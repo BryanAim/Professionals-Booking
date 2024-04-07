@@ -3,8 +3,8 @@ from django.db import models
 import uuid
 
 # import django user model
-from hospital.models import Hospital_Information, User, Patient
-from hospital_admin.models import hospital_department, specialization, service
+from service_provider.models import ServiceProvider, User, Client, Service_Provider_Information
+from service_provider_admin.models import ServiceDepartment, specialization, service
 from django.conf import settings
 
 
@@ -24,37 +24,93 @@ Django automatically creates id field for each model class which will be a PK # 
 # Create your models here.
 
 
+# class Professional_Information(models.Model):
+#     SERVICE_TYPE_CHOICES = (
+#         ('medical', 'Medical Services'),
+#         ('legal', 'Legal Services'),
+#         ('engineering', 'Engineering Services'),
+#         ('art', 'Art & Design'),
+#         # Add more as needed
+#     )
+    
+#     professional_id = models.AutoField(primary_key=True)
+#     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='profile')
+#     name = models.CharField(max_length=200, null=True, blank=True)
+#     username = models.CharField(max_length=200, null=True, blank=True)
+#     gender = models.CharField(max_length=200, null=True, blank=True)
+#     description = models.TextField(max_length=1000, null=True, blank=True)
+#     department = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES, null=True, blank=True)
+#     department_name = models.ForeignKey(hospital_department, on_delete=models.SET_NULL, null=True, blank=True)
+#     specialization = models.ForeignKey(specialization, on_delete=models.SET_NULL, null=True, blank=True)
+
+#     featured_image = models.ImageField(upload_to='professionals/', default='professionals/user-default.png', null=True, blank=True)
+#     certificate_image = models.ImageField(upload_to='professionals_certificate/', default='professionals_certificate/default.png', null=True, blank=True)
+
+#     email = models.EmailField(max_length=200, null=True, blank=True)
+#     phone_number = models.CharField(max_length=200, null=True, blank=True)
+#     nid = models.CharField(max_length=200, null=True, blank=True)
+#     availability = models.CharField(max_length=200, null=True, blank=True)
+#     consultation_fee = models.IntegerField(null=True, blank=True)
+#     report_fee = models.IntegerField(null=True, blank=True)
+#     dob = models.CharField(max_length=200, null=True, blank=True)
+    
+#     # Education
+#     institute = models.CharField(max_length=200, null=True, blank=True)
+#     degree = models.CharField(max_length=200, null=True, blank=True)
+#     completion_year = models.CharField(max_length=200, null=True, blank=True)
+    
+#     # work experience
+#     work_place = models.CharField(max_length=200, null=True, blank=True)
+#     designation = models.CharField(max_length=200, null=True, blank=True)
+#     start_year = models.CharField(max_length=200, null=True, blank=True)
+#     end_year = models.CharField(max_length=200, null=True, blank=True)
+    
+#     # register_status = models.BooleanField(default=False) default='pending'
+#     register_status =  models.CharField(max_length=200, null=True, blank=True)
+    
+#     # ForeignKey --> one to one relationship with Hospital_Information model.
+#     hospital_name = models.ForeignKey(Hospital_Information, on_delete=models.SET_NULL, null=True, blank=True)
+
+#     def __str__(self):
+#         return str(self.user.username)
+
+
 class Professional_Information(models.Model):
-    DOCTOR_TYPE = (
-        ('Cardiologists', 'Cardiologists'),
-        ('Neurologists', 'Neurologists'),
-        ('Pediatricians', 'Pediatricians'),
-        ('Physiatrists', 'Physiatrists'),
-        ('Dermatologists', 'Dermatologists'),
+    SERVICE_TYPE_CHOICES = (
+        ('medical', 'Medical Services'),
+        ('legal', 'Legal Services'),
+        ('engineering', 'Engineering Services'),
+        ('art', 'Art & Design'),
+        # Add more as necessary
     )
     
     professional_id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='profile')
-    name = models.CharField(max_length=200, null=True, blank=True)
-    username = models.CharField(max_length=200, null=True, blank=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+    name = models.CharField(max_length=200)
     gender = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(max_length=1000, null=True, blank=True)
-    department = models.CharField(max_length=200, choices=DOCTOR_TYPE, null=True, blank=True)
-    department_name = models.ForeignKey(hospital_department, on_delete=models.SET_NULL, null=True, blank=True)
-    specialization = models.ForeignKey(specialization, on_delete=models.SET_NULL, null=True, blank=True)
+    service_type = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES)
+    department_name = models.ForeignKey(ServiceDepartment, on_delete=models.SET_NULL, null=True)
+    specialization = models.ForeignKey(specialization, on_delete=models.SET_NULL, null=True)
 
-    featured_image = models.ImageField(upload_to='professionals/', default='professionals/user-default.png', null=True, blank=True)
-    certificate_image = models.ImageField(upload_to='professionals_certificate/', default='professionals_certificate/default.png', null=True, blank=True)
+    featured_image = models.ImageField(upload_to='professionals/', default='professionals/default.png')
+    certificate_image = models.ImageField(upload_to='certificates/', default='certificates/default.png', null=True, blank=True)
 
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone_number = models.CharField(max_length=200, null=True, blank=True)
-    nid = models.CharField(max_length=200, null=True, blank=True)
-    visiting_hour = models.CharField(max_length=200, null=True, blank=True)
-    consultation_fee = models.IntegerField(null=True, blank=True)
-    report_fee = models.IntegerField(null=True, blank=True)
-    dob = models.CharField(max_length=200, null=True, blank=True)
+    nid = models.CharField(max_length=200, null=True, blank=True)  # Consider if this is necessary for all professions
+    availability = models.CharField(max_length=200, null=True, blank=True)
+    consultation_fee = models.IntegerField(null=True, blank=True)  # Consider renaming or making this more generic
+    dob = models.DateField(null=True, blank=True)
     
-    # Education
+    # ForeignKey --> one to one relationship with Hospital_Information model.
+    service_provider_name = models.ForeignKey(Service_Provider_Information, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    
+    department = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES, null=True, blank=True)
+    report_fee = models.IntegerField(null=True, blank=True)
+
+        # Education
     institute = models.CharField(max_length=200, null=True, blank=True)
     degree = models.CharField(max_length=200, null=True, blank=True)
     completion_year = models.CharField(max_length=200, null=True, blank=True)
@@ -64,44 +120,67 @@ class Professional_Information(models.Model):
     designation = models.CharField(max_length=200, null=True, blank=True)
     start_year = models.CharField(max_length=200, null=True, blank=True)
     end_year = models.CharField(max_length=200, null=True, blank=True)
-    
-    # register_status = models.BooleanField(default=False) default='pending'
-    register_status =  models.CharField(max_length=200, null=True, blank=True)
-    
-    # ForeignKey --> one to one relationship with Hospital_Information model.
-    hospital_name = models.ForeignKey(Hospital_Information, on_delete=models.SET_NULL, null=True, blank=True)
+
+    register_status = models.CharField(max_length=200, null=True, blank=True)  # Consider using a boolean if just tracking registration status
+    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.SET_NULL, null=True)  # Generalized from hospital
 
     def __str__(self):
-        return str(self.user.username)
+        return self.user.username if self.user else self.name
 
+
+
+# class Appointment(models.Model):
+#     # ('database value', 'display_name')
+#     APPOINTMENT_TYPE = (
+#         ('report', 'report'),
+#         ('checkup', 'checkup'),
+#     )
+#     APPOINTMENT_STATUS = (
+#         ('pending', 'pending'),
+#         ('confirmed', 'confirmed'),
+#         ('cancelled', 'cancelled'),
+#     )
+
+#     id = models.AutoField(primary_key=True)
+#     date = models.DateField(null=True, blank=True)
+#     time = models.CharField(max_length=200, null=True, blank=True)
+#     professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
+#     client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
+#     appointment_type = models.CharField(max_length=200, choices=APPOINTMENT_TYPE)
+#     appointment_status = models.CharField(max_length=200, choices=APPOINTMENT_STATUS)
+#     serial_number = models.CharField(max_length=200, null=True, blank=True)
+#     payment_status = models.CharField(max_length=200, null=True, blank=True, default='pending')
+#     transaction_id = models.CharField(max_length=255, null=True, blank=True)
+#     message = models.CharField(max_length=255, null=True, blank=True)
+    
+
+#     def __str__(self):
+#         return str(self.client.username)
 
 class Appointment(models.Model):
-    # ('database value', 'display_name')
-    APPOINTMENT_TYPE = (
-        ('report', 'report'),
-        ('checkup', 'checkup'),
+    APPOINTMENT_TYPE_CHOICES = (
+        ('consultation', 'Consultation'),
+        ('service', 'Service'),
+        # Extend as necessary
     )
-    APPOINTMENT_STATUS = (
-        ('pending', 'pending'),
-        ('confirmed', 'confirmed'),
-        ('cancelled', 'cancelled'),
+    APPOINTMENT_STATUS_CHOICES = (
+        ('pending', 'Pending'),
+        ('confirmed', 'Confirmed'),
+        ('cancelled', 'Cancelled'),
     )
-
-    id = models.AutoField(primary_key=True)
-    date = models.DateField(null=True, blank=True)
-    time = models.CharField(max_length=200, null=True, blank=True)
-    professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
-    appointment_type = models.CharField(max_length=200, choices=APPOINTMENT_TYPE)
-    appointment_status = models.CharField(max_length=200, choices=APPOINTMENT_STATUS)
-    serial_number = models.CharField(max_length=200, null=True, blank=True)
-    payment_status = models.CharField(max_length=200, null=True, blank=True, default='pending')
-    transaction_id = models.CharField(max_length=255, null=True, blank=True)
-    message = models.CharField(max_length=255, null=True, blank=True)
     
+    appointment_id = models.AutoField(primary_key=True)
+    date = models.DateField()
+    time = models.CharField(max_length=200)
+    professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE)
+    client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='appointments')
+    appointment_type = models.CharField(max_length=200, choices=APPOINTMENT_TYPE_CHOICES)
+    appointment_status = models.CharField(max_length=200, choices=APPOINTMENT_STATUS_CHOICES)
+    notes = models.TextField(null=True, blank=True)  # To replace 'message', more general
 
     def __str__(self):
-        return str(self.patient.username)
+        return f"{self.client.username} - {self.date} - {self.time}"
+
 
 class Education(models.Model):
     education_id = models.AutoField(primary_key=True)
@@ -128,7 +207,7 @@ class Experience(models.Model):
 class Report(models.Model):
     report_id = models.AutoField(primary_key=True)
     professional = models.ForeignKey(Professional_Information, on_delete=models.SET_NULL, null=True, blank=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
     specimen_id = models.CharField(max_length=200, null=True, blank=True)
     specimen_type = models.CharField(max_length=200, null=True, blank=True)
     collection_date = models.CharField(max_length=200, null=True, blank=True)
@@ -141,7 +220,7 @@ class Report(models.Model):
     other_information = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return str(self.patient.username)
+        return str(self.client.username)
 
 class Specimen(models.Model):
     report = models.ForeignKey(Report, on_delete=models.CASCADE, null=True, blank=True)
@@ -166,28 +245,28 @@ class Test(models.Model):
 
         
 class Prescription(models.Model):
-    # medicine name, quantity, days, time, description, test, test_descrip
+    # product name, quantity, days, time, description, test, test_descrip
     prescription_id = models.AutoField(primary_key=True)
     professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
-    patient = models.ForeignKey(Patient, on_delete=models.SET_NULL, null=True, blank=True)
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True)
     create_date = models.CharField(max_length=200, null=True, blank=True)
-    medicine_name = models.CharField(max_length=200, null=True, blank=True)
+    product_name = models.CharField(max_length=200, null=True, blank=True)
     quantity = models.CharField(max_length=200, null=True, blank=True)
     days = models.CharField(max_length=200, null=True, blank=True)
     time = models.CharField(max_length=200, null=True, blank=True)
     relation_with_meal = models.CharField(max_length=200, null=True, blank=True)
-    medicine_description = models.TextField(null=True, blank=True)
+    product_description = models.TextField(null=True, blank=True)
     test_name = models.CharField(max_length=200, null=True, blank=True)
     test_description = models.TextField(null=True, blank=True)
     extra_information = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.patient.username)
+        return str(self.client.username)
 
-class Prescription_medicine(models.Model):
+class Prescription_product(models.Model):
     prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE, null=True, blank=True)
-    medicine_id = models.AutoField(primary_key=True)
-    medicine_name = models.CharField(max_length=200, null=True, blank=True)
+    product_id = models.AutoField(primary_key=True)
+    product_name = models.CharField(max_length=200, null=True, blank=True)
     quantity = models.CharField(max_length=200, null=True, blank=True)
     duration = models.CharField(max_length=200, null=True, blank=True)
     frequency = models.CharField(max_length=200, null=True, blank=True)
@@ -260,9 +339,9 @@ class testOrder(models.Model):
 class Professional_review(models.Model):
     review_id = models.AutoField(primary_key=True)
     professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200, null=True, blank=True)
     message = models.CharField(max_length=1000, null=True, blank=True)
 
     def __str__(self):
-        return str(self.patient.username)
+        return str(self.client.username)

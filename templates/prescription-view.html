@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->
+<!-- doccure/client-dashboard.html  30 Nov 2019 04:12:16 GMT -->
 
 <head>
 	<meta charset="utf-8" />
@@ -9,17 +9,17 @@
 	<title>Professionals Booking</title>
 
 	<!-- Favicons -->
-	<link type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon" />
+	<link type="image/x-icon" href="{% static 'proConnect-System/images/Normal/favicon.png' %}" rel="icon" />
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/bootstrap.min.css' %}" />
 
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
-	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'proConnect-System/plugins/Normal/fontawesome/css/all.min.css' %}" />
 
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}" />
+	<link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/style.css' %}" />
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -32,7 +32,7 @@
 	<!-- Main Wrapper -->
 	<div class="main-wrapper">
 		<!-- Header -->
-		<header class="header">{% include 'patient_navbar.html' %}</header>
+		<header class="header">{% include 'client_navbar.html' %}</header>
 		<!-- /Header -->
 
 		<!-- Breadcrumb -->
@@ -43,14 +43,14 @@
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item">
-									<a href="{% url 'patient-dashboard' %}">Home</a>
+									<a href="{% url 'client-dashboard' %}">Home</a>
 								</li>
 								<li class="breadcrumb-item active" aria-current="page">
-									Patient Dashboard
+									Client Dashboard
 								</li>
 							</ol>
 						</nav>
-						<h2 class="breadcrumb-title">Patient Dashboard</h2>
+						<h2 class="breadcrumb-title">Client Dashboard</h2>
 					</div>
 				</div>
 			</div>
@@ -63,7 +63,7 @@
 				<div class="row">
 					<!-- Profile Sidebar -->
 					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-						<div>{% include 'patient-sidebar.html' %}</div>
+						<div>{% include 'client-sidebar.html' %}</div>
 					</div>
 					<!-- / Profile Sidebar -->
 
@@ -75,7 +75,7 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="invoice-logo">
-											<img src="{% static 'HealthStack-System/images/Normal/FullLogo_Transparent_NoBuffer.png'%}"
+											<img src="{% static 'proConnect-System/images/Normal/FullLogo_Transparent_NoBuffer.png'%}"
 												alt="logo">
 										</div>
 									</div>
@@ -83,7 +83,7 @@
 										{% for prescription in prescription %}
 										<p class="invoice-details">
 											<strong>Prescription ID:</strong> {{prescription.prescription_id}} <br>
-											<strong>Patient ID:</strong> {{prescription.patient.patient_id}} <br>
+											<strong>Client ID:</strong> {{prescription.client.client_id}} <br>
 											<strong>Date:</strong> {{prescription.create_date }}
 										</p>
 									</div>
@@ -108,9 +108,9 @@
 										<div class="invoice-info invoice-info2">
 											<strong class="customer-text">Prescription To</strong>
 											<p class="invoice-details">
-												<b>Name: </b>{{prescription.patient.name}}<br>
-												<b>Addtress: </b>{{prescription.patient.address}}<br>
-												<b>Email: </b>{{prescription.patient.email}}<br>
+												<b>Name: </b>{{prescription.client.name}}<br>
+												<b>Addtress: </b>{{prescription.client.address}}<br>
+												<b>Email: </b>{{prescription.client.email}}<br>
 												<b>Phone Number: </b>{{prescription.prescription_id}}
 
 											</p>
@@ -128,7 +128,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<hr>
-										<h2 class="text-center mb-4" style="color: rgb(84, 147, 199)"><b>Medicine</b></h2>
+										<h2 class="text-center mb-4" style="color: rgb(84, 147, 199)"><b>Product</b></h2>
 										<hr>
 										<div class="table-responsive">
 											<table class="invoice-table table table-bordered">
@@ -136,7 +136,7 @@
 
 
 													<tr style="background-color: rgb(84, 147, 199);">
-														<th>Medicine Name</th>
+														<th>Product Name</th>
 														<th class="text-center">Quantity</th>
 														<th class="text-center">Frequency</th>
 														<th class="text-center">Duration</th>
@@ -145,9 +145,9 @@
 
 
 													</tr>
-													{% for pm in prescription_medicine %}
+													{% for pm in prescription_product %}
 													<tr>
-														<th class="text-center">{{pm.medicine_name}}</td>
+														<th class="text-center">{{pm.product_name}}</td>
 														<td class="text-center">{{pm.quantity}}</td>
 														<td class="text-center">{{pm.frequency}}</td>
 														<td class="text-center">{{pm.duration}}</td>
@@ -266,14 +266,14 @@
 	</div>
 
 	<!-- jQuery -->
-	<script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+	<script src="{% static 'proConnect-System/js/Normal/jquery.min.js' %}"></script>
 
 	<!-- Bootstrap Core JS -->
-	<script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
-	<script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+	<script src="{% static 'proConnect-System/js/Normal/popper.min.js' %}"></script>
+	<script src="{% static 'proConnect-System/js/Normal/bootstrap.min.js' %}"></script>
 
 	<!-- Custom JS -->
-	<script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+	<script src="{% static 'proConnect-System/Outside_assets/js/script.js' %}"></script>
 </body>
 
 <!-- doccure/invoice-view.html  30 Nov 2019 04:12:20 GMT -->

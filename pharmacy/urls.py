@@ -7,7 +7,7 @@ from django.contrib import admin
 
 # from . --> same directory
 # Views functions and urls must be linked. # of views == # of urls
-# App URL file - urls related to hospital
+# App URL file - urls related to service_provider
 
 
 urlpatterns = [

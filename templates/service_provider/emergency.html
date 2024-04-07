@@ -1,0 +1,148 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/professional-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:51 GMT -->
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>Professionals Booking</title>
+
+	<!-- Favicon -->
+
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'proConnect-System/images/Normal/favicon.png' %}" />
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{% static 'proConnect-System/css/admin/bootstrap.min.css'%}">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="{% static 'proConnect-System/css/admin/font-awesome.min.css'%}">
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="{% static 'proConnect-System/admin_assets/css/feathericon.min.css'%}">
+
+	<!-- Datatables CSS -->
+	<link rel="stylesheet" href="{% static 'proConnect-System/plugins/admin/datatables/datatables.min.css'%}">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="{% static 'proConnect-System/css/admin/style.css'%}">
+
+	<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+		<header class="header">{% include 'service_provider_admin/service_provider-admin-navbar.html' %}</header>
+		<!-- Logo -->
+
+
+		<!-- /Header -->
+
+		<!-- Sidebar -->
+		<aside class="sidebar" id="sidebar">
+			{% include 'service_provider_admin/service_provider-admin-sidebar.html' %} </aside>
+		<!-- /Sidebar -->
+
+		<!-- Page Wrapper -->
+
+		<!-- Page Wrapper -->
+		<div class="page-wrapper">
+
+			<div class="content container-fluid">
+				<!-- Page Header -->
+				<div class="page-header">
+					<div class="row">
+						<div class="col-sm-12">
+							<h3 class="page-title">Emergency ServiceProvider</h3>
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+								<li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
+								<li class="breadcrumb-item active">ServiceProvider</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /Page Header -->
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="datatable table table-hover table-center mb-0">
+
+
+										<thead>
+											<tr>
+												<th>ServiceProvider Name</th>
+												<th>General Bed </th>
+												<th>ICU</th>
+												<th>Regular Cabin </th>
+												<th>Emergency Cabin </th>
+												<th>Vip Room</th>
+												<th>Update</th>
+											</tr>
+										</thead>
+										{% for service_provider in all %}
+										<tr>
+											<td>
+												<h2 class="table-avatar">
+													<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
+															src="{{service_provider.featured_image.url}}" alt="User Image"></a>
+													<a href="profile.html">{{service_provider.name}}</a>
+												</h2>
+											</td>
+											<td>{{service_provider.general_bed_no}}</td>
+											<td>{{service_provider.available_icu_no}}</td>
+											<td>{{service_provider.regular_cabin_no}}</td>
+											<td>{{service_provider.emergency_cabin_no}}</td>
+											<td>{{service_provider.vip_cabin_no}}</td>
+											<td><a href="{% url 'edit-emergency-information' pk=service_provider.service_provider_id %}"
+													class="btn btn-primary">Edit</a></td>
+										</tr>
+
+										</td>
+										</tr>
+										{% endfor %}
+
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- /Page Wrapper -->
+
+		</div>
+		<!-- /Main Wrapper -->
+
+		<!-- jQuery -->
+		<script src="{% static 'proConnect-System/js/admin/jquery-3.2.1.min.js' %}"></script>
+
+		<!-- Bootstrap Core JS -->
+		<script src="{% static 'proConnect-System/js/admin/popper.min.js' %}"></script>
+		<script src="{% static 'proConnect-System/js/admin/bootstrap.min.js' %}"></script>
+
+		<!-- Slimscroll JS -->
+		<script src="{% static 'proConnect-System/plugins/admin/slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+		<!-- Datatables JS -->
+		<script src="{% static 'proConnect-System/plugins/admin/datatables/jquery.dataTables.min.js'%}"></script>
+		<script src="{% static 'proConnect-System/plugins/admin/datatables/datatables.min.js'%}"></script>
+
+		<!-- Custom JS -->
+		<script src="{% static 'proConnect-System/js/admin/script.js' %}"></script>
+
+</body>
+
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/professional-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:51 GMT -->
+
+</html>

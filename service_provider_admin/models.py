@@ -35,13 +35,14 @@ class Admin_Information(models.Model):
     # hospital = models.ForeignKey(Hospital_Information, on_delete=models.SET_NULL, null=True, blank=True)
     
     admin_id = models.AutoField(primary_key=True, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='admin')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='service_provider_admin')
     name = models.CharField(max_length=200, null=True, blank=True)
-    featured_image = models.ImageField(upload_to='admin/', default='admin/default.png', null=True, blank=True)
+    username = models.CharField(null=True, blank=True, max_length=200)
+    featured_image = models.ImageField(upload_to='admin/', default='admin/user-default.png', null=True, blank=True)
     phone_number = models.IntegerField(null=True, blank=True)
     email = models.EmailField(max_length=200, null=True, blank=True)
     role = models.CharField(max_length=200, choices=ADMIN_TYPE, null=True, blank=True)
-    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.SET_NULL, null=True, blank=True)  # Generalized from hospital
+    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         # return str(self.user.username)
@@ -57,7 +58,7 @@ class Clinical_Laboratory_Technician(models.Model):
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone_number = models.IntegerField(null=True, blank=True)
     featured_image = models.ImageField(upload_to='technician/', default='technician/user-default.png', null=True, blank=True)
-    hospital = models.ForeignKey(ServiceProvider, on_delete=models.SET_NULL, null=True, blank=True)
+    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.SET_NULL, null=True, blank=True)
     
     def __str__(self):
         return str(self.user.username)
@@ -81,12 +82,12 @@ class ServiceDepartment(models.Model):
     ServiceDepartment_id = models.AutoField(primary_key=True)
     ServiceDepartment_name = models.CharField(max_length=200, null=True, blank=True)
     # professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
-    hospital = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE, null=True, blank=True)
+    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE, null=True, blank=True)
     featured_image = models.ImageField(upload_to='departments/', default='departments/default.png', null=True, blank=True)
 
     def __str__(self):
         val1 = str(self.ServiceDepartment_name)
-        val2 = str(self.hospital)
+        val2 = str(self.service_provider)
         val3 = val1 + ' - ' + val2
         return str(val3)     
 
@@ -103,11 +104,11 @@ class specialization(models.Model):
     specialization_id = models.AutoField(primary_key=True)
     specialization_name = models.CharField(max_length=200, null=True, blank=True)
     # professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
-    hospital = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE, null=True, blank=True)
+    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         val1 = str(self.specialization_name)
-        val2 = str(self.hospital)
+        val2 = str(self.service_provider)
         val3 = val1 + ' - ' + val2
         return str(val3)
     
@@ -118,11 +119,11 @@ class service(models.Model):
     service_id = models.AutoField(primary_key=True)
     service_name = models.CharField(max_length=200, null=True, blank=True)
     # professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
-    hospital = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE, null=True, blank=True)
+    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         val1 = str(self.service_name)
-        val2 = str(self.hospital)
+        val2 = str(self.service_provider)
         val3 = val1 + ' - ' + val2
         return str(val3)
 

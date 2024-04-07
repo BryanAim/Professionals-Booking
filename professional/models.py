@@ -94,8 +94,8 @@ class Professional_Information(models.Model):
     department_name = models.ForeignKey(ServiceDepartment, on_delete=models.SET_NULL, null=True)
     specialization = models.ForeignKey(specialization, on_delete=models.SET_NULL, null=True)
 
-    featured_image = models.ImageField(upload_to='professionals/', default='professionals/default.png')
-    certificate_image = models.ImageField(upload_to='certificates/', default='certificates/default.png', null=True, blank=True)
+    featured_image = models.ImageField(upload_to='professionals/', default='professionals/user-default.png')
+    certificate_image = models.ImageField(upload_to='professionals_certificates/', default='professionals_certificates/default.png', null=True, blank=True)
 
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone_number = models.CharField(max_length=200, null=True, blank=True)

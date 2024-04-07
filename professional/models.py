@@ -3,7 +3,7 @@ from django.db import models
 import uuid
 
 # import django user model
-from service_provider.models import ServiceProvider, User, Client, Service_Provider_Information
+from service_provider.models import  User, Client, Service_Provider_Information
 from service_provider_admin.models import ServiceDepartment, specialization, service
 from django.conf import settings
 
@@ -91,7 +91,7 @@ class Professional_Information(models.Model):
     gender = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(max_length=1000, null=True, blank=True)
     service_type = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES)
-    department_name = models.ForeignKey(ServiceDepartment, on_delete=models.SET_NULL, null=True)
+    service_type_name = models.ForeignKey(ServiceDepartment, on_delete=models.SET_NULL, null=True)
     specialization = models.ForeignKey(specialization, on_delete=models.SET_NULL, null=True)
 
     featured_image = models.ImageField(upload_to='professionals/', default='professionals/user-default.png')
@@ -108,7 +108,7 @@ class Professional_Information(models.Model):
     service_provider_name = models.ForeignKey(Service_Provider_Information, on_delete=models.SET_NULL, null=True, blank=True)
     
     
-    department = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES, null=True, blank=True)
+    service_type = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES, null=True, blank=True)
     report_fee = models.IntegerField(null=True, blank=True)
 
         # Education
@@ -123,7 +123,6 @@ class Professional_Information(models.Model):
     end_year = models.CharField(max_length=200, null=True, blank=True)
 
     register_status = models.CharField(max_length=200, null=True, blank=True)  # Consider using a boolean if just tracking registration status
-    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.SET_NULL, null=True)  # Generalized from hospital
 
     def __str__(self):
         return self.user.username if self.user else self.name

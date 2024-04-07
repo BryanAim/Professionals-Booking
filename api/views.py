@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from .serializers import ServiceProviderSerializer
-from service_provider.models import ServiceProvider, Client, User 
+from service_provider.models import Service_Provider_Information, Client, User 
 from professional.models import Professional_Information
 
 @api_view(['GET'])
@@ -23,7 +23,7 @@ def getRoutes(request):
 
 @api_view(['GET'])
 def getServiceProviders(request):
-    service_providers = ServiceProvider.objects.all() # query the database (get python object)
+    service_providers = Service_Provider_Information.objects.all() # query the database (get python object)
     serializer = ServiceProviderSerializer(service_providers, many=True) # convert python object to JSON object
     # many=True because we are serializing a list of objects
     return Response(serializer.data)
@@ -31,6 +31,6 @@ def getServiceProviders(request):
 
 @api_view(['GET'])
 def getServiceProviderProfile(request, pk):
-    service_providers = ServiceProvider.objects.get(service_provider_id=pk)
+    service_providers = Service_Provider_Information.objects.get(service_provider_id=pk)
     serializer = ServiceProviderSerializer(service_providers, many=False) # many=False for a single object
     return Response(serializer.data)

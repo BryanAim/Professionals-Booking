@@ -232,14 +232,14 @@
 													<div class="card">
 														<div class="card-body">
 															<h4 class="card-title">Departments</h4>
-															<div class="department-info">
-																{%for department in departments%}
-																<div class="row form-row department-cont">
+															<div class="service_type-info">
+																{%for service_type in service_types%}
+																<div class="row form-row service_type-cont">
 																	<div class="col-12 col-md-10 col-lg-11">
 																		<div class="form-group">
 																			<label>Add New Departments</label>
 																			<input type="text" class="form-control"
-																				value={{department.ServiceDepartment_name}}>
+																				value={{service_type.ServiceDepartment_name}}>
 																		</div>
 																	</div>
 																	{% comment %} <div class="col-md-2 col-lg-1">
@@ -255,7 +255,7 @@
 
 															</div>
 															<div class="add-more">
-																<a href="javascript:void(0);" class="add-department"><i class="fa fa-plus-circle"></i>
+																<a href="javascript:void(0);" class="add-service_type"><i class="fa fa-plus-circle"></i>
 																	Add More</a>
 															</div>
 														</div>

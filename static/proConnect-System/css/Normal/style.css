@@ -2900,12 +2900,12 @@ home-image{
 .professional-img img {
 	border-radius: 5px;
 }
-.doc-department {
+.doc-service_type {
     color: #20c0f3;
     font-size: 14px;
     margin-bottom: 8px;
 }
-.doc-department img {
+.doc-service_type img {
     width: 19px;
     display: inline-block;
     margin-right: 10px;

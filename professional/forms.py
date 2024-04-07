@@ -27,7 +27,7 @@ class ProfessionalUserCreationForm(UserCreationForm):
 class ProfessionalForm(ModelForm):
     class Meta:
         model = Professional_Information
-        fields = ['name', 'email', 'phone_number', 'degree', 'department',
+        fields = ['name', 'email', 'phone_number', 'degree', 'service_type',
                   'featured_image', 'availability', 'consultation_fee', 'report_fee', 'dob', 'service_provider_name']
 
     def __init__(self, *args, **kwargs):

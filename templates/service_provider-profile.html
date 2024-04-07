@@ -214,7 +214,7 @@
 
 										<div class="clinic-booking">
 											<a class="apt-btn"
-												href="{% url 'service_provider-department-list' pk=service_providers.service_provider_id %}">Department
+												href="{% url 'service_provider-service_type-list' pk=service_providers.service_provider_id %}">Department
 												& Professional List</a>
 										</div>
 										<br>
@@ -244,12 +244,12 @@
 										<li class="nav-item">
 											<a class="nav-link active" href="#doc_overview" data-toggle="tab">Overview</a>
 										</li>
-										<li class="nav-item">
+										<!-- <li class="nav-item">
 											<a class="nav-link" href="#doc_locations" data-toggle="tab">Locations and Contact</a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" href="#doc_emergency" data-toggle="tab">Emergency Info</a>
-										</li>
+										</li> -->
 
 
 									</ul>
@@ -266,7 +266,7 @@
 
 												<!-- About Details -->
 												<div class="widget about-widget">
-													<h4 class="widget-title">About Our ServiceProvider</h4>
+													<h4 class="widget-title">About Our Service Provider</h4>
 													<p>{{service_providers.description}}</p>
 												</div>
 												<!-- /About Details -->
@@ -277,7 +277,7 @@
 													<h4 class="widget-title">Departments</h4>
 													<div class="experience-box">
 														<ul class="experience-list">
-															{% for department in departments %}
+															{% for service_type in service_types %}
 															<li>
 																<div class="experience-user">
 																	<div class="before-circle"></div>
@@ -285,7 +285,7 @@
 																<div class="experience-content">
 																	<div class="timeline-content">
 
-																		<h4 class="exp-title">{{department.ServiceDepartment_name}}</h4>
+																		<h4 class="exp-title">{{service_type.ServiceDepartment_name}}</h4>
 
 																	</div>
 																</div>

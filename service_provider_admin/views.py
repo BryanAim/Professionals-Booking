@@ -265,7 +265,7 @@ def add_service_provider(request):
             if 'featured_image' in request.FILES:
                 featured_image = request.FILES['featured_image']
             else:
-                featured_image = "departments/default.png"
+                featured_image = "service_types/default.png"
             
             service_provider_name = request.POST.get('service_provider_name')
             address = request.POST.get('address')
@@ -274,7 +274,7 @@ def add_service_provider(request):
             phone_number = request.POST.get('phone_number') 
             service_type = request.POST.get('type')
             specialization_name = request.POST.getlist('specialization')
-            department_name = request.POST.getlist('department')
+            service_type_name = request.POST.getlist('service_type')
             service_name = request.POST.getlist('service')
             
         
@@ -290,11 +290,11 @@ def add_service_provider(request):
          
             service_provider.save()
             
-            for i in range(len(department_name)):
-                departments = ServiceDepartment(service_provider=service_provider)
+            for i in range(len(service_type_name)):
+                service_types = ServiceDepartment(service_provider=service_provider)
                 # print(department_name[i])
-                departments.ServiceDepartment_name = department_name[i]
-                departments.save()
+                service_types.ServiceDepartment_name = service_type_name[i]
+                service_types.save()
                 
             for i in range(len(specialization_name)):
                 specializations = specialization(service_provider=service_provider)
@@ -328,8 +328,8 @@ def edit_service_provider(request, pk):
         if request.method == 'GET':
             specializations = specialization.objects.filter(service_provider=service_provider)
             services = service.objects.filter(service_provider=service_provider)
-            departments = ServiceDepartment.objects.filter(service_provider=service_provider)
-            context = {'service_provider': service_provider, 'specializations': specializations, 'services': services,'departments':departments, 'admin': user}
+            service_types = ServiceDepartment.objects.filter(service_provider=service_provider)
+            context = {'service_provider': service_provider, 'specializations': specializations, 'services': services,'service_types':service_types, 'admin': user}
             return render(request, 'service_provider_admin/edit-service_provider.html',context)
 
         elif request.method == 'POST':
@@ -346,7 +346,7 @@ def edit_service_provider(request, pk):
             service_type = request.POST.get('type')
             
             specialization_name = request.POST.getlist('specialization')
-            department_name = request.POST.getlist('department')
+            service_type_name = request.POST.getlist('service_type')
             service_name = request.POST.getlist('service')
 
             service_provider.name = service_provider_name
@@ -375,10 +375,10 @@ def edit_service_provider(request, pk):
                 services.service_name = service_name[i]
                 services.save()
                 
-            for i in range(len(department_name)):
-                departments = ServiceDepartment(service_provider=service_provider)
-                departments.ServiceDepartment_name = department_name[i]
-                departments.save()
+            for i in range(len(service_type_name)):
+                service_types = ServiceDepartment(service_provider=service_provider)
+                service_types.ServiceDepartment_name = service_type_name[i]
+                service_types.save()
 
             messages.success(request, 'ServiceProvider Updated')
             return redirect('service_provider-list')
@@ -818,11 +818,11 @@ def edit_pharmacist(request, pk):
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def department_image_list(request,pk):
-    departments = ServiceDepartment.objects.filter(service_provider_id=pk)
+def service_type_image_list(request,pk):
+    service_types = ServiceDepartment.objects.filter(service_provider_id=pk)
     #departments = ServiceDepartment.objects.all()
-    context = {'departments': departments}
-    return render(request, 'service_provider_admin/department-image-list.html',context)
+    context = {'service_types': service_types}
+    return render(request, 'service_provider_admin/service_type-image-list.html',context)
 
 @csrf_exempt
 @login_required(login_url='admin_login')
@@ -865,7 +865,7 @@ def accept_professional(request,pk):
     # Mailtrap
     professional_name = professional.name
     professional_email = professional.email
-    professional_department = professional.department_name.ServiceDepartment_name
+    professional_service_type = professional.service_type_name.ServiceDepartment_name
 
     professional_specialization = professional.specialization.specialization_name
 
@@ -874,7 +874,7 @@ def accept_professional(request,pk):
     values = {
             "professional_name":professional_name,
             "professional_email":professional_email,
-            "professional_department":professional_department,
+            "professional_service_type":professional_service_type,
 
             "professional_specialization":professional_specialization,
         }
@@ -901,7 +901,7 @@ def reject_professional(request,pk):
     # Mailtrap
     professional_name = professional.name
     professional_email = professional.email
-    professional_department = professional.department_name.ServiceDepartment_name
+    professional_service_type = professional.service_type_name.ServiceDepartment_name
     professional_service_provider = professional.service_provider_name.name
     professional_specialization = professional.specialization.specialization_name
 
@@ -910,7 +910,7 @@ def reject_professional(request,pk):
     values = {
             "professional_name":professional_name,
             "professional_email":professional_email,
-            "professional_department":professional_department,
+            "professional_service_type":professional_service_type,
             "professional_service_provider":professional_service_provider,
             "professional_specialization":professional_specialization,
         }
@@ -928,22 +928,22 @@ def reject_professional(request,pk):
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def delete_department(request,pk):
+def delete_service_type(request,pk):
     if request.user.is_authenticated:
         if request.user.is_service_provider_admin:
-            department = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
-            department.delete()
+            service_type = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
+            service_type.delete()
             messages.success(request, 'Department Deleted!')
             return redirect('service_provider-list')
 
 @login_required(login_url='admin_login')
 @csrf_exempt
-def edit_department(request,pk):
+def edit_service_type(request,pk):
     if request.user.is_authenticated:
         if request.user.is_service_provider_admin:
-            # old_featured_image = department.featured_image
-            department = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
-            old_featured_image = department.featured_image
+            # old_featured_image = service_type.featured_image
+            service_type = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
+            old_featured_image = service_type.featured_image
 
             if request.method == 'POST':
                 if 'featured_image' in request.FILES:
@@ -951,14 +951,14 @@ def edit_department(request,pk):
                 else:
                     featured_image = old_featured_image
 
-                department_name = request.POST.get('department_name')
-                department.ServiceDepartment_name = department_name
-                department.featured_image = featured_image
-                department.save()
+                service_type_name = request.POST.get('service_type_name')
+                service_type.ServiceDepartment_name = service_type_name
+                service_type.featured_image = featured_image
+                service_type.save()
                 messages.success(request, 'Department Updated!')
                 return redirect('service_provider-list')
                 
-            context = {'department': department}
+            context = {'service_type': service_type}
             return render(request, 'service_provider_admin/edit-service_provider.html',context)
 
 @csrf_exempt

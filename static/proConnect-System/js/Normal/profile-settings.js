@@ -138,14 +138,14 @@ Version      : 1.0
 
 	// Deapartments Add More
 
-	$(".department-info").on('click', '.trash', function () {
-		$(this).closest('.department-cont').remove();
+	$(".service_type-info").on('click', '.trash', function () {
+		$(this).closest('.service_type-cont').remove();
 		return false;
 	});
 
-	$(".add-department").on('click', function () {
+	$(".add-service_type").on('click', function () {
 
-		var departmentcontent = '<div class="row form-row department-cont">' +
+		var service_typecontent = '<div class="row form-row service_type-cont">' +
 			'<div class="col-12 col-md-10 col-lg-5">' +
 			'<div class="form-group">' +
 
@@ -160,7 +160,7 @@ Version      : 1.0
 			'</div>' +
 			'</div>';
 
-		$(".department-info").append(departmentcontent);
+		$(".service_type-info").append(service_typecontent);
 		return false;
 	});
 

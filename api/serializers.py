@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from service_provider.models import ServiceProvider, Client, User 
+from service_provider.models import Service_Provider_Information, Client, User 
 from professional.models import Professional_Information
 
 # Serialization --> convert python data (from our database models) to JSON data
 
 class ServiceProviderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ServiceProvider
+        model = Service_Provider_Information
         fields = '__all__'
 
 

@@ -1,5 +1,5 @@
 from django.db.models import Q
-from .models import Client, User, ServiceProvider
+from .models import Client, User, Service_Provider_Information
 from professional.models import Professional_Information, Appointment
 from service_provider_admin.models import ServiceDepartment, specialization, service
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -17,7 +17,7 @@ def searchProfessionals(request):
     professionals = Professional_Information.objects.filter(register_status='Accepted').distinct().filter(
         Q(name__icontains=search_query) |
         Q(service_provider_name__name__icontains=search_query) |  
-        Q(department__icontains=search_query))
+        Q(service_type__icontains=search_query))
     
     return professionals, search_query
 
@@ -31,7 +31,7 @@ def searchServiceProviders(request):
         search_query = request.GET.get('search_query')
         
     
-    service_providers = ServiceProvider.objects.distinct().filter(Q(name__icontains=search_query))
+    service_providers = Service_Provider_Information.objects.distinct().filter(Q(name__icontains=search_query))
     
     return service_providers, search_query
 
@@ -89,9 +89,9 @@ def searchDepartmentProfessionals(request, pk):
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
         
-    departments = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
+    service_types = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
     
-    professionals = Professional_Information.objects.filter(department_name=departments).filter(
+    professionals = Professional_Information.objects.filter(service_type_name=service_types).filter(
         Q(name__icontains=search_query))
     
     # professionals = Professional_Information.objects.filter(department_name=departments).filter(

@@ -83,7 +83,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											{%for dep in departments%}
+											{%for dep in service_types%}
 											<tr>
 
 												<td>
@@ -120,7 +120,7 @@
 
 											<div class="modal fade" id="modal-default{{dep.ServiceDepartment_name}}" aria-hidden="true"
 												role="dialog">
-												<form action="{%url 'edit-department' pk=dep.ServiceDepartment_id%}" method="POST"
+												<form action="{%url 'edit-service_type' pk=dep.ServiceDepartment_id%}" method="POST"
 													enctype="multipart/form-data">
 													{% csrf_token %}
 													<div class="modal-dialog modal-dialog-centered" role="document">
@@ -137,7 +137,7 @@
 																	<div class="col-12 col-sm-6">
 																		<div class="form-group">
 																			<label>Department Name</label>
-																			<input type="text" class="form-control" name="department_name"
+																			<input type="text" class="form-control" name="service_type_name"
 																				value={{dep.ServiceDepartment_name}}>
 
 																		</div>
@@ -161,7 +161,7 @@
 
 											<div class="modal fade" id="delete_modal{{dep.ServiceDepartment_id}}" aria-hidden="true"
 												role="dialog">
-												<form method="POST" action="{%url 'delete-department' pk=dep.ServiceDepartment_id%}">
+												<form method="POST" action="{%url 'delete-service_type' pk=dep.ServiceDepartment_id%}">
 													<div class="modal-dialog modal-dialog-centered" role="document">
 														<div class="modal-content">
 															{% csrf_token %}

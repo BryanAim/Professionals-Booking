@@ -260,22 +260,22 @@ def profile_settings(request):
                 featured_image = old_featured_image
                 
             name = request.POST.get('name')
-            dob = request.POST.get('dob')
+            # dob = request.POST.get('dob')
             age = request.POST.get('age')
-            blood_group = request.POST.get('blood_group')
+            # blood_group = request.POST.get('blood_group')
             phone_number = request.POST.get('phone_number')
             address = request.POST.get('address')
-            nid = request.POST.get('nid')
+            # nid = request.POST.get('nid')
             history = request.POST.get('history')
             
             client.name = name
             client.age = age
             client.phone_number = phone_number
             client.address = address
-            client.blood_group = blood_group
+            # client.blood_group = blood_group
             client.history = history
-            client.dob = dob
-            client.nid = nid
+            # client.dob = dob
+            # client.nid = nid
             client.featured_image = featured_image
             
             client.save()
@@ -388,7 +388,7 @@ def data_table(request):
 
 @csrf_exempt
 @login_required(login_url="login")
-def ServiceDepartment_list(request, pk):
+def ServiceType_list(request, pk):
     if request.user.is_authenticated: 
         
         if request.user.is_client:

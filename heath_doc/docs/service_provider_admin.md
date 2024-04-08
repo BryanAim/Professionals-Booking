@@ -58,7 +58,7 @@ def reject_professional(request,pk):
     professional_name = professional.name
     professional_email = professional.email
     professional_department = professional.department_name.ServiceDepartment_name
-    professional_service_provider = professional.service_provider_name.name
+    professional_service_provider = professional.service_name.name
     professional_specialization = professional.specialization.specialization_name
 
     subject = "Rejection of Professional Registration"
@@ -163,7 +163,7 @@ def add_service_provider(request):
             else:
                 featured_image = "departments/default.png"
 
-            service_provider_name = request.POST.get('service_provider_name')
+            service_name = request.POST.get('service_name')
             address = request.POST.get('address')
             description = request.POST.get('description')
             email = request.POST.get('email')
@@ -174,7 +174,7 @@ def add_service_provider(request):
             service_name = request.POST.getlist('service')
 
 
-            service_provider.name = service_provider_name
+            service_provider.name = service_name
             service_provider.description = description
             service_provider.address = address
             service_provider.email = email
@@ -233,7 +233,7 @@ def edit_service_provider(request, pk):
             else:
                 featured_image = old_featured_image
 
-            service_provider_name = request.POST.get('service_provider_name')
+            service_name = request.POST.get('service_name')
             address = request.POST.get('address')
             description = request.POST.get('description')
             email = request.POST.get('email')
@@ -244,7 +244,7 @@ def edit_service_provider(request, pk):
             department_name = request.POST.getlist('department')
             service_name = request.POST.getlist('service')
 
-            service_provider.name = service_provider_name
+            service_provider.name = service_name
             service_provider.description = description
             service_provider.address = address
             service_provider.email = email

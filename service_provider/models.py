@@ -72,11 +72,11 @@ class Service_Provider_Information(models.Model):
 
     service_provider_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, null=True, blank=True)
-    address = models.CharField(max_length=200, null=True, blank=True)
+    # address = models.CharField(max_length=200, null=True, blank=True)
     featured_image = models.ImageField(upload_to='service_providers/', default='service_providers/default.png', null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    email = models.EmailField(max_length=200, null=True, blank=True)
-    phone_number = models.IntegerField(null=True, blank=True)
+    # email = models.EmailField(max_length=200, null=True, blank=True)
+    # phone_number = models.IntegerField(null=True, blank=True)
     service_type = models.CharField(max_length=200, choices=SERVICE_TYPE)
     # general_bed_no = models.IntegerField(null=True, blank=True)
     # available_icu_no = models.IntegerField(null=True, blank=True)
@@ -126,10 +126,10 @@ class Client(models.Model):
     # Remove or generalize medical-specific fields
     # Add additional fields if necessary to accommodate information relevant to clients of various services
     history = models.CharField(max_length=200, null=True, blank=True)
-    dob = models.CharField(max_length=200, null=True, blank=True)
+    # dob = models.CharField(max_length=200, null=True, blank=True)
     
     blood_group = models.CharField(max_length=200, null=True, blank=True)
-    nid = models.CharField(max_length=200, null=True, blank=True)
+    # nid = models.CharField(max_length=200, null=True, blank=True)
 
     
     serial_number = models.CharField(max_length=200, null=True, blank=True)

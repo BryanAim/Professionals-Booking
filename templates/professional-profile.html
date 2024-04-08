@@ -121,10 +121,30 @@
 											<img src="{{professional.featured_image.url}}" class="img-fluid" alt="User Image">
 										</div>
 										<div class="doc-info-cont">
-											<h4 class="doc-name">Dr. {{professional.name}}</h4>
+											{% if professional.name %}
+											{{ professional.name }}
+											{% else %}
+											<a href="{% url 'professional-profile-settings' %}">Add Your Name</a>
+											{% endif %}
+
+											{% if professional.service_type_name.ServiceDepartment_name %}
 											<p class="doc-speciality">{{professional.service_type_name.ServiceDepartment_name}}</p>
-											<h4 class="doc-service_provider">{{professional.service_provider_name}}</h4>
-											<p class="doc-service_type">{{professional.specialization.specialization_name}}</p>
+											{% else %}
+											<p><a href="{% url 'professional-profile-settings' %}">Add Your Speciality</a></p>
+											{% endif %}
+
+											{% if professional.service_name %}
+											<p class="doc-speciality">{{professional.service_name}}</p>
+											{% else %}
+											<h4><a href="{% url 'professional-profile-settings' %}">Add Your Service</a></h4>
+											{% endif %}
+
+											{% if professional.specialization.specialization_name %}
+											<p class="doc-speciality">{{professional.specialization.specialization_name}}</p>
+											{% else %}
+											<h4><a href="{% url 'professional-profile-settings' %}">Add Your Specialization</a></h4>
+											{% endif %}
+
 											{% comment %} <div class="rating">
 												<i class="fas fa-star filled"></i>
 												<i class="fas fa-star filled"></i>
@@ -134,7 +154,7 @@
 												<span class="d-inline-block average-rating">(35)</span>
 											</div> {% endcomment %}
 											<div class="clinic-details">
-												<p class="doc-location"><i class="fas fa-map-marker-alt"></i> Dhaka,Bangladesh</p>
+												<p class="doc-location"><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</p>
 
 												<ul class="clinic-gallery">
 													<li>
@@ -171,8 +191,8 @@
 											<ul>
 												{% comment %} <li><i class="far fa-thumbs-up"></i> 99%</li>
 												<li><i class="far fa-comment"></i> 35 Feedback</li> {% endcomment %}
-												<li><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</li>
-												<li><i class="far fa-money-bill-alt"></i>{{professional.consultation_fee}} KES</li>
+												<li><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</li>
+												<li><i class="far fa-money-bill-alt"></i>KES {{professional.consultation_fee}} </li>
 											</ul>
 										</div>
 
@@ -224,7 +244,11 @@
 												<!-- About Details -->
 												<div class="widget about-widget">
 													<h4 class="widget-title">About Me</h4>
-													<p>{{professional.description}}</p>
+													{% if professional.description %}
+														{{ professional.description }}
+													{% else %}
+															<p><a href="{% url 'professional-profile-settings' %}">Add Bio</a></p>
+													{% endif %}
 												</div>
 												<!-- /About Details -->
 

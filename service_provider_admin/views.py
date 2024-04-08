@@ -267,7 +267,7 @@ def add_service_provider(request):
             else:
                 featured_image = "service_types/default.png"
             
-            service_provider_name = request.POST.get('service_provider_name')
+            service_name = request.POST.get('service_name')
             address = request.POST.get('address')
             description = request.POST.get('description')
             email = request.POST.get('email')
@@ -278,7 +278,7 @@ def add_service_provider(request):
             service_name = request.POST.getlist('service')
             
         
-            service_provider.name = service_provider_name
+            service_provider.name = service_name
             service_provider.description = description
             service_provider.address = address
             service_provider.email = email
@@ -338,7 +338,7 @@ def edit_service_provider(request, pk):
             else:
                 featured_image = old_featured_image
                                
-            service_provider_name = request.POST.get('service_provider_name')
+            service_name = request.POST.get('service_name')
             address = request.POST.get('address')
             description = request.POST.get('description')
             email = request.POST.get('email')
@@ -349,7 +349,7 @@ def edit_service_provider(request, pk):
             service_type_name = request.POST.getlist('service_type')
             service_name = request.POST.getlist('service')
 
-            service_provider.name = service_provider_name
+            service_provider.name = service_name
             service_provider.description = description
             service_provider.address = address
             service_provider.email = email
@@ -447,11 +447,11 @@ def create_invoice(request, pk):
         invoice = Payment(client=client)
         
         consulation_fee = request.POST['consulation_fee']
-        report_fee = request.POST['report_fee']
+        # report_fee = request.POST['report_fee']
         #total_ammount = request.POST['currency_amount']
-        invoice.currency_amount = int(consulation_fee) + int(report_fee)
+        # invoice.currency_amount = int(consulation_fee) + int(report_fee)
         invoice.consulation_fee = consulation_fee
-        invoice.report_fee = report_fee
+        # invoice.report_fee = report_fee
         invoice.invoice_number = generate_random_invoice()
         invoice.name = client
         invoice.status = 'Pending'
@@ -902,7 +902,7 @@ def reject_professional(request,pk):
     professional_name = professional.name
     professional_email = professional.email
     professional_service_type = professional.service_type_name.ServiceDepartment_name
-    professional_service_provider = professional.service_provider_name.name
+    professional_service_provider = professional.service_name.name
     professional_specialization = professional.specialization.specialization_name
 
     subject = "Rejection of Professional Registration"

@@ -99,17 +99,17 @@ class Professional_Information(models.Model):
 
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone_number = models.CharField(max_length=200, null=True, blank=True)
-    nid = models.CharField(max_length=200, null=True, blank=True)  # Consider if this is necessary for all professions
+    # nid = models.CharField(max_length=200, null=True, blank=True, default='')
     availability = models.CharField(max_length=200, null=True, blank=True)
-    consultation_fee = models.IntegerField(null=True, blank=True)  # Consider renaming or making this more generic
-    dob = models.DateField(null=True, blank=True)
+    consultation_fee = models.IntegerField(null=True, blank=True, default=0)
+    # dob = models.DateField(null=True, blank=True)
     
     # ForeignKey --> one to one relationship with Hospital_Information model.
-    service_provider_name = models.ForeignKey(Service_Provider_Information, on_delete=models.SET_NULL, null=True, blank=True)
+    service_name = models.ForeignKey(Service_Provider_Information, on_delete=models.SET_NULL, null=True, blank=True)
     
     
     service_type = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES, null=True, blank=True)
-    report_fee = models.IntegerField(null=True, blank=True)
+    # report_fee = models.IntegerField(null=True, blank=True)
 
         # Education
     institute = models.CharField(max_length=200, null=True, blank=True)
@@ -122,7 +122,7 @@ class Professional_Information(models.Model):
     start_year = models.CharField(max_length=200, null=True, blank=True)
     end_year = models.CharField(max_length=200, null=True, blank=True)
 
-    register_status = models.CharField(max_length=200, null=True, blank=True)  # Consider using a boolean if just tracking registration status
+    register_status = models.CharField(max_length=200, null=True, blank=True, default='Accepted')  
 
     def __str__(self):
         return self.user.username if self.user else self.name

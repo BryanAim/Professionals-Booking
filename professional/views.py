@@ -341,32 +341,32 @@ def professional_profile_settings(request):
             name = request.POST.get('name')
             number = request.POST.get('number')
             gender = request.POST.get('gender')
-            dob = request.POST.get('dob')
+            # dob = request.POST.get('dob')
             description = request.POST.get('description')
             consultation_fee = request.POST.get('consultation_fee')
-            report_fee = request.POST.get('report_fee')
-            nid = request.POST.get('nid')
+            # report_fee = request.POST.get('report_fee')
+            # nid = request.POST.get('nid')
             visit_hour = request.POST.get('visit_hour')
             
             degree = request.POST.getlist('degree')
             institute = request.POST.getlist('institute')
             year_complete = request.POST.getlist('year_complete')
-            service_provider_name = request.POST.getlist('service_provider_name')     
+            service_name = request.POST.getlist('service_name')     
             start_year= request.POST.getlist('from')
             end_year = request.POST.getlist('to')
             designation = request.POST.getlist('designation')
 
             professional.name = name
             professional.availability = visit_hour
-            professional.nid = nid
+            # professional.nid = nid
             professional.gender = gender
             professional.featured_image = featured_image
             professional.phone_number = number
             #professional.availability
             professional.consultation_fee = consultation_fee
-            professional.report_fee = report_fee
+            # professional.report_fee = report_fee
             professional.description = description
-            professional.dob = dob
+            # professional.dob = dob
             
             professional.save()
             
@@ -379,9 +379,9 @@ def professional_profile_settings(request):
                 education.save()
 
             # Experience
-            for i in range(len(service_provider_name)):
+            for i in range(len(service_name)):
                 experience = Experience(professional=professional)
-                experience.work_place_name = service_provider_name[i]
+                experience.work_place_name = service_name[i]
                 experience.from_year = start_year[i]
                 experience.to_year = end_year[i]
                 experience.designation = designation[i]

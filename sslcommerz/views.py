@@ -88,7 +88,8 @@ def ssl_payment_request(request, pk, id):
     invoice_number = generate_random_invoice()
     
     post_body = {}
-    post_body['total_amount'] = appointment.professional.consultation_fee + appointment.professional.report_fee
+    # post_body['total_amount'] = appointment.professional.consultation_fee + appointment.professional.report_fee
+    post_body['total_amount'] = appointment.professional.consultation_fee
     post_body['currency'] = "KES"
     post_body['tran_id'] = generate_random_string()
 
@@ -132,7 +133,7 @@ def ssl_payment_request(request, pk, id):
     payment.transaction_id = post_body['tran_id']
     
     payment.consulation_fee = appointment.professional.consultation_fee
-    payment.report_fee = appointment.professional.report_fee
+    # payment.report_fee = appointment.professional.report_fee
     payment.invoice_number = invoice_number
     
     payment_type = "appointment"

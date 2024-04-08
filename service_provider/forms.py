@@ -27,8 +27,8 @@ class CustomUserCreationForm(UserCreationForm):
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ['name', 'age', 'phone_number', 'blood_group',
-                  'featured_image', 'history', 'nid', 'dob', 'address']
+        fields = ['name', 'age', 'phone_number', 
+                  'featured_image', 'history', 'address']
 
         # widgets = {
         #     'name': forms.TextInput(attrs={'class': 'form-control'}),

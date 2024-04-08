@@ -16,7 +16,7 @@ def searchProfessionals(request):
     
     professionals = Professional_Information.objects.filter(register_status='Accepted').distinct().filter(
         Q(name__icontains=search_query) |
-        Q(service_provider_name__name__icontains=search_query) |  
+        Q(service_name__name__icontains=search_query) |  
         Q(service_type__icontains=search_query))
     
     return professionals, search_query

@@ -57,8 +57,8 @@ class PharmacistCreationForm(UserCreationForm):
 class AddServiceProviderForm(ModelForm):
     class Meta:
         model = Service_Provider_Information
-        # fields = ['name','address','featured_image','phone_number','email','service_type']
-        fields = ['name','service_type']
+        # fields = ['name','address','featured_image','phone_number','email','profession']
+        fields = ['name','profession']
 
     def __init__(self, *args, **kwargs):
         super(AddServiceProviderForm, self).__init__(*args, **kwargs)
@@ -69,8 +69,8 @@ class AddServiceProviderForm(ModelForm):
 class EditServiceProviderForm(forms.ModelForm):
     class Meta:
         model = Service_Provider_Information
-        # fields = ['name','address','featured_image','phone_number','email','service_type']
-        fields = ['name','service_type', 'featured_image']
+        # fields = ['name','address','featured_image','phone_number','email','profession']
+        fields = ['name','profession', 'featured_image']
 
     def __init__(self, *args, **kwargs):
         super(EditServiceProviderForm, self).__init__(*args, **kwargs)

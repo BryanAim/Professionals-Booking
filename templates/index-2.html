@@ -183,12 +183,12 @@
                     <i class="fas fa-check-circle verified"></i>
                   </h3>
                   {% if professional.service_name %}
-                        <p> Profession: {{professional.service_name}}</p>
-                      {% else %}
-                        </p>Profession not set</p>
-                      {% endif %}
+                  <p> Profession: {{professional.service_name}}</p>
+                  {% else %}
+                  </p>Profession not set</p>
+                  {% endif %}
                   <p class="speciality">
-                    Speciality: {{ professional.service_type_name.ServiceDepartment_name }}
+                    Speciality: {{ professional.profession_name.ServiceDepartment_name }}
                   </p>
                   {% comment %} <div class="rating">
                     <i class="fas fa-star filled"></i>
@@ -200,8 +200,8 @@
                   </div> {% endcomment %}
                   <ul class="available-info">
                     <li>
-                       
-                      
+
+
                     </li>
                     <li>
                       <i class="fas fa-map-marker-alt"></i> {{professional.address}}
@@ -210,7 +210,7 @@
                       {% if professional.availability %}
                       <i class="far fa-clock"></i>{{ professional.availability }}
                       {% else %}
-                        <i class="far fa-clock"></i>Availability not set
+                      <i class="far fa-clock"></i>Availability not set
                       {% endif %}
                     </li>
                     <li>

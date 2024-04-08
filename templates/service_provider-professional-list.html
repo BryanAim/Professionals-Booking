@@ -126,8 +126,8 @@
                         <a href="{% url 'professional-profile' pk=professional.professional_id %}">Dr.
                           {{professional.name}}</a>
                       </h4>
-                      <p class="doc-speciality">{{ professional.service_type_name.ServiceDepartment_name }}</p>
-                      <h5 class="doc-service_type">
+                      <p class="doc-speciality">{{ professional.profession_name.ServiceDepartment_name }}</p>
+                      <h5 class="doc-profession">
                         <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-05.png'%}"
                           class="img-fluid" alt="Speciality" />{{ professional.specialization.specialization_name }}
                       </h5>

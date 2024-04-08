@@ -221,7 +221,7 @@
 																		<tr>
 																			<td>
 																				<input class="form-control" type="text" name="type"
-																					value="{{service_provider.service_type}}">
+																					value="{{service_provider.profession}}">
 																			</td>
 																		</tr>
 																	</tbody>
@@ -232,14 +232,14 @@
 													<div class="card">
 														<div class="card-body">
 															<h4 class="card-title">Service Type</h4>
-															<div class="service_type-info">
-																{%for service_type in service_types%}
-																<div class="row form-row service_type-cont">
+															<div class="profession-info">
+																{%for profession in professions%}
+																<div class="row form-row profession-cont">
 																	<div class="col-12 col-md-10 col-lg-11">
 																		<div class="form-group">
 																			<label>Add New Service Type</label>
 																			<input type="text" class="form-control"
-																				value={{service_type.ServiceDepartment_name}}>
+																				value={{profession.ServiceDepartment_name}}>
 																		</div>
 																	</div>
 																	{% comment %} <div class="col-md-2 col-lg-1">
@@ -255,7 +255,7 @@
 
 															</div>
 															<div class="add-more">
-																<a href="javascript:void(0);" class="add-service_type"><i class="fa fa-plus-circle"></i>
+																<a href="javascript:void(0);" class="add-profession"><i class="fa fa-plus-circle"></i>
 																	Add More</a>
 															</div>
 														</div>

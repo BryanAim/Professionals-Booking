@@ -131,8 +131,8 @@
 											{% else %}
 											<h4><a href="{% url 'professional-profile-settings' %}">Add Your Profession</a></h4>
 											{% endif %}
-											{% if professional.service_type_name.ServiceDepartment_name %}
-												<p class="doc-speciality">Speciality: {{professional.service_type_name.ServiceDepartment_name}}</p>
+											{% if professional.profession_name.ServiceDepartment_name %}
+											<p class="doc-speciality">Speciality: {{professional.profession_name.ServiceDepartment_name}}</p>
 											{% else %}
 											<p><a href="{% url 'professional-profile-settings' %}">Add Your Speciality</a></p>
 											{% endif %}
@@ -243,9 +243,9 @@
 												<div class="widget about-widget">
 													<h4 class="widget-title">About Me</h4>
 													{% if professional.description %}
-														{{ professional.description }}
+													{{ professional.description }}
 													{% else %}
-															<p><a href="{% url 'professional-profile-settings' %}">Add Bio</a></p>
+													<p><a href="{% url 'professional-profile-settings' %}">Add Bio</a></p>
 													{% endif %}
 												</div>
 												<!-- /About Details -->

@@ -23,7 +23,7 @@
 	<link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/style.css' %}">
 
 	<!-- Department CSS -->
-	<link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/service_type.css' %}">
+	<link rel="stylesheet" href="{% static 'proConnect-System/css/Normal/profession.css' %}">
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 			<script src="assets/js/html5shiv.min.js"></script>
@@ -74,7 +74,7 @@
 					{% comment %} <div class="col-md-6 col-6 text-right">
 						<div class="top-nav-search">
 							<form action="#" method="GET">
-								<input type="text" class="form-control" placeholder="Search service_type" name="search_query"
+								<input type="text" class="form-control" placeholder="Search profession" name="search_query"
 									value="{{search_query}}">
 								<button class="btn" type="submit"><i class="fa fa-search"></i></button>
 							</form>
@@ -115,17 +115,17 @@
 						<div class="row row-grid">
 
 
-							{% for service_type in service_types %}
+							{% for profession in professions %}
 							<div class="col-12 col-md-6 col-lg-4 d-flex">
 								<div class="card flex-fill card1">
 									<a href="#"></a>
 									<img alt="Card Image" style="height: 200px;border-radius: 15px 15px 0px 0px"
-										src="{{service_type.featured_image.url}}" class="card-img-top">
+										src="{{profession.featured_image.url}}" class="card-img-top">
 									<div class="card-header" style="border-radius: 15px">
-										<h3 class="card-title mb-0" style="text-align: center;">{{service_type.ServiceDepartment_name}}</h3>
+										<h3 class="card-title mb-0" style="text-align: center;">{{profession.ServiceDepartment_name}}</h3>
 									</div>
 									<div class="card-read-more">
-										<a href="{% url 'service_provider-professional-list' pk=service_type.ServiceDepartment_id %}"
+										<a href="{% url 'service_provider-professional-list' pk=profession.ServiceDepartment_id %}"
 											class="btn btn-link btn-block">
 											Explore
 										</a>

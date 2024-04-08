@@ -139,20 +139,20 @@ Version      : 1.0
 
 	// Deapartments Add More
 
-	$(".service_type-info").on('click', '.trash', function () {
-		$(this).closest('.service_type-cont').remove();
+	$(".profession-info").on('click', '.trash', function () {
+		$(this).closest('.profession-cont').remove();
 		return false;
 	});
 
-	$(".add-service_type").on('click', function () {
+	$(".add-profession").on('click', function () {
 
-		var service_typecontent = '<div class="row form-row service_type-cont">' +
+		var professioncontent = '<div class="row form-row profession-cont">' +
 			'<div class="col-12 col-md-10 col-lg-5">' +
 			'<div class="form-group">' +
 
 			'<label>Add New Departments</label>' +
 
-			'<input type="text" name="service_type" class="form-control">' +
+			'<input type="text" name="profession" class="form-control">' +
 			'</div>' +
 			'</div>' +
 			'<div class="col-12 col-md-2 col-lg-2">' +
@@ -161,7 +161,7 @@ Version      : 1.0
 			'</div>' +
 			'</div>';
 
-		$(".service_type-info").append(service_typecontent);
+		$(".profession-info").append(professioncontent);
 		return false;
 	});
 

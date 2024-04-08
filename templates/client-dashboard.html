@@ -121,7 +121,7 @@
                                         src="{{ appointment.professional.featured_image.url }}" alt="User Image" />
                                     </a>
                                     <a href="professional-profile.html">{{ appointment.professional.name }}
-                                      <span>{{appointment.professional.service_type_name}}</span></a>
+                                      <span>{{appointment.professional.profession_name}}</span></a>
                                   </h2>
                                 </td>
                                 <td>
@@ -211,7 +211,7 @@
                                         src="{{prescription.professional.featured_image.url }}" alt="User Image" />
                                     </a>
                                     <a href="professional-profile.html">Dr.
-                                      {{prescription.professional}}<span>{{prescription.professional.service_type_name
+                                      {{prescription.professional}}<span>{{prescription.professional.profession_name
                                         }}</span></a>
                                   </h2>
                                 </td>
@@ -271,7 +271,7 @@
                                       <img class="avatar-img rounded-circle"
                                         src="{{report.professional.featured_image.url }}" alt="User Image" />
                                     </a>
-                                    <a href="professional-profile.html">Dr.{{report.professional}}<span>{{report.professional.service_type_name
+                                    <a href="professional-profile.html">Dr.{{report.professional}}<span>{{report.professional.profession_name
                                         }}</span></a>
                                   </h2>
                                 </td>
@@ -329,7 +329,7 @@
                                       src="{{payment.appointment.professional.featured_image.url}}" alt="User Image" />
                                   </a>
                                   <a href="professional-profile.html">{{payment.appointment.professional.name}}
-                                    <span>{{payment.appointment.professional.service_type}}</span></a>
+                                    <span>{{payment.appointment.professional.profession}}</span></a>
                                 </h2>
                               </td>
                               <td>{{payment.transaction_id}}</td>

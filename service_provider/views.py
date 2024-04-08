@@ -350,7 +350,7 @@ def service_provider_profile(request, pk):
             professionals = Professional_Information.objects.all()
             service_providers = Service_Provider_Information.objects.get(service_provider_id=pk)
         
-            service_types = ServiceDepartment.objects.filter(service_provider=service_providers)
+            professions = ServiceDepartment.objects.filter(service_provider=service_providers)
             specializations = specialization.objects.filter(service_provider=service_providers)
             services = service.objects.filter(service_provider=service_providers)
             
@@ -363,7 +363,7 @@ def service_provider_profile(request, pk):
             #     vald = vald.replace(",", "")
             #     department_list = vald.split()
             
-            context = {'client': client, 'professionals': professionals, 'service_providers': service_providers, 'service_types': service_types, 'specializations': specializations, 'services': services}
+            context = {'client': client, 'professionals': professionals, 'service_providers': service_providers, 'professions': professions, 'specializations': specializations, 'services': services}
             return render(request, 'service_provider-profile.html', context)
         
         elif request.user.is_professional:
@@ -371,11 +371,11 @@ def service_provider_profile(request, pk):
             professional = Professional_Information.objects.get(user=request.user)
             service_providers = Service_Provider_Information.objects.get(service_provider_id=pk)
             
-            service_types = ServiceDepartment.objects.filter(service_provider=service_providers)
+            professions = ServiceDepartment.objects.filter(service_provider=service_providers)
             specializations = specialization.objects.filter(service_provider=service_providers)
             services = service.objects.filter(service_provider=service_providers)
             
-            context = {'professional': professional, 'service_providers': service_providers, 'service_types': service_types, 'specializations': specializations, 'services': services}
+            context = {'professional': professional, 'service_providers': service_providers, 'professions': professions, 'specializations': specializations, 'services': services}
             return render(request, 'service_provider-profile.html', context)
     else:
         logout(request)
@@ -397,18 +397,18 @@ def ServiceType_list(request, pk):
             professionals = Professional_Information.objects.all()
             
             service_providers = Service_Provider_Information.objects.get(service_provider_id=pk)
-            service_types = ServiceDepartment.objects.filter(service_provider=service_providers)
+            professions = ServiceDepartment.objects.filter(service_provider=service_providers)
         
-            context = {'client': client, 'professionals': professionals, 'service_providers': service_providers, 'service_types': service_types}
-            return render(request, 'service_provider-service_type.html', context)
+            context = {'client': client, 'professionals': professionals, 'service_providers': service_providers, 'professions': professions}
+            return render(request, 'service_provider-profession.html', context)
         
         elif request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
             service_providers = Service_Provider_Information.objects.get(service_provider_id=pk)
-            service_types = ServiceDepartment.objects.filter(service_provider=service_providers)
+            professions = ServiceDepartment.objects.filter(service_provider=service_providers)
             
-            context = {'professional': professional, 'service_providers': service_providers, 'service_types': service_types}
-            return render(request, 'service_provider-service_type.html', context)
+            context = {'professional': professional, 'service_providers': service_providers, 'professions': professions}
+            return render(request, 'service_provider-profession.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
@@ -420,24 +420,24 @@ def service_provider_professional_list(request, pk):
     if request.user.is_authenticated and request.user.is_client:
         # patient = Client.objects.get(user_id=pk)
         client = Client.objects.get(user=request.user)
-        service_types = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
-        professionals = Professional_Information.objects.filter(service_type_name=service_types)
+        professions = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
+        professionals = Professional_Information.objects.filter(profession_name=professions)
         
         professionals, search_query = searchDepartmentProfessionals(request, pk)
         
-        context = {'client': client, 'service_type': service_types, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
+        context = {'client': client, 'profession': professions, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
         return render(request, 'service_provider-professional-list.html', context)
 
     elif request.user.is_authenticated and request.user.is_professional:
         # patient = Client.objects.get(user_id=pk)
         
         professional = Professional_Information.objects.get(user=request.user)
-        service_types = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
+        professions = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
         
-        professionals = Professional_Information.objects.filter(service_type_name=service_types)
+        professionals = Professional_Information.objects.filter(profession_name=professions)
         professionals, search_query = searchDepartmentProfessionals(request, pk)
         
-        context = {'professional':professional, 'service_type': service_types, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
+        context = {'professional':professional, 'profession': professions, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
         return render(request, 'service_provider-professional-list.html', context)
     else:
         logout(request)
@@ -455,7 +455,7 @@ def service_provider_professional_register(request, pk):
             professional = Professional_Information.objects.get(user=request.user)
             service_providers = Service_Provider_Information.objects.get(service_provider_id=pk)
             
-            service_types = ServiceDepartment.objects.filter(service_provider=service_providers)
+            professions = ServiceDepartment.objects.filter(service_provider=service_providers)
             specializations = specialization.objects.filter(service_provider=service_providers)
             
             if request.method == 'POST':
@@ -464,13 +464,13 @@ def service_provider_professional_register(request, pk):
                 else:
                     certificate_image = "professionals_certificate/default.png"
                 
-                service_type_id_selected = request.POST.get('service_type_radio')
+                profession_id_selected = request.POST.get('profession_radio')
                 specialization_id_selected = request.POST.get('specialization_radio')
                 
-                service_type_chosen = ServiceDepartment.objects.get(ServiceDepartment_id=service_type_id_selected)
+                profession_chosen = ServiceDepartment.objects.get(ServiceDepartment_id=profession_id_selected)
                 specialization_chosen = specialization.objects.get(specialization_id=specialization_id_selected)
                 
-                professional.service_type_name = service_type_chosen
+                professional.profession_name = profession_chosen
                 professional.specialization = specialization_chosen
                 professional.register_status = 'Pending'
                 professional.certificate_image = certificate_image
@@ -482,7 +482,7 @@ def service_provider_professional_register(request, pk):
                 return redirect('professional-dashboard')
                 
                  
-            context = {'professional': professional, 'service_providers': service_providers, 'service_types': service_types, 'specializations': specializations}
+            context = {'professional': professional, 'service_providers': service_providers, 'professions': professions, 'specializations': specializations}
             return render(request, 'service_provider-professional-register.html', context)
     else:
         logout(request)

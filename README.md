@@ -13,11 +13,11 @@
 
 ## Features
 
-- **Users:** User, Professional, ServiceProvider Admin, Lab Worker, Pharmacist
+- **Users:** User, Professional, ServiceProvider Admin, Client, Pharmacist
 
 ### User
 
-      1)  Search multiple ServiceProvider → Department List → Search for Professionals
+      1)  Search multiple Profession → Department List → Search for Professionals
       2)  Professional Profile → Book Appointment
       3)  Pay Appointment + Mail Confirmation
       4)  Search all Professionals in all service_providers
@@ -32,7 +32,7 @@
 ### Professional
 
       1)  Professional Profile Settings (Add More feature)
-      2)  Search multiple ServiceProvider → Professional register to service_provider + upload certificate
+      2)  Search multiple Profession → Professional register to service_provider + upload certificate
       3)  (Once registered by admin) accept or reject clients appointment (mail confirmation send to client)
       4)  Search client profile → Create and view Prescription, view report
       5)  Chat with appointed User

@@ -76,7 +76,7 @@ Django automatically creates id field for each model class which will be a PK # 
 
 
 class Professional_Information(models.Model):
-    SERVICE_TYPE_CHOICES = (
+    PROFESSION_CHOICES = (
         ('medical', 'Medical Services'),
         ('legal', 'Legal Services'),
         ('engineering', 'Engineering Services'),
@@ -90,8 +90,8 @@ class Professional_Information(models.Model):
     username = models.CharField(max_length=200, null=True, blank=True)
     gender = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(max_length=1000, null=True, blank=True)
-    service_type = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES)
-    service_type_name = models.ForeignKey(ServiceDepartment, on_delete=models.SET_NULL, null=True)
+    profession = models.CharField(max_length=200, choices=PROFESSION_CHOICES)
+    profession_name = models.ForeignKey(ServiceDepartment, on_delete=models.SET_NULL, null=True)
     specialization = models.ForeignKey(specialization, on_delete=models.SET_NULL, null=True)
 
     featured_image = models.ImageField(upload_to='professionals/', default='professionals/user-default.png')
@@ -108,7 +108,7 @@ class Professional_Information(models.Model):
     service_name = models.ForeignKey(Service_Provider_Information, on_delete=models.SET_NULL, null=True, blank=True)
     
     
-    service_type = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES, null=True, blank=True)
+    profession = models.CharField(max_length=200, choices=PROFESSION_CHOICES, null=True, blank=True)
     # report_fee = models.IntegerField(null=True, blank=True)
 
         # Education

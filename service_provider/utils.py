@@ -17,7 +17,7 @@ def searchProfessionals(request):
     professionals = Professional_Information.objects.filter(register_status='Accepted').distinct().filter(
         Q(name__icontains=search_query) |
         Q(service_name__name__icontains=search_query) |  
-        Q(service_type__icontains=search_query))
+        Q(profession__icontains=search_query))
     
     return professionals, search_query
 
@@ -89,9 +89,9 @@ def searchDepartmentProfessionals(request, pk):
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
         
-    service_types = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
+    professions = ServiceDepartment.objects.get(ServiceDepartment_id=pk)
     
-    professionals = Professional_Information.objects.filter(service_type_name=service_types).filter(
+    professionals = Professional_Information.objects.filter(profession_name=professions).filter(
         Q(name__icontains=search_query))
     
     # professionals = Professional_Information.objects.filter(department_name=departments).filter(

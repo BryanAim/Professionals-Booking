@@ -83,7 +83,7 @@ class ServiceDepartment(models.Model):
     ServiceDepartment_name = models.CharField(max_length=200, null=True, blank=True)
     # professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
     service_provider = models.ForeignKey(Service_Provider_Information, on_delete=models.CASCADE, null=True, blank=True)
-    featured_image = models.ImageField(upload_to='service_type/', default='service_type/default.png', null=True, blank=True)
+    featured_image = models.ImageField(upload_to='profession/', default='profession/default.png', null=True, blank=True)
 
     def __str__(self):
         val1 = str(self.ServiceDepartment_name)

@@ -155,12 +155,11 @@
                       <label class="col-form-label" style="font-size: 20px;">Choose Service Type</label>
                       <div class="col-md-10">
 
-                        {% for service_type in service_types %}
+                        {% for profession in professions %}
                         <div class="radio">
                           <label>
-                            <input type="radio" value="{{ service_type.ServiceDepartment_id }}"
-                              name="service_type_radio">
-                            {{ service_type.ServiceDepartment_name }}
+                            <input type="radio" value="{{ profession.ServiceDepartment_id }}" name="profession_radio">
+                            {{ profession.ServiceDepartment_name }}
                           </label>
                         </div>
                         {% endfor %}

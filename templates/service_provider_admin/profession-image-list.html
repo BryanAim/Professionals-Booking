@@ -83,17 +83,17 @@
 											</tr>
 										</thead>
 										<tbody>
-											{%for service_type in service_types%}
+											{%for profession in professions%}
 											<tr>
 
 												<td>
-													<h5>{{service_type.ServiceDepartment_name}}</h5>
+													<h5>{{profession.ServiceDepartment_name}}</h5>
 												</td>
 
 												<td>
 													<h2 class="table-avatar">
 														<a href="profile.html" class="avatar avatar-xl mr-2">
-															<img src="{{service_type.featured_image.url}}" alt="Speciality">
+															<img src="{{profession.featured_image.url}}" alt="Speciality">
 														</a>
 														<!-- class="avatar-img" -->
 														<!-- class="avatar avatar-sm mr-2" -->
@@ -105,10 +105,10 @@
 												<td class="text-center">
 													<div class="actions">
 														<a class="btn btn-sm bg-success-light" data-toggle="modal"
-															data-target="#modal-default{{service_type.ServiceDepartment_name}}">
+															data-target="#modal-default{{profession.ServiceDepartment_name}}">
 															<i class="fe fe-pencil"></i> Edit
 														</a>
-														<a data-toggle="modal" data-target="#delete_modal{{service_type.ServiceDepartment_id}}"
+														<a data-toggle="modal" data-target="#delete_modal{{profession.ServiceDepartment_id}}"
 															class="btn btn-sm bg-danger-light">
 															<i class="fe fe-trash"></i> Delete
 														</a>
@@ -118,9 +118,9 @@
 
 											</tr>
 
-											<div class="modal fade" id="modal-default{{service_type.ServiceDepartment_name}}" aria-hidden="true"
+											<div class="modal fade" id="modal-default{{profession.ServiceDepartment_name}}" aria-hidden="true"
 												role="dialog">
-												<form action="{%url 'edit-service_type' pk=service_type.ServiceDepartment_id%}" method="POST"
+												<form action="{%url 'edit-profession' pk=profession.ServiceDepartment_id%}" method="POST"
 													enctype="multipart/form-data">
 													{% csrf_token %}
 													<div class="modal-dialog modal-dialog-centered" role="document">
@@ -137,8 +137,8 @@
 																	<div class="col-12 col-sm-6">
 																		<div class="form-group">
 																			<label>Service Name</label>
-																			<input type="text" class="form-control" name="service_type_name"
-																				value={{service_type.ServiceDepartment_name}}>
+																			<input type="text" class="form-control" name="profession_name"
+																				value={{profession.ServiceDepartment_name}}>
 
 																		</div>
 																	</div>
@@ -159,9 +159,9 @@
 												</form>
 											</div>
 
-											<div class="modal fade" id="delete_modal{{service_type.ServiceDepartment_id}}" aria-hidden="true"
+											<div class="modal fade" id="delete_modal{{profession.ServiceDepartment_id}}" aria-hidden="true"
 												role="dialog">
-												<form method="POST" action="{%url 'delete-service_type' pk=service_type.ServiceDepartment_id%}">
+												<form method="POST" action="{%url 'delete-profession' pk=profession.ServiceDepartment_id%}">
 													<div class="modal-dialog modal-dialog-centered" role="document">
 														<div class="modal-content">
 															{% csrf_token %}
@@ -215,7 +215,7 @@
 							<div class="col-12 col-sm-6">
 								<div class="form-group">
 									<label>Service Name</label>
-									<input type="text" class="form-control" value="{{service_type.ServiceDepartment_name}}">
+									<input type="text" class="form-control" value="{{profession.ServiceDepartment_name}}">
 								</div>
 							</div>
 							<div class="col-12 col-sm-6">

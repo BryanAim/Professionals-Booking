@@ -168,7 +168,7 @@ def add_service_provider(request):
             description = request.POST.get('description')
             email = request.POST.get('email')
             phone_number = request.POST.get('phone_number')
-            service_type = request.POST.get('type')
+            profession = request.POST.get('type')
             specialization_name = request.POST.getlist('specialization')
             department_name = request.POST.getlist('department')
             service_name = request.POST.getlist('service')
@@ -180,7 +180,7 @@ def add_service_provider(request):
             service_provider.email = email
             service_provider.phone_number =phone_number
             service_provider.featured_image=featured_image
-            service_provider.service_type=service_type
+            service_provider.profession=profession
 
             # print(department_name[0])
 
@@ -238,7 +238,7 @@ def edit_service_provider(request, pk):
             description = request.POST.get('description')
             email = request.POST.get('email')
             phone_number = request.POST.get('phone_number')
-            service_type = request.POST.get('type')
+            profession = request.POST.get('type')
 
             specialization_name = request.POST.getlist('specialization')
             department_name = request.POST.getlist('department')
@@ -250,7 +250,7 @@ def edit_service_provider(request, pk):
             service_provider.email = email
             service_provider.phone_number =phone_number
             service_provider.featured_image =featured_image
-            service_provider.service_type =service_type
+            service_provider.profession =profession
 
             # specializations.specialization_name=specialization_name
             # services.service_name = service_name

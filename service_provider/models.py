@@ -61,7 +61,7 @@ class User(AbstractUser):
 
 class Service_Provider_Information(models.Model):
     # ('database value', 'display_name')
-    SERVICE_TYPE = (
+    PROFESSION = (
         ('medical', 'Medical Services'),
         ('legal', 'Legal Services'),
         ('engineering', 'Engineering Services'),
@@ -78,7 +78,7 @@ class Service_Provider_Information(models.Model):
     description = models.TextField(null=True, blank=True)
     # email = models.EmailField(max_length=200, null=True, blank=True)
     # phone_number = models.IntegerField(null=True, blank=True)
-    service_type = models.CharField(max_length=200, choices=SERVICE_TYPE)
+    profession = models.CharField(max_length=200, choices=PROFESSION)
     # general_bed_no = models.IntegerField(null=True, blank=True)
     # available_icu_no = models.IntegerField(null=True, blank=True)
     # regular_cabin_no = models.IntegerField(null=True, blank=True)

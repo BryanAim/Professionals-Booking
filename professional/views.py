@@ -341,7 +341,7 @@ def professional_profile_settings(request):
             name = request.POST.get('name')
             number = request.POST.get('number')
             gender = request.POST.get('gender')
-            # dob = request.POST.get('dob')
+            address = request.POST.get('address')
             description = request.POST.get('description')
             consultation_fee = request.POST.get('consultation_fee')
             # report_fee = request.POST.get('report_fee')
@@ -366,7 +366,7 @@ def professional_profile_settings(request):
             professional.consultation_fee = consultation_fee
             # professional.report_fee = report_fee
             professional.description = description
-            # professional.dob = dob
+            # professional.address = address
             
             professional.save()
             

@@ -20,4 +20,5 @@ def updateUser(sender, instance, created, **kwargs):
         user.first_name = professional.name
         user.username = professional.username
         user.email = professional.email
+        user.address = professional.address
         user.save()

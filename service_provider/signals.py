@@ -41,7 +41,7 @@ def createClient(sender, instance, created, **kwargs):
         elif instance.is_professional:
             user = instance
             Professional_Information.objects.create(
-                user=user, username=user.username, email=user.email)
+                user=user, username=user.username, email=user.email, address=user.address)
         elif instance.is_service_provider_admin:
             user = instance
             Admin_Information.objects.create(
@@ -65,6 +65,7 @@ def updateUser(sender, instance, created, **kwargs):
         user.first_name = client.name
         user.username = client.username
         user.email = client.email
+        user.address = client.address
         user.save()
 
 

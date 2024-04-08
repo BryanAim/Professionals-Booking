@@ -102,7 +102,7 @@ class Professional_Information(models.Model):
     # nid = models.CharField(max_length=200, null=True, blank=True, default='')
     availability = models.CharField(max_length=200, null=True, blank=True)
     consultation_fee = models.IntegerField(null=True, blank=True, default=0)
-    # dob = models.DateField(null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
     
     # ForeignKey --> one to one relationship with Hospital_Information model.
     service_name = models.ForeignKey(Service_Provider_Information, on_delete=models.SET_NULL, null=True, blank=True)

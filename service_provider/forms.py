@@ -11,7 +11,7 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         # password1 and password2 are required fields (django default)
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2','address']
         # labels = {
         #     'first_name': 'Name',
         # }

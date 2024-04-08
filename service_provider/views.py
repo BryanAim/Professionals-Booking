@@ -400,7 +400,7 @@ def ServiceType_list(request, pk):
             professions = ServiceDepartment.objects.filter(service_provider=service_providers)
         
             context = {'client': client, 'professionals': professionals, 'service_providers': service_providers, 'professions': professions}
-            return render(request, 'service_provider-profession.html', context)
+            return render(request, 'service_provider-profession-list.html', context)
         
         elif request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
@@ -408,7 +408,7 @@ def ServiceType_list(request, pk):
             professions = ServiceDepartment.objects.filter(service_provider=service_providers)
             
             context = {'professional': professional, 'service_providers': service_providers, 'professions': professions}
-            return render(request, 'service_provider-profession.html', context)
+            return render(request, 'service_provider-profession-list.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')

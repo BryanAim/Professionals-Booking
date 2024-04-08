@@ -64,6 +64,9 @@ def updateUser(sender, instance, created, **kwargs):
     if created == False:
         user.first_name = client.name
         user.username = client.username
+        user.age = client.age
+        user.phone_number = client.phone_number
+        user.history = client.history
         user.email = client.email
         user.address = client.address
         user.save()

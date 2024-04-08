@@ -118,9 +118,9 @@ class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name='client')
     name = models.CharField(max_length=200, null=True, blank=True)
     username = models.CharField(max_length=200, null=True, blank=True)
-    age = models.IntegerField(null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True, default=0)
     email = models.EmailField(max_length=200, null=True, blank=True)
-    phone_number = models.IntegerField(null=True, blank=True)
+    phone_number = models.IntegerField(null=True, blank=True, default=254712345678)
     address = models.CharField(max_length=200, null=True, blank=True)
     # Keep common fields and consider adding or modifying fields to suit a general use case
     featured_image = models.ImageField(upload_to='clients/', default='clients/user-default.png', null=True, blank=True)

@@ -73,7 +73,7 @@ Version      : 1.0
 			'<div class="row form-row">' +
 			'<div class="col-12 col-md-6 col-lg-3">' +
 			'<div class="form-group">' +
-			'<label>ServiceProvider Name</label>' +
+			'<label>Service Provider Name</label>' +
 			'<input type="text" name="service_provider_name" class="form-control">' +
 			'</div>' +
 			'</div>' +

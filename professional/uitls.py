@@ -1,5 +1,5 @@
 from django.db.models import Q
-from .models import Client, User, ServiceProvider
+from .models import Client, User, Service_Provider_Information
 from professional.models import Professional_Information, Appointment
 from service_provider_admin.models import ServiceDepartment, specialization, service
 

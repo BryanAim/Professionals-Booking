@@ -1,7 +1,7 @@
 from django.db import models
 
 import service_provider
-from service_provider.models import User, ServiceProvider
+from service_provider.models import User, Service_Provider_Information
 # from professional.models import Professional_Information
 
 
@@ -42,7 +42,7 @@ class Admin_Information(models.Model):
     phone_number = models.IntegerField(null=True, blank=True)
     email = models.EmailField(max_length=200, null=True, blank=True)
     role = models.CharField(max_length=200, choices=ADMIN_TYPE, null=True, blank=True)
-    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.SET_NULL, null=True, blank=True)
+    service_provider = models.ForeignKey(Service_Provider_Information, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         # return str(self.user.username)
@@ -58,7 +58,7 @@ class Clinical_Laboratory_Technician(models.Model):
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone_number = models.IntegerField(null=True, blank=True)
     featured_image = models.ImageField(upload_to='technician/', default='technician/user-default.png', null=True, blank=True)
-    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.SET_NULL, null=True, blank=True)
+    service_provider = models.ForeignKey(Service_Provider_Information, on_delete=models.SET_NULL, null=True, blank=True)
     
     def __str__(self):
         return str(self.user.username)
@@ -82,8 +82,8 @@ class ServiceDepartment(models.Model):
     ServiceDepartment_id = models.AutoField(primary_key=True)
     ServiceDepartment_name = models.CharField(max_length=200, null=True, blank=True)
     # professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
-    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE, null=True, blank=True)
-    featured_image = models.ImageField(upload_to='departments/', default='departments/default.png', null=True, blank=True)
+    service_provider = models.ForeignKey(Service_Provider_Information, on_delete=models.CASCADE, null=True, blank=True)
+    featured_image = models.ImageField(upload_to='service_type/', default='service_type/default.png', null=True, blank=True)
 
     def __str__(self):
         val1 = str(self.ServiceDepartment_name)
@@ -104,7 +104,7 @@ class specialization(models.Model):
     specialization_id = models.AutoField(primary_key=True)
     specialization_name = models.CharField(max_length=200, null=True, blank=True)
     # professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
-    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE, null=True, blank=True)
+    service_provider = models.ForeignKey(Service_Provider_Information, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         val1 = str(self.specialization_name)
@@ -119,7 +119,7 @@ class service(models.Model):
     service_id = models.AutoField(primary_key=True)
     service_name = models.CharField(max_length=200, null=True, blank=True)
     # professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
-    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE, null=True, blank=True)
+    service_provider = models.ForeignKey(Service_Provider_Information, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         val1 = str(self.service_name)

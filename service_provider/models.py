@@ -60,9 +60,14 @@ class User(AbstractUser):
 
 class Service_Provider_Information(models.Model):
     # ('database value', 'display_name')
-    HOSPITAL_TYPE = (
-        ('private', 'Private hospital'),
-        ('public', 'Public hospital'),
+    SERVICE_TYPE = (
+        ('medical', 'Medical Services'),
+        ('legal', 'Legal Services'),
+        ('engineering', 'Engineering Services'),
+        ('art', 'Art & Design'),
+        ('tech', 'Technology Services'),
+        ('education', 'Educational Services'),
+        ('consulting', 'Consulting Services'),
     )
 
     service_provider_id = models.AutoField(primary_key=True)
@@ -72,7 +77,7 @@ class Service_Provider_Information(models.Model):
     description = models.TextField(null=True, blank=True)
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone_number = models.IntegerField(null=True, blank=True)
-    service_provider_type = models.CharField(max_length=200, choices=HOSPITAL_TYPE)
+    service_type = models.CharField(max_length=200, choices=SERVICE_TYPE)
     # general_bed_no = models.IntegerField(null=True, blank=True)
     # available_icu_no = models.IntegerField(null=True, blank=True)
     # regular_cabin_no = models.IntegerField(null=True, blank=True)
@@ -83,37 +88,6 @@ class Service_Provider_Information(models.Model):
     # String representation of object
     def __str__(self):
         return str(self.name)
-
-class ServiceProvider(models.Model):
-    SERVICE_TYPE = (
-        ('medical', 'Medical Services'),
-        ('legal', 'Legal Services'),
-        ('engineering', 'Engineering Services'),
-        ('art', 'Art & Design'),
-        ('tech', 'Technology Services'),
-        ('education', 'Educational Services'),
-        ('consulting', 'Consulting Services'),
-        # Extend this list as needed
-    )
-
-    service_provider_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=200)
-    # address = models.CharField(max_length=200, null=True, blank=True)
-    featured_image = models.ImageField(upload_to='service_providers/', default='service_providers/default.png', null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
-    # email = models.EmailField(max_length=200, null=True, blank=True)
-    # phone_number = models.IntegerField(null=True, blank=True)
-    service_type = models.CharField(max_length=200, choices=SERVICE_TYPE)
-    
-    
-    # general_bed_no = models.IntegerField(null=True, blank=True)
-    # available_icu_no = models.IntegerField(null=True, blank=True)
-    # regular_cabin_no = models.IntegerField(null=True, blank=True)
-    # emergency_cabin_no = models.IntegerField(null=True, blank=True)
-    # vip_cabin_no = models.IntegerField(null=True, blank=True)
-
-    def __str__(self):
-        return self.name
 
 
 # class Patient(models.Model):

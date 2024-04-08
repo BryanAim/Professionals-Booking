@@ -65,11 +65,11 @@
 								<nav aria-label="breadcrumb" class="page-breadcrumb">
 									<ol class="breadcrumb">
 										<li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-										<li class="breadcrumb-item active" aria-current="page">Edit ServiceProvider information
+										<li class="breadcrumb-item active" aria-current="page">Edit Service Provider information
 										</li>
 									</ol>
 								</nav>
-								<h2 class="breadcrumb-title">Edit ServiceProvider Information</h2>{% include 'message.html' %}
+								<h2 class="breadcrumb-title">Edit Service Provider Information</h2>{% include 'message.html' %}
 							</div>
 						</div>
 					</div>
@@ -121,7 +121,7 @@
 																<table class="table table-hover table-center">
 																	<thead>
 																		<tr>
-																			<th style="max-width: 300px;min-width: 280px;">ServiceProvider Name
+																			<th style="max-width: 300px;min-width: 280px;">Service Provider Name
 																			</th>
 																			<th style="min-width: 50px;"></th>
 																		</tr>
@@ -166,7 +166,7 @@
 																<table class="table table-hover table-center">
 																	<thead>
 																		<tr>
-																			<th style="max-width: 300px;min-width: 280px;">ServiceProvider Email
+																			<th style="max-width: 300px;min-width: 280px;">Service Provider Email
 																			</th>
 																			<th style="min-width: 50px;"></th>
 																		</tr>
@@ -189,7 +189,7 @@
 																<table class="table table-hover table-center">
 																	<thead>
 																		<tr>
-																			<th style="max-width: 300px;min-width: 280px;">ServiceProvider phone
+																			<th style="max-width: 300px;min-width: 280px;">Service Provider phone
 																				Number</th>
 																			<th style="min-width: 50px;"></th>
 																		</tr>
@@ -212,7 +212,7 @@
 																<table class="table table-hover table-center">
 																	<thead>
 																		<tr>
-																			<th style="max-width: 300px;min-width: 280px;">ServiceProvider Type
+																			<th style="max-width: 300px;min-width: 280px;">Service Provider Type
 																			</th>
 																			<th style="min-width: 50px;"></th>
 																		</tr>
@@ -221,7 +221,7 @@
 																		<tr>
 																			<td>
 																				<input class="form-control" type="text" name="type"
-																					value="{{service_provider.service_provider_type}}">
+																					value="{{service_provider.service_type}}">
 																			</td>
 																		</tr>
 																	</tbody>
@@ -231,13 +231,13 @@
 													</div>
 													<div class="card">
 														<div class="card-body">
-															<h4 class="card-title">Departments</h4>
+															<h4 class="card-title">Service Type</h4>
 															<div class="service_type-info">
 																{%for service_type in service_types%}
 																<div class="row form-row service_type-cont">
 																	<div class="col-12 col-md-10 col-lg-11">
 																		<div class="form-group">
-																			<label>Add New Departments</label>
+																			<label>Add New Service Type</label>
 																			<input type="text" class="form-control"
 																				value={{service_type.ServiceDepartment_name}}>
 																		</div>

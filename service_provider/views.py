@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 # from django.contrib.auth.models import User
 # from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm, ClientForm, PasswordResetForm
-from service_provider.models import ServiceProvider, User, Client 
+from service_provider.models import Service_Provider_Information, User, Client 
 from professional.models import Test, testCart, testOrder
 from service_provider_admin.models import ServiceDepartment, specialization, service, Test_Information
 from django.views.decorators.cache import cache_control
@@ -40,7 +40,7 @@ from django.views.decorators.csrf import csrf_exempt
 def service_provider_home(request):
     # .order_by('-created_at')[:6]
     professionals = Professional_Information.objects.filter(register_status='Accepted')
-    service_providers = ServiceProvider.objects.all()
+    service_providers = Service_Provider_Information.objects.all()
     context = {'professionals': professionals, 'service_providers': service_providers} 
     return render(request, 'index-2.html', context)
 
@@ -316,7 +316,7 @@ def multiple_service_provider(request):
             # client = Client.objects.get(user_id=pk)
             client = Client.objects.get(user=request.user)
             professionals = Professional_Information.objects.all()
-            service_providers = ServiceProvider.objects.all()
+            service_providers = Service_Provider_Information.objects.all()
             
             service_providers, search_query = searchServiceProviders(request)
             
@@ -328,7 +328,7 @@ def multiple_service_provider(request):
         
         elif request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
-            service_providers = ServiceProvider.objects.all()
+            service_providers = Service_Provider_Information.objects.all()
             
             service_providers, search_query = searchServiceProviders(request)
             
@@ -348,7 +348,7 @@ def service_provider_profile(request, pk):
         if request.user.is_client:
             client = Client.objects.get(user=request.user)
             professionals = Professional_Information.objects.all()
-            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
+            service_providers = Service_Provider_Information.objects.get(service_provider_id=pk)
         
             service_types = ServiceDepartment.objects.filter(service_provider=service_providers)
             specializations = specialization.objects.filter(service_provider=service_providers)
@@ -369,7 +369,7 @@ def service_provider_profile(request, pk):
         elif request.user.is_professional:
            
             professional = Professional_Information.objects.get(user=request.user)
-            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
+            service_providers = Service_Provider_Information.objects.get(service_provider_id=pk)
             
             service_types = ServiceDepartment.objects.filter(service_provider=service_providers)
             specializations = specialization.objects.filter(service_provider=service_providers)
@@ -396,7 +396,7 @@ def ServiceDepartment_list(request, pk):
             client = Client.objects.get(user=request.user)
             professionals = Professional_Information.objects.all()
             
-            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
+            service_providers = Service_Provider_Information.objects.get(service_provider_id=pk)
             service_types = ServiceDepartment.objects.filter(service_provider=service_providers)
         
             context = {'client': client, 'professionals': professionals, 'service_providers': service_providers, 'service_types': service_types}
@@ -404,7 +404,7 @@ def ServiceDepartment_list(request, pk):
         
         elif request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
-            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
+            service_providers = Service_Provider_Information.objects.get(service_provider_id=pk)
             service_types = ServiceDepartment.objects.filter(service_provider=service_providers)
             
             context = {'professional': professional, 'service_providers': service_providers, 'service_types': service_types}
@@ -453,7 +453,7 @@ def service_provider_professional_register(request, pk):
         
         if request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
-            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
+            service_providers = Service_Provider_Information.objects.get(service_provider_id=pk)
             
             service_types = ServiceDepartment.objects.filter(service_provider=service_providers)
             specializations = specialization.objects.filter(service_provider=service_providers)
@@ -491,7 +491,7 @@ def service_provider_professional_register(request, pk):
     
    
 def testing(request):
-    # service_providers = ServiceProvider.objects.get(service_provider_id=1)
+    # service_providers = Service_Provider_Information.objects.get(service_provider_id=1)
     test = "test"
     context = {'test': test}
     return render(request, 'testing.html', context)

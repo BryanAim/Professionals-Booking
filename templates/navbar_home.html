@@ -81,7 +81,7 @@
       </li>
 
       {% if user.is_authenticated and user.is_professional or user.is_client %}
-      <li><a href="{% url 'multiple-service_provider' %}" style="text-decoration: none;">ServiceProvider</a></li>
+      <li><a href="{% url 'multiple-service_provider' %}" style="text-decoration: none;">Service Provider</a></li>
       {% endif %}
 
       {% if user.is_authenticated and user.is_client %}

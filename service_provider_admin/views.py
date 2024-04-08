@@ -9,7 +9,7 @@ from django.views.decorators.cache import cache_control
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from service_provider.models import ServiceProvider, User, Client
+from service_provider.models import Service_Provider_Information, User, Client
 from django.db.models import Q
 from pharmacy.models import Product, Pharmacist
 from professional.models import Professional_Information, Prescription, Prescription_test, Report, Appointment, Experience , Education,Specimen,Test
@@ -43,12 +43,12 @@ def admin_dashboard(request):
         total_client_count = Client.objects.annotate(count=Count('client_id'))
         total_professional_count = Professional_Information.objects.annotate(count=Count('professional_id'))
         total_pharmacist_count = Pharmacist.objects.annotate(count=Count('pharmacist_id'))
-        total_service_provider_count = ServiceProvider.objects.annotate(count=Count('service_provider_id'))
+        total_service_provider_count = Service_Provider_Information.objects.annotate(count=Count('service_provider_id'))
         total_labworker_count = Clinical_Laboratory_Technician.objects.annotate(count=Count('technician_id'))
         pending_appointment = Appointment.objects.filter(appointment_status='pending').count()
         professionals = Professional_Information.objects.all()
         clients = Client.objects.all()
-        service_providers = ServiceProvider.objects.all()
+        service_providers = Service_Provider_Information.objects.all()
         lab_workers = Clinical_Laboratory_Technician.objects.all()
         pharmacists = Pharmacist.objects.all()
         
@@ -209,7 +209,7 @@ def transactions_list(request):
 @login_required(login_url='admin_login')
 def emergency_details(request):
     user = Admin_Information.objects.get(user=request.user)
-    service_providers = ServiceProvider.objects.all()
+    service_providers = Service_Provider_Information.objects.all()
     context = { 'admin': user, 'all': service_providers}
     return render(request, 'service_provider_admin/emergency.html', context)
 
@@ -217,7 +217,7 @@ def emergency_details(request):
 @login_required(login_url='admin_login')
 def service_provider_list(request):
     user = Admin_Information.objects.get(user=request.user)
-    service_providers = ServiceProvider.objects.all()
+    service_providers = Service_Provider_Information.objects.all()
     context = { 'admin': user, 'service_providers': service_providers}
     return render(request, 'service_provider_admin/service_provider-list.html', context)
 
@@ -260,7 +260,7 @@ def add_service_provider(request):
         user = Admin_Information.objects.get(user=request.user)
 
         if request.method == 'POST':
-            service_provider = ServiceProvider()
+            service_provider = Service_Provider_Information()
             
             if 'featured_image' in request.FILES:
                 featured_image = request.FILES['featured_image']
@@ -306,7 +306,7 @@ def add_service_provider(request):
                 services.service_name = service_name[i]
                 services.save()
             
-            messages.success(request, 'ServiceProvider Added')
+            messages.success(request, 'Service Provider Added')
             return redirect('service_provider-list')
 
         context = { 'admin': user}
@@ -314,7 +314,7 @@ def add_service_provider(request):
 
 
 # def edit_hospital(request, pk):
-#     hospital = ServiceProvider.objects.get(hospital_id=pk)
+#     hospital = Hospital_Information.objects.get(hospital_id=pk)
 #     return render(request, 'service_provider_admin/edit-hospital.html')
 
 @csrf_exempt
@@ -322,7 +322,7 @@ def add_service_provider(request):
 def edit_service_provider(request, pk):
     if  request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
-        service_provider = ServiceProvider.objects.get(service_provider_id=pk)
+        service_provider = Service_Provider_Information.objects.get(service_provider_id=pk)
         old_featured_image = service_provider.featured_image
 
         if request.method == 'GET':
@@ -380,7 +380,7 @@ def edit_service_provider(request, pk):
                 service_types.ServiceDepartment_name = service_type_name[i]
                 service_types.save()
 
-            messages.success(request, 'ServiceProvider Updated')
+            messages.success(request, 'Service Provider Updated')
             return redirect('service_provider-list')
 
 @csrf_exempt
@@ -403,7 +403,7 @@ def delete_service(request, pk, pk2):
 @login_required(login_url='admin_login')
 def edit_emergency_information(request, pk):
 
-    service_provider = ServiceProvider.objects.get(service_provider_id=pk)
+    service_provider = Service_Provider_Information.objects.get(service_provider_id=pk)
     form = EditEmergencyForm(instance=service_provider)  
 
     if request.method == 'POST':
@@ -422,7 +422,7 @@ def edit_emergency_information(request, pk):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def delete_service_provider(request, pk):
-	service_provider = ServiceProvider.objects.get(service_provider_id=pk)
+	service_provider = Service_Provider_Information.objects.get(service_provider_id=pk)
 	service_provider.delete()
 	return redirect('service_provider-list')
 

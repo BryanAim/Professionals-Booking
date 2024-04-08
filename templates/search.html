@@ -105,7 +105,7 @@
                         <a href="{% url 'professional-profile' pk=professional.professional_id %}">Dr.
                           {{professional.name}}</a>
                       </h4>
-                      <p class="doc-speciality"><b>Department: </b>{{
+                      <p class="doc-speciality"><b>Service Type: </b>{{
                         professional.service_type_name.ServiceDepartment_name }}
                       </p>
                       <h5 class="doc-service_type"><b>Specialization: </b>
@@ -114,7 +114,7 @@
 
                       <div class="clinic-details">
                         <p class="doc-location">
-                          <i class="fas fa-map-marker-alt"></i> <b>ServiceProvider: </b>
+                          <i class="fas fa-map-marker-alt"></i> <b>Service Provider: </b>
                           {{professional.service_provider_name}}
                         </p>
                         <ul class="clinic-gallery">

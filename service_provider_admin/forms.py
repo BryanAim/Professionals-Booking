@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from service_provider.models import User, ServiceProvider
+from service_provider.models import User, Service_Provider_Information
 from .models import Admin_Information, Clinical_Laboratory_Technician
 
 class AdminUserCreationForm(UserCreationForm):
@@ -56,7 +56,7 @@ class PharmacistCreationForm(UserCreationForm):
 
 class AddServiceProviderForm(ModelForm):
     class Meta:
-        model = ServiceProvider
+        model = Service_Provider_Information
         # fields = ['name','address','featured_image','phone_number','email','service_type']
         fields = ['name','service_type']
 
@@ -68,7 +68,7 @@ class AddServiceProviderForm(ModelForm):
 
 class EditServiceProviderForm(forms.ModelForm):
     class Meta:
-        model = ServiceProvider
+        model = Service_Provider_Information
         # fields = ['name','address','featured_image','phone_number','email','service_type']
         fields = ['name','service_type', 'featured_image']
 
@@ -81,7 +81,7 @@ class EditServiceProviderForm(forms.ModelForm):
 
 class EditEmergencyForm(forms.ModelForm):
     class Meta:
-        model = ServiceProvider
+        model = Service_Provider_Information
         # fields = ['general_bed_no','available_icu_no','regular_cabin_no','emergency_cabin_no','vip_cabin_no']
         fields = []
 
@@ -93,7 +93,7 @@ class EditEmergencyForm(forms.ModelForm):
 
 class AddEmergencyForm(ModelForm):
     class Meta:
-        model = ServiceProvider
+        model = Service_Provider_Information
         # fields = ['name','general_bed_no','available_icu_no','regular_cabin_no','emergency_cabin_no','vip_cabin_no']
         fields = ['name']
 

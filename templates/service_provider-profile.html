@@ -85,10 +85,10 @@
 								{% if user.is_authenticated and user.is_professional %}
 								<li class="breadcrumb-item"><a href="{% url 'professional-dashboard' %}">Home</a></li>
 								{% endif %}
-								<li class="breadcrumb-item active" aria-current="page">ServiceProvider Profile</li>
+								<li class="breadcrumb-item active" aria-current="page">Service Provider Profile</li>
 							</ol>
 						</nav>
-						<h2 class="breadcrumb-title">ServiceProvider Profile</h2>
+						<h2 class="breadcrumb-title">Service Provider Profile</h2>
 					</div>
 				</div>
 			</div>
@@ -133,7 +133,7 @@
 											</div>
 											<div class="doc-info-cont col-md-6 col-lg-6">
 												<h4 class="doc-name">{{service_providers.name}}</h4>
-												<p class="doc-speciality">{{service_providers.service_provider_type}} ServiceProvider</p>
+												<p class="doc-speciality">{{service_providers.service_type}} Service Provider</p>
 
 												{% comment %} <div class="rating">
 													<i class="fas fa-star filled"></i>
@@ -214,7 +214,7 @@
 
 										<div class="clinic-booking">
 											<a class="apt-btn"
-												href="{% url 'service_provider-service_type-list' pk=service_providers.service_provider_id %}">Department
+												href="{% url 'service_provider-service_type-list' pk=service_providers.service_provider_id %}">Service Type
 												& Professional List</a>
 										</div>
 										<br>
@@ -274,7 +274,7 @@
 
 												<!-- Awards Details -->
 												<div class="widget awards-widget">
-													<h4 class="widget-title">Departments</h4>
+													<h4 class="widget-title">Service Types</h4>
 													<div class="experience-box">
 														<ul class="experience-list">
 															{% for service_type in service_types %}
@@ -337,7 +337,7 @@
 												<div class="col-md-4">
 													<div class="clinic-content">
 														<h4 class="clinic-name"><a href="#">{{service_providers.name}}</a></h4>
-														<p class="doc-speciality">{{service_provider.service_provider_type}}</p>
+														<p class="doc-speciality">{{service_provider.service_type}}</p>
 
 														<div class="clinic-details mb-0">
 															<h5 class="clinic-direction"> <i class="fas fa-map-marker-alt"></i>

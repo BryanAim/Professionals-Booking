@@ -102,21 +102,22 @@
                     </div>
                     <div class="doc-info-cont">
                       <h4 class="doc-name">
-                        <a href="{% url 'professional-profile' pk=professional.professional_id %}">Dr.
+                        <a href="{% url 'professional-profile' pk=professional.professional_id %}">
                           {{professional.name}}</a>
                       </h4>
-                      <p class="doc-speciality"><b>Service Type: </b>{{
-                        professional.service_type_name.ServiceDepartment_name }}
+                      <p class="doc-location">
+                        <b>Profession: </b>
+                        {{professional.service_name}}
+                      </p>
+                      <p class="speciality">
+                        Speciality: {{ professional.service_type_name.ServiceDepartment_name }}
                       </p>
                       <h5 class="doc-service_type"><b>Specialization: </b>
                         {{ professional.specialization.specialization_name }}
                       </h5>
 
                       <div class="clinic-details">
-                        <p class="doc-location">
-                          <i class="fas fa-map-marker-alt"></i> <b>Service Provider: </b>
-                          {{professional.service_name}}
-                        </p>
+                        
                         <ul class="clinic-gallery">
                           <li>
                             <a href="{% static 'proConnect-System/images/Normal/features/feature-01.jpg'%}"

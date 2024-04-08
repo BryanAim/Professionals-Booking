@@ -126,21 +126,19 @@
 											{% else %}
 											<a href="{% url 'professional-profile-settings' %}">Add Your Name</a>
 											{% endif %}
-
+											{% if professional.service_name %}
+											<p class="doc-speciality">Profession: {{professional.service_name}}</p>
+											{% else %}
+											<h4><a href="{% url 'professional-profile-settings' %}">Add Your Profession</a></h4>
+											{% endif %}
 											{% if professional.service_type_name.ServiceDepartment_name %}
-											<p class="doc-speciality">{{professional.service_type_name.ServiceDepartment_name}}</p>
+												<p class="doc-speciality">Speciality: {{professional.service_type_name.ServiceDepartment_name}}</p>
 											{% else %}
 											<p><a href="{% url 'professional-profile-settings' %}">Add Your Speciality</a></p>
 											{% endif %}
 
-											{% if professional.service_name %}
-											<p class="doc-speciality">{{professional.service_name}}</p>
-											{% else %}
-											<h4><a href="{% url 'professional-profile-settings' %}">Add Your Service</a></h4>
-											{% endif %}
-
 											{% if professional.specialization.specialization_name %}
-											<p class="doc-speciality">{{professional.specialization.specialization_name}}</p>
+											<p class="doc-speciality">Specialization: {{professional.specialization.specialization_name}}</p>
 											{% else %}
 											<h4><a href="{% url 'professional-profile-settings' %}">Add Your Specialization</a></h4>
 											{% endif %}
@@ -156,7 +154,7 @@
 											<div class="clinic-details">
 												<p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{professional.address}}</p>
 
-												<ul class="clinic-gallery">
+												<!-- <ul class="clinic-gallery">
 													<li>
 														<a href="{% static 'proConnect-System/images/Normal/gyno1.jpg'%}" data-fancybox="gallery">
 															<img src="{% static 'proConnect-System/images/Normal/gyno1.jpg'%}" alt="Feature">
@@ -177,7 +175,7 @@
 															<img src="{% static 'proConnect-System/images/Normal/gyno4.jpg'%}" alt="Feature">
 														</a>
 													</li>
-												</ul>
+												</ul> -->
 
 											</div>
 											{% comment %} <div class="clinic-services">
@@ -349,7 +347,7 @@
 
 										{% if user.is_authenticated and user.is_client %}
 										<div class="write-review">
-											<h4>Write a review for <strong>Dr. {{professional.name}}</strong></h4>
+											<h4>Write a review for <strong> {{professional.name}}</strong></h4>
 
 											<form action="{% url 'professional_review' pk=professional.professional_id %}" method="POST"
 												enctype="multipart/form-data">

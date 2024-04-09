@@ -1,4 +1,4 @@
-# Lab Worker
+# Technical Specialist
 
 ## What does a laboratory Worker do
 
@@ -16,12 +16,12 @@ A lab tech is a person who performs the practical hands-on work in laboratories.
 
 - Logging test results into clients’ medical records
 
-## Report Creation By Lab Worker
+## Report Creation By Technical Specialist
 
 ```python
 def create_report(request, pk):
-    if request.user.is_labworker:
-        lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
+    if request.user.is_technicalSpecialist:
+        technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
         prescription =Prescription.objects.get(prescription_id=pk)
         client = Client.objects.get(client_id=prescription.client_id)
         professional = Professional_Information.objects.get(professional_id=prescription.professional_id)
@@ -63,24 +63,24 @@ def create_report(request, pk):
 
             return redirect('myclient-list')
 
-        context = {'prescription':prescription,'lab_workers':lab_workers,'tests':tests}
+        context = {'prescription':prescription,'technical_specialists':technical_specialists,'tests':tests}
         return render(request, 'service_provider_admin/create-report.html',context)
 ```
 
-## Lab Worker Dashboard
+## Technical Specialist Dashboard
 
 This is the dasboard of the lab worker.
 
-![title](lab_worker /Screenshot (237).png)
+![title](technical_specialist /Screenshot (237).png)
 
 ## Pending Report List
 
-![title](lab_worker /Screenshot (238).png)
+![title](technical_specialist /Screenshot (238).png)
 
 ## Create Test Form
 
-![title](lab_worker /Screenshot (240).png)
+![title](technical_specialist /Screenshot (240).png)
 
 ## Viewing Test List
 
-![title](lab_worker /Screenshot (239).png)
+![title](technical_specialist /Screenshot (239).png)

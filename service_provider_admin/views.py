@@ -15,7 +15,7 @@ from store.models import Product, StoreManager
 from professional.models import Professional_Information, Prescription, Prescription_test, Report, Appointment, Experience , Education,Specimen,Test
 from store.models import ServiceOrder, Cart
 from sslcommerz.models import Payment
-from .forms import AdminUserCreationForm, LabWorkerCreationForm, EditServiceProviderForm, EditEmergencyForm,AdminForm , StoreManagerCreationForm 
+from .forms import AdminUserCreationForm, TechnicalSpecialistCreationForm, EditServiceProviderForm, EditEmergencyForm,AdminForm , StoreManagerCreationForm 
 
 from .models import Admin_Information,specialization,service,ServiceDepartment, Clinical_Laboratory_Technician, Test_Information
 import random,re
@@ -44,12 +44,12 @@ def admin_dashboard(request):
         total_professional_count = Professional_Information.objects.annotate(count=Count('professional_id'))
         total_storeManager_count = StoreManager.objects.annotate(count=Count('storeManager_id'))
         total_service_provider_count = Service_Provider_Information.objects.annotate(count=Count('service_provider_id'))
-        total_labworker_count = Clinical_Laboratory_Technician.objects.annotate(count=Count('technician_id'))
+        total_technicalSpecialist_count = Clinical_Laboratory_Technician.objects.annotate(count=Count('technician_id'))
         pending_appointment = Appointment.objects.filter(appointment_status='pending').count()
         professionals = Professional_Information.objects.all()
         clients = Client.objects.all()
         service_providers = Service_Provider_Information.objects.all()
-        lab_workers = Clinical_Laboratory_Technician.objects.all()
+        technical_specialists = Clinical_Laboratory_Technician.objects.all()
         storeManagers = StoreManager.objects.all()
         
         sat_date = datetime.date.today()
@@ -88,11 +88,11 @@ def admin_dashboard(request):
         thurs_count = Appointment.objects.filter(date=thurs_date_str).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed')).count()
         fri_count = Appointment.objects.filter(date=fri_date_str).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed')).count()
 
-        context = {'admin': user,'total_client_count': total_client_count,'total_professional_count':total_professional_count,'pending_appointment':pending_appointment,'professionals':professionals,'clients':clients,'service_providers':service_providers,'lab_workers':lab_workers,'total_storeManager_count':total_storeManager_count,'total_service_provider_count':total_service_provider_count,'total_labworker_count':total_labworker_count,'sat_count': sat_count, 'sun_count': sun_count, 'mon_count': mon_count, 'tues_count': tues_count, 'wed_count': wed_count, 'thurs_count': thurs_count, 'fri_count': fri_count, 'sat': sat, 'sun': sun, 'mon': mon, 'tues': tues, 'wed': wed, 'thurs': thurs, 'fri': fri, 'storeManagers': storeManagers}
+        context = {'admin': user,'total_client_count': total_client_count,'total_professional_count':total_professional_count,'pending_appointment':pending_appointment,'professionals':professionals,'clients':clients,'service_providers':service_providers,'technical_specialists':technical_specialists,'total_storeManager_count':total_storeManager_count,'total_service_provider_count':total_service_provider_count,'total_technicalSpecialist_count':total_technicalSpecialist_count,'sat_count': sat_count, 'sun_count': sun_count, 'mon_count': mon_count, 'tues_count': tues_count, 'wed_count': wed_count, 'thurs_count': thurs_count, 'fri_count': fri_count, 'sat': sat, 'sun': sun, 'mon': mon, 'tues': tues, 'wed': wed, 'thurs': thurs, 'fri': fri, 'storeManagers': storeManagers}
         return render(request, 'service_provider_admin/admin-dashboard.html', context)
-    elif request.user.is_labworker:
+    elif request.user.is_technicalSpecialist:
         # messages.error(request, 'You are not authorized to access this page')
-        return redirect('labworker-dashboard')
+        return redirect('technicalSpecialist-dashboard')
     # return render(request, 'service_provider_admin/admin-dashboard.html', context)
 
 @csrf_exempt
@@ -123,9 +123,9 @@ def admin_login(request):
             if user.is_service_provider_admin:
                 messages.success(request, 'User logged in')
                 return redirect('admin-dashboard')
-            elif user.is_labworker:
+            elif user.is_technicalSpecialist:
                 messages.success(request, 'User logged in')
-                return redirect('labworker-dashboard')
+                return redirect('technicalSpecialist-dashboard')
             elif user.is_storeManager:
                 messages.success(request, 'User logged in')
                 return redirect('storeManager-dashboard')
@@ -474,8 +474,8 @@ def generate_random_specimen():
 @login_required(login_url='admin-login')
 @csrf_exempt
 def create_report(request, pk):
-    if request.user.is_labworker:
-        lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
+    if request.user.is_technicalSpecialist:
+        technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
         prescription =Prescription.objects.get(prescription_id=pk)
         client = Client.objects.get(client_id=prescription.client_id)
         professional = Professional_Information.objects.get(professional_id=prescription.professional_id)
@@ -552,7 +552,7 @@ def create_report(request, pk):
 
             return redirect('myclientlist')
 
-        context = {'prescription':prescription,'lab_workers':lab_workers,'tests':tests}
+        context = {'prescription':prescription,'technical_specialists':technical_specialists,'tests':tests}
         return render(request, 'service_provider_admin/create-report.html',context)
 
 @csrf_exempt
@@ -712,39 +712,39 @@ def delete_product(request, pk):
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def add_lab_worker(request):
+def add_technical_specialist(request):
     if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
         
-        form = LabWorkerCreationForm()
+        form = TechnicalSpecialistCreationForm()
      
         if request.method == 'POST':
-            form = LabWorkerCreationForm(request.POST)
+            form = TechnicalSpecialistCreationForm(request.POST)
             if form.is_valid():
                 # form.save(), commit=False --> don't save to database yet (we have a chance to modify object)
                 user = form.save(commit=False)
-                user.is_labworker = True
+                user.is_technicalSpecialist = True
                 user.save()
 
                 messages.success(request, 'Clinical Laboratory Technician account was created!')
 
                 # After user is created, we can log them in
                 #login(request, user)
-                return redirect('lab-worker-list')
+                return redirect('technical-specialist-list')
             else:
                 messages.error(request, 'An error has occurred during registration')
     
     context = {'form': form, 'admin': user}
-    return render(request, 'service_provider_admin/add-lab-worker.html', context)  
+    return render(request, 'service_provider_admin/add-technical-specialist.html', context)  
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def view_lab_worker(request):
+def view_technical_specialist(request):
     if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
-        lab_workers = Clinical_Laboratory_Technician.objects.all()
+        technical_specialists = Clinical_Laboratory_Technician.objects.all()
         
-    return render(request, 'service_provider_admin/lab-worker-list.html', {'lab_workers': lab_workers, 'admin': user})
+    return render(request, 'service_provider_admin/technical-specialist-list.html', {'technical_specialists': technical_specialists, 'admin': user})
 
 @csrf_exempt
 @login_required(login_url='admin_login')
@@ -757,10 +757,10 @@ def view_storeManager(request):
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def edit_lab_worker(request, pk):
+def edit_technical_specialist(request, pk):
     if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
-        lab_worker = Clinical_Laboratory_Technician.objects.get(technician_id=pk)
+        technical_specialist = Clinical_Laboratory_Technician.objects.get(technician_id=pk)
         
         if request.method == 'POST':
             if 'featured_image' in request.FILES:
@@ -773,18 +773,18 @@ def edit_lab_worker(request, pk):
             phone_number = request.POST.get('phone_number')
             age = request.POST.get('age')  
     
-            lab_worker.name = name
-            lab_worker.email = email
-            lab_worker.phone_number = phone_number
-            lab_worker.age = age
-            lab_worker.featured_image = featured_image
+            technical_specialist.name = name
+            technical_specialist.email = email
+            technical_specialist.phone_number = phone_number
+            technical_specialist.age = age
+            technical_specialist.featured_image = featured_image
     
-            lab_worker.save()
+            technical_specialist.save()
             
             messages.success(request, 'Clinical Laboratory Technician account updated!')
-            return redirect('lab-worker-list')
+            return redirect('technical-specialist-list')
         
-    return render(request, 'service_provider_admin/edit-lab-worker.html', {'lab_worker': lab_worker, 'admin': user})
+    return render(request, 'service_provider_admin/edit-technical-specialist.html', {'technical_specialist': technical_specialist, 'admin': user})
 
 @csrf_exempt
 @login_required(login_url='admin_login')
@@ -963,42 +963,42 @@ def edit_profession(request,pk):
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def labworker_dashboard(request):
+def technicalSpecialist_dashboard(request):
     if request.user.is_authenticated:
-        if request.user.is_labworker:
+        if request.user.is_technicalSpecialist:
             
-            lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
+            technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
             professional = Professional_Information.objects.all()
-            context = {'professional': professional,'lab_workers':lab_workers}
-            return render(request, 'service_provider_admin/labworker-dashboard.html',context)
+            context = {'professional': professional,'technical_specialists':technical_specialists}
+            return render(request, 'service_provider_admin/technicalSpecialist-dashboard.html',context)
 
 @csrf_exempt
 @login_required(login_url='admin-login')
 def myclient_list(request):
     if request.user.is_authenticated:
-        if request.user.is_labworker:
-            lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
+        if request.user.is_technicalSpecialist:
+            technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
             #report= Report.objects.all()
             client = Client.objects.all()
-            context = {'client': client,'lab_workers':lab_workers}
+            context = {'client': client,'technical_specialists':technical_specialists}
             return render(request, 'service_provider_admin/myclient-list.html',context)
 
 @csrf_exempt
 @login_required(login_url='admin-login')
 def prescription_list(request,pk):
     if request.user.is_authenticated:
-        if request.user.is_labworker:
-            lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
+        if request.user.is_technicalSpecialist:
+            technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
             client = Client.objects.get(client_id=pk)
             prescription = Prescription.objects.filter(client=client)
-            context = {'prescription': prescription,'lab_workers':lab_workers,'client':client}
+            context = {'prescription': prescription,'technical_specialists':technical_specialists,'client':client}
             return render(request, 'service_provider_admin/prescription-list.html',context)
 
 @csrf_exempt
 @login_required(login_url='admin-login')
 def add_test(request):
-    if request.user.is_labworker:
-        lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
+    if request.user.is_technicalSpecialist:
+        technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
 
     if request.method == 'POST':
         tests=Test_Information()
@@ -1011,16 +1011,16 @@ def add_test(request):
 
         return redirect('test-list')
         
-    context = {'lab_workers': lab_workers}
+    context = {'technical_specialists': technical_specialists}
     return render(request, 'service_provider_admin/add-test.html', context)
 
 @csrf_exempt
 @login_required(login_url='admin-login')
 def test_list(request):
-    if request.user.is_labworker:
-        lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
+    if request.user.is_technicalSpecialist:
+        technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
         test = Test_Information.objects.all()
-        context = {'test':test,'lab_workers':lab_workers}
+        context = {'test':test,'technical_specialists':technical_specialists}
     return render(request, 'service_provider_admin/test-list.html',context)
 
 
@@ -1028,7 +1028,7 @@ def test_list(request):
 @login_required(login_url='admin-login')
 def delete_test(request,pk):
     if request.user.is_authenticated:
-        if request.user.is_labworker:
+        if request.user.is_technicalSpecialist:
             test = Test_Information.objects.get(test_id=pk)
             test.delete()
             return redirect('test-list')
@@ -1055,10 +1055,10 @@ def storeManager_dashboard(request):
 @csrf_exempt
 def report_history(request):
     if request.user.is_authenticated:
-        if request.user.is_labworker:
+        if request.user.is_technicalSpecialist:
 
-            lab_workers = Clinical_Laboratory_Technician.objects.get(user=request.user)
+            technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
             report = Report.objects.all()
-            context = {'report':report,'lab_workers':lab_workers}
+            context = {'report':report,'technical_specialists':technical_specialists}
             return render(request, 'service_provider_admin/report-list.html',context)
 

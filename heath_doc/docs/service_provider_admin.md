@@ -5,7 +5,7 @@ ServiceProvider Admin is a cruical User for our project.
 ## ServiceProvider Admin Task
 
 - Accept / Reject Professional
-- Add and View Labworker
+- Add and View Technicalspecialist
 - Add and View StoreManager
 - Add,Edit and View ServiceProvider
 - Update ServiceProvider Information
@@ -85,33 +85,33 @@ def reject_professional(request,pk):
 
 ![title](admins/professional-list.png)
 
-# Add and View Labworker
+# Add and View Technicalspecialist
 
 ```python
-def add_lab_worker(request):
+def add_technical_specialist(request):
     if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
 
-        form = LabWorkerCreationForm()
+        form = TechnicalSpecialistCreationForm()
 
         if request.method == 'POST':
-            form = LabWorkerCreationForm(request.POST)
+            form = TechnicalSpecialistCreationForm(request.POST)
             if form.is_valid():
                 # form.save(), commit=False --> don't save to database yet (we have a chance to modify object)
                 user = form.save(commit=False)
-                user.is_labworker = True
+                user.is_technicalSpecialist = True
                 user.save()
 
                 messages.success(request, 'Clinical Laboratory Technician account was created!')
 
                 # After user is created, we can log them in
                 #login(request, user)
-                return redirect('lab-worker-list')
+                return redirect('technical-specialist-list')
             else:
                 messages.error(request, 'An error has occurred during registration')
 
     context = {'form': form, 'admin': user}
-    return render(request, 'service_provider_admin/add-lab-worker.html', context)
+    return render(request, 'service_provider_admin/add-technical-specialist.html', context)
 ```
 
 ![title](admins/add labratory.png)

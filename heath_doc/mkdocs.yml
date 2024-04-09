@@ -4,7 +4,7 @@ nav:
   - Welcome: index.md
   - Homepage: service_provider.md
   - Admin:
-      - Labworker: Lab_worker.md
+      - Technicalspecialist: Lab_worker.md
       - StoreManager: StoreManager.md
       - ServiceProvider Admin: service_provider_admin.md
   - Professional Dashboard: professional.md

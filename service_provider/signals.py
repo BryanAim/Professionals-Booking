@@ -49,7 +49,7 @@ def createClient(sender, instance, created, **kwargs):
         elif instance.is_storeManager:
             user = instance
             StoreManager.objects.create(user=user, username=user.username, email=user.email)
-        elif instance.is_labworker:
+        elif instance.is_technicalSpecialist:
             user = instance
             Clinical_Laboratory_Technician.objects.create(user=user, username=user.username, email=user.email)
         

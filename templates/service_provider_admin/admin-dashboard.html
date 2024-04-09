@@ -147,11 +147,11 @@
                       <i class="fe fe-users"></i>
                     </span>
                     <div class="dash-count">
-                      <h3>{{total_labworker_count.count}}</h3>
+                      <h3>{{total_technicalSpecialist_count.count}}</h3>
                     </div>
                   </div>
                   <div class="dash-widget-info">
-                    <h6 class="text-muted">Total Lab Worker</h6>
+                    <h6 class="text-muted">Total Technical Specialist</h6>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-warning w-50"></div>
                     </div>
@@ -370,18 +370,18 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {% for lab_worker in lab_workers%}
+                        {% for technical_specialist in technical_specialists%}
                         <tr>
                           <td>
                             <h2 class="table-avatar">
                               <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
-                                  src="{{lab_worker.featured_image.url}}" alt="User Image"></a>
-                              <a href="#">{{lab_worker.name}}</a>
+                                  src="{{technical_specialist.featured_image.url}}" alt="User Image"></a>
+                              <a href="#">{{technical_specialist.name}}</a>
                             </h2>
                           </td>
-                          <td>{{lab_worker.phone_number}}</td>
-                          <td>{{lab_worker.email}}</td>
-                          <td>{{lab_worker.age}}</td>
+                          <td>{{technical_specialist.phone_number}}</td>
+                          <td>{{technical_specialist.email}}</td>
+                          <td>{{technical_specialist.age}}</td>
                         </tr>
                         {% endfor %}
 
@@ -434,7 +434,7 @@
 
   <script>
     var total_client_count = "{{total_client_count.count}}";
-    var total_labworker_count = "{{total_labworker_count.count}}";
+    var total_technicalSpecialist_count = "{{total_technicalSpecialist_count.count}}";
     var total_service_provider_count = "{{total_service_provider_count.count}}";
     var total_storeManager_count = "{{total_storeManager_count.count}}";
 

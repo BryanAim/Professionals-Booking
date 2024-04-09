@@ -43,12 +43,12 @@
       2)  Accept or reject professional registration (view professional profile to see details)
       3)  CRUD ServiceProviders (Add more)
       4)  View ServiceProvider List → CRUD Departments within service_provider
-      5)  CRUD Lab Worker
+      5)  CRUD Technical Specialist
       6)  CRUD StoreManager
 
 ### Lab worker
 
-      1)  Lab Worker Dashboard
+      1)  Technical Specialist Dashboard
       2)  Create Report for client.
       3)  Create Tests for service_providers, View Tests
 

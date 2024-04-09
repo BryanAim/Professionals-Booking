@@ -65,7 +65,7 @@
 								<nav aria-label="breadcrumb" class="page-breadcrumb">
 									<ol class="breadcrumb">
 										<li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-										<li class="breadcrumb-item active" aria-current="page">Create Lab Worker</li>
+										<li class="breadcrumb-item active" aria-current="page">Create Technical Specialist</li>
 									</ol>
 								</nav>
 								<h2 class="breadcrumb-title" style="text-align: center">Add Clinical Laboratory Technician</h2>
@@ -83,7 +83,7 @@
 								<div class="card">
 									<div class="card-header">
 										<!-- Profile Settings Form -->
-										<form action="{% url 'add-lab-worker' %}" method="POST" enctype="multipart/form-data">
+										<form action="{% url 'add-technical-specialist' %}" method="POST" enctype="multipart/form-data">
 											{% csrf_token %}
 
 											{% for field in form %}

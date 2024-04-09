@@ -25,7 +25,7 @@ class User(AbstractUser):
     is_client = models.BooleanField(default=False)
     is_professional = models.BooleanField(default=False)
     is_service_provider_admin = models.BooleanField(default=False)
-    is_labworker = models.BooleanField(default=False)
+    is_technicalSpecialist = models.BooleanField(default=False)
     is_storeManager = models.BooleanField(default=False)
     #login_status = models.CharField(max_length=200, null=True, blank=True, default="offline")
     login_status = models.BooleanField(default=False)

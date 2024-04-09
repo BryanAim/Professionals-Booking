@@ -83,24 +83,24 @@
 													<th>Action</th>
 												</tr>
 											<tbody>
-												{% for lab_worker in lab_workers %}
+												{% for technical_specialist in technical_specialists %}
 												<tr>
 													<td>
 														<h2 class="table-avatar">
 															<a href="profile.html" class="avatar avatar-sm mr-2"><img
-																	class="avatar-img rounded-circle" src="{{lab_worker.featured_image.url}}"
+																	class="avatar-img rounded-circle" src="{{technical_specialist.featured_image.url}}"
 																	alt="User Image"></a>
-															<a href="profile.html">{{lab_worker.name}}</a>
+															<a href="profile.html">{{technical_specialist.name}}</a>
 														</h2>
 													</td>
-													<td>{{lab_worker.username}}</td>
+													<td>{{technical_specialist.username}}</td>
 
-													<td>{{lab_worker.email}}</td>
+													<td>{{technical_specialist.email}}</td>
 
-													<td>{{lab_worker.phone_number}}</td>
+													<td>{{technical_specialist.phone_number}}</td>
 													<td>
 														<div class="table-action">
-															<a href="{% url 'edit-lab-worker' pk=lab_worker.technician_id %}"
+															<a href="{% url 'edit-technical-specialist' pk=technical_specialist.technician_id %}"
 																class="btn btn-outline-info btn-rounded">
 																<i class="fas fa-file-alt"></i> Edit User
 															</a>

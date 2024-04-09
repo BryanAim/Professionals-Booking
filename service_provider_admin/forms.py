@@ -17,14 +17,14 @@ class AdminUserCreationForm(UserCreationForm):
             field.widget.attrs.update({'class': 'form-control'})
             
 
-class LabWorkerCreationForm(UserCreationForm):
+class TechnicalSpecialistCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
     # create a style for model form
     def __init__(self, *args, **kwargs):
-        super(LabWorkerCreationForm, self).__init__(*args, **kwargs)
+        super(TechnicalSpecialistCreationForm, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
@@ -41,13 +41,13 @@ class StoreManagerCreationForm(UserCreationForm):
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
 
-# class EditLabWorkerForm(forms.ModelForm):
+# class EditTechnicalSpecialistForm(forms.ModelForm):
 #     class Meta:
 #         model = Clinical_Laboratory_Technician
 #         fields = ['name', 'age', 'phone_number', 'featured_image']
 
 #     def __init__(self, *args, **kwargs):
-#         super(EditLabWorkerForm, self).__init__(*args, **kwargs)
+#         super(EditTechnicalSpecialistForm, self).__init__(*args, **kwargs)
 
 #         for name, field in self.fields.items():
 #             field.widget.attrs.update({'class': 'form-control'})

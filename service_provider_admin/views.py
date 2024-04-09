@@ -447,11 +447,11 @@ def create_invoice(request, pk):
         invoice = Payment(client=client)
         
         consulation_fee = request.POST['consulation_fee']
-        # report_fee = request.POST['report_fee']
+        services_fee = request.POST['services_fee']
         #total_ammount = request.POST['currency_amount']
-        # invoice.currency_amount = int(consulation_fee) + int(report_fee)
+        invoice.currency_amount = int(consulation_fee) + int(services_fee)
         invoice.consulation_fee = consulation_fee
-        # invoice.report_fee = report_fee
+        invoice.services_fee = services_fee
         invoice.invoice_number = generate_random_invoice()
         invoice.name = client
         invoice.status = 'Pending'

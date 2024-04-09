@@ -30,7 +30,7 @@ class Payment(models.Model):
     val_transaction_id = models.CharField(max_length=255, null=True, blank=True)
     currency_amount = models.CharField(max_length=255, null=True, blank=True)
     consulation_fee = models.CharField(max_length=255, null=True, blank=True)
-    # report_fee = models.CharField(max_length=255, null=True, blank=True)
+    services_fee = models.CharField(max_length=255, null=True, blank=True)
     
     card_type = models.CharField(max_length=255, null=True, blank=True)
     card_no = models.CharField(max_length=255, null=True, blank=True)

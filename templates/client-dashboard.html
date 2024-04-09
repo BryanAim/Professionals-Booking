@@ -130,10 +130,10 @@
                                 </td>
                                 <td>{{appointment.appointment_type}}</td>
 
-                                {% if appointment.appointment_type == 'checkup' %}
+                                {% if appointment.appointment_type == 'consultation' %}
                                 <td>KES {{appointment.professional.consultation_fee}} </td>
-                                <!-- {% else %} -->
-                                <!-- <td>{{appointment.professional.report_fee}} KES</td> -->
+                                {% else %}
+                                <td>KES {{appointment.professional.services_fee}} </td>
                                 {% endif %}
                                 <td>
                                   {% if appointment.appointment_status == 'pending' %}

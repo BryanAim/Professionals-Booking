@@ -170,7 +170,7 @@
               <!-- Professional Widget -->
               <div class="profile-widget">
                 <div class="doc-img">
-                  <a href="#">
+                  <a href="{% url 'professional-profile' pk=professional.professional_id %}">
                     <img class="img-fluid" alt="User Image" src="{{ professional.featured_image.url }}" />
                   </a>
                   <a href="javascript:void(0)" class="fav-btn">
@@ -179,7 +179,7 @@
                 </div>
                 <div class="pro-content">
                   <h3 class="title">
-                    <a href="professional-profile.html">{{professional.name}}</a>
+                    <a href="{% url 'professional-profile' pk=professional.professional_id %}">{{professional.name}}</a>
                     <i class="fas fa-check-circle verified"></i>
                   </h3>
                   {% if professional.service_name %}

@@ -99,7 +99,6 @@ class Professional_Information(models.Model):
 
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone_number = models.CharField(max_length=200, null=True, blank=True)
-    # nid = models.CharField(max_length=200, null=True, blank=True, default='')
     availability = models.CharField(max_length=200, null=True, blank=True)
     consultation_fee = models.IntegerField(null=True, blank=True, default=0)
     address = models.CharField(max_length=200, null=True, blank=True)
@@ -109,7 +108,7 @@ class Professional_Information(models.Model):
     
     
     profession = models.CharField(max_length=200, choices=PROFESSION_CHOICES, null=True, blank=True)
-    # report_fee = models.IntegerField(null=True, blank=True)
+    services_fee = models.IntegerField(null=True, blank=True)
 
         # Education
     institute = models.CharField(max_length=200, null=True, blank=True)
@@ -159,8 +158,8 @@ class Professional_Information(models.Model):
 
 class Appointment(models.Model):
     APPOINTMENT_TYPE = (
-        ('consultation', 'Consultation'),
-        ('service', 'Service'),
+        ('consultation_app', 'Consultation'),
+        ('service_app', 'Service'),
         # Extend as necessary
     )
     APPOINTMENT_STATUS = (

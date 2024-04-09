@@ -344,7 +344,7 @@ def professional_profile_settings(request):
             address = request.POST.get('address')
             description = request.POST.get('description')
             consultation_fee = request.POST.get('consultation_fee')
-            # report_fee = request.POST.get('report_fee')
+            services_fee = request.POST.get('services_fee')
             # nid = request.POST.get('nid')
             visit_hour = request.POST.get('visit_hour')
             
@@ -364,7 +364,7 @@ def professional_profile_settings(request):
             professional.phone_number = number
             #professional.availability
             professional.consultation_fee = consultation_fee
-            # professional.report_fee = report_fee
+            professional.services_fee = services_fee
             professional.description = description
             # professional.address = address
             

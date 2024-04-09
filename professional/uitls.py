@@ -1,7 +1,7 @@
 from django.db.models import Q
-from .models import Client, User, Service_Provider_Information
+from .models import Client, User, Professional_Service_Information
 from professional.models import Professional_Information, Appointment
-from service_provider_admin.models import ServiceDepartment, specialization, service
+from professional_service_admin.models import ServiceDepartment, specialization, service
 
 
 def searchClients(request):

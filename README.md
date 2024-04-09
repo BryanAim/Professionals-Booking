@@ -1,6 +1,6 @@
 # Professionals Online booking system
 
-- An online based platform for multiple service_providers. Ability to track, monitor, and share a client's health records between all service_providers. Clients can also see information regarding multiple service_providers and professionals, as well as take appointments via online. Pay laboratory tests via online as well as chat with appointed professionals.
+- An online based platform for multiple professional_services. Ability to track, monitor, and share a client's health records between all professional_services. Clients can also see information regarding multiple professional_services and professionals, as well as take appointments via online. Pay laboratory tests via online as well as chat with appointed professionals.
 
 - Django Application
 
@@ -13,14 +13,14 @@
 
 ## Features
 
-- **Users:** User, Professional, ServiceProvider Admin, Client, StoreManager
+- **Users:** User, Professional, Service Professional Admin, Client, StoreManager
 
 ### User
 
       1)  Search multiple Profession → Department List → Search for Professionals
       2)  Professional Profile → Book Appointment
       3)  Pay Appointment + Mail Confirmation
-      4)  Search all Professionals in all service_providers
+      4)  Search all Professionals in all professional_services
       5)  Chat with appointed Professional
       6)  View Prescription, Download Prescription (PDF)
       7)  Choose which tests to pay (Cart System, payment + mail confirmation)
@@ -32,17 +32,17 @@
 ### Professional
 
       1)  Professional Profile Settings (Add More feature)
-      2)  Search multiple Profession → Professional register to service_provider + upload certificate
+      2)  Search multiple Profession → Professional register to professional_service + upload certificate
       3)  (Once registered by admin) accept or reject clients appointment (mail confirmation send to client)
       4)  Search client profile → Create and view Prescription, view report
       5)  Chat with appointed User
 
-### ServiceProvider Admin
+### ProfessionalService Admin
 
       1)  Admin Dashboard
       2)  Accept or reject professional registration (view professional profile to see details)
-      3)  CRUD ServiceProviders (Add more)
-      4)  View ServiceProvider List → CRUD Departments within service_provider
+      3)  CRUD ProfessionalServices (Add more)
+      4)  View ProfessionalService List → CRUD Departments within professional_service
       5)  CRUD Technical Specialist
       6)  CRUD StoreManager
 
@@ -50,7 +50,7 @@
 
       1)  Technical Specialist Dashboard
       2)  Create Report for client.
-      3)  Create Tests for service_providers, View Tests
+      3)  Create Tests for professional_services, View Tests
 
 ### StoreManager
 

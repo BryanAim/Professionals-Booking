@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth.models import User
-from service_provider.models import User
+from professional_service.models import User
 from .models import Professional_Information
 # # Create a custom form that inherits from user form (reason --> for modify and customize)
 

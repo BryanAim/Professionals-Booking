@@ -246,15 +246,15 @@
               <h2 class="mt-2">Availabe Professions</h2>
               <p>
                 Here You can see all present professions. You can book your appointment from
-                your professional & can collect all Service Providers infromations from here.
+                your professional & can collect all Professional Services infromations from here.
               </p>
             </div>
             <div class="features-slider slider">
               <!-- Slider Item -->
-              {% for service_provider in service_providers %}
+              {% for professional_service in professional_services %}
               <div class="feature-item text-center">
-                <img src="{{ service_provider.featured_image.url }}" class="img-fluid" alt="Feature" />
-                <p>{{service_provider.name}}</p>
+                <img src="{{ professional_service.featured_image.url }}" class="img-fluid" alt="Feature" />
+                <p>{{professional_service.name}}</p>
               </div>
               {% endfor %}
               <!-- /Slider Item -->

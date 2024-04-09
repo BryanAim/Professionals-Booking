@@ -2,11 +2,11 @@ site_name: HealthStack
 docs_dr: HEATH_DOC
 nav:
   - Welcome: index.md
-  - Homepage: service_provider.md
+  - Homepage: professional_service.md
   - Admin:
       - Technicalspecialist: Lab_worker.md
       - StoreManager: StoreManager.md
-      - ServiceProvider Admin: service_provider_admin.md
+      - ProfessionalService Admin: professional_service_admin.md
   - Professional Dashboard: professional.md
   - Client Dashboard: client.md
   - ABOUT: page2.md

@@ -3,7 +3,7 @@ from django.conf import settings
 import uuid
 from professional.models import Prescription
 
-from service_provider.models import User, Client
+from professional_service.models import User, Client
 
 
 # Create your models here.

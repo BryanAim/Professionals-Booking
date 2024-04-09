@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 import random
 import string
 from .models import Payment
-from service_provider.models import Client
+from professional_service.models import Client
 from store.models import ServiceOrder, Cart
 from professional.models import Appointment, Prescription, Prescription_test, testCart, testOrder 
 from django.contrib.auth.decorators import login_required
@@ -382,7 +382,7 @@ def ssl_payment_success(request):
             plain_message = strip_tags(html_message)
             
             try:
-                send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
+                send_mail(subject, plain_message, 'professional_service_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found')
     
@@ -458,7 +458,7 @@ def ssl_payment_success(request):
             plain_message = strip_tags(html_message)
             
             try:
-                send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
+                send_mail(subject, plain_message, 'professional_service_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found')
             
@@ -531,7 +531,7 @@ def ssl_payment_success(request):
             plain_message = strip_tags(html_message)
             
             try:
-                send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
+                send_mail(subject, plain_message, 'professional_service_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found')
             

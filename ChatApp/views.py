@@ -7,8 +7,8 @@ from django.db.models import Q, Count
 from professional.views import appointments
 from .models import chatMessages
 from django.contrib.auth import get_user_model
-from  service_provider.models import User as UserModel
-from service_provider.models import Client
+from  professional_service.models import User as UserModel
+from professional_service.models import Client
 from professional.models import Professional_Information  , Appointment  
 from django.db.models import Q
 import json,datetime

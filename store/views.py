@@ -8,7 +8,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from service_provider.models import Client
+from professional_service.models import Client
 from store.models import Product, Cart, ServiceOrder
 from .utils import searchProducts
 from django.views.decorators.csrf import csrf_exempt

@@ -3,8 +3,8 @@ from django.db import models
 import uuid
 
 # import django user model
-from service_provider.models import  User, Client, Service_Provider_Information
-from service_provider_admin.models import ServiceDepartment, specialization, service
+from professional_service.models import  User, Client, Professional_Service_Information
+from professional_service_admin.models import ServiceDepartment, specialization, service
 from django.conf import settings
 
 
@@ -104,7 +104,7 @@ class Professional_Information(models.Model):
     address = models.CharField(max_length=200, null=True, blank=True)
     
     # ForeignKey --> one to one relationship with Hospital_Information model.
-    service_name = models.ForeignKey(Service_Provider_Information, on_delete=models.SET_NULL, null=True, blank=True)
+    service_name = models.ForeignKey(Professional_Service_Information, on_delete=models.SET_NULL, null=True, blank=True)
     
     
     profession = models.CharField(max_length=200, choices=PROFESSION_CHOICES, null=True, blank=True)

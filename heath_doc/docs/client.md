@@ -2,7 +2,7 @@
 
 ## The main services a client avail:
 
-- `Visit multiple service_provider, get emargency information of a service_provider, and also gets professional information.`
+- `Visit multiple professional_service, get emargency information of a professional_service, and also gets professional information.`
 - `Search departmant`
 - `Book professional appointment`
 - `Search Professional `
@@ -13,51 +13,51 @@
 - `Get mail for appointment and payment`
 - `Medical Shop, Search Medicine, and buy Medicine`
 
-## View service_provider Information
+## View professional_service Information
 
 ```python
-def service_provider_profile(request, pk):
+def professional_service_profile(request, pk):
 
     if request.user.is_authenticated:
 
         if request.user.is_client:
             client = Client.objects.get(user=request.user)
             professionals = Professional_Information.objects.all()
-            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
+            professional_services = ProfessionalService.objects.get(professional_service_id=pk)
 
-            departments = ServiceDepartment.objects.filter(service_provider=service_providers)
-            specializations = specialization.objects.filter(service_provider=service_providers)
-            services = service.objects.filter(service_provider=service_providers)
+            departments = ServiceDepartment.objects.filter(professional_service=professional_services)
+            specializations = specialization.objects.filter(professional_service=professional_services)
+            services = service.objects.filter(professional_service=professional_services)
 
-            context = {'client': client, 'professionals': professionals, 'service_providers': service_providers, 'departments': departments, 'specializations': specializations, 'services': services}
-            return render(request, 'service_provider-profile.html', context)
+            context = {'client': client, 'professionals': professionals, 'professional_services': professional_services, 'departments': departments, 'specializations': specializations, 'services': services}
+            return render(request, 'professional_service-profile.html', context)
 
         elif request.user.is_professional:
 
             professional = Professional_Information.objects.get(user=request.user)
-            service_providers = ServiceProvider.objects.get(service_provider_id=pk)
+            professional_services = ProfessionalService.objects.get(professional_service_id=pk)
 
-            departments = ServiceDepartment.objects.filter(service_provider=service_providers)
-            specializations = specialization.objects.filter(service_provider=service_providers)
-            services = service.objects.filter(service_provider=service_providers)
+            departments = ServiceDepartment.objects.filter(professional_service=professional_services)
+            specializations = specialization.objects.filter(professional_service=professional_services)
+            services = service.objects.filter(professional_service=professional_services)
 
-            context = {'professional': professional, 'service_providers': service_providers, 'departments': departments, 'specializations': specializations, 'services': services}
-            return render(request, 'service_provider-profile.html', context)
+            context = {'professional': professional, 'professional_services': professional_services, 'departments': departments, 'specializations': specializations, 'services': services}
+            return render(request, 'professional_service-profile.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
         return render(request, 'client-login.html')
 ```
 
-## View Multiple ServiceProvider Information
+## View Multiple ProfessionalService Information
 
 ![title](client/Screenshot (254).png)
 ![title](client/Screenshot (253).png)
 
-## View service_provider Professional Information
+## View professional_service Professional Information
 
 ```python
-def service_provider_professional_list(request, pk):
+def professional_service_professional_list(request, pk):
     if request.user.is_authenticated and request.user.is_client:
         # client = Client.objects.get(user_id=pk)
         client = Client.objects.get(user=request.user)
@@ -67,7 +67,7 @@ def service_provider_professional_list(request, pk):
         professionals, search_query = searchDepartmentProfessionals(request, pk)
 
         context = {'client': client, 'department': departments, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
-        return render(request, 'service_provider-professional-list.html', context)
+        return render(request, 'professional_service-professional-list.html', context)
 
     elif request.user.is_authenticated and request.user.is_professional:
         # client = Client.objects.get(user_id=pk)
@@ -79,7 +79,7 @@ def service_provider_professional_list(request, pk):
         professionals, search_query = searchDepartmentProfessionals(request, pk)
 
         context = {'professional':professional, 'department': departments, 'professionals': professionals, 'search_query': search_query, 'pk_id': pk}
-        return render(request, 'service_provider-professional-list.html', context)
+        return render(request, 'professional_service-professional-list.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
@@ -90,7 +90,7 @@ def service_provider_professional_list(request, pk):
 
 ![title](client/Screenshot (213).png)
 
-## View service_provider Professional Information
+## View professional_service Professional Information
 
 ```python
  def booking(request, pk):
@@ -139,7 +139,7 @@ def service_provider_professional_list(request, pk):
             plain_message = strip_tags(html_message)
 
             try:
-                send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
+                send_mail(subject, plain_message, 'professional_service_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found')
 

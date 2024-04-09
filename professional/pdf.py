@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from xhtml2pdf import pisa
 from .models import Report
 from .models import  Report,Specimen,Test
-from service_provider.models import Client
+from professional_service.models import Client
 from datetime import datetime
 
 

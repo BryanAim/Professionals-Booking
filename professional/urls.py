@@ -7,7 +7,7 @@ from .pdf import report_pdf
 
 # from . --> same directory
 # Views functions and urls must be linked. # of views == # of urls
-# App URL file - urls related to service_provider
+# App URL file - urls related to professional_service
 
 urlpatterns = [
     path('', views.professional_login, name='professional-login'),

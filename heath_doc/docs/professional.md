@@ -6,7 +6,7 @@ We have developed a convenient professional/client interface to bring you a serv
 
 - Accept or appointments from clients.
 - View client profile after accepting appointments.
-- Can register himself to a specific service_provider.
+- Can register himself to a specific professional_service.
 - Search clients.
 - Create prescription.
 - Sending mail to the client about appointment confirmation.
@@ -50,7 +50,7 @@ def accept_appointment(request, pk):
     plain_message = strip_tags(html_message)
 
     try:
-        send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'professional_service_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
 
@@ -67,7 +67,7 @@ def accept_appointment(request, pk):
 
 ![title](professional/Screenshot (219).png)
 
-## Search ServiceProvider
+## Search ProfessionalService
 
 ![title](professional/Screenshot (220).png)
 

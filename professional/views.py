@@ -5,16 +5,16 @@ from turtle import title
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from service_provider_admin.views import prescription_list
+from professional_service_admin.views import prescription_list
 from .forms import ProfessionalUserCreationForm, ProfessionalForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.cache import cache_control
-from service_provider.models import User, Client
-from service_provider_admin.models import Admin_Information,Clinical_Laboratory_Technician
+from professional_service.models import User, Client
+from professional_service_admin.models import Admin_Information,Clinical_Laboratory_Technician
 from .models import Professional_Information, Appointment, Education, Experience, Prescription_product, Report,Specimen,Test, Prescription_test, Prescription, Professional_review
-from service_provider_admin.models import Admin_Information,Clinical_Laboratory_Technician, Test_Information
+from professional_service_admin.models import Admin_Information,Clinical_Laboratory_Technician, Test_Information
 from .models import Professional_Information, Appointment, Education, Experience, Prescription_product, Report,Specimen,Test, Prescription_test, Prescription
 from django.db.models import Q, Count
 from django.contrib.auth.signals import user_logged_in, user_logged_out
@@ -224,7 +224,7 @@ def accept_appointment(request, pk):
     plain_message = strip_tags(html_message)
     
     try:
-        send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'professional_service_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
     
@@ -257,7 +257,7 @@ def reject_appointment(request, pk):
     plain_message = strip_tags(html_message)
     
     try:
-        send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
+        send_mail(subject, plain_message, 'professional_service_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found')
     
@@ -446,7 +446,7 @@ def booking(request, pk):
             plain_message = strip_tags(html_message)
             
             try:
-                send_mail(subject, plain_message, 'service_provider_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
+                send_mail(subject, plain_message, 'professional_service_admin@gmail.com',  [client_email], html_message=html_message, fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found')
         

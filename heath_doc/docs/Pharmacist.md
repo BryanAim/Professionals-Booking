@@ -48,7 +48,7 @@ def add_medicine(request):
 
        return redirect('medicine-list')
 
-    return render(request, 'service_provider_admin/add-medicine.html',{'admin': user})
+    return render(request, 'professional_service_admin/add-medicine.html',{'admin': user})
 ```
 
 ## Medicine Table

@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'service_provider.apps.ServiceProviderConfig',
-    'service_provider_admin.apps.ServiceProviderAdminConfig',
+    'professional_service.apps.ProfessionalServiceConfig',
+    'professional_service_admin.apps.ProfessionalServiceAdminConfig',
     'professional.apps.ProfessionalConfig',
     'store.apps.StoreConfig',
     'sslcommerz.apps.SslcommerzConfig',
@@ -178,7 +178,7 @@ EMAIL_USE_SSL = False
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'service_provider.User'
+AUTH_USER_MODEL = 'professional_service.User'
 
 
 # SESSION AGE 45 Minutes

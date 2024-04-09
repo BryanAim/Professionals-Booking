@@ -8,7 +8,7 @@ We have developed a convenient professional/client interface to bring you a serv
 - View client profile after accepting appointments.
 - Can register himself to a specific professional_service.
 - Search clients.
-- Create prescription.
+- Create serviceRequest.
 - Sending mail to the client about appointment confirmation.
 - Chat with client.
 - Professional Profile settings.
@@ -79,8 +79,8 @@ def client_search(request, pk):
         professional = Professional_Information.objects.get(professional_id=pk)
         id = int(request.GET['search_query'])
         client = Client.objects.get(client_id=id)
-        prescription = Prescription.objects.filter(professional=professional).filter(client=client)
-        context = {'client': client, 'professional': professional, 'prescription': prescription}
+        serviceRequest = ServiceRequest.objects.filter(professional=professional).filter(client=client)
+        context = {'client': client, 'professional': professional, 'serviceRequest': serviceRequest}
         return render(request, 'client-profile.html', context)
     else:
         logout(request)
@@ -89,10 +89,10 @@ def client_search(request, pk):
 
 ```
 
-## Create Prescription
+## Create ServiceRequest
 
 ```python
-def create_prescription(request,pk):
+def create_serviceRequest(request,pk):
         if request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
             client = Client.objects.get(client_id=pk)
@@ -100,7 +100,7 @@ def create_prescription(request,pk):
 
 
             if request.method == 'POST':
-                prescription = Prescription(professional=professional, client=client)
+                serviceRequest = ServiceRequest(professional=professional, client=client)
 
                 test_name= request.POST.getlist('test_name')
                 test_description = request.POST.getlist('description')
@@ -114,13 +114,13 @@ def create_prescription(request,pk):
                 test_info_id = request.POST.getlist('id')
 
 
-                prescription.extra_information = extra_information
-                prescription.create_date = create_date
+                serviceRequest.extra_information = extra_information
+                serviceRequest.create_date = create_date
 
-                prescription.save()
+                serviceRequest.save()
 
                 for i in range(len(medicine_name)):
-                    medicine = Prescription_medicine(prescription=prescription)
+                    medicine = ServiceRequest_medicine(serviceRequest=serviceRequest)
                     medicine.medicine_name = medicine_name[i]
                     medicine.quantity = medicine_quantity[i]
                     medicine.frequency = medecine_frequency[i]
@@ -130,7 +130,7 @@ def create_prescription(request,pk):
                     medicine.save()
 
                 for i in range(len(test_name)):
-                    tests = Prescription_test(prescription=prescription)
+                    tests = ServiceRequest_test(serviceRequest=serviceRequest)
                     tests.test_name = test_name[i]
                     tests.test_description = test_description[i]
                     tests.test_info_id = test_info_id[i]
@@ -139,11 +139,11 @@ def create_prescription(request,pk):
 
                     tests.save()
 
-                messages.success(request, 'Prescription Created')
+                messages.success(request, 'ServiceRequest Created')
                 return redirect('client-profile', pk=client.client_id)
 
         context = {'professional': professional,'client': client}
-        return render(request, 'create-prescription.html',context)
+        return render(request, 'create-serviceRequest.html',context)
 ```
 
 ## Profile Settings

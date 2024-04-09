@@ -5,7 +5,7 @@ from turtle import title
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from professional_service_admin.views import prescription_list
+from professional_service_admin.views import serviceRequest_list
 from .forms import ProfessionalUserCreationForm, ProfessionalForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -13,9 +13,9 @@ from django.contrib import messages
 from django.views.decorators.cache import cache_control
 from professional_service.models import User, Client
 from professional_service_admin.models import Admin_Information,Clinical_Laboratory_Technician
-from .models import Professional_Information, Appointment, Education, Experience, Prescription_product, Report,Specimen,Test, Prescription_test, Prescription, Professional_review
+from .models import Professional_Information, Appointment, Education, Experience, ServiceRequest_product, Report,Specimen,Test, ServiceRequest_test, ServiceRequest, Professional_review
 from professional_service_admin.models import Admin_Information,Clinical_Laboratory_Technician, Test_Information
-from .models import Professional_Information, Appointment, Education, Experience, Prescription_product, Report,Specimen,Test, Prescription_test, Prescription
+from .models import Professional_Information, Appointment, Education, Experience, ServiceRequest_product, Report,Specimen,Test, ServiceRequest_test, ServiceRequest
 from django.db.models import Q, Count
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
@@ -483,17 +483,17 @@ def client_profile(request, pk):
         professional = Professional_Information.objects.get(user=request.user)
         client = Client.objects.get(client_id=pk)
         appointments = Appointment.objects.filter(professional=professional).filter(client=client)
-        prescription = Prescription.objects.filter(professional=professional).filter(client=client)
+        serviceRequest = ServiceRequest.objects.filter(professional=professional).filter(client=client)
         report = Report.objects.filter(professional=professional).filter(client=client) 
     else:
         redirect('professional-logout')
-    context = {'professional': professional, 'appointments': appointments, 'client': client, 'prescription': prescription, 'report': report}  
+    context = {'professional': professional, 'appointments': appointments, 'client': client, 'serviceRequest': serviceRequest, 'report': report}  
     return render(request, 'client-profile.html', context)
 
 
 @csrf_exempt
 @login_required(login_url="professional-login")
-def create_prescription(request,pk):
+def create_serviceRequest(request,pk):
         if request.user.is_professional:
             professional = Professional_Information.objects.get(user=request.user)
             client = Client.objects.get(client_id=pk) 
@@ -501,7 +501,7 @@ def create_prescription(request,pk):
             
 
             if request.method == 'POST':
-                prescription = Prescription(professional=professional, client=client)
+                serviceRequest = ServiceRequest(professional=professional, client=client)
                 
                 test_name= request.POST.getlist('test_name')
                 test_description = request.POST.getlist('description')
@@ -515,13 +515,13 @@ def create_prescription(request,pk):
                 test_info_id = request.POST.getlist('id')
 
             
-                prescription.extra_information = extra_information
-                prescription.create_date = create_date
+                serviceRequest.extra_information = extra_information
+                serviceRequest.create_date = create_date
                 
-                prescription.save()
+                serviceRequest.save()
 
                 for i in range(len(product_name)):
-                    product = Prescription_product(prescription=prescription)
+                    product = ServiceRequest_product(serviceRequest=serviceRequest)
                     product.product_name = product_name[i]
                     product.quantity = product_quantity[i]
                     product.frequency = medecine_frequency[i]
@@ -531,7 +531,7 @@ def create_prescription(request,pk):
                     product.save()
 
                 for i in range(len(test_name)):
-                    tests = Prescription_test(prescription=prescription)
+                    tests = ServiceRequest_test(serviceRequest=serviceRequest)
                     tests.test_name = test_name[i]
                     tests.test_description = test_description[i]
                     tests.test_info_id = test_info_id[i]
@@ -540,11 +540,11 @@ def create_prescription(request,pk):
                    
                     tests.save()
 
-                messages.success(request, 'Prescription Created')
+                messages.success(request, 'ServiceRequestCreated')
                 return redirect('client-profile', pk=client.client_id)
              
         context = {'professional': professional,'client': client}  
-        return render(request, 'create-prescription.html',context)
+        return render(request, 'create-serviceRequest.html',context)
 
         
 @csrf_exempt      
@@ -598,8 +598,8 @@ def client_search(request, pk):
         professional = Professional_Information.objects.get(professional_id=pk)
         id = int(request.GET['search_query'])
         client = Client.objects.get(client_id=id)
-        prescription = Prescription.objects.filter(professional=professional).filter(client=client)
-        context = {'client': client, 'professional': professional, 'prescription': prescription}
+        serviceRequest = ServiceRequest.objects.filter(professional=professional).filter(client=client)
+        context = {'client': client, 'professional': professional, 'serviceRequest': serviceRequest}
         return render(request, 'client-profile.html', context)
     else:
         logout(request)
@@ -629,14 +629,14 @@ def professional_test_list(request):
 
 @csrf_exempt
 @login_required(login_url="login")
-def professional_view_prescription(request, pk):
+def professional_view_serviceRequest(request, pk):
     if request.user.is_authenticated and request.user.is_professional:
         professional = Professional_Information.objects.get(user=request.user)
-        prescriptions = Prescription.objects.get(prescription_id=pk)
-        products = Prescription_product.objects.filter(prescription=prescriptions)
-        tests = Prescription_test.objects.filter(prescription=prescriptions)
-        context = {'prescription': prescriptions, 'products': products, 'tests': tests, 'professional': professional}
-        return render(request, 'professional-view-prescription.html', context)
+        serviceRequests = ServiceRequest.objects.get(serviceRequest_id=pk)
+        products = ServiceRequest_product.objects.filter(serviceRequest=serviceRequests)
+        tests = ServiceRequest_test.objects.filter(serviceRequest=serviceRequests)
+        context = {'serviceRequest': serviceRequests, 'products': products, 'tests': tests, 'professional': professional}
+        return render(request, 'professional-view-serviceRequest.html', context)
 
 @csrf_exempt
 @login_required(login_url="login")

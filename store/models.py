@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 import uuid
-from professional.models import Prescription
+from professional.models import ServiceRequest
 
 from professional_service.models import User, Client
 
@@ -66,7 +66,7 @@ class StoreManager(models.Model):
 #     medicine_category = models.CharField(max_length=200, choices=MEDICINE_CATEGORY, null=True, blank=True)
 #     price = models.IntegerField(null=True, blank=True, default=0)
 #     stock_quantity = models.IntegerField(null=True, blank=True, default=0)
-#     Prescription_reqiuired = models.CharField(max_length=200, choices=REQUIREMENT_TYPE, null=True, blank=True)
+#     ServiceRequest_reqiuired = models.CharField(max_length=200, choices=REQUIREMENT_TYPE, null=True, blank=True)
 #     def __str__(self):
         return str(self.name)
     

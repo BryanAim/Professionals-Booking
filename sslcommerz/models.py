@@ -1,5 +1,5 @@
 from django.db import models
-from professional.models import Appointment, testOrder, Prescription
+from professional.models import Appointment, testOrder, ServiceRequest
 from professional_service.models import Client
 from store.models import ServiceOrder
 
@@ -16,7 +16,7 @@ class Payment(models.Model):
     # order = models.ForeignKey(ServiceOrder, on_delete=models.SET_NULL, null=True, blank=True)
     service_order = models.ForeignKey(ServiceOrder, on_delete=models.SET_NULL, null=True, blank=True)
     # test_order = models.ForeignKey(testOrder, on_delete=models.SET_NULL, null=True, blank=True)
-    # prescription = models.ForeignKey(Prescription, on_delete=models.SET_NULL, null=True, blank=True)
+    # serviceRequest = models.ForeignKey(ServiceRequest, on_delete=models.SET_NULL, null=True, blank=True)
     
     payment_type = models.CharField(max_length=200, null=True, blank=True)
     

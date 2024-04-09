@@ -4,7 +4,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from .pres_pdf import prescription_pdf
+from .pres_pdf import serviceRequest_pdf
 
 # from . --> same directory
 # Views functions and urls must be linked. # of views == # of urls
@@ -18,7 +18,7 @@ urlpatterns = [
     path('add-billing/', views.add_billing, name='add-billing'),
     path('appointments/', views.appointments, name='appointments'),
     path('edit-billing/', views.edit_billing, name='edit-billing'),
-    path('edit-prescription/', views.edit_prescription, name='edit-prescription'),
+    path('edit-serviceRequest/', views.edit_serviceRequest, name='edit-serviceRequest'),
     # path('forgot-password/', views.forgot_password,name='forgot-password'),
     path('client-dashboard/',views.client_dashboard, name='client-dashboard'),
     path('privacy-policy/', views.privacy_policy, name='privacy-policy'),
@@ -39,12 +39,12 @@ urlpatterns = [
     path('professional_service-professional-register/<int:pk>/', views.professional_service_professional_register, name='professional_service-professional-register'),
     path('view-report/<int:pk>', views.view_report, name='view-report'),
     path('test-cart/<int:pk>/', views.test_cart, name='test-cart'),
-    path('prescription-view/<int:pk>', views.prescription_view, name='prescription-view'),
-    path('pres_pdf/<int:pk>/',views.prescription_pdf, name='pres_pdf'),
+    path('serviceRequest-view/<int:pk>', views.serviceRequest_view, name='serviceRequest-view'),
+    path('pres_pdf/<int:pk>/',views.serviceRequest_pdf, name='pres_pdf'),
     path('test-single/<int:pk>/', views.test_single, name='test-single'),
     path('test-remove-cart/<int:pk>/', views.test_remove_cart, name='test-remove-cart'),
     path('test-add-to-cart/<int:pk>/<int:pk2>/', views.test_add_to_cart, name='test-add-to-cart'),
-    path('delete-prescription/<int:pk>/', views.delete_prescription, name='delete-prescription'),
+    path('delete-serviceRequest/<int:pk>/', views.delete_serviceRequest, name='delete-serviceRequest'),
     path('delete-report/<int:pk>/', views.delete_report, name='delete-report'),
 
 ]

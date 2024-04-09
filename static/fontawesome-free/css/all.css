@@ -1623,7 +1623,7 @@ readers do not read off random characters that represent icons */
 .fa-file-powerpoint:before {
   content: "\f1c4"; }
 
-.fa-file-prescription:before {
+.fa-file-serviceRequest:before {
   content: "\f572"; }
 
 .fa-file-signature:before {
@@ -3132,13 +3132,13 @@ readers do not read off random characters that represent icons */
 .fa-praying-hands:before {
   content: "\f684"; }
 
-.fa-prescription:before {
+.fa-serviceRequest:before {
   content: "\f5b1"; }
 
-.fa-prescription-bottle:before {
+.fa-serviceRequest-bottle:before {
   content: "\f485"; }
 
-.fa-prescription-bottle-alt:before {
+.fa-serviceRequest-bottle-alt:before {
   content: "\f486"; }
 
 .fa-print:before {

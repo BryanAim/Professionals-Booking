@@ -12,7 +12,7 @@ from django.contrib import messages
 from professional_service.models import Professional_Service_Information, User, Client
 from django.db.models import Q
 from store.models import Product, StoreManager
-from professional.models import Professional_Information, Prescription, Prescription_test, Report, Appointment, Experience , Education,Specimen,Test
+from professional.models import Professional_Information, ServiceRequest, ServiceRequest_test, Report, Appointment, Experience , Education,Specimen,Test
 from store.models import ServiceOrder, Cart
 from sslcommerz.models import Payment
 from .forms import AdminUserCreationForm, TechnicalSpecialistCreationForm, EditProfessionalServiceForm, EditEmergencyForm,AdminForm , StoreManagerCreationForm 
@@ -476,10 +476,10 @@ def generate_random_specimen():
 def create_report(request, pk):
     if request.user.is_technicalSpecialist:
         technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
-        prescription =Prescription.objects.get(prescription_id=pk)
-        client = Client.objects.get(client_id=prescription.client_id)
-        professional = Professional_Information.objects.get(professional_id=prescription.professional_id)
-        tests = Prescription_test.objects.filter(prescription=prescription).filter(test_info_pay_status='Paid')
+        serviceRequest =ServiceRequest.objects.get(serviceRequest_id=pk)
+        client = Client.objects.get(client_id=serviceRequest.client_id)
+        professional = Professional_Information.objects.get(professional_id=serviceRequest.professional_id)
+        tests = ServiceRequest_test.objects.filter(serviceRequest=serviceRequest).filter(test_info_pay_status='Paid')
         
 
         if request.method == 'POST':
@@ -552,7 +552,7 @@ def create_report(request, pk):
 
             return redirect('myclientlist')
 
-        context = {'prescription':prescription,'technical_specialists':technical_specialists,'tests':tests}
+        context = {'serviceRequest':serviceRequest,'technical_specialists':technical_specialists,'tests':tests}
         return render(request, 'professional_service_admin/create-report.html',context)
 
 @csrf_exempt
@@ -633,7 +633,7 @@ def add_product(request):
            featured_image = "products/default.png"
        
        name = request.POST.get('name')
-       Prescription_reqiuired = request.POST.get('requirement_type')     
+       ServiceRequest_reqiuired = request.POST.get('requirement_type')     
        weight = request.POST.get('weight') 
        quantity = request.POST.get('quantity')
        product_category = request.POST.get('category_type')
@@ -642,7 +642,7 @@ def add_product(request):
        price = request.POST.get('price')
        
        product.name = name
-       product.Prescription_reqiuired = Prescription_reqiuired
+       product.ServiceRequest_reqiuired = ServiceRequest_reqiuired
        product.weight = weight
        productquantity = quantity
        product.product_category = product_category
@@ -674,7 +674,7 @@ def edit_product(request, pk):
             else:
                 featured_image = old_product_image
                 name = request.POST.get('name')
-                Prescription_reqiuired = request.POST.get('requirement_type')     
+                ServiceRequest_reqiuired = request.POST.get('requirement_type')     
                 weight = request.POST.get('weight') 
                 quantity = request.POST.get('quantity')
                 product_category = request.POST.get('category_type')
@@ -683,7 +683,7 @@ def edit_product(request, pk):
                 price = request.POST.get('price')
                 
                 product.name = name
-                product.Prescription_reqiuired = Prescription_reqiuired
+                product.ServiceRequest_reqiuired = ServiceRequest_reqiuired
                 product.weight = weight
                 product.quantity = quantity
                 product.product_category = product_category
@@ -985,14 +985,14 @@ def myclient_list(request):
 
 @csrf_exempt
 @login_required(login_url='admin-login')
-def prescription_list(request,pk):
+def serviceRequest_list(request,pk):
     if request.user.is_authenticated:
         if request.user.is_technicalSpecialist:
             technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
             client = Client.objects.get(client_id=pk)
-            prescription = Prescription.objects.filter(client=client)
-            context = {'prescription': prescription,'technical_specialists':technical_specialists,'client':client}
-            return render(request, 'professional_service_admin/prescription-list.html',context)
+            serviceRequest = ServiceRequest.objects.filter(client=client)
+            context = {'serviceRequest': serviceRequest,'technical_specialists':technical_specialists,'client':client}
+            return render(request, 'professional_service_admin/serviceRequest-list.html',context)
 
 @csrf_exempt
 @login_required(login_url='admin-login')

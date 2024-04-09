@@ -22,7 +22,7 @@
       3)  Pay Appointment + Mail Confirmation
       4)  Search all Professionals in all professional_services
       5)  Chat with appointed Professional
-      6)  View Prescription, Download Prescription (PDF)
+      6)  View ServiceRequest, Download ServiceRequest (PDF)
       7)  Choose which tests to pay (Cart System, payment + mail confirmation)
       8)  View Report, Download Report (PDF)
       9)  Give Professional Review
@@ -34,7 +34,7 @@
       1)  Professional Profile Settings (Add More feature)
       2)  Search multiple Profession → Professional register to professional_service + upload certificate
       3)  (Once registered by admin) accept or reject clients appointment (mail confirmation send to client)
-      4)  Search client profile → Create and view Prescription, view report
+      4)  Search client profile → Create and view ServiceRequest, view report
       5)  Chat with appointed User
 
 ### ProfessionalService Admin

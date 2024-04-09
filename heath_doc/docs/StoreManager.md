@@ -24,7 +24,7 @@ def add_medicine(request):
            featured_image = "medicines/default.png"
 
        name = request.POST.get('name')
-       Prescription_reqiuired = request.POST.get('requirement_type')
+       ServiceRequest_reqiuired = request.POST.get('requirement_type')
        weight = request.POST.get('weight')
        quantity = request.POST.get('quantity')
        medicine_category = request.POST.get('category_type')

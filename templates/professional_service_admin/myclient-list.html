@@ -75,7 +75,7 @@
               <div class="card  card-table flex-fill">
                 <div class="card-header">
                   <h4 class="card-title">Client List</h4> <br>
-                  <p class="card-text">Click To See <b>Prescriptions</b> of clients</p>
+                  <p class="card-text">Click To See <b>ServiceRequests</b> of clients</p>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -98,13 +98,13 @@
                             <h2 class="table-avatar">
                               <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
                                   src="{{p.featured_image.url}}" alt="User Image"></a>
-                              <a href="{% url 'prescription-list' pk=p.client_id %}">{{p.name}}</a>
+                              <a href="{% url 'serviceRequest-list' pk=p.client_id %}">{{p.name}}</a>
                             </h2>
                           </td>
 
                           <td>{{p.phone_number}}</td>
                           <td>{{p.email}}</td>
-                          <td><a href="{% url 'prescription-list' pk=p.client_id %}" class="btn btn-primary">Pending
+                          <td><a href="{% url 'serviceRequest-list' pk=p.client_id %}" class="btn btn-primary">Pending
                               Reports</a></td>
 
                           <!-- <td>

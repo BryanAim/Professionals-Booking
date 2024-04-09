@@ -22,7 +22,7 @@ urlpatterns = [
     path('booking-success/', views.booking_success, name='booking-success'),
     path('schedule-timings/', views.schedule_timings, name='schedule-timings'),
     path('client-id/', views.client_id, name='client-id'),
-    path('create-prescription/<int:pk>/', views.create_prescription, name='create-prescription'),
+    path('create-serviceRequest/<int:pk>/', views.create_serviceRequest, name='create-serviceRequest'),
     path('client-profile/<int:pk>/',views.client_profile, name='client-profile'),
     path('delete-education/<int:pk>/',views.delete_education, name='delete-education'),
     path('delete-experience/<int:pk>/',views.delete_experience, name='delete-experience'),
@@ -33,7 +33,7 @@ urlpatterns = [
     path('pdf/<int:pk>/',views.report_pdf, name='pdf'),
     path('professional_review/<int:pk>/', views.professional_review, name='professional_review'),
     path('professional-test-list/', views.professional_test_list, name='professional-test-list'),
-    path('professional-view-prescription/<int:pk>/', views.professional_view_prescription, name='professional-view-prescription'),
+    path('professional-view-serviceRequest/<int:pk>/', views.professional_view_serviceRequest, name='professional-view-serviceRequest'),
     path('professional-view-report/<int:pk>/', views.professional_view_report, name='professional-view-report'),
 
 ]

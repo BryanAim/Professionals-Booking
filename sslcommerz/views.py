@@ -8,7 +8,7 @@ import string
 from .models import Payment
 from professional_service.models import Client
 from store.models import ServiceOrder, Cart
-from professional.models import Appointment, Prescription, Prescription_test, testCart, testOrder 
+from professional.models import Appointment, ServiceRequest, ServiceRequest_test, testCart, testOrder 
 from django.contrib.auth.decorators import login_required
 
 
@@ -223,7 +223,7 @@ def ssl_payment_request_test(request, pk, id, pk2):
     
     client = Client.objects.get(client_id=pk)
     test_order = testOrder.objects.get(id=id)
-    prescription = Prescription.objects.get(prescription_id=pk2)
+    serviceRequest = ServiceRequest.objects.get(serviceRequest_id=pk2)
     
     invoice_number = generate_random_invoice()
     
@@ -270,7 +270,7 @@ def ssl_payment_request_test(request, pk, id, pk2):
     payment.city = post_body['cus_city']
     payment.country = post_body['cus_country']
     payment.transaction_id = post_body['tran_id']
-    payment.prescription = prescription
+    payment.serviceRequest = serviceRequest
     
     # payment.consulation_fee = appointment.professional.consultation_fee
     # payment.report_fee = appointment.professional.report_fee
@@ -389,7 +389,7 @@ def ssl_payment_success(request):
             return redirect('client-dashboard')
         
         elif payment_type == "test":
-            prescription = payment.prescription
+            serviceRequest = payment.serviceRequest
             payment.val_transaction_id = payment_data['val_id']
             payment.currency_amount = payment_data['currency_amount']
             payment.card_type = payment_data['card_type']
@@ -433,7 +433,7 @@ def ssl_payment_success(request):
                 
             for i in order_cart:
                 test_id = i.item.test_info_id
-                pres_test = Prescription_test.objects.filter(prescription=prescription).filter(test_info_id=test_id)
+                pres_test = ServiceRequest_test.objects.filter(serviceRequest=serviceRequest).filter(test_info_id=test_id)
                 #pres_test.test_info_pay_status = "Paid"
                 pres_test.update(test_info_id=test_id,test_info_pay_status = "Paid")
             

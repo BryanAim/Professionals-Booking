@@ -6,7 +6,7 @@
 - `Search departmant`
 - `Book professional appointment`
 - `Search Professional `
-- `View Prescription`
+- `View ServiceRequest`
 - `Book tests and pay online`
 - `View Report history`
 - `Profile edit`
@@ -155,23 +155,23 @@ def professional_service_professional_list(request, pk):
 
 ![title](client/Screenshot (256).png)
 
-## View Prescription Information
+## View ServiceRequestInformation
 
 ```python
- def prescription_view(request,pk):
+ def serviceRequest_view(request,pk):
       if request.user.is_client:
         client = Client.objects.get(user=request.user)
-        prescription = Prescription.objects.filter(prescription_id=pk)
-        prescription_product = Prescription_medicine.objects.filter(prescription__in=prescription)
-        prescription_test = Prescription_test.objects.filter(prescription__in=prescription)
+        serviceRequest = ServiceRequest.objects.filter(serviceRequest_id=pk)
+        serviceRequest_product = ServiceRequest_medicine.objects.filter(serviceRequest__in=serviceRequest)
+        serviceRequest_test = ServiceRequest_test.objects.filter(serviceRequest__in=serviceRequest)
 
-        context = {'client':client,'prescription':prescription,'prescription_test':prescription_test,'prescription_product':prescription_product}
-        return render(request, 'prescription-view.html',context)
+        context = {'client':client,'serviceRequest':serviceRequest,'serviceRequest_test':serviceRequest_test,'serviceRequest_product':serviceRequest_product}
+        return render(request, 'serviceRequest-view.html',context)
       else:
          redirect('logout')
 ```
 
-## Prescription Page
+## ServiceRequestPage
 
 ![title](client/Screenshot (212).png)
 
@@ -180,24 +180,24 @@ def professional_service_professional_list(request, pk):
 ```python
 def test_cart(request, pk):
     if request.user.is_authenticated and request.user.is_client:
-        # prescription = Prescription.objects.filter(prescription_id=pk)
+        # serviceRequest = ServiceRequest.objects.filter(serviceRequest_id=pk)
 
-        prescription = Prescription.objects.filter(prescription_id=pk)
+        serviceRequest = ServiceRequest.objects.filter(serviceRequest_id=pk)
 
         client = Client.objects.get(user=request.user)
-        prescription_test = Prescription_test.objects.all()
+        serviceRequest_test = ServiceRequest_test.objects.all()
         test_carts = testCart.objects.filter(user=request.user, purchased=False)
         test_orders = testOrder.objects.filter(user=request.user, ordered=False)
 
         if test_carts.exists() and test_orders.exists():
             test_order = test_orders[0]
 
-            context = {'test_carts': test_carts,'test_order': test_order, 'client': client, 'prescription_test':prescription_test, 'prescription_id':pk}
+            context = {'test_carts': test_carts,'test_order': test_order, 'client': client, 'serviceRequest_test':serviceRequest_test, 'serviceRequest_id':pk}
             return render(request, 'test-cart.html', context)
         else:
             # messages.warning(request, "You don't have any test in your cart!")
-            context = {'client': client,'prescription_test':prescription_test}
-            return render(request, 'prescription-view.html', context)
+            context = {'client': client,'serviceRequest_test':serviceRequest_test}
+            return render(request, 'serviceRequest-view.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')

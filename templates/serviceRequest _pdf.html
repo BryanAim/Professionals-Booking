@@ -56,8 +56,8 @@
 										width: 50%;">
 
 											<p class="invoice-details">
-												<strong>Client ID:</strong> {{prescription.client.client_id}} <br>
-												<strong>Date:</strong> {{prescription.create_date}}
+												<strong>Client ID:</strong> {{serviceRequest.client.client_id}} <br>
+												<strong>Date:</strong> {{serviceRequest.create_date}}
 											</p>
 										</div>
 									</div>
@@ -70,23 +70,23 @@
 											<div class="invoice-info">
 												<strong class="customer-text">Professional Information:</strong>
 												<p class="invoice-details invoice-details-two">
-													<b>Name: </b>{{prescription.professional.name}} <br>
-													<b>Department: </b>{{prescription.professional.profession_name}}<br>
-													<b>Email: </b>{{prescription.professional.email}} <br>
-													<b>Phone Number: </b>{{prescription.professional.phone_number}}
+													<b>Name: </b>{{serviceRequest.professional.name}} <br>
+													<b>Department: </b>{{serviceRequest.professional.profession_name}}<br>
+													<b>Email: </b>{{serviceRequest.professional.email}} <br>
+													<b>Phone Number: </b>{{serviceRequest.professional.phone_number}}
 												</p>
 											</div>
 										</div>
 										<div class="col-6">
 											<div class="invoice-info invoice-info2">
-												<strong class="customer-text">Prescription To:</strong>
+												<strong class="customer-text">ServiceRequest To:</strong>
 												<p class="invoice-details">
-													<b>Name: </b>{{prescription.client.name}}<br>
-													<b>Age: </b>{{prescription.client.age}}<br>
-													<b>Blood Group: </b>{{prescription.client.blood_group}}<br>
-													<b>Address: </b>{{prescription.client.address}}<br>
-													<b>Email: </b>{{prescription.client.email}}<br>
-													<b>Phone Number: </b>{{prescription.client.phone_number}}
+													<b>Name: </b>{{serviceRequest.client.name}}<br>
+													<b>Age: </b>{{serviceRequest.client.age}}<br>
+													<b>Blood Group: </b>{{serviceRequest.client.blood_group}}<br>
+													<b>Address: </b>{{serviceRequest.client.address}}<br>
+													<b>Email: </b>{{serviceRequest.client.email}}<br>
+													<b>Phone Number: </b>{{serviceRequest.client.phone_number}}
 
 												</p>
 
@@ -120,7 +120,7 @@
 
 
 													</tr>
-													{% for pm in prescription_product %}
+													{% for pm in serviceRequest_product %}
 													<tr style="vertical-align: center; height: 30px;">
 														<th class="text-center">{{pm.product_name}}</td>
 														<td class="text-center">{{pm.quantity}}</td>
@@ -158,7 +158,7 @@
 														<th>Test Name</th>
 														<th>Description</th>
 													</tr>
-													{% for pt in prescription_test %}
+													{% for pt in serviceRequest_test %}
 													<tr style="vertical-align: center;height: 30px;">
 														<td class="text-center">{{pt.test_name}}</td>
 														<td class="text-center">{{pt.test_description}}</td>
@@ -189,7 +189,7 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="text-center">{{prescription.extra_information}}</td>
+															<td class="text-center">{{serviceRequest.extra_information}}</td>
 														</tr>
 
 

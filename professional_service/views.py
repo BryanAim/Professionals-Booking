@@ -20,7 +20,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from .utils import searchProfessionals, searchProfessionalServices, searchDepartmentProfessionals, paginateProfessionalServices
 from .models import Client, User
-from professional.models import Professional_Information, Appointment,Report, Specimen, Test, Prescription, Prescription_product, Prescription_test
+from professional.models import Professional_Information, Appointment,Report, Specimen, Test, ServiceRequest, ServiceRequest_product, ServiceRequest_test
 from sslcommerz.models import Payment
 from django.db.models import Q, Count
 import re
@@ -73,8 +73,8 @@ def appointments(request):
 def edit_billing(request):
     return render(request, 'edit-billing.html')
 
-def edit_prescription(request):
-    return render(request, 'edit-prescription.html')
+def edit_serviceRequest(request):
+    return render(request, 'edit-serviceRequest.html')
 
 # def forgot_password(request):
 #     return render(request, 'forgot-password.html')
@@ -212,10 +212,10 @@ def client_dashboard(request):
         # client = Client.objects.get(user_id=pk)
         client = Client.objects.get(user=request.user)
         # report = Report.objects.filter(client=client)
-        # prescription = Prescription.objects.filter(client=client).order_by('-prescription_id')
+        # serviceRequest = ServiceRequest.objects.filter(client=client).order_by('-serviceRequest_id')
         appointments = Appointment.objects.filter(client=client).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed'))
         # payments = Payment.objects.filter(client=client).filter(appointment__in=appointments).filter(payment_type='appointment').filter(status='VALID')
-        # context = {'client': client, 'appointments': appointments, 'payments': payments,'report':report,'prescription':prescription}
+        # context = {'client': client, 'appointments': appointments, 'payments': payments,'report':report,'serviceRequest':serviceRequest}
         context = {'client': client, 'appointments': appointments}
     else:
         return redirect('logout')
@@ -538,9 +538,9 @@ def test_add_to_cart(request, pk, pk2):
          
         client = Client.objects.get(user=request.user)
         test_information = Test_Information.objects.get(test_id=pk2)
-        prescription = Prescription.objects.filter(prescription_id=pk)
+        serviceRequest = ServiceRequest.objects.filter(serviceRequest_id=pk)
 
-        item = get_object_or_404(Prescription_test, test_info_id=pk2,prescription_id=pk)
+        item = get_object_or_404(ServiceRequest_test, test_info_id=pk2,serviceRequest_id=pk)
         order_item = testCart.objects.get_or_create(item=item, user=request.user, purchased=False)
         order_qs = testOrder.objects.filter(user=request.user, ordered=False)
 
@@ -548,15 +548,15 @@ def test_add_to_cart(request, pk, pk2):
             order = order_qs[0]
             order.orderitems.add(order_item[0])
             # messages.info(request, "This test is added to your cart!")
-            return redirect("prescription-view", pk=pk)
+            return redirect("serviceRequest-view", pk=pk)
         else:
             order = testOrder(user=request.user)
             order.save()
             order.orderitems.add(order_item[0])
-            return redirect("prescription-view", pk=pk)
+            return redirect("serviceRequest-view", pk=pk)
 
-        context = {'client': client,'prescription_test': prescription_tests,'prescription':prescription,'prescription_product':prescription_product,'test_information':test_information}
-        return render(request, 'prescription-view.html', context)
+        context = {'client': client,'serviceRequest_test': serviceRequest_tests,'serviceRequest':serviceRequest,'serviceRequest_product':serviceRequest_product,'test_information':test_information}
+        return render(request, 'serviceRequest-view.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
@@ -566,24 +566,24 @@ def test_add_to_cart(request, pk, pk2):
 @login_required(login_url="login")
 def test_cart(request, pk):
     if request.user.is_authenticated and request.user.is_client:
-        # prescription = Prescription.objects.filter(prescription_id=pk)
+        # serviceRequest = ServiceRequest.objects.filter(serviceRequest_id=pk)
         
-        prescription = Prescription.objects.filter(prescription_id=pk)
+        serviceRequest = ServiceRequest.objects.filter(serviceRequest_id=pk)
         
         client = Client.objects.get(user=request.user)
-        prescription_test = Prescription_test.objects.all()
+        serviceRequest_test = ServiceRequest_test.objects.all()
         test_carts = testCart.objects.filter(user=request.user, purchased=False)
         test_orders = testOrder.objects.filter(user=request.user, ordered=False)
         
         if test_carts.exists() and test_orders.exists():
             test_order = test_orders[0]
             
-            context = {'test_carts': test_carts,'test_order': test_order, 'client': client, 'prescription_test':prescription_test, 'prescription_id':pk}
+            context = {'test_carts': test_carts,'test_order': test_order, 'client': client, 'serviceRequest_test':serviceRequest_test, 'serviceRequest_id':pk}
             return render(request, 'test-cart.html', context)
         else:
             # messages.warning(request, "You don't have any test in your cart!")
-            context = {'client': client,'prescription_test':prescription_test}
-            return render(request, 'prescription-view.html', context)
+            context = {'client': client,'serviceRequest_test':serviceRequest_test}
+            return render(request, 'serviceRequest-view.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
@@ -593,12 +593,12 @@ def test_cart(request, pk):
 @login_required(login_url="login")
 def test_remove_cart(request, pk):
     if request.user.is_authenticated and request.user.is_client:
-        item = Prescription_test.objects.get(test_id=pk)
+        item = ServiceRequest_test.objects.get(test_id=pk)
 
         client = Client.objects.get(user=request.user)
-        prescription = Prescription.objects.filter(prescription_id=pk)
-        prescription_product = Prescription_product.objects.filter(prescription__in=prescription)
-        prescription_test = Prescription_test.objects.filter(prescription__in=prescription)
+        serviceRequest = ServiceRequest.objects.filter(serviceRequest_id=pk)
+        serviceRequest_product = ServiceRequest_product.objects.filter(serviceRequest__in=serviceRequest)
+        serviceRequest_test = ServiceRequest_test.objects.filter(serviceRequest__in=serviceRequest)
         test_carts = testCart.objects.filter(user=request.user, purchased=False)
         
         # item = get_object_or_404(test, pk=pk)
@@ -610,31 +610,31 @@ def test_remove_cart(request, pk):
                 test_order.orderitems.remove(test_order_item)
                 test_order_item.delete()
                 # messages.warning(request, "This test was remove from your cart!")
-                context = {'test_carts': test_carts,'test_order': test_order,'client': client,'prescription_id':pk}
+                context = {'test_carts': test_carts,'test_order': test_order,'client': client,'serviceRequest_id':pk}
                 return render(request, 'test-cart.html', context)
             else:
                 # messages.info(request, "This test was not in your cart")
-                context = {'client': client,'test': item,'prescription':prescription,'prescription_product':prescription_product,'prescription_test':prescription_test}
-                return render(request, 'prescription-view.html', context)
+                context = {'client': client,'test': item,'serviceRequest':serviceRequest,'serviceRequest_product':serviceRequest_product,'serviceRequest_test':serviceRequest_test}
+                return render(request, 'serviceRequest-view.html', context)
         else:
             # messages.info(request, "You don't have an active order")
-            context = {'client': client,'test': item,'prescription':prescription,'prescription_product':prescription_product,'prescription_test':prescription_test}
-            return redirect('prescription-view', pk=prescription.prescription_id)
+            context = {'client': client,'test': item,'serviceRequest':serviceRequest,'serviceRequest_product':serviceRequest_product,'serviceRequest_test':serviceRequest_test}
+            return redirect('serviceRequest-view', pk=serviceRequest.serviceRequest_id)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
         return render(request, 'client-login.html') 
 
 @csrf_exempt
-def prescription_view(request,pk):
+def serviceRequest_view(request,pk):
       if request.user.is_client:
         client = Client.objects.get(user=request.user)
-        prescription = Prescription.objects.filter(prescription_id=pk)
-        prescription_product = Prescription_product.objects.filter(prescription__in=prescription)
-        prescription_test = Prescription_test.objects.filter(prescription__in=prescription)
+        serviceRequest = ServiceRequest.objects.filter(serviceRequest_id=pk)
+        serviceRequest_product = ServiceRequest_product.objects.filter(serviceRequest__in=serviceRequest)
+        serviceRequest_test = ServiceRequest_test.objects.filter(serviceRequest__in=serviceRequest)
 
-        context = {'client':client,'prescription':prescription,'prescription_test':prescription_test,'prescription_product':prescription_product}
-        return render(request, 'prescription-view.html',context)
+        context = {'client':client,'serviceRequest':serviceRequest,'serviceRequest_test':serviceRequest_test,'serviceRequest_product':serviceRequest_product}
+        return render(request, 'serviceRequest-view.html',context)
       else:
          redirect('logout') 
 
@@ -649,15 +649,15 @@ def render_to_pdf(template_src, context_dict={}):
     return None
 
 
-# def prescription_pdf(request,pk):
+# def serviceRequest_pdf(request,pk):
 #  if request.user.is_patient:
 #     patient = Client.objects.get(user=request.user)
-#     prescription = Prescription.objects.get(prescription_id=pk)
-#     perscription_medicine = Perscription_medicine.objects.filter(prescription=prescription)
-#     perscription_test = Perscription_test.objects.filter(prescription=prescription)
+#     serviceRequest = ServiceRequest.objects.get(serviceRequest_id=pk)
+#     perscription_medicine = Perscription_medicine.objects.filter(serviceRequest=serviceRequest)
+#     perscription_test = Perscription_test.objects.filter(serviceRequest=serviceRequest)
 #     current_date = datetime.date.today()
-#     context={'patient':patient,'current_date' : current_date,'prescription':prescription,'perscription_test':perscription_test,'perscription_medicine':perscription_medicine}
-#     pdf=render_to_pdf('prescription_pdf.html', context)
+#     context={'patient':patient,'current_date' : current_date,'serviceRequest':serviceRequest,'perscription_test':perscription_test,'perscription_medicine':perscription_medicine}
+#     pdf=render_to_pdf('serviceRequest_pdf.html', context)
 #     if pdf:
 #         response=HttpResponse(pdf, content_type='application/pdf')
 #         content="inline; filename=report.pdf"
@@ -666,29 +666,29 @@ def render_to_pdf(template_src, context_dict={}):
 #     return HttpResponse("Not Found")
 
 @csrf_exempt
-def prescription_pdf(request,pk):
+def serviceRequest_pdf(request,pk):
  if request.user.is_client:
     client = Client.objects.get(user=request.user)
-    prescription = Prescription.objects.get(prescription_id=pk)
-    prescription_product = Prescription_product.objects.filter(prescription=prescription)
-    prescription_test = Prescription_test.objects.filter(prescription=prescription)
+    serviceRequest = ServiceRequest.objects.get(serviceRequest_id=pk)
+    serviceRequest_product = ServiceRequest_product.objects.filter(serviceRequest=serviceRequest)
+    serviceRequest_test = ServiceRequest_test.objects.filter(serviceRequest=serviceRequest)
     # current_date = datetime.date.today()
-    context={'client':client,'prescription':prescription,'prescription_test':prescription_test,'prescription_product':prescription_product}
-    pres_pdf=render_to_pdf('prescription_pdf.html', context)
+    context={'client':client,'serviceRequest':serviceRequest,'serviceRequest_test':serviceRequest_test,'serviceRequest_product':serviceRequest_product}
+    pres_pdf=render_to_pdf('serviceRequest_pdf.html', context)
     if pres_pdf:
         response=HttpResponse(pres_pdf, content_type='application/pres_pdf')
-        content="inline; filename=prescription.pdf"
+        content="inline; filename=serviceRequest.pdf"
         response['Content-Disposition']= content
         return response
     return HttpResponse("Not Found")
 
 @csrf_exempt
 @login_required(login_url="login")
-def delete_prescription(request,pk):
+def delete_serviceRequest(request,pk):
     if request.user.is_authenticated and request.user.is_client:
-        prescription = Prescription.objects.get(prescription_id=pk)
-        prescription.delete()
-        messages.success(request, 'Prescription Deleted')
+        serviceRequest = ServiceRequest.objects.get(serviceRequest_id=pk)
+        serviceRequest.delete()
+        messages.success(request, 'ServiceRequestDeleted')
         return redirect('client-dashboard')
     else:
         logout(request)

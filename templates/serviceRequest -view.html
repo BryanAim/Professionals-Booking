@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- doccure/client-profile.html  30 Nov 2019 04:12:09 GMT -->
+<!-- doccure/client-dashboard.html  30 Nov 2019 04:12:16 GMT -->
 
 <head>
 	<meta charset="utf-8" />
@@ -32,9 +32,8 @@
 	<!-- Main Wrapper -->
 	<div class="main-wrapper">
 		<!-- Header -->
-		<header class="header">{% include 'professional-navbar.html' %}</header>
+		<header class="header">{% include 'client_navbar.html' %}</header>
 		<!-- /Header -->
-
 
 		<!-- Breadcrumb -->
 		<div class="breadcrumb-bar">
@@ -44,14 +43,14 @@
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item">
-									<a href="{% url 'professional_service_home'%}">Home</a>
+									<a href="{% url 'client-dashboard' %}">Home</a>
 								</li>
 								<li class="breadcrumb-item active" aria-current="page">
-									View Prescription
+									Client Dashboard
 								</li>
 							</ol>
 						</nav>
-						<h2 class="breadcrumb-title">View Prescription</h2>
+						<h2 class="breadcrumb-title">Client Dashboard</h2>
 					</div>
 				</div>
 			</div>
@@ -64,37 +63,7 @@
 				<div class="row">
 					<!-- Profile Sidebar -->
 					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-						<div class="card widget-profile pat-widget-profile">
-							<div class="card-body">
-								<div class="pro-widget-content">
-									<div class="profile-info-widget">
-										<a href="#" class="booking-doc-img">
-											<img src="{{ prescription.client.featured_image.url }}" alt="User Image" />
-										</a>
-										<div class="profile-det-info">
-											<h3><a href="#">{{prescription.client.name}}</a></h3>
-
-
-											<div class="client-details">
-												<h5><b>ID :</b> {{ prescription.client.client_id }}</h5>
-												<h5 class="mb-0">
-													<i class="fas fa-map-marker-alt"></i>
-													{{ prescription.client.address }}
-												</h5>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="client-info">
-									<ul>
-										<li>Phone <span>{{prescription.client.phone_number}}</span></li>
-										<li>Age <span>{{prescription.client.age}}</span></li>
-										<li>Blood Group <span>{{prescription.client.blood_group}}</span></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<!-- /Profile Widget -->
+						<div>{% include 'client-sidebar.html' %}</div>
 					</div>
 					<!-- / Profile Sidebar -->
 
@@ -111,11 +80,11 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-
+										{% for serviceRequest in serviceRequest %}
 										<p class="invoice-details">
-											<strong>Prescription ID:</strong> {{prescription.prescription_id}} <br>
-											<strong>Client ID:</strong> {{prescription.client.client_id}} <br>
-											<strong>Date:</strong> {{prescription.create_date }}
+											<strong>ServiceRequest ID:</strong> {{serviceRequest.serviceRequest_id}} <br>
+											<strong>Client ID:</strong> {{serviceRequest.client.client_id}} <br>
+											<strong>Date:</strong> {{serviceRequest.create_date }}
 										</p>
 									</div>
 								</div>
@@ -128,21 +97,21 @@
 										<div class="invoice-info">
 											<strong class="customer-text">Professional Information</strong>
 											<p class="invoice-details invoice-details-two">
-												<b>Name: </b>{{prescription.professional.name}} <br>
-												<b>Department: </b>{{prescription.professional.profession_name}}<br>
-												<b>Email: </b>{{prescription.professional.email}} <br>
-												<b>Phone Number: </b>{{prescription.professional.phone_number}}
+												<b>Name: </b>{{serviceRequest.professional.name}} <br>
+												<b>Department: </b>{{serviceRequest.professional.profession_name}}<br>
+												<b>Email: </b>{{serviceRequest.professional.email}} <br>
+
 											</p>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="invoice-info invoice-info2">
-											<strong class="customer-text">Prescription To</strong>
+											<strong class="customer-text">ServiceRequest To</strong>
 											<p class="invoice-details">
-												<b>Name: </b>{{prescription.client.name}}<br>
-												<b>Addtress: </b>{{prescription.client.address}}<br>
-												<b>Email: </b>{{prescription.client.email}}<br>
-												<b>Phone Number: </b>{{prescription.client.phone_number}}
+												<b>Name: </b>{{serviceRequest.client.name}}<br>
+												<b>Addtress: </b>{{serviceRequest.client.address}}<br>
+												<b>Email: </b>{{serviceRequest.client.email}}<br>
+												<b>Phone Number: </b>{{serviceRequest.serviceRequest_id}}
 
 											</p>
 
@@ -158,15 +127,15 @@
 							<div class="invoice-item invoice-table-wrap mt-3">
 								<div class="row">
 									<div class="col-md-12">
+										<hr>
+										<h2 class="text-center mb-4" style="color: rgb(84, 147, 199)"><b>Product</b></h2>
+										<hr>
 										<div class="table-responsive">
-											<hr>
-											<h2 class="text-center mb-4" style="color: rgb(84, 147, 199)"><b>Product</b></h2>
-											<hr>
 											<table class="invoice-table table table-bordered">
 												<thead>
-													<tr style="background-color: rgb(84, 147, 199);">
 
-													<tr>
+
+													<tr style="background-color: rgb(84, 147, 199);">
 														<th>Product Name</th>
 														<th class="text-center">Quantity</th>
 														<th class="text-center">Frequency</th>
@@ -176,7 +145,7 @@
 
 
 													</tr>
-													{% for pm in products %}
+													{% for pm in serviceRequest_product %}
 													<tr>
 														<th class="text-center">{{pm.product_name}}</td>
 														<td class="text-center">{{pm.quantity}}</td>
@@ -207,17 +176,28 @@
 										<div class="table-responsive">
 											<table class="invoice-table table table-bordered">
 												<thead>
-													<tr>
+													<tr style="background-color: rgb(84, 147, 199)">
 														<th class="text-center">Test Name</th>
 														<th class="text-center">Description</th>
+														<!-- <th class="text-center"> Test id </th> -->
+														<!-- <th class="text-center"> price</th> -->
+														<th class="text-center">Action</th>
+
+
 													</tr>
 												</thead>
 												<tbody>
-													{% for pt in tests %}
+													{% for pt in serviceRequest_test %}
 													<tr>
 
 														<td class="text-center">{{pt.test_name}}</td>
 														<td class="text-center">{{pt.test_description}}</td>
+														<!-- <td class="text-center">{{pt.test_info_id}}</td> -->
+														<!-- <td class="text-center">{{pt.test_info_price}}</td> -->
+														<td class="text-center"><a
+																href="{% url 'test-add-to-cart' pk=serviceRequest.serviceRequest_id pk2=pt.test_info_id %}"
+																class="btn btn-primary">Select</a></td>
+
 													</tr>
 													{% endfor %}
 												</tbody>
@@ -238,21 +218,20 @@
 							<div class="invoice-item invoice-table-wrap mt-4">
 								<div class="row">
 									<div class="col-md-12">
-										<hr>
 										<div class="table-responsive">
 											<table class="invoice-table table table-bordered">
 												<thead>
 													<tr>
-														<!-- <th>Advice/Recommendation</th> -->
 														<th>
 															<h2 class="text-center mb-4" style="color: rgb(84, 147, 199)"><b>Advice/Recommendation</b>
 															</h2>
 														</th>
+
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
-														<td>{{prescription.extra_information}}</td>
+														<td>{{serviceRequest.extra_information}}</td>
 
 
 													</tr>
@@ -261,64 +240,32 @@
 											</table>
 										</div>
 									</div>
-								</div>
-								<!-- /Invoice Information -->
 
+
+								</div>
+								<br>
+								<button class="btn btn-md bg-primary"> <a
+										href="{% url 'test-cart' pk=serviceRequest.serviceRequest_id %}">
+										Test Cart </a></button><br><br>
+								<button class="btn btn-md bg-info"> <a target="_blank"
+										href="{% url 'pres_pdf' pk=serviceRequest.serviceRequest_id %}"> Download ServiceRequest
+									</a></button>
+								{% endfor %}
 							</div>
+							<!-- /Invoice Information -->
+
 						</div>
 					</div>
 				</div>
-
-
 			</div>
+
+
 		</div>
+	</div>
 	</div>
 	<!-- /Page Content -->
-
-	<!-- Footer -->
-	{% include 'footer.html' %}
-	<!-- /Footer -->
-	</div>
 	<!-- /Main Wrapper -->
-
-	<!-- Add Medical Records Modal -->
-	<div class="modal fade custom-modal" id="add_medical_records">
-		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title">Medical Records</h3>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form>
-					<div class="modal-body">
-						<div class="form-group">
-							<label>Date</label>
-							<input type="text" class="form-control datetimepicker" value="31-10-2019" />
-						</div>
-						<div class="form-group">
-							<label>Description ( Optional )</label>
-							<textarea class="form-control"></textarea>
-						</div>
-						<div class="form-group">
-							<label>Upload File</label>
-							<input type="file" class="form-control" />
-						</div>
-						<div class="submit-section text-center">
-							<button type="submit" class="btn btn-primary submit-btn">
-								Submit
-							</button>
-							<button type="button" class="btn btn-secondary submit-btn" data-dismiss="modal">
-								Cancel
-							</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
 	</div>
-	<!-- /Add Medical Records Modal -->
 
 	<!-- jQuery -->
 	<script src="{% static 'proConnect-System/js/Normal/jquery.min.js' %}"></script>
@@ -327,29 +274,10 @@
 	<script src="{% static 'proConnect-System/js/Normal/popper.min.js' %}"></script>
 	<script src="{% static 'proConnect-System/js/Normal/bootstrap.min.js' %}"></script>
 
-	<!-- Slimscroll JS -->
-	<script src="{% static 'proConnect-System/plugins/admin/slimscroll/jquery.slimscroll.min.js' %}"></script>
-
-	<!-- Datetimepicker JS -->
-	<!-- <script src="{% static 'proConnect-System/js/Normal/moment.min.js' %}"></script>
-    <script src="{% static 'proConnect-System/js/Normal/bootstrap-datetimepicker.min.js' %}"></script> -->
-
-	<!-- Prescription Settings JS -->
-	<script src="{% static 'proConnect-System/js/Normal/prescription-settings.js' %}"></script>
-
-	<!-- Datatables JS -->
-	<script src="{% static 'proConnect-System/plugins/admin/datatables/jquery.dataTables.min.js'%}"></script>
-	<script src="{% static 'proConnect-System/plugins/admin/datatables/datatables.min.js'%}"></script>
-
-	<!-- Sticky Sidebar JS -->
-	<!-- <script src="{% static 'proConnect-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
-    <script src="{% static 'proConnect-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script> -->
-
 	<!-- Custom JS -->
 	<script src="{% static 'proConnect-System/Outside_assets/js/script.js' %}"></script>
-
 </body>
 
-<!-- doccure/client-profile.html  30 Nov 2019 04:12:13 GMT -->
+<!-- doccure/invoice-view.html  30 Nov 2019 04:12:20 GMT -->
 
 </html>

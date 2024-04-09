@@ -255,9 +255,9 @@ class Test(models.Model):
         return str(self.report.report_id)
 
         
-class Prescription(models.Model):
+class ServiceRequest(models.Model):
     # product name, quantity, days, time, description, test, test_descrip
-    prescription_id = models.AutoField(primary_key=True)
+    serviceRequest_id = models.AutoField(primary_key=True)
     professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True)
     create_date = models.CharField(max_length=200, null=True, blank=True)
@@ -274,8 +274,8 @@ class Prescription(models.Model):
     def __str__(self):
         return str(self.client.username)
 
-class Prescription_product(models.Model):
-    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE, null=True, blank=True)
+class ServiceRequest_product(models.Model):
+    serviceRequest = models.ForeignKey(ServiceRequest, on_delete=models.CASCADE, null=True, blank=True)
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=200, null=True, blank=True)
     quantity = models.CharField(max_length=200, null=True, blank=True)
@@ -285,10 +285,10 @@ class Prescription_product(models.Model):
     instruction = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.prescription.prescription_id)
+        return str(self.serviceRequest.serviceRequest_id)
 
-class Prescription_test(models.Model):
-    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE, null=True, blank=True)
+class ServiceRequest_test(models.Model):
+    serviceRequest = models.ForeignKey(ServiceRequest, on_delete=models.CASCADE, null=True, blank=True)
     test_id = models.AutoField(primary_key=True)
     test_name = models.CharField(max_length=200, null=True, blank=True)
     test_description = models.TextField(null=True, blank=True)
@@ -297,19 +297,19 @@ class Prescription_test(models.Model):
     test_info_pay_status = models.CharField(max_length=200, null=True, blank=True)
     
     """
-    (create prescription)
+    (create serviceRequest)
     professional input --> test_id 
     using test_id --> retrive price
-    store price in prescription_test column
+    store price in serviceRequest_test column
     """
 
     def __str__(self):
-        return str(self.prescription.prescription_id)
+        return str(self.serviceRequest.serviceRequest_id)
     
 # # test cart system
 class testCart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='test_cart')
-    item = models.ForeignKey(Prescription_test, on_delete=models.CASCADE)
+    item = models.ForeignKey(ServiceRequest_test, on_delete=models.CASCADE)
     name = models.CharField(default='test', max_length=200)
     # quantity = models.IntegerField(default=1)
     purchased = models.BooleanField(default=False)

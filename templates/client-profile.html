@@ -152,7 +152,7 @@
                       <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
                     </li> {% endcomment %}
                     <li class="nav-item active">
-                      <a class="nav-link" href="#pres" data-toggle="tab"><span>Prescription</span></a>
+                      <a class="nav-link" href="#pres" data-toggle="tab"><span>ServiceRequest</span></a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#medical_records" data-toggle="tab"><span> Medical Records</span></a>
@@ -233,11 +233,11 @@
                   </div> {% endcomment %}
                   <!-- /Appointment Tab -->
 
-                  <!-- Prescription Tab -->
+                  <!-- ServiceRequestTab -->
                   <div class="tab-pane fade show active" id="pres">
                     <div class="text-right">
-                      <a href="{% url 'create-prescription' pk=client.client_id %}" class="add-new-btn">Add
-                        Prescription</a>
+                      <a href="{% url 'create-serviceRequest' pk=client.client_id %}" class="add-new-btn">Add
+                        ServiceRequest</a>
                     </div>
                     <div class="card card-table mb-0">
                       <div class="card-body">
@@ -246,17 +246,17 @@
                             <thead>
                               <tr>
                                 <th>Date</th>
-                                <th>Prescription ID</th>
+                                <th>ServiceRequestID</th>
                                 <th>Client</th>
                                 <th>Contact</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
                             <tbody>
-                              {% for p in prescription %}
+                              {% for p in serviceRequest %}
                               <tr>
                                 <td>{{p.create_date}}</td>
-                                <td>{{p.prescription_id}}</td>
+                                <td>{{p.serviceRequest_id}}</td>
                                 <td>
                                   <h2 class="table-avatar">
                                     <a href="#" class="avatar avatar-sm mr-2">
@@ -273,7 +273,7 @@
                                 <td class="text-left">
                                   <div class="table-action">
                                     {% comment %}
-                                    <a href="{% url 'delete-prescription' pk=p.prescription_id %}"
+                                    <a href="{% url 'delete-serviceRequest' pk=p.serviceRequest_id %}"
                                       onclick="return confirm('Are you sure you want to Delete?');"
                                       class="btn btn-sm bg-danger">
                                       <i class="fas fa-trash"></i> Delete
@@ -281,7 +281,7 @@
                                   </a>{% endcomment %}
 
 
-                                  <a href="{% url 'professional-view-prescription' pk=p.prescription_id %}"
+                                  <a href="{% url 'professional-view-serviceRequest' pk=p.serviceRequest_id %}"
                                     class="btn btn-sm bg-info-light">
                                     <i class="far fa-eye"></i> View
                                   </a>
@@ -296,7 +296,7 @@
                     </div>
                   </div>
                 </div>
-                <!-- /Prescription Tab -->
+                <!-- /ServiceRequestTab -->
                 <!-- Medical Records Tab -->
                 <div class="tab-pane fade" id="medical_records">
                   <div class="text-right">

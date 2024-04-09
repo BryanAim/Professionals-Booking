@@ -79,7 +79,7 @@
                       <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#pat_prescriptions" data-toggle="tab">Prescriptions</a>
+                      <a class="nav-link" href="#pat_serviceRequests" data-toggle="tab">ServiceRequests</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#pat_medical_records" data-toggle="tab"><span
@@ -175,15 +175,15 @@
                   </div>
                   <!-- /Appointment Tab -->
 
-                  <!-- Prescription Tab -->
-                  <div class="tab-pane fade" id="pat_prescriptions">
+                  <!-- ServiceRequestTab -->
+                  <div class="tab-pane fade" id="pat_serviceRequests">
                     <div class="card card-table mb-0">
                       <div class="card-body">
                         <div class="table-responsive">
                           <table class="table table-hover table-center mb-0 text-center">
                             <thead>
                               <tr>
-                                <th>Prescription ID</th>
+                                <th>ServiceRequestID</th>
                                 <th>Professional Name</th>
 
                                 <!-- <th>Attachment</th> -->
@@ -192,12 +192,12 @@
                               </tr>
                             </thead>
                             <tbody>
-                              {% for prescription in prescription %}
+                              {% for serviceRequest in serviceRequest %}
                               <tr>
                                 <td>
-                                  <a href="javascript:void(0);">{{prescription.prescription_id}}</a>
+                                  <a href="javascript:void(0);">{{serviceRequest.serviceRequest_id}}</a>
                                 </td>
-                                <td>{{prescription.professional.name }}</td>
+                                <td>{{serviceRequest.professional.name }}</td>
 
 
                                 <!-- <td><a href="#">dental-test.pdf</a></td> -->
@@ -208,16 +208,16 @@
                                   <h2 class="table-avatar">
                                     <a href="professional-profile.html" class="avatar avatar-sm mr-2">
                                       <img class="avatar-img rounded-circle"
-                                        src="{{prescription.professional.featured_image.url }}" alt="User Image" />
+                                        src="{{serviceRequest.professional.featured_image.url }}" alt="User Image" />
                                     </a>
                                     <a href="professional-profile.html">Dr.
-                                      {{prescription.professional}}<span>{{prescription.professional.profession_name
+                                      {{serviceRequest.professional}}<span>{{serviceRequest.professional.profession_name
                                         }}</span></a>
                                   </h2>
                                 </td>
                                 <td>
                                   <div class="table-action">
-                                    <a href="{% url 'prescription-view' pk=prescription.prescription_id%}"
+                                    <a href="{% url 'serviceRequest-view' pk=serviceRequest.serviceRequest_id%}"
                                       class="btn btn-sm bg-info-light">
                                       <i class="far fa-eye"></i> View
                                     </a>
@@ -231,7 +231,7 @@
                       </div>
                     </div>
                   </div>
-                  <!-- /Prescription Tab -->
+                  <!-- /ServiceRequestTab -->
 
                   <!-- medical record -->
                   <div id="pat_medical_records" class="tab-pane fade">

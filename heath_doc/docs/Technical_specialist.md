@@ -22,10 +22,10 @@ A lab tech is a person who performs the practical hands-on work in laboratories.
 def create_report(request, pk):
     if request.user.is_technicalSpecialist:
         technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
-        prescription =Prescription.objects.get(prescription_id=pk)
-        client = Client.objects.get(client_id=prescription.client_id)
-        professional = Professional_Information.objects.get(professional_id=prescription.professional_id)
-        tests = Prescription_test.objects.filter(prescription=prescription).filter(test_info_pay_status='Paid')
+        serviceRequest =ServiceRequest.objects.get(serviceRequest_id=pk)
+        client = Client.objects.get(client_id=serviceRequest.client_id)
+        professional = Professional_Information.objects.get(professional_id=serviceRequest.professional_id)
+        tests = ServiceRequest_test.objects.filter(serviceRequest=serviceRequest).filter(test_info_pay_status='Paid')
 
 
         if request.method == 'POST':
@@ -63,7 +63,7 @@ def create_report(request, pk):
 
             return redirect('myclient-list')
 
-        context = {'prescription':prescription,'technical_specialists':technical_specialists,'tests':tests}
+        context = {'serviceRequest':serviceRequest,'technical_specialists':technical_specialists,'tests':tests}
         return render(request, 'service_provider_admin/create-report.html',context)
 ```
 

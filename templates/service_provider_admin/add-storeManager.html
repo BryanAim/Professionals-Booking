@@ -10,8 +10,8 @@
 	<title>Professionals Booking</title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="{% static 'proConnect-System/images/admin/favicon.png'%}">
 
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'proConnect-System/images/Normal/favicon.png' %}" />
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="{% static 'proConnect-System/css/admin/bootstrap.min.css'%}">
 
@@ -64,10 +64,10 @@
 								<nav aria-label="breadcrumb" class="page-breadcrumb">
 									<ol class="breadcrumb">
 										<li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-										<li class="breadcrumb-item active" aria-current="page">Edit Pharmacist</li>
+										<li class="breadcrumb-item active" aria-current="page">Create StoreManager</li>
 									</ol>
 								</nav>
-								<h2 class="breadcrumb-title">Edit Pharmacist</h2>
+								<h2 class="breadcrumb-title">Add StoreManager</h2>
 							</div>
 						</div>
 					</div>
@@ -82,81 +82,27 @@
 								<div class="card">
 									<div class="card-header">
 										<!-- Profile Settings Form -->
-										<form action="{% url 'edit-pharmacist' pk=pharmacist.pharmacist_id %}" method="POST"
-											enctype="multipart/form-data">
+										<form action="{% url 'add-storeManager' %}" method="POST" enctype="multipart/form-data">
 											{% csrf_token %}
 
-											<div class="row form-row">
-												<div class="col-12 col-md-12">
+											{% for field in form %}
+											<div class="row form-row justify-content-center">
+												<div class="col-4 col-md-4">
 													<div class="form-group">
-														<div class="change-avatar"></div>
-														<div class="card card-table">
-															<div class="card-body">
-																<div class="table-responsive">
-																	<table class="table table-hover table-center">
-																		<thead>
-																			<tr>
-																				<th style="min-width: 100px">Name</th>
-																				<th style="min-width: 100px">Email</th>
-																				<th style="min-width: 100px">Image</th>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<tr>
-																				<td>
-																					<input class="form-control" type="text" name="name"
-																						value="{{pharmacist.name}}">
-																				</td>
-																				<td>
-																					<input class="form-control" type="email" name="email"
-																						value="{{pharmacist.email}}">
-																				</td>
-																				<td>
-																					<input type="file" class="upload" name="featured_image">
-																				</td>
-																			</tr>
-																		</tbody>
-																	</table>
-																</div>
-															</div>
-														</div>
-														<div class="card card-table">
-															<div class="card-body">
-																<div class="table-responsive">
-																	<table class="table table-hover table-center">
-																		<thead>
-																			<tr>
-																				<th style="min-width: 100px">Usename</th>
-																				<th style="min-width: 100px;">Phone number</th>
-																				<th style="min-width: 100px;">Age</th>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<tr>
-																				<td>
-																					<input class="form-control" type="text" readonly
-																						value="{{pharmacist.username}}">
-																				</td>
-																				<td>
-																					<input class="form-control" type="text" name="phone_number"
-																						value="{{pharmacist.phone_number}}">
-																				</td>
-																				<td>
-																					<input class="form-control" type="text" name="age" value="{{pharmacist.age}}">
-																				</td>
-																			</tr>
-																		</tbody>
-																	</table>
-																</div>
-															</div>
-														</div>
+														<label class="focus-label">{{ field.label }}</label>
+														{{field}}
 													</div>
+												</div>
+											</div>
+											{% endfor %}
 
-													<div class="submit-section">
-														<button type="submit" class="btn btn-primary submit-btn">
-															Save Changes
-														</button>
-													</div>
+
+
+											<div class="submit-section">
+												<button type="submit" class="btn btn-primary submit-btn">
+													Save Changes
+												</button>
+											</div>
 
 										</form>
 										<!-- /Profile Settings Form -->

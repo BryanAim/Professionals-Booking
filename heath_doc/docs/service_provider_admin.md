@@ -6,7 +6,7 @@ ServiceProvider Admin is a cruical User for our project.
 
 - Accept / Reject Professional
 - Add and View Labworker
-- Add and View Pharmacist
+- Add and View StoreManager
 - Add,Edit and View ServiceProvider
 - Update ServiceProvider Information
 
@@ -117,36 +117,36 @@ def add_lab_worker(request):
 ![title](admins/add labratory.png)
 ![title](admins/view labratory.png)
 
-# Add and View Pharmacist
+# Add and View StoreManager
 
 ```python
-def add_pharmacist(request):
+def add_storeManager(request):
     if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
-        form = PharmacistCreationForm()
+        form = StoreManagerCreationForm()
 
         if request.method == 'POST':
-            form = PharmacistCreationForm(request.POST)
+            form = StoreManagerCreationForm(request.POST)
             if form.is_valid():
                 # form.save(), commit=False --> don't save to database yet (we have a chance to modify object)
                 user = form.save(commit=False)
-                user.is_pharmacist = True
+                user.is_storeManager = True
                 user.save()
 
-                messages.success(request, 'Pharmacist account was created!')
+                messages.success(request, 'StoreManager account was created!')
 
                 # After user is created, we can log them in
                 #login(request, user)
-                return redirect('pharmacist-list')
+                return redirect('storeManager-list')
         else:
             messages.error(request, 'An error has occurred during registration')
 
     context = {'form': form, 'admin': user}
-    return render(request, 'service_provider_admin/add-pharmacist.html', context)
+    return render(request, 'service_provider_admin/add-storeManager.html', context)
 ```
 
-![title](admins/add pharmacist.png)
-![title](admins/view pharmacist.png)
+![title](admins/add storeManager.png)
+![title](admins/view storeManager.png)
 
 # Add,Edit and View ServiceProvider
 

@@ -232,7 +232,7 @@ def view_report(request,pk):
 ## View Medical Shop
 
 ```python
-  def pharmacy_shop(request):
+  def store_shop(request):
     if request.user.is_authenticated and request.user.is_client:
 
         client = Client.objects.get(user=request.user)
@@ -245,10 +245,10 @@ def view_report(request,pk):
         if carts.exists() and orders.exists():
             order = orders[0]
             context = {'client': client, 'medicines': medicines,'carts': carts,'order': order, 'orders': orders, 'search_query': search_query}
-            return render(request, 'Pharmacy/shop.html', context)
+            return render(request, 'Store/shop.html', context)
         else:
             context = {'client': client, 'medicines': medicines,'carts': carts,'orders': orders, 'search_query': search_query}
-            return render(request, 'Pharmacy/shop.html', context)
+            return render(request, 'Store/shop.html', context)
 
     else:
         logout(request)
@@ -258,7 +258,7 @@ def view_report(request,pk):
 
 ## Medical Shop Page
 
-![title](pharmacy/Screenshot (246).png)
+![title](store/Screenshot (246).png)
 
 ## Medical Shop Cart
 
@@ -274,11 +274,11 @@ def cart_view(request):
         if carts.exists() and orders.exists():
             order = orders[0]
             context = {'carts': carts,'order': order}
-            return render(request, 'Pharmacy/cart.html', context)
+            return render(request, 'Store/cart.html', context)
         else:
             messages.warning(request, "You don't have any item in your cart!")
             context = {'client': client,'medicines': medicines}
-            return render(request, 'pharmacy/shop.html', context)
+            return render(request, 'store/shop.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
@@ -288,4 +288,4 @@ def cart_view(request):
 
 ## Medical Shop cart page
 
-![title](pharmacy/Screenshot (247).png)
+![title](store/Screenshot (247).png)

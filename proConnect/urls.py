@@ -34,7 +34,7 @@ urlpatterns = [
     path('service_provider_admin/', include('service_provider_admin.urls')),
     path('chat/', include('ChatApp.urls')),
     path('sslcommerz/', include('sslcommerz.urls')),
-    path('pharmacy/', include('pharmacy.urls')),
+    path('store/', include('store.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     
     # For forgot password views and reset password views

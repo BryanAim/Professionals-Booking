@@ -1,7 +1,7 @@
 from django.db import models
 from professional.models import Appointment, testOrder, Prescription
 from service_provider.models import Client
-from pharmacy.models import ServiceOrder
+from store.models import ServiceOrder
 
 # Create your models here.
 

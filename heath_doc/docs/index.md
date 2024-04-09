@@ -7,7 +7,7 @@
         index.md   # This document is about the overview of our website ( Services we provide through our website).
         service_provider.md  # Documantation of our websites' multiple service_provider information, availabe professionals information.
         Lab_worker.md # Documentation of a lab worker's services in our website.
-        Pharmacist.md # Documentation of a pharmacists' services in our website.
+        StoreManager.md # Documentation of a storeManagers' services in our website.
         service_provider_admin # Documentation of a service_provider admin's services in our website.
         professional.md # Documentation of a professional's services in our website.
         client.md # Documentation of the services a client avail from our website.
@@ -23,7 +23,7 @@ Healthstack is an internet platform that supports numerous service_providers. It
 - Online Appointment
 - Presctiption,Test
 - Report
-- Pharmacy
+- Store
 - Online Chat
 - Online Payment
 - Mail

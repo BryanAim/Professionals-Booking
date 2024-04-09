@@ -18,7 +18,7 @@ class Admin_Information(models.Model):
     ADMIN_TYPE = (
         ('service_provider', 'Service Provider'),
         ('laboratory', 'Laboratory'),
-        ('pharmacy', 'Pharmacy'),
+        ('store', 'Store'),
         ('legal', 'Legal Services'),
         ('engineering', 'Engineering Services'),
         # Add other types as needed

@@ -57,11 +57,11 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col-sm-12">
-								<h3 class="page-title">List of Pharmacist</h3>
+								<h3 class="page-title">List of StoreManager</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
 									<li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
-									<li class="breadcrumb-item active">Pharmacist </li>
+									<li class="breadcrumb-item active">StoreManager </li>
 								</ul>
 								{% include 'message.html' %}
 							</div>
@@ -83,7 +83,7 @@
 													<th>Action</th>
 												</tr>
 											<tbody>
-												{% for p in pharmacist %}
+												{% for p in storeManager %}
 												<tr>
 													<td>
 														<h2 class="table-avatar">
@@ -99,7 +99,7 @@
 													<td>{{p.phone_number}}</td>
 													<td>
 														<div class="table-action">
-															<a href="{% url 'edit-pharmacist' pk=p.pharmacist_id %}"
+															<a href="{% url 'edit-storeManager' pk=p.storeManager_id %}"
 																class="btn btn-outline-info btn-rounded">
 																<i class="fas fa-file-alt"></i> Edit User
 															</a>

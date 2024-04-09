@@ -1,5 +1,5 @@
 from django.db.models import Q
-from pharmacy.models import Product
+from store.models import Product
 
 
 def searchProducts(request):

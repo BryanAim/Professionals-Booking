@@ -313,21 +313,21 @@
               <!-- Recent Orders -->
               <div class="card card-table flex-fill">
                 <div class="card-header">
-                  <h4 class="card-title">Pharmacist List</h4>
+                  <h4 class="card-title">StoreManager List</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table table-hover table-center mb-0">
                       <thead>
                         <tr>
-                          <th>Pharmacist Name</th>
+                          <th>StoreManager Name</th>
                           <th>Email</th>
                           <th>Phone Number</th>
 
                         </tr>
                       </thead>
                       <tbody>
-                        {% for p in pharmacists %}
+                        {% for p in storeManagers %}
                         <tr>
                           <td>
                             <h2 class="table-avatar">
@@ -436,7 +436,7 @@
     var total_client_count = "{{total_client_count.count}}";
     var total_labworker_count = "{{total_labworker_count.count}}";
     var total_service_provider_count = "{{total_service_provider_count.count}}";
-    var total_pharmacist_count = "{{total_pharmacist_count.count}}";
+    var total_storeManager_count = "{{total_storeManager_count.count}}";
 
     var sat = "{{sat}}";
     var sat_count = "{{sat_count}}";

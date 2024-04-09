@@ -11,11 +11,11 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from service_provider.models import Service_Provider_Information, User, Client
 from django.db.models import Q
-from pharmacy.models import Product, Pharmacist
+from store.models import Product, StoreManager
 from professional.models import Professional_Information, Prescription, Prescription_test, Report, Appointment, Experience , Education,Specimen,Test
-from pharmacy.models import ServiceOrder, Cart
+from store.models import ServiceOrder, Cart
 from sslcommerz.models import Payment
-from .forms import AdminUserCreationForm, LabWorkerCreationForm, EditServiceProviderForm, EditEmergencyForm,AdminForm , PharmacistCreationForm 
+from .forms import AdminUserCreationForm, LabWorkerCreationForm, EditServiceProviderForm, EditEmergencyForm,AdminForm , StoreManagerCreationForm 
 
 from .models import Admin_Information,specialization,service,ServiceDepartment, Clinical_Laboratory_Technician, Test_Information
 import random,re
@@ -42,7 +42,7 @@ def admin_dashboard(request):
         user = Admin_Information.objects.get(user=request.user)
         total_client_count = Client.objects.annotate(count=Count('client_id'))
         total_professional_count = Professional_Information.objects.annotate(count=Count('professional_id'))
-        total_pharmacist_count = Pharmacist.objects.annotate(count=Count('pharmacist_id'))
+        total_storeManager_count = StoreManager.objects.annotate(count=Count('storeManager_id'))
         total_service_provider_count = Service_Provider_Information.objects.annotate(count=Count('service_provider_id'))
         total_labworker_count = Clinical_Laboratory_Technician.objects.annotate(count=Count('technician_id'))
         pending_appointment = Appointment.objects.filter(appointment_status='pending').count()
@@ -50,7 +50,7 @@ def admin_dashboard(request):
         clients = Client.objects.all()
         service_providers = Service_Provider_Information.objects.all()
         lab_workers = Clinical_Laboratory_Technician.objects.all()
-        pharmacists = Pharmacist.objects.all()
+        storeManagers = StoreManager.objects.all()
         
         sat_date = datetime.date.today()
         sat_date_str = str(sat_date)
@@ -88,7 +88,7 @@ def admin_dashboard(request):
         thurs_count = Appointment.objects.filter(date=thurs_date_str).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed')).count()
         fri_count = Appointment.objects.filter(date=fri_date_str).filter(Q(appointment_status='pending') | Q(appointment_status='confirmed')).count()
 
-        context = {'admin': user,'total_client_count': total_client_count,'total_professional_count':total_professional_count,'pending_appointment':pending_appointment,'professionals':professionals,'clients':clients,'service_providers':service_providers,'lab_workers':lab_workers,'total_pharmacist_count':total_pharmacist_count,'total_service_provider_count':total_service_provider_count,'total_labworker_count':total_labworker_count,'sat_count': sat_count, 'sun_count': sun_count, 'mon_count': mon_count, 'tues_count': tues_count, 'wed_count': wed_count, 'thurs_count': thurs_count, 'fri_count': fri_count, 'sat': sat, 'sun': sun, 'mon': mon, 'tues': tues, 'wed': wed, 'thurs': thurs, 'fri': fri, 'pharmacists': pharmacists}
+        context = {'admin': user,'total_client_count': total_client_count,'total_professional_count':total_professional_count,'pending_appointment':pending_appointment,'professionals':professionals,'clients':clients,'service_providers':service_providers,'lab_workers':lab_workers,'total_storeManager_count':total_storeManager_count,'total_service_provider_count':total_service_provider_count,'total_labworker_count':total_labworker_count,'sat_count': sat_count, 'sun_count': sun_count, 'mon_count': mon_count, 'tues_count': tues_count, 'wed_count': wed_count, 'thurs_count': thurs_count, 'fri_count': fri_count, 'sat': sat, 'sun': sun, 'mon': mon, 'tues': tues, 'wed': wed, 'thurs': thurs, 'fri': fri, 'storeManagers': storeManagers}
         return render(request, 'service_provider_admin/admin-dashboard.html', context)
     elif request.user.is_labworker:
         # messages.error(request, 'You are not authorized to access this page')
@@ -126,9 +126,9 @@ def admin_login(request):
             elif user.is_labworker:
                 messages.success(request, 'User logged in')
                 return redirect('labworker-dashboard')
-            elif user.is_pharmacist:
+            elif user.is_storeManager:
                 messages.success(request, 'User logged in')
-                return redirect('pharmacist-dashboard')
+                return redirect('storeManager-dashboard')
             else:
                 return redirect('admin-logout')
         else:
@@ -557,36 +557,36 @@ def create_report(request, pk):
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def add_pharmacist(request):
+def add_storeManager(request):
     if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
-        form = PharmacistCreationForm()
+        form = StoreManagerCreationForm()
      
         if request.method == 'POST':
-            form = PharmacistCreationForm(request.POST)
+            form = StoreManagerCreationForm(request.POST)
             if form.is_valid():
                 # form.save(), commit=False --> don't save to database yet (we have a chance to modify object)
                 user = form.save(commit=False)
-                user.is_pharmacist = True
+                user.is_storeManager = True
                 user.save()
 
-                messages.success(request, 'Pharmacist account was created!')
+                messages.success(request, 'StoreManager account was created!')
 
                 # After user is created, we can log them in
                 #login(request, user)
-                return redirect('pharmacist-list')
+                return redirect('storeManager-list')
             else:
                 messages.error(request, 'An error has occurred during registration')
     
     context = {'form': form, 'admin': user}
-    return render(request, 'service_provider_admin/add-pharmacist.html', context)
+    return render(request, 'service_provider_admin/add-storeManager.html', context)
   
 @csrf_exempt
 @login_required(login_url='admin_login')
 def product_list(request):
     if request.user.is_authenticated:
-        if request.user.is_pharmacist:
-            pharmacist = Pharmacist.objects.get(user=request.user)
+        if request.user.is_storeManager:
+            storeManager = StoreManager.objects.get(user=request.user)
             product = Product.objects.all()
             orders = ServiceOrder.objects.filter(user=request.user, ordered=False)
             carts = Cart.objects.filter(user=request.user, purchased=False)
@@ -596,14 +596,14 @@ def product_list(request):
             if carts.exists() and orders.exists():
                 order = orders[0]
                 context = {'product':product,
-                        'pharmacist':pharmacist,
+                        'storeManager':storeManager,
                         'search_query': search_query,
                         'order': order,
                         'carts': carts,}
                 return render(request, 'service_provider_admin/product-list.html',context)
             else:
                 context = {'product':product,
-                            'pharmacist':pharmacist,
+                            'storeManager':storeManager,
                             'search_query': search_query,
                             'orders': orders,
                             'carts': carts,}
@@ -621,8 +621,8 @@ def generate_random_product_ID():
 @csrf_exempt
 @login_required(login_url='admin_login')
 def add_product(request):
-    if request.user.is_pharmacist:
-     user = Pharmacist.objects.get(user=request.user)
+    if request.user.is_storeManager:
+     user = StoreManager.objects.get(user=request.user)
      
     if request.method == 'POST':
        product = Product()
@@ -662,8 +662,8 @@ def add_product(request):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def edit_product(request, pk):
-    if request.user.is_pharmacist:
-        user = Pharmacist.objects.get(user=request.user)
+    if request.user.is_storeManager:
+        user = StoreManager.objects.get(user=request.user)
         
         product = Product.objects.get(serial_number=pk)
         old_product_image = product.featured_image
@@ -704,8 +704,8 @@ def edit_product(request, pk):
 @csrf_exempt
 @login_required(login_url='admin_login')
 def delete_product(request, pk):
-    if request.user.is_pharmacist:
-        user = Pharmacist.objects.get(user=request.user)
+    if request.user.is_storeManager:
+        user = StoreManager.objects.get(user=request.user)
         product = Product.objects.get(serial_number=pk)
         product.delete()
         return redirect('product-list')
@@ -748,12 +748,12 @@ def view_lab_worker(request):
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def view_pharmacist(request):
+def view_storeManager(request):
     if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
-        pharmcists = Pharmacist.objects.all()
+        pharmcists = StoreManager.objects.all()
         
-    return render(request, 'service_provider_admin/pharmacist-list.html', {'pharmacist': pharmcists, 'admin': user})
+    return render(request, 'service_provider_admin/storeManager-list.html', {'storeManager': pharmcists, 'admin': user})
 
 @csrf_exempt
 @login_required(login_url='admin_login')
@@ -788,10 +788,10 @@ def edit_lab_worker(request, pk):
 
 @csrf_exempt
 @login_required(login_url='admin_login')
-def edit_pharmacist(request, pk):
+def edit_storeManager(request, pk):
     if request.user.is_service_provider_admin:
         user = Admin_Information.objects.get(user=request.user)
-        pharmacist = Pharmacist.objects.get(pharmacist_id=pk)
+        storeManager = StoreManager.objects.get(storeManager_id=pk)
         
         if request.method == 'POST':
             if 'featured_image' in request.FILES:
@@ -804,17 +804,17 @@ def edit_pharmacist(request, pk):
             phone_number = request.POST.get('phone_number')
             age = request.POST.get('age')  
     
-            pharmacist.name = name
-            pharmacist.email = email
-            pharmacist.phone_number = phone_number
-            pharmacist.age = age
-            pharmacist.featured_image = featured_image
+            storeManager.name = name
+            storeManager.email = email
+            storeManager.phone_number = phone_number
+            storeManager.age = age
+            storeManager.featured_image = featured_image
     
-            pharmacist.save()
-            messages.success(request, 'Pharmacist updated!')
-            return redirect('pharmacist-list')
+            storeManager.save()
+            messages.success(request, 'StoreManager updated!')
+            return redirect('storeManager-list')
         
-    return render(request, 'service_provider_admin/edit-pharmacist.html', {'pharmacist': pharmacist, 'admin': user})
+    return render(request, 'service_provider_admin/edit-storeManager.html', {'storeManager': storeManager, 'admin': user})
 
 @csrf_exempt
 @login_required(login_url='admin_login')
@@ -1034,23 +1034,23 @@ def delete_test(request,pk):
             return redirect('test-list')
 
 @csrf_exempt
-def pharmacist_dashboard(request):
+def storeManager_dashboard(request):
     if request.user.is_authenticated:
-        if request.user.is_pharmacist:
-            pharmacist = Pharmacist.objects.get(user=request.user)
-            total_pharmacist_count = Pharmacist.objects.annotate(count=Count('pharmacist_id'))
+        if request.user.is_storeManager:
+            storeManager = StoreManager.objects.get(user=request.user)
+            total_storeManager_count = StoreManager.objects.annotate(count=Count('storeManager_id'))
             total_product_count = Product.objects.annotate(count=Count('serial_number'))
             total_order_count = ServiceOrder.objects.annotate(count=Count('orderitems'))
             total_cart_count = Cart.objects.annotate(count=Count('item'))
 
             product = Product.objects.all()
             
-            context = {'pharmacist':pharmacist, 'product':product,
-                       'total_pharmacist_count':total_pharmacist_count, 
+            context = {'storeManager':storeManager, 'product':product,
+                       'total_storeManager_count':total_storeManager_count, 
                        'total_product_count':total_product_count, 
                        'total_order_count':total_order_count,
                        'total_cart_count':total_cart_count}
-            return render(request, 'service_provider_admin/pharmacist-dashboard.html',context)
+            return render(request, 'service_provider_admin/storeManager-dashboard.html',context)
 
 @csrf_exempt
 def report_history(request):

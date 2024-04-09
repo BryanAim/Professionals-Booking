@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'service_provider.apps.ServiceProviderConfig',
     'service_provider_admin.apps.ServiceProviderAdminConfig',
     'professional.apps.ProfessionalConfig',
-    'pharmacy.apps.PharmacyConfig',
+    'store.apps.StoreConfig',
     'sslcommerz.apps.SslcommerzConfig',
     'widget_tweaks',
     'rest_framework',

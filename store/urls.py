@@ -11,8 +11,8 @@ from django.contrib import admin
 
 
 urlpatterns = [
-    path('product-single/<int:pk>/', views.pharmacy_single_product, name='product-single'),
-    path('shop/', views.pharmacy_shop, name='pharmacy_shop'),
+    path('product-single/<int:pk>/', views.store_single_product, name='product-single'),
+    path('shop/', views.store_shop, name='store_shop'),
     path('cart/', views.cart_view, name='cart'),
     path('remove-item/<int:pk>/', views.remove_from_cart, name='remove-item'),
     path('checkout/', views.checkout, name='checkout'),

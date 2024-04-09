@@ -1,6 +1,6 @@
-# Welcome to Pharmacist
+# Welcome to StoreManager
 
-## The main duties of a pharmacist includes:
+## The main duties of a storeManager includes:
 
 - `Administrative tasks such as add medicines information.`
 - `Edit medicine information.`
@@ -12,8 +12,8 @@
 
 ```python
 def add_medicine(request):
-    if request.user.is_pharmacist:
-     user = Pharmacist.objects.get(user=request.user)
+    if request.user.is_storeManager:
+     user = StoreManager.objects.get(user=request.user)
 
     if request.method == 'POST':
        medicine = Medicine()
@@ -53,4 +53,4 @@ def add_medicine(request):
 
 ## Medicine Table
 
-![title](pharmacist /Screenshot (244).png)
+![title](storeManager /Screenshot (244).png)

@@ -5,7 +5,7 @@ nav:
   - Homepage: service_provider.md
   - Admin:
       - Labworker: Lab_worker.md
-      - Pharmacist: Pharmacist.md
+      - StoreManager: StoreManager.md
       - ServiceProvider Admin: service_provider_admin.md
   - Professional Dashboard: professional.md
   - Client Dashboard: client.md

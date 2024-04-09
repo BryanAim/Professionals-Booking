@@ -141,8 +141,8 @@ def chat_professional(request):
 
 @csrf_exempt     
 @login_required(login_url="login")
-def pharmacy_shop(request):
-    return render(request, 'pharmacy/shop.html')
+def store_shop(request):
+    return render(request, 'store/shop.html')
 
 @csrf_exempt
 def login_user(request):

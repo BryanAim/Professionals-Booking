@@ -5,7 +5,7 @@ from .models import Client, User
 from professional.models import Professional_Information
 from service_provider_admin.models import Admin_Information, Clinical_Laboratory_Technician
 
-from pharmacy.models import Pharmacist
+from store.models import StoreManager
 
 import random
 import string
@@ -46,9 +46,9 @@ def createClient(sender, instance, created, **kwargs):
             user = instance
             Admin_Information.objects.create(
                 user=user, username=user.username, email=user.email)
-        elif instance.is_pharmacist:
+        elif instance.is_storeManager:
             user = instance
-            Pharmacist.objects.create(user=user, username=user.username, email=user.email)
+            StoreManager.objects.create(user=user, username=user.username, email=user.email)
         elif instance.is_labworker:
             user = instance
             Clinical_Laboratory_Technician.objects.create(user=user, username=user.username, email=user.email)

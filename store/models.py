@@ -8,13 +8,13 @@ from service_provider.models import User, Client
 
 # Create your models here.
 
-class Pharmacist(models.Model):
-    pharmacist_id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='pharmacist')
+class StoreManager(models.Model):
+    storeManager_id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='storeManager')
     name = models.CharField(max_length=200, null=True, blank=True)
     username = models.CharField(max_length=200, null=True, blank=True)
     degree = models.CharField(max_length=200, null=True, blank=True)
-    featured_image = models.ImageField(upload_to='professionals/', default='pharmacist/user-default.png', null=True, blank=True)
+    featured_image = models.ImageField(upload_to='professionals/', default='storeManager/user-default.png', null=True, blank=True)
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone_number = models.IntegerField(null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)

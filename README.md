@@ -13,7 +13,7 @@
 
 ## Features
 
-- **Users:** User, Professional, ServiceProvider Admin, Client, Pharmacist
+- **Users:** User, Professional, ServiceProvider Admin, Client, StoreManager
 
 ### User
 
@@ -26,7 +26,7 @@
       7)  Choose which tests to pay (Cart System, payment + mail confirmation)
       8)  View Report, Download Report (PDF)
       9)  Give Professional Review
-      10) Search for Medicines in Medical Shop (Pharmacy)
+      10) Search for Products in Shop (Store)
       11) Select which medicines to purchase (Cart system), pay total amount for medicines (payment + mail confirmation)
 
 ### Professional
@@ -44,7 +44,7 @@
       3)  CRUD ServiceProviders (Add more)
       4)  View ServiceProvider List → CRUD Departments within service_provider
       5)  CRUD Lab Worker
-      6)  CRUD Pharmacist
+      6)  CRUD StoreManager
 
 ### Lab worker
 
@@ -52,9 +52,9 @@
       2)  Create Report for client.
       3)  Create Tests for service_providers, View Tests
 
-### Pharmacist
+### StoreManager
 
-      1)  Pharmacist Dashboard
+      1)  StoreManager Dashboard
       2)  CRUD Medicines
       3)  Search Medicine
 

@@ -7,7 +7,7 @@ import random
 import string
 from .models import Payment
 from service_provider.models import Client
-from pharmacy.models import ServiceOrder, Cart
+from store.models import ServiceOrder, Cart
 from professional.models import Appointment, Prescription, Prescription_test, testCart, testOrder 
 from django.contrib.auth.decorators import login_required
 
@@ -206,7 +206,7 @@ def ssl_payment_request_product(request, pk, id):
     # payment.services_fee = appointment.professional.services_fee
     payment.invoice_number = invoice_number
     
-    payment_type = "pharmacy"
+    payment_type = "store"
     payment.payment_type = payment_type
     payment.save()
     
@@ -468,7 +468,7 @@ def ssl_payment_success(request):
             return redirect('client-dashboard')
             
             
-        elif payment_type == "pharmacy":
+        elif payment_type == "store":
             payment.val_transaction_id = payment_data['val_id']
             payment.currency_amount = payment_data['currency_amount']
             payment.card_type = payment_data['card_type']
@@ -511,7 +511,7 @@ def ssl_payment_success(request):
                 order_cart.append(ob[i])
             
         
-            subject = "Payment Receipt for pharmacy"
+            subject = "Payment Receipt for store"
             
             values = {
                     "email":client_email,
@@ -527,7 +527,7 @@ def ssl_payment_success(request):
                     "order_cart":order_cart,
                 }
             
-            html_message = render_to_string('pharmacy_mail_payment_template.html', {'values': values})
+            html_message = render_to_string('store_mail_payment_template.html', {'values': values})
             plain_message = strip_tags(html_message)
             
             try:

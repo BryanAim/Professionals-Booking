@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from service_provider.models import Client
-from pharmacy.models import Product, Cart, ServiceOrder
+from store.models import Product, Cart, ServiceOrder
 from .utils import searchProducts
 from django.views.decorators.csrf import csrf_exempt
 
@@ -24,7 +24,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 @login_required(login_url="login")
-def pharmacy_single_product(request,pk):
+def store_single_product(request,pk):
      if request.user.is_authenticated and request.user.is_client:
          
         client = Client.objects.get(user=request.user)
@@ -34,10 +34,10 @@ def pharmacy_single_product(request,pk):
         if carts.exists() and orders.exists():
             order = orders[0]
             context = {'client': client, 'products': products,'carts': carts,'order': order, 'orders': orders}
-            return render(request, 'pharmacy/product-single.html',context)
+            return render(request, 'store/product-single.html',context)
         else:
             context = {'client': client, 'products': products,'carts': carts,'orders': orders}
-            return render(request, 'pharmacy/product-single.html',context)
+            return render(request, 'store/product-single.html',context)
      else:
         logout(request)
         messages.error(request, 'Not Authorized')
@@ -45,7 +45,7 @@ def pharmacy_single_product(request,pk):
 
 @csrf_exempt
 @login_required(login_url="login")
-def pharmacy_shop(request):
+def store_shop(request):
     if request.user.is_authenticated and request.user.is_client:
         
         client = Client.objects.get(user=request.user)
@@ -58,10 +58,10 @@ def pharmacy_shop(request):
         if carts.exists() and orders.exists():
             order = orders[0]
             context = {'client': client, 'products': products,'carts': carts,'order': order, 'orders': orders, 'search_query': search_query}
-            return render(request, 'Pharmacy/shop.html', context)
+            return render(request, 'Store/shop.html', context)
         else:
             context = {'client': client, 'products': products,'carts': carts,'orders': orders, 'search_query': search_query}
-            return render(request, 'Pharmacy/shop.html', context)
+            return render(request, 'Store/shop.html', context)
     
     else:
         logout(request)
@@ -71,7 +71,7 @@ def pharmacy_shop(request):
 @csrf_exempt
 @login_required(login_url="login")
 def checkout(request):
-    return render(request, 'pharmacy/checkout.html')
+    return render(request, 'store/checkout.html')
 
 @csrf_exempt
 @login_required(login_url="login")
@@ -91,20 +91,20 @@ def add_to_cart(request, pk):
                 order_item[0].save()
                 # messages.warning(request, "This item quantity was updated!")
                 context = {'client': client,'products': products, 'order': order}
-                return render(request, 'pharmacy/shop.html', context)
+                return render(request, 'store/shop.html', context)
             
             else:
                 order.orderitems.add(order_item[0])
                 # messages.warning(request, "This item is added to your cart!")
                 context = {'client': client,'products': products,'order': order}
-                return render(request, 'pharmacy/shop.html', context)
+                return render(request, 'store/shop.html', context)
         else:
             order = ServiceOrder(user=request.user)
             order.save()
             order.orderitems.add(order_item[0])
             # messages.warning(request, "This item is added to your cart!")
             context = {'client': client,'products': products,'order': order}
-            return render(request, 'pharmacy/shop.html', context)
+            return render(request, 'store/shop.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
@@ -123,11 +123,11 @@ def cart_view(request):
         if carts.exists() and orders.exists():
             order = orders[0]
             context = {'carts': carts,'order': order}
-            return render(request, 'Pharmacy/cart.html', context)
+            return render(request, 'Store/cart.html', context)
         else:
             messages.warning(request, "You don't have any item in your cart!")
             context = {'client': client,'products': products}
-            return render(request, 'pharmacy/shop.html', context)
+            return render(request, 'store/shop.html', context)
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
@@ -152,15 +152,15 @@ def remove_from_cart(request, pk):
                 order_item.delete()
                 messages.warning(request, "This item was remove from your cart!")
                 context = {'carts': carts,'order': order}
-                return render(request, 'Pharmacy/cart.html', context)
+                return render(request, 'Store/cart.html', context)
             else:
                 messages.info(request, "This item was not in your cart")
                 context = {'client': client,'products': products}
-                return render(request, 'pharmacy/shop.html', context)
+                return render(request, 'store/shop.html', context)
         else:
             messages.info(request, "You don't have an active order")
             context = {'client': client,'products': products}
-            return render(request, 'pharmacy/shop.html', context)
+            return render(request, 'store/shop.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
@@ -186,15 +186,15 @@ def increase_cart(request, pk):
                     order_item.save()
                     messages.warning(request, f"{item.name} quantity has been updated")
                     context = {'carts': carts,'order': order}
-                    return render(request, 'Pharmacy/cart.html', context)
+                    return render(request, 'Store/cart.html', context)
             else:
                 messages.warning(request, f"{item.name} is not in your cart")
                 context = {'client': client,'products': products}
-                return render(request, 'pharmacy/shop.html', context)
+                return render(request, 'store/shop.html', context)
         else:
             messages.warning(request, "You don't have an active order")
             context = {'client': client,'products': products}
-            return render(request, 'pharmacy/shop.html', context)
+            return render(request, 'store/shop.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')
@@ -220,21 +220,21 @@ def decrease_cart(request, pk):
                     order_item.save()
                     messages.warning(request, f"{item.name} quantity has been updated")
                     context = {'carts': carts,'order': order}
-                    return render(request, 'Pharmacy/cart.html', context)
+                    return render(request, 'Store/cart.html', context)
                 else:
                     order.orderitems.remove(order_item)
                     order_item.delete()
                     messages.warning(request, f"{item.name} item has been removed from your cart")
                     context = {'carts': carts,'order': order}
-                    return render(request, 'Pharmacy/cart.html', context)
+                    return render(request, 'Store/cart.html', context)
             else:
                 messages.info(request, f"{item.name} is not in your cart")
                 context = {'client': client,'products': products}
-                return render(request, 'pharmacy/shop.html', context)
+                return render(request, 'store/shop.html', context)
         else:
             messages.info(request, "You don't have an active order")
             context = {'client': client,'products': products}
-            return render(request, 'pharmacy/shop.html', context)
+            return render(request, 'store/shop.html', context)
     else:
         logout(request)
         messages.error(request, 'Not Authorized')

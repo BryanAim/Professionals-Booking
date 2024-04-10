@@ -23,7 +23,7 @@ ProConnect Limited is a premier platform dedicated to connecting clients with to
       4)  Search all Professionals in all professional_services
       5)  Chat with appointed Professional
       6)  View ServiceRequest, Download ServiceRequest (PDF)
-      7)  Choose which tests to pay (Cart System, payment + mail confirmation)
+      7)  Choose which products to pay (Cart System, payment + mail confirmation)
       8)  View Report, Download Report (PDF)
       9)  Give Professional Review
       10) Search for Products in Shop (Store)

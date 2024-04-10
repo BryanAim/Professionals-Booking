@@ -42,19 +42,19 @@
       1)  Admin Dashboard
       2)  Accept or reject professional registration (view professional profile to see details)
       3)  CRUD ProfessionalServices (Add more)
-      4)  View ProfessionalService List → CRUD Departments within professional_service
+      4)  View ProfessionalService List → CRUD Departments within professional service
       5)  CRUD Technical Specialist
       6)  CRUD StoreManager
 
-### Lab worker
+### Technical Specialist
 
       1)  Technical Specialist Dashboard
       2)  Create Report for client.
-      3)  Create Tests for professional_services, View Tests
+      3)  Create Tests for professional services, View Tests
 
-### StoreManager
+### Store Manager
 
-      1)  StoreManager Dashboard
+      1)  Store Manager Dashboard
       2)  CRUD Products
       3)  Search Product
 

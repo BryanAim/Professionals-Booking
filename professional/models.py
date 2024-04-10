@@ -24,57 +24,6 @@ Django automatically creates id field for each model class which will be a PK # 
 # Create your models here.
 
 
-# class Professional_Information(models.Model):
-#     SERVICE_TYPE_CHOICES = (
-#         ('medical', 'Medical Services'),
-#         ('legal', 'Legal Services'),
-#         ('engineering', 'Engineering Services'),
-#         ('art', 'Art & Design'),
-#         # Add more as needed
-#     )
-    
-#     professional_id = models.AutoField(primary_key=True)
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='profile')
-#     name = models.CharField(max_length=200, null=True, blank=True)
-#     username = models.CharField(max_length=200, null=True, blank=True)
-#     gender = models.CharField(max_length=200, null=True, blank=True)
-#     description = models.TextField(max_length=1000, null=True, blank=True)
-#     department = models.CharField(max_length=200, choices=SERVICE_TYPE_CHOICES, null=True, blank=True)
-#     department_name = models.ForeignKey(hospital_department, on_delete=models.SET_NULL, null=True, blank=True)
-#     specialization = models.ForeignKey(specialization, on_delete=models.SET_NULL, null=True, blank=True)
-
-#     featured_image = models.ImageField(upload_to='professionals/', default='professionals/user-default.png', null=True, blank=True)
-#     certificate_image = models.ImageField(upload_to='professionals_certificate/', default='professionals_certificate/default.png', null=True, blank=True)
-
-#     email = models.EmailField(max_length=200, null=True, blank=True)
-#     phone_number = models.CharField(max_length=200, null=True, blank=True)
-#     nid = models.CharField(max_length=200, null=True, blank=True)
-#     availability = models.CharField(max_length=200, null=True, blank=True)
-#     consultation_fee = models.IntegerField(null=True, blank=True)
-#     report_fee = models.IntegerField(null=True, blank=True)
-#     dob = models.CharField(max_length=200, null=True, blank=True)
-    
-#     # Education
-#     institute = models.CharField(max_length=200, null=True, blank=True)
-#     degree = models.CharField(max_length=200, null=True, blank=True)
-#     completion_year = models.CharField(max_length=200, null=True, blank=True)
-    
-#     # work experience
-#     work_place = models.CharField(max_length=200, null=True, blank=True)
-#     designation = models.CharField(max_length=200, null=True, blank=True)
-#     start_year = models.CharField(max_length=200, null=True, blank=True)
-#     end_year = models.CharField(max_length=200, null=True, blank=True)
-    
-#     # register_status = models.BooleanField(default=False) default='pending'
-#     register_status =  models.CharField(max_length=200, null=True, blank=True)
-    
-#     # ForeignKey --> one to one relationship with Hospital_Information model.
-#     hospital_name = models.ForeignKey(Hospital_Information, on_delete=models.SET_NULL, null=True, blank=True)
-
-#     def __str__(self):
-#         return str(self.user.username)
-
-
 class Professional_Information(models.Model):
     PROFESSION_CHOICES = (
         ('medical', 'Medical Services'),
@@ -128,34 +77,6 @@ class Professional_Information(models.Model):
 
 
 
-# class Appointment(models.Model):
-#     # ('database value', 'display_name')
-#     APPOINTMENT_TYPE = (
-#         ('report', 'report'),
-#         ('checkup', 'checkup'),
-#     )
-#     APPOINTMENT_STATUS = (
-#         ('pending', 'pending'),
-#         ('confirmed', 'confirmed'),
-#         ('cancelled', 'cancelled'),
-#     )
-
-#     id = models.AutoField(primary_key=True)
-#     date = models.DateField(null=True, blank=True)
-#     time = models.CharField(max_length=200, null=True, blank=True)
-#     professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE, null=True, blank=True)
-#     client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
-#     appointment_type = models.CharField(max_length=200, choices=APPOINTMENT_TYPE)
-#     appointment_status = models.CharField(max_length=200, choices=APPOINTMENT_STATUS)
-#     serial_number = models.CharField(max_length=200, null=True, blank=True)
-#     payment_status = models.CharField(max_length=200, null=True, blank=True, default='pending')
-#     transaction_id = models.CharField(max_length=255, null=True, blank=True)
-#     message = models.CharField(max_length=255, null=True, blank=True)
-    
-
-#     def __str__(self):
-#         return str(self.client.username)
-
 class Appointment(models.Model):
     APPOINTMENT_TYPE = (
         ('consultation_app', 'Consultation'),
@@ -167,15 +88,6 @@ class Appointment(models.Model):
         ('confirmed', 'Confirmed'),
         ('cancelled', 'Cancelled'),
     )
-    
-    # appointment_id = models.AutoField(primary_key=True)
-    # date = models.DateField()
-    # time = models.CharField(max_length=200)
-    # professional = models.ForeignKey(Professional_Information, on_delete=models.CASCADE)
-    # client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='appointments')
-    # appointment_type = models.CharField(max_length=200, choices=APPOINTMENT_TYPE_CHOICES)
-    # appointment_status = models.CharField(max_length=200, choices=APPOINTMENT_STATUS_CHOICES)
-    # notes = models.TextField(null=True, blank=True)  # To replace 'message', more general
     
     id = models.AutoField(primary_key=True)
     date = models.DateField(null=True, blank=True)

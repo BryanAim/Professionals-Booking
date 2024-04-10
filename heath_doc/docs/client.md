@@ -11,7 +11,7 @@
 - `View Report history`
 - `Profile edit`
 - `Get mail for appointment and payment`
-- `Medical Shop, Search Medicine, and buy Medicine`
+- `Product Shop, Search Medicine, and buy Medicine`
 
 ## View professional_service Information
 
@@ -229,7 +229,7 @@ def view_report(request,pk):
 
 ![title](payment/Screenshot (249).png)
 
-## View Medical Shop
+## View Product Shop
 
 ```python
   def store_shop(request):
@@ -256,11 +256,11 @@ def view_report(request,pk):
         return render(request, 'client-login.html')
 ```
 
-## Medical Shop Page
+## Product Shop Page
 
 ![title](store/Screenshot (246).png)
 
-## Medical Shop Cart
+## Product Shop Cart
 
 ```python
 def cart_view(request):
@@ -286,6 +286,6 @@ def cart_view(request):
 
 ```
 
-## Medical Shop cart page
+## Product Shop cart page
 
 ![title](store/Screenshot (247).png)

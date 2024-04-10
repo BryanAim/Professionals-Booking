@@ -1,6 +1,6 @@
 # Professionals Online booking system
 
-- An online based platform for multiple professional_services. Ability to track, monitor, and share a client's health records between all professional_services. Clients can also see information regarding multiple professional_services and professionals, as well as take appointments via online. Pay laboratory tests via online as well as chat with appointed professionals.
+ProConnect Limited is a premier platform dedicated to connecting clients with top-tier professionals across various industries. Our mission is to facilitate access to a wide range of services, from legal advice and engineering solutions to creative arts and more, all in one place. With a diverse team of experts committed to excellence, we ensure that every interaction is handled with professionalism and tailored to meet the unique needs of each client. At ProConnect Limited, we're more than just a service provider; we're your partner in finding the right professional for every task, ensuring quality, reliability, and personalized attention every step of the way.
 
 - Django Application
 

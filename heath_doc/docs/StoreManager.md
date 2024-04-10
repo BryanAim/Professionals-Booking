@@ -2,13 +2,13 @@
 
 ## The main duties of a storeManager includes:
 
-- `Administrative tasks such as add medicines information.`
+- `Administrative tasks such as add products information.`
 - `Edit medicine information.`
 - `Delete medicine information.`
 - `Search medicine.`
-- `View Medicine information.`
+- `View Product information.`
 
-## Add medicines into database
+## Add products into database
 
 ```python
 def add_medicine(request):
@@ -16,12 +16,12 @@ def add_medicine(request):
      user = StoreManager.objects.get(user=request.user)
 
     if request.method == 'POST':
-       medicine = Medicine()
+       medicine = Product()
 
        if 'featured_image' in request.FILES:
            featured_image = request.FILES['featured_image']
        else:
-           featured_image = "medicines/default.png"
+           featured_image = "products/default.png"
 
        name = request.POST.get('name')
        ServiceRequest_reqiuired = request.POST.get('requirement_type')
@@ -51,6 +51,6 @@ def add_medicine(request):
     return render(request, 'professional_service_admin/add-medicine.html',{'admin': user})
 ```
 
-## Medicine Table
+## Product Table
 
 ![title](storeManager /Screenshot (244).png)

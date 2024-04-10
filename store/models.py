@@ -23,52 +23,6 @@ class StoreManager(models.Model):
         return str(self.user.username)
 
 
-# class Medicine(models.Model):
-#     MEDICINE_TYPE = (
-#         ('tablets', 'tablets'),
-#         ('syrup', 'syrup'),
-#         ('capsule', 'capsule'),
-#         ('general', 'general'),
-#     )
-#     REQUIREMENT_TYPE = (
-#         ('yes', 'yes'),
-#         ('no', 'no'),
-#     )
-    
-#     MEDICINE_CATEGORY = (
-#         ('fever', 'fever'),
-#         ('pain', 'pain'),
-#         ('cough', 'cough'),
-#         ('cold', 'cold'),
-#         ('flu', 'flu'),
-#         ('diabetes', 'diabetes'),
-#         ('eye', 'eye'),
-#         ('ear', 'ear'),
-#         ('allergy', 'allergy'),
-#         ('asthma', 'asthma'),
-#         ('bloodpressure', 'bloodpressure'),
-#         ('heartdisease', 'heartdisease'),
-#         ('vitamins', 'vitamins'),
-#         ('digestivehealth', 'digestivehealth'),
-#         ('skin', 'skin'),
-#         ('infection', 'infection'),
-#         ('nurological', 'nurological'),
-#     )
-    
-#     serial_number = models.AutoField(primary_key=True)
-#     medicine_id = models.CharField(max_length=200, null=True, blank=True)
-#     name = models.CharField(max_length=200, null=True, blank=True)
-#     weight = models.CharField(max_length=200, null=True, blank=True)
-#     quantity = models.IntegerField(null=True, blank=True, default=0)
-#     featured_image = models.ImageField(upload_to='medicines/', default='medicines/default.png', null=True, blank=True)
-#     description = models.TextField(null=True, blank=True)
-#     medicine_type = models.CharField(max_length=200, choices=MEDICINE_TYPE, null=True, blank=True)
-#     medicine_category = models.CharField(max_length=200, choices=MEDICINE_CATEGORY, null=True, blank=True)
-#     price = models.IntegerField(null=True, blank=True, default=0)
-#     stock_quantity = models.IntegerField(null=True, blank=True, default=0)
-#     ServiceRequest_reqiuired = models.CharField(max_length=200, choices=REQUIREMENT_TYPE, null=True, blank=True)
-#     def __str__(self):
-        return str(self.name)
     
 class Product(models.Model):
     PRODUCT_TYPE_CHOICES = (

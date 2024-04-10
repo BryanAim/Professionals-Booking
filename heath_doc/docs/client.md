@@ -11,7 +11,7 @@
 - `View Report history`
 - `Profile edit`
 - `Get mail for appointment and payment`
-- `Product Shop, Search Medicine, and buy Medicine`
+- `Product Shop, Search Product, and buy Product`
 
 ## View professional_service Information
 
@@ -236,18 +236,18 @@ def view_report(request,pk):
     if request.user.is_authenticated and request.user.is_client:
 
         client = Client.objects.get(user=request.user)
-        medicines = Medicine.objects.all()
+        products = Product.objects.all()
         orders = ServiceOrder.objects.filter(user=request.user, ordered=False)
         carts = Cart.objects.filter(user=request.user, purchased=False)
 
-        medicines, search_query = searchMedicines(request)
+        products, search_query = searchProducts(request)
 
         if carts.exists() and orders.exists():
             order = orders[0]
-            context = {'client': client, 'medicines': medicines,'carts': carts,'order': order, 'orders': orders, 'search_query': search_query}
+            context = {'client': client, 'products': products,'carts': carts,'order': order, 'orders': orders, 'search_query': search_query}
             return render(request, 'Store/shop.html', context)
         else:
-            context = {'client': client, 'medicines': medicines,'carts': carts,'orders': orders, 'search_query': search_query}
+            context = {'client': client, 'products': products,'carts': carts,'orders': orders, 'search_query': search_query}
             return render(request, 'Store/shop.html', context)
 
     else:
@@ -267,7 +267,7 @@ def cart_view(request):
     if request.user.is_authenticated and request.user.is_client:
 
         client = Client.objects.get(user=request.user)
-        medicines = Medicine.objects.all()
+        products = Product.objects.all()
 
         carts = Cart.objects.filter(user=request.user, purchased=False)
         orders = ServiceOrder.objects.filter(user=request.user, ordered=False)
@@ -277,7 +277,7 @@ def cart_view(request):
             return render(request, 'Store/cart.html', context)
         else:
             messages.warning(request, "You don't have any item in your cart!")
-            context = {'client': client,'medicines': medicines}
+            context = {'client': client,'products': products}
             return render(request, 'store/shop.html', context)
     else:
         logout(request)

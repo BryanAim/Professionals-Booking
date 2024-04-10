@@ -105,9 +105,21 @@
 										<img src="{{professional.featured_image.url}}" class="img-fluid" alt="User Image">
 									</div>
 									<div class="doc-info-cont">
-										<h4 class="doc-name">Dr. {{professional.name}}</h4>
-										<p class="doc-speciality">{{professional.profession_name.ServiceDepartment_name}}</p>
-										<h4 class="doc-professional_service">{{professional.service_name}}</h4>
+										<h4 class="doc-name">{{professional.name}}</h4>
+										<h4 class="doc-professional_service">
+											{% if professional.service_name %}
+											<p> Profession: {{professional.service_name}}</p>
+											{% else %}
+											</p>Profession not set</p>
+											{% endif %}
+										</h4>
+										<p class="doc-speciality">
+											{% if professional.profession_name.ServiceDepartment_name %}
+											<p> Speciality: {{ professional.profession_name.ServiceDepartment_name }}</p>
+											{% else %}
+											</p>Speciality not set</p>
+											{% endif %}
+										</p>
 										<p class="doc-profession">{{professional.specialization.specialization_name}}</p>
 										<div class="rating">
 											<i class="fas fa-star filled"></i>
@@ -118,26 +130,26 @@
 											<span class="d-inline-block average-rating">(35)</span>
 										</div>
 										<div class="clinic-details">
-											<p class="doc-location"><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</p>
+											<p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{professional.address}}</p>
 											<ul class="clinic-gallery">
 												<li>
 													<a href="{% static 'proConnect-System/images/Normal/gyno1.jpg'%}" data-fancybox="gallery">
-														<img src="{% static 'proConnect-System/images/Normal/gyno1.jpg'%}" alt="Feature">
+														<!-- <img src="{% static 'proConnect-System/images/Normal/gyno1.jpg'%}" alt="Feature"> -->
 													</a>
 												</li>
 												<li>
 													<a href="{% static 'proConnect-System/images/Normal/gyno2.jpg'%}" data-fancybox="gallery">
-														<img src="{% static 'proConnect-System/images/Normal/gyno2.jpg'%}" alt="Feature">
+														<!-- <img src="{% static 'proConnect-System/images/Normal/gyno2.jpg'%}" alt="Feature"> -->
 													</a>
 												</li>
 												<li>
 													<a href="{% static 'proConnect-System/images/Normal/gyno3.jpg'%}" data-fancybox="gallery">
-														<img src="{% static 'proConnect-System/images/Normal/gyno3.jpg'%}" alt="Feature">
+														<!-- <img src="{% static 'proConnect-System/images/Normal/gyno3.jpg'%}" alt="Feature"> -->
 													</a>
 												</li>
 												<li>
 													<a href="{% static 'proConnect-System/images/Normal/gyno4.jpg'%}" data-fancybox="gallery">
-														<img src="{% static 'proConnect-System/images/Normal/gyno4.jpg'%}" alt="Feature">
+														<!-- <img src="{% static 'proConnect-System/images/Normal/gyno4.jpg'%}" alt="Feature"> -->
 													</a>
 												</li>
 											</ul>
@@ -153,8 +165,8 @@
 										<ul>
 											<li><i class="far fa-thumbs-up"></i> 99%</li>
 											<li><i class="far fa-comment"></i> 35 Feedback</li>
-											<li><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</li>
-											<li><i class="far fa-money-bill-alt"></i>{{professional.consultation_fee}} KES</li>
+											<li><i class="fas fa-map-marker-alt"></i> {{professional.address}}</li>
+											<li><i class="far fa-money-bill-alt"></i>KES {{professional.consultation_fee}} </li>
 										</ul>
 									</div>
 									<div class="professional-action">

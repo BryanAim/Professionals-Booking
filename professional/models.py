@@ -48,16 +48,16 @@ class Professional_Information(models.Model):
 
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone_number = models.CharField(max_length=200, null=True, blank=True)
-    availability = models.CharField(max_length=200, null=True, blank=True)
+    availability = models.CharField(max_length=200, null=True, blank=True, default='9am - 4pm')
     consultation_fee = models.IntegerField(null=True, blank=True, default=0)
+    services_fee = models.IntegerField(null=True, blank=True, default=0)
     address = models.CharField(max_length=200, null=True, blank=True)
     
     # ForeignKey --> one to one relationship with Hospital_Information model.
     service_name = models.ForeignKey(Professional_Service_Information, on_delete=models.SET_NULL, null=True, blank=True)
-    
-    
+
     profession = models.CharField(max_length=200, choices=PROFESSION_CHOICES, null=True, blank=True)
-    services_fee = models.IntegerField(null=True, blank=True)
+    
 
         # Education
     institute = models.CharField(max_length=200, null=True, blank=True)

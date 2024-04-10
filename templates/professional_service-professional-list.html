@@ -126,7 +126,7 @@
                         <a href="{% url 'professional-profile' pk=professional.professional_id %}">Dr.
                           {{professional.name}}</a>
                       </h4>
-                      <p class="doc-speciality">{{ professional.profession_name.ServiceDepartment_name }}</p>
+                      <p class="doc-speciality">Speciality: {{ professional.profession_name.ServiceDepartment_name }}</p>
                       <h5 class="doc-profession">
                         <img src="{% static 'proConnect-System/images/Normal/specialities/specialities-05.png'%}"
                           class="img-fluid" alt="Speciality" />{{ professional.specialization.specialization_name }}
@@ -174,12 +174,11 @@
                         <li><i class="far fa-thumbs-up"></i> 98%</li>
                         <li><i class="far fa-comment"></i> 17 Feedback</li>
                         <li>
-                          <i class="fas fa-map-marker-alt"></i> Dhaka,
-                          Bangladesh
+                          <i class="fas fa-map-marker-alt"></i> {{professional.address}}
                         </li>
                         <li>
                           <i class="far fa-money-bill-alt"></i>
-                          {{professional.consultation_fee}} KES
+                          KES {{professional.consultation_fee}} 
                           <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i>
                         </li>
                       </ul>

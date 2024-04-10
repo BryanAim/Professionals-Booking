@@ -27,7 +27,7 @@
       8)  View Report, Download Report (PDF)
       9)  Give Professional Review
       10) Search for Products in Shop (Store)
-      11) Select which medicines to purchase (Cart system), pay total amount for medicines (payment + mail confirmation)
+      11) Select which products to purchase (Cart system), pay total amount for products (payment + mail confirmation)
 
 ### Professional
 
@@ -55,8 +55,8 @@
 ### StoreManager
 
       1)  StoreManager Dashboard
-      2)  CRUD Medicines
-      3)  Search Medicine
+      2)  CRUD Products
+      3)  Search Product
 
 ## APIs and PyPI packages used:
 

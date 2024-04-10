@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Admin_Information, Clinical_Laboratory_Technician, ServiceDepartment, specialization, service ,Test_Information
+from .models import Admin_Information, Technical_Specialist, ServiceDepartment, specialization, service ,Test_Information
 
 admin.site.register(Admin_Information)
 
-admin.site.register(Clinical_Laboratory_Technician)
+admin.site.register(Technical_Specialist)
 
 admin.site.register(ServiceDepartment)
 

@@ -12,9 +12,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.cache import cache_control
 from professional_service.models import User, Client
-from professional_service_admin.models import Admin_Information,Clinical_Laboratory_Technician
+from professional_service_admin.models import Admin_Information,Technical_Specialist
 from .models import Professional_Information, Appointment, Education, Experience, ServiceRequest_product, Report,Specimen,Test, ServiceRequest_test, ServiceRequest, Professional_review
-from professional_service_admin.models import Admin_Information,Clinical_Laboratory_Technician, Test_Information
+from professional_service_admin.models import Admin_Information,Technical_Specialist, Test_Information
 from .models import Professional_Information, Appointment, Education, Experience, ServiceRequest_product, Report,Specimen,Test, ServiceRequest_test, ServiceRequest
 from django.db.models import Q, Count
 from django.contrib.auth.signals import user_logged_in, user_logged_out

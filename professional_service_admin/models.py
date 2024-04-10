@@ -49,7 +49,7 @@ class Admin_Information(models.Model):
         return self.user.username if self.user else self.name
 
 
-class Clinical_Laboratory_Technician(models.Model):
+class Technical_Specialist(models.Model):
     technician_id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='technician')
     name = models.CharField(max_length=200, null=True, blank=True)

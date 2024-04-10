@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from professional_service.models import User, Professional_Service_Information
-from .models import Admin_Information, Clinical_Laboratory_Technician
+from .models import Admin_Information, Technical_Specialist
 
 class AdminUserCreationForm(UserCreationForm):
     class Meta:
@@ -43,7 +43,7 @@ class StoreManagerCreationForm(UserCreationForm):
 
 # class EditTechnicalSpecialistForm(forms.ModelForm):
 #     class Meta:
-#         model = Clinical_Laboratory_Technician
+#         model = Technical_Specialist
 #         fields = ['name', 'age', 'phone_number', 'featured_image']
 
 #     def __init__(self, *args, **kwargs):

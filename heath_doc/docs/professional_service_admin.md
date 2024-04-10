@@ -102,7 +102,7 @@ def add_technical_specialist(request):
                 user.is_technicalSpecialist = True
                 user.save()
 
-                messages.success(request, 'Clinical Laboratory Technician account was created!')
+                messages.success(request, 'Technical specialist account was created!')
 
                 # After user is created, we can log them in
                 #login(request, user)

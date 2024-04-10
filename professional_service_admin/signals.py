@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver 
 from professional_service.models import User
-from professional_service_admin.models import Clinical_Laboratory_Technician
+from professional_service_admin.models import Technical_Specialist
 
 # Update and delete signals
 # @receiver(post_save, sender=Admin_Information)

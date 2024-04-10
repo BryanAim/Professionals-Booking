@@ -3,7 +3,7 @@ from django.dispatch import receiver
 # from django.contrib.auth.models import User
 from .models import Client, User
 from professional.models import Professional_Information
-from professional_service_admin.models import Admin_Information, Clinical_Laboratory_Technician
+from professional_service_admin.models import Admin_Information, Technical_Specialist
 
 from store.models import StoreManager
 
@@ -51,7 +51,7 @@ def createClient(sender, instance, created, **kwargs):
             StoreManager.objects.create(user=user, username=user.username, email=user.email)
         elif instance.is_technicalSpecialist:
             user = instance
-            Clinical_Laboratory_Technician.objects.create(user=user, username=user.username, email=user.email)
+            Technical_Specialist.objects.create(user=user, username=user.username, email=user.email)
         
 
 

@@ -21,7 +21,7 @@ A lab tech is a person who performs the practical hands-on work in laboratories.
 ```python
 def create_report(request, pk):
     if request.user.is_technicalSpecialist:
-        technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
+        technical_specialists = Technical_Specialist.objects.get(user=request.user)
         serviceRequest =ServiceRequest.objects.get(serviceRequest_id=pk)
         client = Client.objects.get(client_id=serviceRequest.client_id)
         professional = Professional_Information.objects.get(professional_id=serviceRequest.professional_id)

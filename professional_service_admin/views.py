@@ -17,7 +17,7 @@ from store.models import ServiceOrder, Cart
 from sslcommerz.models import Payment
 from .forms import AdminUserCreationForm, TechnicalSpecialistCreationForm, EditProfessionalServiceForm, EditEmergencyForm,AdminForm , StoreManagerCreationForm 
 
-from .models import Admin_Information,specialization,service,ServiceDepartment, Clinical_Laboratory_Technician, Test_Information
+from .models import Admin_Information,specialization,service,ServiceDepartment, Technical_Specialist, Test_Information
 import random,re
 import string
 from django.db.models import  Count
@@ -44,12 +44,12 @@ def admin_dashboard(request):
         total_professional_count = Professional_Information.objects.annotate(count=Count('professional_id'))
         total_storeManager_count = StoreManager.objects.annotate(count=Count('storeManager_id'))
         total_professional_service_count = Professional_Service_Information.objects.annotate(count=Count('professional_service_id'))
-        total_technicalSpecialist_count = Clinical_Laboratory_Technician.objects.annotate(count=Count('technician_id'))
+        total_technicalSpecialist_count = Technical_Specialist.objects.annotate(count=Count('technician_id'))
         pending_appointment = Appointment.objects.filter(appointment_status='pending').count()
         professionals = Professional_Information.objects.all()
         clients = Client.objects.all()
         professional_services = Professional_Service_Information.objects.all()
-        technical_specialists = Clinical_Laboratory_Technician.objects.all()
+        technical_specialists = Technical_Specialist.objects.all()
         storeManagers = StoreManager.objects.all()
         
         sat_date = datetime.date.today()
@@ -475,7 +475,7 @@ def generate_random_specimen():
 @csrf_exempt
 def create_report(request, pk):
     if request.user.is_technicalSpecialist:
-        technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
+        technical_specialists = Technical_Specialist.objects.get(user=request.user)
         serviceRequest =ServiceRequest.objects.get(serviceRequest_id=pk)
         client = Client.objects.get(client_id=serviceRequest.client_id)
         professional = Professional_Information.objects.get(professional_id=serviceRequest.professional_id)
@@ -742,7 +742,7 @@ def add_technical_specialist(request):
 def view_technical_specialist(request):
     if request.user.is_professional_service_admin:
         user = Admin_Information.objects.get(user=request.user)
-        technical_specialists = Clinical_Laboratory_Technician.objects.all()
+        technical_specialists = Technical_Specialist.objects.all()
         
     return render(request, 'professional_service_admin/technical-specialist-list.html', {'technical_specialists': technical_specialists, 'admin': user})
 
@@ -760,7 +760,7 @@ def view_storeManager(request):
 def edit_technical_specialist(request, pk):
     if request.user.is_professional_service_admin:
         user = Admin_Information.objects.get(user=request.user)
-        technical_specialist = Clinical_Laboratory_Technician.objects.get(technician_id=pk)
+        technical_specialist = Technical_Specialist.objects.get(technician_id=pk)
         
         if request.method == 'POST':
             if 'featured_image' in request.FILES:
@@ -967,7 +967,7 @@ def technicalSpecialist_dashboard(request):
     if request.user.is_authenticated:
         if request.user.is_technicalSpecialist:
             
-            technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
+            technical_specialists = Technical_Specialist.objects.get(user=request.user)
             professional = Professional_Information.objects.all()
             context = {'professional': professional,'technical_specialists':technical_specialists}
             return render(request, 'professional_service_admin/technicalSpecialist-dashboard.html',context)
@@ -977,7 +977,7 @@ def technicalSpecialist_dashboard(request):
 def myclient_list(request):
     if request.user.is_authenticated:
         if request.user.is_technicalSpecialist:
-            technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
+            technical_specialists = Technical_Specialist.objects.get(user=request.user)
             #report= Report.objects.all()
             client = Client.objects.all()
             context = {'client': client,'technical_specialists':technical_specialists}
@@ -988,7 +988,7 @@ def myclient_list(request):
 def serviceRequest_list(request,pk):
     if request.user.is_authenticated:
         if request.user.is_technicalSpecialist:
-            technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
+            technical_specialists = Technical_Specialist.objects.get(user=request.user)
             client = Client.objects.get(client_id=pk)
             serviceRequest = ServiceRequest.objects.filter(client=client)
             context = {'serviceRequest': serviceRequest,'technical_specialists':technical_specialists,'client':client}
@@ -998,7 +998,7 @@ def serviceRequest_list(request,pk):
 @login_required(login_url='admin-login')
 def add_test(request):
     if request.user.is_technicalSpecialist:
-        technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
+        technical_specialists = Technical_Specialist.objects.get(user=request.user)
 
     if request.method == 'POST':
         tests=Test_Information()
@@ -1018,7 +1018,7 @@ def add_test(request):
 @login_required(login_url='admin-login')
 def test_list(request):
     if request.user.is_technicalSpecialist:
-        technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
+        technical_specialists = Technical_Specialist.objects.get(user=request.user)
         test = Test_Information.objects.all()
         context = {'test':test,'technical_specialists':technical_specialists}
     return render(request, 'professional_service_admin/test-list.html',context)
@@ -1057,7 +1057,7 @@ def report_history(request):
     if request.user.is_authenticated:
         if request.user.is_technicalSpecialist:
 
-            technical_specialists = Clinical_Laboratory_Technician.objects.get(user=request.user)
+            technical_specialists = Technical_Specialist.objects.get(user=request.user)
             report = Report.objects.all()
             context = {'report':report,'technical_specialists':technical_specialists}
             return render(request, 'professional_service_admin/report-list.html',context)
